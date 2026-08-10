@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+
+  "palette": {
+    "s1": "var(--s1)", "s2": "var(--s2)", "s3": "var(--s3)", "s4": "var(--s4)",
+    "muted": "var(--muted)", "good": "var(--good-text)", "critical": "var(--critical)"
+  },
+
+  "defaults": { "h": 260, "pad": 0.06, "yTicks": 5 },
+
+  "_pathNote": "`path` is a dotted accessor resolved client-side against the loaded shard or summary object, with {ticker}, {bench} and {zwin} interpolated first. Adding a chart = one entry here + one <div data-chart id> in the tab HTML. No charts.js edit.",
+
+  "_barsNote": "A histogram series is specified TWICE on purpose: once inside `series` with bars:true so it appears in the legend and the hover tooltip, and again as the top-level `bars` object which is what actually draws the rects. render() skips it in the line loop via `if(s.bars) return` and filters it out of the hover dots. Unifying these silently drops either the legend entry or the bars.",
+
+  "charts": {
+    "stockAbs": {
+      "h": 230, "trimNulls": true,
+      "titleTpl": "{ticker} — absolute price",
+      "series": [
+        { "name": "{ticker}", "path": "px",    "color": "s1",    "w": 2,   "dec": 2 },
+        { "name": "20-dma",   "path": "dma20", "color": "s2",    "w": 1.3, "dash": "5 4", "dec": 2 },
+        { "name": "50-dma",   "path": "dma50", "color": "muted", "w": 1.3, "dash": "2 3", "dec": 2 }
+      ]
+    },
+    "stockRel": {
+      "h": 230, "trimNulls": true,
+      "titleTpl": "{ticker} — relative to {bench} (base 100)",
+      "series": [
+        { "name": "Relative", "path": "rel.{bench}.v",   "color": "s3",    "w": 2,   "dec": 1 },
+        { "name": "20-dma",   "path": "rel.{bench}.d20", "color": "s2",    "w": 1.3, "dash": "5 4", "dec": 1 },
+        { "name": "50-dma",   "path": "rel.{bench}.d50", "color": "muted", "w": 1.3, "dash": "2 3", "dec": 1 }
+      ]
+    },
+    "stockMacd": {
+      "h": 190, "zero": true, "trimNulls": true,
+      "titleTpl": "{ticker} — MACD (12,26,9)",
+      "series": [
+        { "name": "MACD",      "path": "macd.line",   "color": "s1",    "w": 1.4, "dec": 2 },
+        { "name": "Signal",    "path": "macd.signal", "color": "s2",    "w": 1.1, "dash": "5 4", "dec": 2 },
+        { "name": "Histogram", "path": "macd.hist",   "color": "muted", "bars": true, "dec": 2 }
+      ],
+      "bars": { "path": "macd.hist", "color": "muted" }
+    },
+    "stockRsi": {
+      "h": 190, "min": 0, "max": 100, "band": [30, 70], "trimNulls": true,
+      "titleTpl": "{ticker} — RSI (14)",
+      "series": [ { "name": "RSI", "path": "rsi", "color": "s1", "w": 1.5, "dec": 1 } ]
+    },
+    "stockObv": {
+      "h": 190, "trimNulls": true,
+      "titleTpl": "{ticker} — on-balance volume",
+      "emptyMsg": "OBV — volume not available for this ticker",
+      "series": [ { "name": "OBV", "path": "obv", "color": "s4", "w": 1.8, "dec": 0 } ]
+    },
+    "stockVol": {
+      "h": 190, "min": 0, "trimNulls": true, "fullWidth": true,
+      "titleTpl": "{ticker} — volume (shares) with 20-dma",
+      "emptyMsg": "Volume — not available for this ticker",
+      "series": [
+        { "name": "Volume", "path": "vol",      "color": "muted", "bars": true, "dec": 0 },
+        { "name": "20-dma", "path": "volAvg20", "color": "s4",    "w": 1.6, "dec": 0 }
+      ],
+      "bars": { "path": "vol", "color": "muted" }
+    },
+    "stockZAbs": {
+      "h": 190, "zero": true, "band": [-1, 1], "trimNulls": true,
+      "titleTpl": "{ticker} — {zwin}d rolling z-score, daily return",
+      "series": [ { "name": "z", "path": "zAbs.{zwin}", "color": "s1", "w": 1.5, "dec": 2 } ]
+    },
+    "stockZRel": {
+      "h": 190, "zero": true, "band": [-1, 1], "trimNulls": true,
+      "titleTpl": "{ticker} — {zwin}d rolling z-score vs {bench}",
+      "series": [ { "name": "z (rel)", "path": "zRel.{zwin}", "color": "s3", "w": 1.5, "dec": 2 } ]
+    },
+
+    "compMain": {
+      "h": 300, "events": true, "trimNulls": true,
+      "titleTpl": "{universeLabel} equal-weight composite",
+      "series": [
+        { "name": "Composite", "path": "comp",    "color": "s1",    "w": 2,   "dec": 1 },
+        { "name": "50-dma",    "path": "comp50",  "color": "s2",    "w": 1.3, "dash": "5 4", "dec": 1 },
+        { "name": "200-dma",   "path": "comp200", "color": "muted", "w": 1.3, "dash": "2 3", "dec": 1 }
+      ]
+    },
+    "breadth": {
+      "h": 220, "min": 0, "max": 100, "unit": "%", "band": [2, 15],
+      "titleTpl": "Breadth — % of {memberNoun} above their moving averages",
+      "bandNote": "The shaded band is RenMac's 2-15% oversold zone.",
+      "series": [
+        { "name": "> 20-dma",  "path": "b20",  "color": "s1",    "w": 1.8, "dec": 0 },
+        { "name": "> 50-dma",  "path": "b50",  "color": "s2",    "w": 1.4, "dec": 0 },
+        { "name": "> 200-dma", "path": "b200", "color": "muted", "w": 1.4, "dec": 0 }
+      ]
+    },
+    "roc": {
+      "h": 190, "zero": true, "unit": "%",
+      "titleTpl": "Composite 65-day rate of change",
+      "series": [ { "name": "65d ROC", "path": "roc65", "color": "s1", "w": 1.6, "dec": 1 } ]
+    },
+    "spread": {
+      "h": 190, "zero": true, "unit": "pts",
+      "titleTpl": "Momentum quintile spread — top minus bottom",
+      "series": [ { "name": "Spread", "path": "spread", "color": "s2", "w": 1.6, "dec": 1 } ]
+    },
+    "hiLo": {
+      "h": 190, "zero": true,
+      "titleTpl": "65-day highs minus lows, % of {memberNoun}",
+      "series": [ { "name": "Highs − lows", "path": "hml65", "color": "s3", "bars": true, "dec": 1 } ],
+      "bars": { "path": "hml65", "color": "s3" }
+    },
+    "score": {
+      "h": 220, "zero": true, "min": -100, "max": 100,
+      "titleTpl": "RenMac composite score",
+      "series": [
+        { "name": "Score",             "path": "scores",       "color": "s1", "w": 1.6, "dec": 1 },
+        { "name": "21d smoothed",      "path": "scoresSmooth", "color": "s2", "w": 1.2, "dash": "5 4", "dec": 1 }
+      ],
+      "smoothNote": "scoresSmooth is CHART-ONLY. It is never fed to a regime gate - smoothing the score cost about four weeks of lag and reported 'indeterminate' straight through a break. The label is debounced instead."
+    },
+    "obv": {
+      "h": 190, "trimNulls": true,
+      "titleTpl": "Composite on-balance volume",
+      "series": [ { "name": "OBV", "path": "obv", "color": "s4", "w": 1.6, "dec": 0 } ]
+    },
+    "upDownVol": {
+      "h": 190,
+      "titleTpl": "Up/down volume ratio (20 sessions)",
+      "series": [ { "name": "Up/down", "path": "upDownVol", "color": "s3", "w": 1.6, "dec": 2 } ]
+    },
+    "distAccum": {
+      "h": 190, "zero": true,
+      "titleTpl": "Distribution and accumulation days (25 sessions)",
+      "series": [
+        { "name": "Distribution", "path": "distDays",  "color": "critical", "w": 1.5, "dec": 0 },
+        { "name": "Accumulation", "path": "accumDays", "color": "good",     "w": 1.5, "dec": 0 }
+      ]
+    },
+    "benchRel": {
+      "h": 230, "trimNulls": true,
+      "titleTpl": "{universeLabel} composite relative to {bench} (base 100)",
+      "series": [ { "name": "Relative", "path": "benchRel.{bench}", "color": "s3", "w": 1.8, "dec": 1 } ]
+    }
+  },
+
+  "panels": {
+    "stockPanel": ["stockAbs", "stockRel", "stockMacd", "stockRsi", "stockObv", "stockVol", "stockZAbs", "stockZRel"],
+    "universeOverview": ["compMain", "breadth", "roc", "spread", "hiLo", "score"],
+    "universeVolume": ["obv", "upDownVol", "distAccum"],
+    "benchmark": ["benchRel"]
+  },
+
+  "regimeRibbon": {
+    "h": 46,
+    "path": "regimes",
+    "colorFrom": "parameters.regime.color",
+    "title": "Regime history",
+    "note": "Rendered as a strip chart of debounced labels, not a line. Runs are compressed server-side into `runs`."
+  }
+}

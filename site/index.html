@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>US Stock Dashboard</title>
+<link rel="stylesheet" href="./assets/css/dashboard.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>US Stock Dashboard</h1>
+      <div id="tabMeta">RenMac breadth, momentum and regime framework across four universes</div>
+    </div>
+    <button id="themeBtn" type="button">theme</button>
+  </header>
+
+  <nav class="tabBtns" id="tabNav"></nav>
+
+  <div id="cards"></div>
+
+  <div class="card">
+    <h3>How to read this</h3>
+    <p class="note">Two kinds of statement appear throughout, and they are styled differently on
+    purpose.</p>
+    <p><b>Measurements</b> carry a chip or a number — breadth percentages, moving-average tests,
+    pillar scores. Each is the output of a stated rule against a stated threshold, and the rule is
+    printed next to the result.</p>
+    <p><b>Interpretations</b> — the regime label's playbook, the pillar conclusions — are plain
+    prose with no chip and no colour coding. They follow from the measurements above them but are
+    not themselves measured. A conclusion wearing a green chip is what makes a narrative look like
+    a fact, so conclusions here never wear one.</p>
+    <p class="note">Where a workbook fails validation the affected tab renders its findings instead
+    of a chart. Where a pillar has insufficient data it is dropped and the remaining weights are
+    renormalised, with the resulting coverage stated — never silently scored as neutral.</p>
+  </div>
+
+  <footer id="footer">
+    <p>Static site, no backend. All computation happens in the Python pipeline under
+    <code>scripts/</code> ahead of commit; the browser fetches plain JSON.
+    Rebuild with <code>python scripts/build_all.py</code>.</p>
+  </footer>
+</div>
+
+<script type="module">
+import { loadIndex, loadManifest } from "./assets/js/data-client.js";
+import { REGIME_COLORS } from "./assets/js/regimes.js";
+
+const btn = document.querySelector("#themeBtn");
+btn.onclick = () => {
+  const r = document.documentElement;
+  const cur = r.getAttribute("data-theme") ||
+    (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  r.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
+};
+
+
+(async () => {
+  const nav = document.querySelector("#tabNav");
+  const cards = document.querySelector("#cards");
+  let idx;
+  try { idx = await loadIndex(); }
+  catch (e) {
+    cards.innerHTML = `<div class="banner fatal"><b>No data found.</b> ${e.message}.
+      Run <code>python scripts/build_all.py</code> first.</div>`;
+    return;
+  }
+  const us = Object.entries(idx.universes).sort((a, b) => a[1].order - b[1].order);
+  nav.innerHTML = us.map(([k, u]) =>
+    `<a class="tabBtn" href="tabs/${u.tab}.html">${u.label}${u.status !== "ok" ? " ⚠" : ""}</a>`).join("");
+
+  const rows = await Promise.all(us.map(async ([k, u]) => {
+    try {
+      const m = await loadManifest(k);
+      let extra = "";
+      if (m.status === "ok") {
+        const s = await (await fetch(`./data/${k}/summary.json?v=${m.version}`)).json();
+        const v = s.verdict;
+        const c = REGIME_COLORS[v.regime] || "#898781";
+        extra = `<div class="statRow">
+            <div><span class="lbl">Regime</span>
+              <span class="regimeChip" style="background:${c}">${v.regime}</span></div>
+            <div><span class="lbl">Score</span><b>${v.score > 0 ? "+" : ""}${v.score}</b></div>
+            <div><span class="lbl">Pillar coverage</span><b>${v.coverage}%</b></div>
+            <div><span class="lbl">Composite</span><b>${v.comp}</b></div>
+            <div><span class="lbl">From peak</span>
+              <b class="${v.drawdown < 0 ? "neg" : "pos"}">${v.drawdown}%</b></div>
+            <div><span class="lbl">Breadth &gt; 20-dma</span><b>${s.b20[s.b20.length-1]}%</b></div>
+          </div>`;
+      } else {
+        extra = `<div class="banner fatal">Validation failed — this tab renders its findings
+          instead of charts.</div>`;
+      }
+      return `<div class="card">
+        <h3><a href="tabs/${u.tab}.html">${u.label}</a></h3>
+        <p class="note">${m.source} · ${m.dateCount} trading days · ${m.firstDate} to ${m.lastDate}</p>
+        ${extra}</div>`;
+    } catch (e) {
+      return `<div class="card"><h3>${u.label}</h3>
+        <div class="banner fatal">Could not load: ${e.message}</div></div>`;
+    }
+  }));
+  cards.innerHTML = rows.join("");
+})();
+</script>
+</body>
+</html>

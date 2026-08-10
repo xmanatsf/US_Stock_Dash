@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+
+  "rawDir": "data/raw",
+  "processedDir": "data/processed",
+  "siteDataDir": "site/data",
+
+  "benchmarkSource": {
+    "universe": "semis",
+    "tickers": ["SPY", "SMH"],
+    "out": "benchmarks.json",
+    "note": "SPY and SMH are carried as extra ticker-like columns in the semi and hw_networking workbooks; the SP500 and software workbooks have neither. Extract ONCE from the semi workbook, before any tab build, and join into every universe. This is safe because all four price workbooks share a byte-identical 1,255-day trading grid after drop_calendar_days - verified, not assumed. Extracting per-tab would invite four subtly different date grids."
+  },
+
+  "universes": {
+    "market_internals": {
+      "tab": "market-internals",
+      "label": "Market Internals",
+      "order": 1,
+      "source": {
+        "stem": "SP500 5y price and volume",
+        "dateStamped": true,
+        "priceSheet": "Price",
+        "volumeSheet": "Volume",
+        "priceLabel": "Day Close Price",
+        "volumeLabel": "Volume",
+        "strictLabels": true
+      },
+      "excludeFromUniverse": [],
+      "excludeTickers": [
+        { "ticker": "D",
+          "reason": "Dominion Energy. Column holds a constant 15 for all 1,255 sessions (distinct value count = 1) while the stock trades near $50-60. This is not a price series - the export carries some other metric under this header." },
+        { "ticker": "COR",
+          "reason": "Cencora. Column runs 0.024 down to 0.0018 across the window while the stock trades near $250-300, and terminal volume collapses to ~64 shares/day. Wrong metric, not a stale price." },
+        { "ticker": "BNY",
+          "reason": "Bank of New York Mellon. Column runs 15.36 down to a pinned 10.2 while the stock trades near $70-100, with terminal volume of ~628 shares/day. Wrong metric. DASHBOARD_PLAYBOOK.md flags BNY as a known bad feed in a prior build." }
+      ],
+      "excludeNote": "Positively identified as wrong-metric columns by magnitude against the mapped company names, not merely suspected. The playbook's documented remedy is to exclude at load time with a written reason rather than let them flow into breadth and the composite. Re-check on every refresh - a corrected file can relocate bad data instead of fixing it.",
+      "benchmarks": ["SPY", "EW basket"],
+      "defaultBenchmark": "SPY",
+      "bellwethers": ["AAPL", "MSFT", "NVDA", "AMZN", "GOOGL", "META", "JPM", "XOM", "UNH", "AVGO"],
+      "defaultTicker": "AAPL",
+      "sectorMap": "sp500",
+      "subBaskets": null,
+      "shardZWindows": [21],
+      "shardZNote": "495 shards; only the default z-window ships. The focused tabs carry all four because their universes are 34-120 names.",
+      "splits": [],
+      "payload": { "mode": "sharded", "shardThresholdMB": 5 },
+      "narrative": { "vocabulary": "market", "playbook": "market" }
+    },
+
+    "semis": {
+      "tab": "semis",
+      "label": "Semiconductor Stock Dynamics",
+      "order": 2,
+      "source": {
+        "stem": "US semi stocks 5y price and volume",
+        "dateStamped": true,
+        "priceSheet": "Price",
+        "volumeSheet": "Volume",
+        "priceLabel": "Day Close Price",
+        "volumeLabel": "Volume",
+        "strictLabels": true
+      },
+      "excludeFromUniverse": ["SPY", "SMH"],
+      "benchmarks": ["SPY", "SMH", "EW basket"],
+      "defaultBenchmark": "SPY",
+      "bellwethers": ["NVDA", "AVGO", "AMD", "MU", "AMAT", "LRCX", "KLAC", "TXN", "MRVL", "INTC"],
+      "defaultTicker": "NVDA",
+      "sectorMap": null,
+      "subBaskets": "semis",
+      "splits": [],
+      "payload": { "mode": "auto", "shardThresholdMB": 5 },
+      "narrative": { "vocabulary": "semis", "playbook": "semis" }
+    },
+
+    "software": {
+      "tab": "software",
+      "label": "Software Stock Dynamics",
+      "order": 3,
+      "source": {
+        "stem": "US software stocks 5y price and volume",
+        "dateStamped": true,
+        "priceSheet": "Price",
+        "volumeSheet": "Volume",
+        "priceLabel": "Day Close Price",
+        "volumeLabel": "Volume",
+        "strictLabels": true
+      },
+      "sourceNote": "The stem is anchored and MUST include '5y price and volume'. data/raw also holds 'US software stocks 20260804.xlsx', an older and differently-shaped export. A loose '*software*.xlsx' glob matches both and picks the wrong file by mtime.",
+      "excludeFromUniverse": [],
+      "benchmarks": ["SPY", "EW basket", "EW ex-crypto"],
+      "defaultBenchmark": "SPY",
+      "bellwethers": ["MSFT", "ORCL", "CRM", "ADBE", "NOW", "INTU", "PANW", "CRWD", "SNPS", "PLTR"],
+      "defaultTicker": "MSFT",
+      "sectorMap": null,
+      "subBaskets": "software",
+      "splits": [
+        {
+          "id": "crypto",
+          "label": "Crypto / BTC proxy",
+          "badge": "cry",
+          "basket": "Crypto/BTC proxy",
+          "scored": false,
+          "excludeFromDefaultComposite": true,
+          "note": "10 names sitting in the GICS software bucket that trade on bitcoin, not software fundamentals. Ship three composites - all / ex-crypto / crypto-only - and never one blended number. Membership lives in parameters.json subBaskets.software.baskets['Crypto/BTC proxy']."
+        }
+      ],
+      "payload": { "mode": "auto", "shardThresholdMB": 5 },
+      "narrative": { "vocabulary": "software", "playbook": "software" }
+    },
+
+    "hw_networking": {
+      "tab": "hw-networking",
+      "label": "Hardware & Networking Stock Dynamics",
+      "order": 4,
+      "source": {
+        "stem": "US hw networking stocks 5y price and volume",
+        "dateStamped": true,
+        "priceSheet": "Price",
+        "volumeSheet": "Volume",
+        "priceLabel": "Day Close Price",
+        "volumeLabel": "Volume",
+        "strictLabels": true
+      },
+      "crossCheckAgainst": ["semis", "software", "market_internals"],
+      "excludeFromUniverse": ["SPY", "SMH"],
+      "benchmarks": ["SPY", "SMH", "EW basket"],
+      "defaultBenchmark": "SPY",
+      "bellwethers": ["AAPL", "CSCO", "ANET", "DELL", "HPE", "HPQ", "WDC", "SMCI", "MSI", "NTAP"],
+      "defaultTicker": "ANET",
+      "companionMap": { "source": "hwnet_companion", "role": "bellwether and industry curation only - NOT a price source" },
+      "sectorMap": null,
+      "subBaskets": "hw_networking",
+      "splits": [],
+      "payload": { "mode": "auto", "shardThresholdMB": 5 },
+      "narrative": { "vocabulary": "hardware", "playbook": "hardware" },
+      "history": "The 2026-08-09 vintage first delivered was a corrupt CapIQ export - 34 of 36 columns byte-identical to the semi workbook under hardware headers, row-2 header '#PEND'/'SPGRANGEV'. Re-exported by the user at 20:16 on 2026-08-09 and re-verified clean: correct prices, zero column matches against any other workbook, grid identical to the other three, SPY and SMH present. crossCheckAgainst is retained permanently because this failure mode recurs whenever CapIQ formulas fail to resolve before a save."
+    }
+  },
+
+  "_addingAUniverse": "One entry here + config/parameters.json subBaskets entry + scripts/build_<name>.py (a ~12-line copy) + site/tabs/<tab>.html (a ~20-line copy) + one nav link. Nothing in loaders.py, validators.py, indicators.py, interpretation.py, pipeline.py or charts.js changes."
+}

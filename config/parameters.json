@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 1,
+
+  "windows": {
+    "YR": 252,
+    "WARMUP": 252,
+    "STRUCT_WIN": 252,
+    "LEGACY_TAIL": 252,
+    "DWELL": 10,
+    "MA": [20, 50, 65, 200],
+    "ROC": 65,
+    "SCORE_SMOOTH_CHART_ONLY": 21
+  },
+
+  "calendar": {
+    "dropWeekends": true,
+    "holidayFlatlineThreshold": 0.95,
+    "holidayRequiresPriceAndVolume": true,
+    "expected": {
+      "rawRows": 1827,
+      "afterWeekendDrop": 1305,
+      "tradingDays": 1255,
+      "firstDate": "2021-08-09",
+      "lastDate": "2026-08-07"
+    },
+    "note": "Holiday detection compares each weekday row against the prior SURVIVING row and requires >95% of the universe to repeat on price AND volume. Exact whole-row equality is NOT sufficient - it under-detects badly (software returns 11 holidays instead of 50). Weekend drop must run first."
+  },
+
+  "macd": { "fast": 12, "slow": 26, "signal": 9 },
+  "rsi": { "n": 14, "method": "wilder", "ob": 70, "os": 30 },
+  "stochastic": { "n": 14, "ob": 80, "os": 20 },
+
+  "volume": {
+    "relVolWindow": 20,
+    "upDownVolWindow": 20,
+    "distAccumWindow": 25,
+    "distAccumThreshold": 0.005,
+    "neverForwardFill": true
+  },
+
+  "zscore": {
+    "windows": [21, 40, 50, 70],
+    "default": 21,
+    "stdev": "sample",
+    "requireFullWindow": true,
+    "volAlert": { "window": 65, "abs": 2.5, "trailing": 5 }
+  },
+
+  "coverage": { "full": 0.95, "partial": 0.10, "ffillMaxGap": 3 },
+
+  "breadth": {
+    "quorum": 25,
+    "bands": [15, 35, 55, 80],
+    "oversoldZonePct": [2, 15],
+    "note": "Prior art drifted 30 (build_dashboard.py:422) -> 25 (build_renmac_dashboard.py:238) undocumented. Config value now; changing it changes both."
+  },
+
+  "structure": {
+    "crackPct": -0.08,
+    "thrustPct": 0.08,
+    "crackWindow": 5,
+    "retestAbovePct": 0.05,
+    "climaxPct": -0.10,
+    "climaxWindow": 5,
+    "climaxLookback": 15,
+    "atLowMinBars": 5,
+    "atLowTol": 1.001,
+    "nearHighOffPeak": -0.10,
+    "whipsawCrosses": 4,
+    "bubbleDoubleYears": 2
+  },
+
+  "stats": {
+    "min52wBars": 0.8,
+    "min65dBars": 50,
+    "betaMinPairs": { "legacy1y": 100, "native5y": 250 },
+    "betaBasketQuintileMin": 3,
+    "momentumSpreadMinNames": 25,
+    "rollingSharpeWin": 756,
+    "rollingSharpeMinValid": 0.90,
+    "slopeLookbacks": { "breadth": 21, "leadership": 65, "expansion": 10 },
+    "expandingPctWarm": 252
+  },
+
+  "horizons": ["1m", "3m", "6m", "1y", "2y", "3y", "5y"],
+  "defaultHorizon": "1y",
+
+  "weights": {
+    "A": 10, "B": 25, "C": 10, "E": 15, "F": 20, "G": 15, "H": 5,
+    "note": "Sums to 100. THERE IS NO PILLAR D - earnings-cycle inflection is deliberately unscorable because price leads EPS revisions by ~2 quarters, so scoring it double-counts pillar B. Do not 'close' this gap. Missing pillars are DROPPED and remaining weights RENORMALISED, never zeroed."
+  },
+
+  "pillarNames": {
+    "A": "Positioning & extension",
+    "B": "Breadth, trend & relative strength",
+    "C": "Sentiment & crowding",
+    "E": "Cycle position",
+    "F": "Structure",
+    "G": "Divergences",
+    "H": "Catalyst & confirmation"
+  },
+
+  "regime": {
+    "order": [
+      "Capitulation / washout",
+      "Capitulation inside a confirmed top",
+      "Breakdown",
+      "Bottoming / base",
+      "Early recovery",
+      "Confirmed uptrend",
+      "Momentum expansion",
+      "Late-cycle topping",
+      "Indeterminate"
+    ],
+    "color": {
+      "Capitulation / washout": "#d03b3b",
+      "Capitulation inside a confirmed top": "#8c1d1d",
+      "Breakdown": "#ec835a",
+      "Bottoming / base": "#fab219",
+      "Early recovery": "#9dc63b",
+      "Confirmed uptrend": "#1baf7a",
+      "Momentum expansion": "#0d8f5f",
+      "Late-cycle topping": "#b5462f",
+      "Indeterminate": "#898781"
+    },
+    "ladderNote": "Evaluated IN ORDER, FIRST MATCH WINS. Score bands alone are insufficient - each rung carries a structural gate. Late-cycle topping is checked LAST because it can fire at a high composite score; a pure band lookup called April 2026 'momentum expansion'.",
+    "ladder": [
+      {
+        "id": "capitulation",
+        "maxScore": -45,
+        "gates": { "b20Max": 15, "b50Max": 10, "gateMode": "or", "climaxRequired": true, "sellersPanicAlt": true },
+        "splitOn": "top_confirmed",
+        "labels": { "false": "Capitulation / washout", "true": "Capitulation inside a confirmed top" },
+        "note": "top_confirmed = anchor=='peak' AND crack_i AND (retest_i OR ma_break_i). Identical measurements, OPPOSITE instruction. The washout is buyable; inside a confirmed top the oversold bounces fail and the base case is 18-24 months of malaise."
+      },
+      { "id": "breakdown", "maxScore": -25, "label": "Breakdown" },
+      { "id": "bottoming", "scoreRange": [-25, -5], "label": "Bottoming / base" },
+      { "id": "early_recovery", "scoreRange": [-5, 20], "gates": { "anchor": "trough" }, "label": "Early recovery" },
+      { "id": "momentum_expansion", "minScore": 50, "gates": { "b20Min": 80, "maxNegDivergences": 0 }, "label": "Momentum expansion" },
+      { "id": "confirmed_uptrend", "scoreRange": [20, 50], "gates": { "b20Min": 50, "nearHigh": true, "maxNegDivergences": 1 }, "label": "Confirmed uptrend" },
+      { "id": "late_cycle_topping", "evaluateLast": true, "label": "Late-cycle topping" },
+      { "id": "indeterminate", "fallback": true, "label": "Indeterminate" }
+    ]
+  },
+
+  "interpretation": {
+    "signalStyle": "signal",
+    "conclusionStyle": "conclusion",
+    "eventTemplates": {
+      "peak":     { "kind": "info",     "title": "{universeLabel} composite peak",  "detail": "Composite high of {value} on {date}; {offPeak}% below it today." },
+      "trough":   { "kind": "info",     "title": "{universeLabel} composite trough","detail": "Composite low of {value} on {date}; {upFromTrough}% above it today." },
+      "crack":    { "kind": "serious",  "title": "First crack in the trend",        "detail": "{pct}% over five sessions into {date} - the first {threshold}% five-day break of the window." },
+      "thrust":   { "kind": "info",     "title": "Thrust off the low",              "detail": "+{pct}% over five sessions into {date}, with {b20}% of names above their 20-dma." },
+      "retest":   { "kind": "serious",  "title": "Failed retest",                   "detail": "Rallied {pct}% off the {lowDate} low and stalled {offPeak}% below the high." },
+      "held":     { "kind": "info",     "title": "Retest held",                     "detail": "Pulled back to {pct}% above the {lowDate} low without undercutting it." },
+      "ma_break": { "kind": "serious",  "title": "{ma}-dma break",                  "detail": "Composite closed below its {ma}-dma on {date} for the first time in {sinceDays} sessions." },
+      "climax":   { "kind": "critical", "title": "Selling climax",                  "detail": "{pct}% in five sessions into {date}; {b20}% of the universe above its 20-dma." },
+      "washout":  { "kind": "critical", "title": "Breadth washout",                 "detail": "Only {b20}% above the 20-dma and {b50}% above the 50-dma on {date}." },
+      "bubble":   { "kind": "serious",  "title": "Bubble signal",                   "detail": "{count} of {total} names doubled inside two years as of {date} - the framework's extension flag, not a sell signal on its own." },
+      "hi52":     { "kind": "info",     "title": "52-week high",                    "detail": "New 52-week high on {date} at {value}." },
+      "lo52":     { "kind": "serious",  "title": "52-week low",                     "detail": "New 52-week low on {date} at {value}." },
+      "whipsaw":  { "kind": "info",     "title": "Whipsaw zone",                    "detail": "{crosses} 20/50-dma crosses in {window} sessions - the trend system is whipsawing and its signal is neutralised." }
+    },
+    "note": "Prose is generated ONLY from these templates, formatted with facts the engine measured. There is deliberately no template for an external sourced claim (e.g. an earnings result or a fund-flow statistic), so one cannot be emitted. This replaces ~170 lines of hardcoded semiconductor prose in build_dashboard.py:534-702."
+  },
+
+  "vocabulary": {
+    "semis": {
+      "assetNoun": "semiconductor complex", "memberNoun": "chip names",
+      "leadGroup": "equipment/WFE", "confirmGroup": "analog/MCU",
+      "narrowingGroup": "AI/compute", "primaryBench": "SMH"
+    },
+    "software": {
+      "assetNoun": "software complex", "memberNoun": "software names",
+      "leadGroup": "infrastructure & security", "confirmGroup": "application/SaaS",
+      "narrowingGroup": "mega-cap platforms", "primaryBench": "SPY",
+      "excludeFromComposite": "crypto"
+    },
+    "hardware": {
+      "assetNoun": "hardware & networking complex", "memberNoun": "hardware names",
+      "leadGroup": "AI server/ODM", "confirmGroup": "enterprise & storage",
+      "narrowingGroup": "AI networking", "primaryBench": "SPY"
+    },
+    "market": {
+      "assetNoun": "S&P 500", "memberNoun": "index members",
+      "leadGroup": "cyclicals", "confirmGroup": "defensives",
+      "narrowingGroup": "mega-cap tech", "primaryBench": "SPY"
+    }
+  },
+
+  "regimePlaybook": {
+    "_shared": {
+      "Capitulation / washout": {
+        "exposure": "30-50%, scaling in over 2-4 weeks",
+        "confirm": "a held retest, breadth back above 30%, and 3-month lows contracting",
+        "invalidate": "a lower low on expanding new lows"
+      },
+      "Capitulation inside a confirmed top": {
+        "exposure": "15-35%, do NOT scale in",
+        "confirm": "only a held retest PLUS breadth above 30% makes this a buyable base",
+        "invalidate": "a thrust that holds its retest with 65-day highs expanding",
+        "note": "Identical measurements to the washout case, opposite instruction. In a confirmed topping structure the oversold bounces fail; the base case is 18-24 months of malaise, not a V-shaped recovery."
+      },
+      "Breakdown": {
+        "exposure": "0-25%",
+        "confirm": "nothing yet - wait for a climax and a held retest",
+        "invalidate": "a thrust off a trough that holds"
+      },
+      "Bottoming / base": {
+        "exposure": "40-60%",
+        "confirm": "reclaim of a rising 50-dma; 65-day highs expanding",
+        "invalidate": "an undercut of the trough; breadth back under 20%"
+      },
+      "Early recovery": {
+        "exposure": "60-80%",
+        "confirm": "breadth above 55% holding; dispersion widening",
+        "invalidate": "breadth back under 35%; a close below the 50-dma"
+      },
+      "Confirmed uptrend": {
+        "exposure": "80-100%",
+        "confirm": "65-day-high spikes; breadth above 80%",
+        "invalidate": "a first crack; two active negative divergences"
+      },
+      "Momentum expansion": {
+        "exposure": "90-100%, stop adding",
+        "confirm": "extension mid-range reads 'not exhaustive' - stay long",
+        "invalidate": "the extension percentile peaking and contracting; breadth diverging"
+      },
+      "Late-cycle topping": {
+        "exposure": "25-50% and falling",
+        "confirm": "a failed retest and a 50-dma break confirm the top",
+        "invalidate": "a breadth thrust above 80% with new highs expanding"
+      },
+      "Indeterminate": {
+        "exposure": "hold current",
+        "confirm": "no regime signal - do not force a trade",
+        "invalidate": "n/a"
+      }
+    },
+    "semis": {
+      "Capitulation / washout": { "tilt": "highest-beta and equipment first" },
+      "Bottoming / base":       { "tilt": "equipment first, memory second; leave analog for later" },
+      "Early recovery":         { "tilt": "equipment then memory then analog as it broadens" },
+      "Momentum expansion":     { "tilt": "AI/compute carrying alone is narrowing, not strength" }
+    },
+    "software": {
+      "Capitulation / washout": { "tilt": "infrastructure and security first; exclude the crypto sleeve from the read entirely" },
+      "Bottoming / base":       { "tilt": "infrastructure and security lead; application/SaaS confirms later" },
+      "Early recovery":         { "tilt": "security then data/infra then application as it broadens" },
+      "Momentum expansion":     { "tilt": "check whether the composite is the crypto sleeve - read the ex-crypto series before concluding anything" }
+    },
+    "hardware": {
+      "Capitulation / washout": { "tilt": "AI server/ODM first; enterprise and storage confirm late" },
+      "Bottoming / base":       { "tilt": "AI server and networking lead; storage and client confirm later" },
+      "Early recovery":         { "tilt": "AI server then networking then storage and client" },
+      "Momentum expansion":     { "tilt": "AI networking carrying alone is narrowing, not strength" }
+    },
+    "market": {
+      "Capitulation / washout": { "tilt": "cyclicals and small caps lead off a washout; defensives leading a rally is not a recovery" },
+      "Bottoming / base":       { "tilt": "cyclicals first; watch equal-weight vs cap-weight for confirmation" },
+      "Early recovery":         { "tilt": "broadening into cyclicals and small caps is what makes it durable" },
+      "Momentum expansion":     { "tilt": "check the equal-weight vs cap-weight spread - mega-cap-only expansion is narrowing" }
+    },
+    "_tiltNote": "Only 'tilt' is universe-specific. Exposure, confirm and invalidate are framework-level and shared. The large-over-small tilt runs through every regime and is the most persistent single recommendation in the source set."
+  },
+
+  "subBaskets": {
+    "semis": {
+      "cycleBaskets": ["WFE/equipment", "AI/compute", "Memory", "Analog/MCU"],
+      "scored": ["WFE/equipment", "AI/compute", "Analog/MCU"],
+      "leadBasket": "WFE/equipment",
+      "confirmBasket": "Analog/MCU",
+      "narrowingBasket": "AI/compute",
+      "minMembers": 3,
+      "baskets": {
+        "WFE/equipment": ["AMAT","LRCX","KLAC","ONTO","ACLS","ENTG","MKSI","UCTT","ICHR","TER","AMKR","PLAB","FORM","AEHR","VECO","RTEC","COHU","ACMR","SKYT","PDFS"],
+        "AI/compute":    ["NVDA","AVGO","AMD","MRVL","ALAB","GFS","INTC","QCOM","PENG"],
+        "Memory":        ["MU","RMBS","MRAM"],
+        "Analog/MCU":    ["ADI","TXN","MCHP","ON","MPWR","POWI","DIOD","ALGM","SLAB","SWKS","QRVO","SMTC","AOSL","SYNA","MXL","CRUS","PI","MTSI","CEVA","LSCC","INDI","MBLY","NVTS","AMBA","SITM","AMBQ"],
+        "Thematic":      ["ENPH","FSLR","RGTI","KOPN","NVEC","OLED","AXTI","WOLF"],
+        "Other/unclassified": ["CBRS","TE"]
+      },
+      "note": "Based on renmac_score.py:38-53, with corrections verified against the 2026-08-07 workbook. Memory and Thematic have their own drivers and are reported, never scored - a two-name basket is not a basket (Memory posted +42.8% on essentially one stock and would have been named 'leadership'). Added from the workbook's unassigned residual: PENG (Penguin Solutions, AI infra) -> AI/compute, MRAM (Everspin) -> Memory, PDFS (PDF Solutions, yield/EDA) -> WFE/equipment, AMBQ (Ambiq Micro, low-power MCU) -> Analog/MCU. CBRS and TE are left in Other/unclassified rather than guessed - reported, never scored. RTEC and MBLY are retained from the legacy list but are ABSENT from this workbook vintage; the loader reports unresolved members rather than dropping them silently."
+    },
+    "software": {
+      "cycleBaskets": ["Infrastructure & security", "Application/SaaS", "Mega-cap platform", "Design & engineering"],
+      "scored": ["Infrastructure & security", "Application/SaaS", "Design & engineering"],
+      "leadBasket": "Infrastructure & security",
+      "confirmBasket": "Application/SaaS",
+      "narrowingBasket": "Mega-cap platform",
+      "minMembers": 3,
+      "baskets": {
+        "Mega-cap platform":         ["MSFT","ORCL","ADBE","INTU","CRM","NOW","ROP","FICO","PLTR","APP"],
+        "Design & engineering":      ["SNPS","CDNS","ADSK","PTC","BSY","TRMB","PCOR","MANH","GWRE"],
+        "Infrastructure & security": ["CRWD","PANW","FTNT","ZS","S","QLYS","TENB","VRNS","NTNX","DDOG","CFLT","BASE","GEN","OS","RBRK","SAIL","JAMF","FROG","DT","CVLT","IDCC","NN","KEEL","NTSK"],
+        "Emerging AI & quantum":     ["AI","SOUN","QBTS","AUR","PATH","U","IPEU","OCTV"],
+        "Crypto/BTC proxy":          ["MARA","RIOT","CLSK","CORZ","HUT","WULF","CIFR","MSTR","CRCL","BMNR"],
+        "Application/SaaS":          ["ACIW","ADEA","AGYS","AIP","ALKT","ALRM","ALTR","AMPL","APPF","APPN","APPS","ASAN","ATEN","AVPT","BILL","BL","BLKB","BOX","BRZE","CXM","DBX","DLB","DOCU","EVCM","FIG","FIVN","FRSH","GTLB","HUBS","INFA","INTA","IOT","KVYO","MLNK","NCNO","OLO","PEGA","PGY","PRCH","PRGS","PRO","QTWO","RAMP","RNG","SEMR","SMAR","SPSC","TDC","TTAN","TYL","VERX","VIA","VRNT","VYX","WDAY","WK","YOU","ZETA","ZM"]
+      },
+      "note": "Verified disjoint and complete against the 2026-08-09 workbook: 120 tickers, 6 baskets, zero duplicates, zero unassigned. Application/SaaS is the residual bucket. The crypto sleeve is reported, never scored, and excluded from the default composite - see universes.json splits. BMNR (Bitmine Immersion, an ETH-treasury name) is included in the crypto sleeve; membership is config-editable if that call is disputed."
+    },
+    "hw_networking": {
+      "cycleBaskets": ["AI server/ODM", "Networking", "Storage & components", "Client & consumer"],
+      "scored": ["AI server/ODM", "Networking", "Storage & components"],
+      "leadBasket": "AI server/ODM",
+      "confirmBasket": "Storage & components",
+      "narrowingBasket": "Networking",
+      "minMembers": 3,
+      "baskets": {
+        "AI server/ODM":        ["SMCI","DELL","HPE"],
+        "Networking":           ["ANET","CSCO","CIEN","FFIV","EXTR","MSI","NTGR","NTCT","UI","ADTN","CALX","HLIT","DGII"],
+        "Storage & components": ["WDC","NTAP","SNDK","DBD"],
+        "Client & consumer":    ["AAPL","HPQ","CRSR","KODK","VISN"],
+        "Optical & access":     ["AAOI","LITE","VIAV","VSAT"],
+        "Thematic":             ["QUBT","ONDS","GPGI","INFQ","P"]
+      },
+      "note": "Config is complete and correct. Unused until a clean workbook lands - the 2026-08-09 vintage carries semiconductor data under these headers."
+    },
+    "market_internals": null
+  },
+
+  "_marketInternalsNote": "market_internals has no static sub-baskets. Its baskets are the 11 GICS sectors and 25 industry groups from sectors.json, so pillar E runs over the rollup groups. vocabulary.market supplies the same lead/confirm/narrowing semantics."
+}

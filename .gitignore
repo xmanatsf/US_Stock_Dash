@@ -1,0 +1,19 @@
+# Excel lock files - present whenever a workbook is open
+~$*.xlsx
+__pycache__/
+*.pyc
+
+/*.xlsx
+/data/raw/*.xlsx
+
+
+# Harvested prior art. Reference only, never edited, not part of the deploy.
+# reference/golden/ IS tracked - it is the regression baseline.
+reference/dashboard_template*.html
+reference/build_*.py
+reference/shots/
+
+# Legacy single-file dashboards superseded by site/. Keep locally for comparison.
+US_Semi_Chip_Top_Dashboard.html
+US_Software_Top_Dashboard.html
+SP100_Sector_Dashboard.html

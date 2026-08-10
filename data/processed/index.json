@@ -1,0 +1,38 @@
+{
+ "schemaVersion": 1,
+ "builtAt": "2026-08-09T21:57:55",
+ "universes": {
+  "market_internals": {
+   "label": "Market Internals",
+   "tab": "market-internals",
+   "order": 1,
+   "status": "ok",
+   "version": "20260809-d053bf5",
+   "dir": "market_internals"
+  },
+  "semis": {
+   "label": "Semiconductor Stock Dynamics",
+   "tab": "semis",
+   "order": 2,
+   "status": "ok",
+   "version": "20260807-ab598b2",
+   "dir": "semis"
+  },
+  "software": {
+   "label": "Software Stock Dynamics",
+   "tab": "software",
+   "order": 3,
+   "status": "ok",
+   "version": "20260809-b18b38b",
+   "dir": "software"
+  },
+  "hw_networking": {
+   "label": "Hardware & Networking Stock Dynamics",
+   "tab": "hw-networking",
+   "order": 4,
+   "status": "ok",
+   "version": "20260809-3266d4d",
+   "dir": "hw_networking"
+  }
+ }
+}

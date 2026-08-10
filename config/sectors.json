@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+
+  "sources": {
+    "sp500": {
+      "file": { "stem": "SP500 industry groups", "dateStamped": false },
+      "sheet": "Sheet1",
+      "layout": { "headerRow": 2, "fieldCodeRow": 3, "dataStartRow": 6 },
+      "columns": {
+        "name": 1,
+        "entityId": 2,
+        "ticker": 3,
+        "sector": 4,
+        "industryGroup": 5,
+        "industry": 6,
+        "primaryIndustry": 7
+      },
+      "expectedCoverage": { "tickers": 500, "sectors": 11, "industryGroups": 25 },
+      "note": "SPEC CORRECTION. The project CLAUDE.md states 'data from row 4'. Verified WRONG by direct inspection: row 1 blank, row 2 human header (Entity Name / Entity ID / Ticker / Sector / Industry Group / Industry / Primary Industry), row 3 CapIQ field codes (SP_ENTITY_NAME ...), rows 4-5 blank, DATA STARTS ROW 6. All indices here are 1-based. Note also that build_sp100_dashboard.py:68 uses rows[4:] for SP100.xlsx, which has a DIFFERENT preamble - offsets are per-file and must never be hardcoded as a shared constant."
+    },
+
+    "hwnet_companion": {
+      "file": { "stem": "US network and hw stocks", "dateStamped": false },
+      "sheet": "Sheet1",
+      "layout": { "headerRow": 2, "fieldCodeRow": 3, "dataStartRow": 6 },
+      "columns": {
+        "name": 1,
+        "entityId": 2,
+        "marketCap": 3,
+        "ticker": 4,
+        "industry": 5
+      },
+      "role": "bellwether and industry curation only - NOT a price source",
+      "note": "Column order differs from sp500: market cap sits at column 3 and ticker at column 4. Another reason mapping layout is per-source config."
+    }
+  },
+
+  "levels": ["sector", "industryGroup", "industry"],
+  "defaultLevel": "sector",
+
+  "rollup": {
+    "minMembers": 3,
+    "breadthQuorum": 25,
+    "quartiles": 4,
+    "topBottomN": 5,
+    "insufficientSampleLabel": "insufficient-sample",
+    "note": "minMembers is the n>=3 rule ported from SP100. A group with fewer than 3 full-history members gets comp:null, regime:'insufficient-sample' and a human-readable note - it is never given a fabricated composite. This is the 'never fabricate' rule in miniature and is enforced server-side, not in the client."
+  },
+
+  "groupRegimes": {
+    "labels": [
+      "Uptrend continuation",
+      "Topping / deteriorating",
+      "Positive inflection / bottoming",
+      "Downtrend continuation",
+      "Mixed / no clear signal",
+      "insufficient-sample"
+    ],
+    "cssClass": {
+      "Uptrend continuation": "regime-uptrend",
+      "Topping / deteriorating": "regime-topping",
+      "Positive inflection / bottoming": "regime-bottoming",
+      "Downtrend continuation": "regime-downtrend",
+      "Mixed / no clear signal": "regime-mixed",
+      "insufficient-sample": "regime-insufficient"
+    },
+    "shortLabel": {
+      "Uptrend continuation": "Uptrend",
+      "Topping / deteriorating": "Topping",
+      "Positive inflection / bottoming": "Bottoming",
+      "Downtrend continuation": "Downtrend",
+      "Mixed / no clear signal": "Mixed",
+      "insufficient-sample": "n<3"
+    },
+    "inputs": ["peak/trough position", "breadth trend", "ROC direction", "new-high vs new-low expansion"],
+    "note": "This is the COARSE per-group classifier ported from build_sp100_dashboard.py:205 (classify_group_regime), deliberately distinct from the 8-state RenMac regime ladder in parameters.json. Each group is classified off its OWN equal-weight sub-composite, independent of the market-wide call. The vocabulary is bidirectional by design - bottoming and uptrend are first-class states, not a bearish-only read."
+  },
+
+  "unmappedPolicy": "report",
+  "_unmappedNote": "Every priced ticker must either resolve to a sector/industry group or be explicitly reported as unmapped. No silent drops from breadth or leadership rollups. Verified 500/500 mapped on the 2026-08-09 vintage."
+}
