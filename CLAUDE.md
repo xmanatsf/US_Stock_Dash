@@ -10,7 +10,42 @@ Build a modular, multi-tab, static stock analytics dashboard deployable on GitHu
 4. `US_Semi_Chip_Top_Dashboard.html` — the reference layout/chart suite for **every individual-stock panel** in this project (Tabs 1–4): price + 20/50-dma, relative-to-benchmark price + its own 20/50-dma, MACD, RSI, OBV/volume, 20-day rolling z-score (absolute + relative), benchmark selector, technical-signal summary. Treat this as the canonical per-ticker template — semis, software, and hardware/networking tabs all reuse it identically.
 5. `SP100_Sector_Dashboard.html` — the reference for sector/industry-group rollups: per-group regime classification, breadth, quartile buckets, cross-sectional scatter. Basis for Tab 1's sector/industry-group views.
 
-## Input data (as of 2026-08-09)
+## Current vintage: 20260816 (measured 2026-08-16)
+
+`data/raw` holds every vintage ever delivered and `loaders.resolve_input` takes the newest
+date-stamped file per **anchored** stem, so a refresh is a file copy, not a config edit. Old
+vintages are never deleted — `US semi stocks 5y price and volume 20260807.xlsx` is now load-bearing
+for the regression gate (see below).
+
+**The 5-year window rolls; it does not extend.** This is the single most important thing to know
+about a refresh here. The 20260807/09 vintage covered `2021-08-09 .. 2026-08-07` in 1,255 trading
+days; the 20260816 vintage covers `2021-08-17 .. 2026-08-14` in **1,254**. Both ends moved. Any
+test or golden that pins a date or a grid length is therefore vintage-locked by construction.
+
+Measured on the 20260816 files, identically across all four workbooks:
+
+```
+raw rows      1827
+- weekends    -522
+- holidays    -51        <- 50 real holidays + the 2026-08-17 phantom row, see below
+= trading     1254        (251.2/yr)  2021-08-17 .. 2026-08-14
+```
+
+**The phantom Monday.** The files were exported on Sunday 2026-08-16 but carry a **Monday
+2026-08-17** calendar row holding Friday's forward-filled price *and* volume. The >95%
+price-AND-volume repeated-row rule eats it, which is why the holiday count is 51 rather than 50 and
+the last trading day is 2026-08-14. **If a future refresh ever produces a `lastDate` equal to the
+export's own weekend or Monday stamp, that placeholder survived and the build is wrong.** The
+expectation is asserted in `config/parameters.json → calendar.expected`, which must be re-measured
+on every refresh rather than carried forward.
+
+Universe deltas against the prior vintage, all reported by `validate_all.py` rather than inferred:
+`FDXF`/`HONA` newly below 10% coverage in the S&P file; `MBLY` and `RTEC` no longer present in the
+semi workbook (they join `CBRS` in `BASKET_MEMBER_ABSENT`); `OCTV` absent from software. The three
+wrong-metric S&P columns (`D`, `COR`, `BNY`) are still wrong-metric, and all eight M&A price-pinned
+software names are still pinned — both re-checked, not assumed.
+
+## Input data (original delivery, as of 2026-08-09)
 
 | File | Sheets | Shape | Notes / known issues |
 |---|---|---|---|
@@ -40,6 +75,25 @@ General rule for all price/volume files: sanity-check header row, date range, ro
 
 All four tabs share one calculation engine, one chart component library, and one interpretation layer — a tab is a config (which workbook(s), which universe, which sector-mapping file if any) plus a thin page assembling shared components, not a fork of the code.
 
+5. **Fab5 Cross-Source Read** — a **page**, not a universe. There is no workbook, no composite and
+   no regime. It renders a hand-authored reading of `Fab5_Cross_Source_Synthesis_20260814.md`
+   (10 source batches across 7 research houses): the recommendation and its three instructions, ~19 key insights grouped by
+   the synthesis's own four-layer read, cross-source agreement beside unresolved dispute, the
+   new/changed monitoring items, and a per-ticker implications grid.
+
+   **The distinction that governs its design:** every other tab renders *measurements*, this one
+   renders *claims*. So the chip means something different here — it carries the **source house and
+   an evidence grade (a–d)**, not a test result, and the claim text stays plain prose. The only
+   measured content on the page is the live technical strip on each named ticker, and that is
+   **read verbatim** from the same `data/processed/<universe>/` payload the four dashboard tabs
+   render, joined at build time. `test_render.py::check_strip_agreement` asserts field-by-field that
+   it is a copy, because a page that computes its own prices is a second and quietly divergent
+   source of prices.
+
+   Content lives in `data/insights/fab5_20260814.json` — a **hand-maintained input**, sibling to
+   `data/raw`, never in `data/processed`. The source markdown is prose and cannot be honestly
+   parsed. Every number in the JSON must trace to a line in the source document.
+
 ## Architecture
 
 Static, zero-backend, GitHub Pages–deployable, following the lightweight model in [xmanatsf/stk-dashboard](https://github.com/xmanatsf/stk-dashboard) (single `index.html` reading a pre-built data file from the same repo, a Python script that regenerates that data file, a one-click push routine, `Settings → Pages → Deploy from branch`). This project extends that model to four tabs sharing one codebase instead of one page reading one CSV.
@@ -63,7 +117,8 @@ US_Stk_Dash/
     build_semis.py               # Tab 2 build
     build_software.py            # Tab 3 build
     build_hw_networking.py       # Tab 4 build
-    build_all.py                 # runs all four + validation report
+    build_fab5.py                # Tab 5 page build -> data/processed/insights/fab5.json
+    build_all.py                 # runs all four + fab5 + validation report; OWNS index.json
   site/                          # what actually deploys to GitHub Pages
     index.html                   # tab shell / nav
     tabs/
@@ -90,6 +145,14 @@ US_Stk_Dash/
 
 Config-driven means: adding a fifth universe/tab, a new indicator, or a new sector taxonomy should require new entries in `config/*.json` plus one `build_<tab>.py` and one `tabs/<tab>.html`, not edits scattered across `charts.js` or `indicators.py`.
 
+**`index.json` is the only source of the nav and `build_all.py` owns it exclusively.** It has two
+sections: `universes` (workbook-backed, carry a validation `status`, get a verdict row on the
+landing page) and `pages` (no workbook, no status, no verdict row — currently just `fab5`). Anything
+that writes `index.json` outside `build_all` gets silently overwritten on the next build, which is
+why `build_fab5.py` returns an index entry rather than patching the file. `build_all --only <x>`
+seeds the index from the file already on disk before overwriting the rebuilt universe, so a partial
+build no longer deletes the other tabs from the nav.
+
 ## Data validation (run in `validators.py` before any indicator is computed)
 
 - Dates: monotonic, no duplicates, calendar-day rows detected and dropped (see `SP500 5y...xlsx` note above), trading-day count sane for the window.
@@ -113,6 +176,26 @@ Config-driven means: adding a fifth universe/tab, a new indicator, or a new sect
 8. `DEPLOY.md` + GitHub Pages wiring + data-refresh routine.
 
 ## Testing / QA criteria
+
+### Two tests are vintage-locked on purpose
+
+- **`test_regression_semis.py` is pinned** to `US semi stocks 5y price and volume 20260807.xlsx`
+  via a `GOLDEN_WORKBOOK` constant, not `resolve_input`. It measures **engine parity against the
+  shipped dashboards**, and the input workbook is part of the golden capture exactly as
+  `reference/golden/semi_data.json` is. Letting it follow the newest vintage would silently
+  redefine the baseline the golden README forbids editing, and every date and price assertion
+  would fail for a reason unrelated to the engine. It must stay at **131 PASS / 0 FAIL** through
+  any refresh. Never delete the 20260807 workbook from `data/raw`.
+- **`test_regime_history.py` compares on the date intersection.** Since the window rolls, its grid
+  and the golden's will never be identical again. It intersects the two date lists and runs the
+  label / score / run / capitulation comparisons over the overlap, printing both non-overlapping
+  tails. The final-verdict block now compares two *different* sessions and says so — the seven-field
+  match was verified on the 20260807 vintage and is not re-assertable after a refresh. Exit 1 only
+  if the grids do not overlap at all. Post-refresh reading: 1,249-session overlap, 66.1% label
+  agreement, both builds' last regime run starting 2026-07-14. The reconciliation described in
+  `reference/golden/README.md` is still outstanding.
+
+### QA criteria
 
 - Each `build_<tab>.py` prints a console summary (coverage %, date range, peak/trough, breadth, regime call per pillar) that a human can sanity-check against the raw data before trusting the output — mirror the existing scripts' pattern.
 - Headless render check per tab (Playwright against the `file://` or deployed URL): page loads, no `pageerror`s, embedded/fetched JSON parses, ticker/benchmark selector switch re-renders without leaking listeners or throwing.

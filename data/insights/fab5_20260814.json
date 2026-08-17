@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "id": "fab5_20260814",
+  "tab": "fab5",
+  "label": "Fab5 Cross-Source Read",
+  "order": 5,
+  "title": "Fab5 Cross-Source Read",
+  "asOf": "2026-08-14",
+  "priorBaseline": "2026-08-07",
+  "sourceDoc": "Fab5_Cross_Source_Synthesis_20260814.md",
+  "focusQuestion": "The 2026-08-07 baseline said \"stop adding — rotate\": execute the commodity-memory trim, hold the contracted tier, redirect increments to power/interconnect/packaging. Did the trim get vindicated, did the rotation destination hold up, and what changed in the meantime?",
+
+  "authoringNote": "Hand-authored from the source document, which is prose. Every number below traces to a line in Fab5_Cross_Source_Synthesis_20260814.md. Nothing here is computed from price data, and nothing here is inferred beyond what the document states — the live technical strip on each ticker is the only measured content on this page, and it is joined in at build time from the same pipeline the other four tabs use.",
+
+  "sources": [
+    { "house": "UBS", "detail": "1 batch, 14 underlying reports, 10–15 Aug" },
+    { "house": "NSR", "detail": "5 reports, 10–14 Aug" },
+    { "house": "ISI", "detail": "2 batches, 20 underlying reports, 8 + 11–14 Aug" },
+    { "house": "JPM", "detail": "1 batch, 16 PDFs, 6–14 Aug" },
+    { "house": "TMTB", "detail": "4 daily Chinese syntheses, 10–13 Aug — first intake as Fab5's 7th standing source" },
+    { "house": "Red-Ring", "detail": "1 batch, 13 files, Chinese" },
+    { "house": "GS", "detail": "desk color, reaching this synthesis via TMTB" }
+  ],
+
+  "gradeScale": {
+    "a": "Primary and observable — company-reported results, filed disclosures, actually transacted prices.",
+    "b": "Named research, fully modeled — rated-analyst price targets and house models.",
+    "c": "Channel checks, desk color and press sourcing — numerically precise but not independently verifiable.",
+    "d": "Social, screenshot or extrapolated TAM/GW material — directional only, never an anchor.",
+    "note": "The source document grades its own material (b)/(c)/(d) in Section 8 and states that all GW/ARR/TAM extrapolations are (c)/(d) and 'never used as anchors'. Grade (a) is added here for company-reported prints and transacted market prices, which the document treats as its strongest evidence but does not letter."
+  },
+
+  "evidenceHierarchy": {
+    "title": "TMTB's evidence hierarchy — the batch's most reusable framework",
+    "note": "The document adopts this explicitly and shows the market already pricing along it: COHR/CSCO's −4% to −6% reaction versus CBRS's −15% to −19% reaction to comparably strong quarters tracks the evidence-quality gap almost exactly. The magnitude gap is smaller than the evidence-quality gap, which suggests top-tier evidence remains underpriced.",
+    "rungs": [
+      "Multi-year LTA with take-or-pay",
+      "Objective third-party telemetry",
+      "RPO / backlog balances",
+      "Management guidance language"
+    ]
+  },
+
+  "call": {
+    "headline": "Hold the rotation, tighten the evidence-quality filter, and treat \"beat-and-raise, target held or cut\" as the default expectation everywhere in the AI stack — not the exception.",
+    "body": "The baseline's \"stop adding — rotate\" call is being vindicated in real time. The commodity-memory trim is correctly de-risked, and the power/interconnect/packaging rotation destination just received its best cross-source corroboration to date — UBS, ISI and Red-Ring/TMTB independently confirming power, not chips, as the binding constraint, now evidenced in auction pricing rather than capacity targets.",
+    "instructions": [
+      {
+        "n": 1,
+        "title": "Do not trade NSR's Micron re-rate as a near-term signal",
+        "body": "The $1,250 PT (+166%) is a well-constructed 2030-structural thesis with an explicit $610 downside floor — but it sits on a completely different timeframe from the cyclical commodity-tier caution the rest of the batch keeps confirming. Keep the contracted/LTA-floored/HBM tier the baseline already protected; do not extrapolate Micron's re-rate to the un-contracted commodity tier, and do not size off a single-house valuation framework no second house has corroborated."
+      },
+      {
+        "n": 2,
+        "title": "Expect every beat to be held or cut on target, and price accordingly",
+        "body": "Confirmed across six-plus names, three sectors and three independently-run houses — including, for the first time this run, semicap equipment. Genuine target raises on a beat should now be read as the higher-signal event precisely because they are becoming rarer. \"Will it beat\" is no longer the relevant question; \"what is the buy-side bogey and how crowded is the book\" is."
+      },
+      {
+        "n": 3,
+        "title": "Express NVDA through convexity, not delta — and start tracking financing circularity as a standing risk",
+        "body": "Implied volatility into Aug 26 (4.68%) sits ~33% below the historical realized average (7.03%). Two mechanically identical circular-financing structures surfaced in a single week, and CoreWeave's DDTL 5.5 gave the market its first observable price on GPU residual value — immediately contested by a credible power/site-scarcity counter-read. None of this is a red flag yet, but three cheap-to-monitor levers (NVDA's 10-Q backstop balance, CoreWeave's next DDTL spread, whether the Oct 5 CME compute futures actually launch) will tell you before the credit market does."
+      }
+    ]
+  },
+
+  "layers": [
+    { "id": "fundamentals", "n": 1, "title": "Operational fundamentals", "summary": "Multi-ASIC diversification, hardware redesign and a rising CPU:GPU ratio all confirmed — but the memory-BOM constraint is now directly reshaping silicon, not just capex optics." },
+    { "id": "structure", "n": 2, "title": "Market structure", "summary": "\"Beat-and-raise, hold-or-cut-the-target\" is the dominant regime, and it has spread for the first time from AI-native names into semicap equipment." },
+    { "id": "financing", "n": 3, "title": "Financing & credit", "summary": "Circular financing went from theoretical to twice-confirmed and mechanically identical in one week; GPU residual value got its first market price, immediately contested." },
+    { "id": "macro", "n": 4, "title": "Macro & policy", "summary": "Near-term hike risk cooled sharply, the medium-term path did not, and AI's real GDP footprint remains genuinely small in both directions." }
+  ],
+
+  "insights": [
+    {
+      "id": "beat-and-raise",
+      "layer": "structure",
+      "headline": "\"Beat-and-raise, hold-the-target\" is now the dominant single-name pricing regime",
+      "claim": "Beating expectations no longer moves a price target. Three houses documented the same mechanism in the same week under three different vocabularies, and it has now spread into semicap equipment for the first time.",
+      "evidence": "ISI counts six names beating and holding PTs flat in one week — AMAT, CRWV, CSCO, SNDK, SPCX, QNT — across three sectors, against a systematic coverage refresh that raised roughly a dozen other PTs the same week. NSR's \"prefer downstream\" doctrine holds Neutral on AMAT, Cisco, KLA, LAM and TEL through beat-raise results. TMTB logs it as the 7th cross-source confirmation and the first sighting in semicap equipment: AMAT fell 4% after-hours on a guide 6.8% / 8.1% above Street because gross margin expanded only 40bp on +12.5% q/q / +41% y/y revenue.",
+      "sources": ["ISI", "NSR", "TMTB"],
+      "grade": "b",
+      "direction": "bear",
+      "tickers": ["AMAT", "CSCO", "KLAC", "LRCX", "SNDK"]
+    },
+    {
+      "id": "nvda-predictability",
+      "layer": "structure",
+      "headline": "NVDA's earnings predictability has quietly broken, and event risk is underpriced into Aug 26",
+      "claim": "The beat is no longer the variable. Positioning is — and the options market is not charging for it.",
+      "evidence": "Six of the last eight T+1 earnings reactions were negative despite beating every time. The correlation between EPS surprise and next-day stock move over nine quarters is 0.37 (R² ≈ 0.14), meaning roughly 86% of the price reaction is explained by positioning and crowding rather than the beat. Aug 26 implied one-day move is 4.68% against a 7.03% historical average realized move — about 33% below. The same underpricing shows up market-wide: skew flattening, dealers long gamma, S&P implied daily move 0.41%.",
+      "sources": ["TMTB", "GS"],
+      "grade": "c",
+      "direction": "neutral",
+      "tickers": ["NVDA"]
+    },
+    {
+      "id": "power-binding",
+      "layer": "fundamentals",
+      "headline": "Power, not chip supply, is the binding constraint — and it now shows up in price, not just capacity targets",
+      "claim": "The best-corroborated new convergence of the run, and the strongest validation yet of the rotation destination.",
+      "evidence": "UBS's enterprise CIO checks flag power and cooling as the biggest bottleneck, ahead of chip supply. Nebius's capacity auction cleared 15% above the highest Blackwell-era price ever charged, with contract economics of $20–25M/MW/yr long-term (under two-year payback) against $40–50M/MW short-term auction pricing; management explicitly withheld capacity from sale — \"we could have sold out today but chose not to.\" Red-Ring and TMTB add Texas approvals and Bloom Energy read-throughs on Nebius's Vineland site. The evidence has moved from capacity targets to observable transaction prices.",
+      "sources": ["UBS", "ISI", "Red-Ring", "TMTB"],
+      "grade": "b",
+      "direction": "bull",
+      "tickers": ["NBIS", "CRWV"]
+    },
+    {
+      "id": "circular-financing",
+      "layer": "financing",
+      "headline": "Circular AI financing went from theoretical to twice-confirmed and mechanically identical in one week",
+      "claim": "Two structures, one mechanism: chip-supplier balance-sheet credit → private-credit SPV → immediate revenue recognition for the chip seller, with risk parked off-balance-sheet or in a contingent guarantee. The mechanism, not any single deal, is now the object of concern.",
+      "evidence": "NVDA's $500bn+ compute-financing platform (Apollo, BlackRock, Blackstone, Brookfield, Goldman, KKR) carries an NVDA backstop up to ~$125bn / 25% co-invest option that unlocks roughly 4x leverage and cuts neocloud borrowing cost from 9–14% to 6–7%. Only ~$35bn of the $125bn cap has been drawn — the pace of that climb is the single best real-time gauge. The newly disclosed Google–Anthropic $200bn TPU SPV runs the identical structure: Broadcom sells TPUs to an SPV funded by Apollo/Blackstone debt, Anthropic leases with a second guarantee. UBS's own Cap Goods team flagged \"financing circularity\" the same week its NVDA equity desk called the platform a \"100% gross-margin annuity stream.\"",
+      "sources": ["UBS", "TMTB", "JPM"],
+      "grade": "b",
+      "direction": "bear",
+      "tickers": ["NVDA", "AVGO", "GOOGL", "CRWV"]
+    },
+    {
+      "id": "storage-optical-negative",
+      "layer": "structure",
+      "headline": "Storage and optical are still net negative six weeks into what feels like a violent rally",
+      "claim": "This is dip-recovery from the July flush, not a new bull leg — and every source in the batch that measured it independently reached the same conclusion.",
+      "evidence": "GS normalized sector indices rebased to 7/1/26 = 100 show storage at 84.91 and optical at 94.13 as of 8/13. The document calls this the \"perception-versus-return divergence\" and proposes it as a template to check against every hot AI sub-theme before position-sizing — six weeks of headline-grabbing rally language sitting on top of a still-negative index.",
+      "sources": ["TMTB", "GS"],
+      "grade": "c",
+      "direction": "bear",
+      "tickers": ["WDC", "STX", "SNDK", "COHR", "LITE"]
+    },
+    {
+      "id": "korea-governance",
+      "layer": "structure",
+      "headline": "The Samsung / SK hynix rally is governance-driven, not price-driven",
+      "claim": "A reattribution confirmed three separate times across the week — the memory equity trade has decoupled from the memory price.",
+      "evidence": "Temasek made its first-ever Korean equity purchase; SK hynix effectively became Kioxia's largest shareholder, a supply-side consolidation. GS explicitly labels the KOSPI move \"shareholder-return optimism.\" Meanwhile TrendForce reports DRAM spot trading remains illiquid with wide bid/ask spreads even as Samsung and SK hynix rally +7% / +6%. LTA floors are unchanged (Samsung 60–70%, SK hynix ~60% of revenue). Korea leveraged ETF AUM is down 60% from peak ($34bn → $14bn) — the de-leveraging flush is essentially complete.",
+      "sources": ["TMTB", "GS", "Red-Ring"],
+      "grade": "c",
+      "direction": "bear",
+      "tickers": ["MU", "SNDK", "WDC", "STX"]
+    },
+    {
+      "id": "memory-timeframe-split",
+      "layer": "structure",
+      "headline": "The memory-valuation split is the sharpest conflict this project has logged — and it is a timeframe conflict, not a contradiction",
+      "claim": "NSR's Micron call and the rest of the batch are not arguing about the same year. Conflating them is the single most expensive mistake available here.",
+      "evidence": "NSR upgraded Micron Neutral→Buy, PT $470→$1,250 (+166%), on a new Price/COGS framework — a 20-year backtest shows P/E and P/Book have no predictive power for Micron while Price/COGS shows a stable ~3.5x cyclical ceiling. Cross-checked by SOTP (HBM at 20–30x EBIT, in line with TSMC/NVDA/AVGO-style multiples; traditional memory at 10–20x) and a reverse DCF, with an explicit downside case of $610 at 13x trough EBIT. That is a 2030 through-cycle call. The 2026–27 tape says the opposite: SanDisk's PT was cut on a blowout beat and then held flat through its own Investor Day, and WDC/STX had the worst week in ISI's coverage universe at −24.9% / −13.8%.",
+      "sources": ["NSR", "ISI", "TMTB"],
+      "grade": "b",
+      "direction": "neutral",
+      "tickers": ["MU", "SNDK", "WDC", "STX"]
+    },
+    {
+      "id": "ndx-no-cushion",
+      "layer": "structure",
+      "headline": "The index has no valuation cushion left — 2026's entire gain came from earnings, not multiple",
+      "claim": "This cuts both ways: it rebuts the pure multiple-bubble bear case, and it removes the shock absorber for the next EPS miss anywhere in the stack.",
+      "evidence": "NDX forward P/E is 22.51x against a 5-year average of 24.85x, with the index within 2% of an all-time high. Separately, ISI's Emanuel reframed his SPX 9,000 target from a 30x-on-$300 \"bubble\" multiple (year-end 2025) to 22.2x on $406 of 2027 EPS — \"expensive but not egregious.\"",
+      "sources": ["TMTB", "GS", "ISI"],
+      "grade": "c",
+      "direction": "neutral",
+      "tickers": []
+    },
+    {
+      "id": "cpu-renaissance",
+      "layer": "fundamentals",
+      "headline": "The CPU:GPU ratio is structurally rising under agentic workloads — a new, falsifiable, cross-source-confirmed thesis",
+      "claim": "If this replicates, the AI-capex allocation debate shifts from a pure-GPU story to a compute-stack story where CPU, DRAM, enterprise storage and optical content matter structurally more than GPU unit counts.",
+      "evidence": "ISI's \"CPU Renaissance\": server CPU units +27% y/y, the fastest since 1Q22, with channel checks arguing the CPU:GPU compute ratio is moving from a historical 1:4–1:8 toward ~1:2 today and potentially 2:1–10:1 for fully agentic workloads. Independently corroborated by INTC's own OCP APAC benchmark data — adding a second GPU accelerator drops GPU utilization from 30% to 15% under an agentic workload, while adding dedicated CPU capacity instead raises it to 52–76%. AMD's x86 share is 45% (+336bps y/y); ARM unit share is 18% (+560bps y/y). TMTB adds a third independent sighting of KV-cache spillover into DDR5, enterprise SSD and HDD.",
+      "sources": ["ISI", "TMTB"],
+      "grade": "b",
+      "direction": "bull",
+      "tickers": ["INTC", "AMD", "MU", "ARM"]
+    },
+    {
+      "id": "billing-unit",
+      "layer": "fundamentals",
+      "headline": "Software's real dividing line is the billing unit — consumption versus seat, not \"AI winner versus loser\"",
+      "claim": "Four sources converged on the identical axis from four different directions. This is the batch's cleanest cross-source convergence.",
+      "evidence": "TMTB's fully quantified year-to-date table: security +80–100%, consumption-billed +50–80%, seat-billed SaaS −13% to −45% — a spread of roughly 145 points. JPM documents the same shift inside single companies (CRM's Data 360 +23% versus seat-billed Apps +7%; MSFT Copilot at 30m+ seats but only 7% attach of 450m M365 seats). ISI's Materne framework grades workloads \"scarce versus substitutable\" — context, workflow and security scarce; generic inference substitutable. UBS's enterprise checks corroborate bottom-up, with Databricks and Snowflake the consensus winners and on-prem AI \"essentially nonexistent.\" Even the loudest AI-software winner story, Atlassian, is merely flat year-to-date despite a +28% single-day pop.",
+      "sources": ["TMTB", "JPM", "ISI", "UBS"],
+      "grade": "b",
+      "direction": "neutral",
+      "tickers": ["CRM", "MSFT", "PANW", "CRWD", "NOW", "TEAM"]
+    },
+    {
+      "id": "pump-laser",
+      "layer": "fundamentals",
+      "headline": "A physical bottleneck was cross-validated from both sides of the trade in one morning",
+      "claim": "The document calls this the highest-quality evidence type it has logged: two counterparties with opposite incentives independently confirming the same physical constraint.",
+      "evidence": "CSCO, the buyer, names pump lasers as its only tight supply item. COHR, the seller, says it has zero spare laser capacity for external sale. Separately CSCO cut gross margin guidance from 66.3% to 65–66% and attributed it explicitly to memory-cost mix, with management noting customers \"understand this is an industry problem, not a Cisco problem\" — full-industry cost pass-through confirmed. NPO earnings-call mentions jumped from 0 to 20 on Jefferies' count; scale-up CPO cross-over is still modeled around 2031, leaving 2027–30 an NPO/pluggable window rather than a full-CPO one.",
+      "sources": ["TMTB", "ISI"],
+      "grade": "a",
+      "direction": "bull",
+      "tickers": ["CSCO", "COHR", "LITE"]
+    },
+    {
+      "id": "gpu-residual",
+      "layer": "financing",
+      "headline": "GPU residual value got its first market price — and it was contested within the same week",
+      "claim": "Three incompatible readings of one 100bp spread. Which one is right determines whether the thesis extrapolates to Blackwell and Rubin at all.",
+      "evidence": "CoreWeave's $2.6bn DDTL 5.5 priced at SOFR+550bp against May's DDTL 5.0 at SOFR+450bp — a 100bp premium for a 2031 maturity against roughly three-year average contract duration, the first CRWV loan longer than its collateral. Reading one: a residual-value risk premium. Reading two, management's own: a market-access fee for previously unfinanceable short-duration contracts, backed by weighted-average debt cost actually falling ~300bp over the same period. Reading three, a same-week counter-argument: the value sits in stranded, power-constrained legacy data-center capacity, not the silicon — Blackwell beats Ampere roughly 2:1 per MW, but A100 simply cannot be displaced from air-cooled sites Blackwell physically cannot enter. If reading three holds, \"GPU residual value\" should be retired as a standalone investable thesis in favour of a power/site-scarcity framing.",
+      "sources": ["TMTB", "ISI", "JPM"],
+      "grade": "c",
+      "direction": "neutral",
+      "tickers": ["NVDA", "AVGO", "CRWV"]
+    },
+    {
+      "id": "memory-bom",
+      "layer": "fundamentals",
+      "headline": "The memory-BOM constraint is now reshaping silicon and destroying device volume, not just capex optics",
+      "claim": "The HBM half is scarcity-driven rationing, not demand loss. The consumer half is genuine volume destruction — the first clean data point of its kind this project has logged.",
+      "evidence": "UBS's channel checks confirm NVDA cut Rubin Ultra's modeled HBM content from 768GB to 384GB on the first HBM4 variant and 512GB on the later 3Q27 HBM4E variant — a direct engineering trade-off forced by HBM tightness. UBS still raised its aggregate C2027 HBM-consumption estimate from 58.7B to 61.5B Gb because more units ship despite lower per-unit content. Separately, UBS cut its 2026 PC-unit forecast by 11% y/y and blamed memory pricing explicitly. Rubin Ultra's configuration also drops from a prior four-chip expectation to two chips, with the four-chip design shifting to the Feynman generation.",
+      "sources": ["UBS"],
+      "grade": "b",
+      "direction": "neutral",
+      "tickers": ["NVDA", "MU", "HPQ", "DELL"]
+    },
+    {
+      "id": "multi-asic",
+      "layer": "fundamentals",
+      "headline": "Multi-ASIC diversification is now quantified — Google's 2027 HBM share nearly equals NVIDIA's",
+      "claim": "HBM, CoWoS and testing economics are no longer a single-vendor bet.",
+      "evidence": "Morgan Stanley models 2027 HBM demand at 48Gb with Google's share at roughly 35% against NVIDIA's roughly 36%. CoWoS nominal 2027 capacity (~3.36m wafers annualized) exceeds modeled demand (~2.69m), but yield, mix and ramp-timing discounts mean that buffer must not be read as oversupply. The CPO bottleneck is reframed as migrating from PIC wafer capacity to downstream assembly and test yield, and test time — Rubin at 472k hours in 2026 rising to 2.30m in 2027 — is proposed as a better AI-content proxy than chip count.",
+      "sources": ["Red-Ring", "NSR", "JPM"],
+      "grade": "b",
+      "direction": "bull",
+      "tickers": ["GOOGL", "AVGO", "NVDA", "AMD"]
+    },
+    {
+      "id": "cowos-dispute",
+      "layer": "fundamentals",
+      "headline": "CoWoS tightness reversed within 24 hours on the same production line — unresolved",
+      "claim": "An open, trackable dispute with a named tiebreaker. It decides whether packaging-pure names keep their scarcity premium.",
+      "evidence": "TMTB's own sourcing flips from \"very close to meeting demand\" (8/11, 聯合報) to \"still cannot fully meet demand\" (8/12, CT) on the same line within a day. TSMC's packaging lead is quoted saying the bottleneck is migrating to ABF substrate. UBS separately raised CoWoS capacity assumptions to 130k wpm by YE26 and 250k industry-wide by YE27, up from 120k/150k, flowing directly into GPU unit estimates (+2% C2026, +17% C2027) — which it calls \"an important positive signal.\" Track ABF substrate capacity as the tiebreaker.",
+      "sources": ["TMTB", "UBS", "Red-Ring"],
+      "grade": "c",
+      "direction": "neutral",
+      "tickers": ["TSM", "NVDA"]
+    },
+    {
+      "id": "token-deflation",
+      "layer": "fundamentals",
+      "headline": "Token deflation intensified sharply — one data point stands between it and the capex bull case",
+      "claim": "The Jevons bet is now explicit and falsifiable: enterprise token volume must keep outrunning per-token price declines.",
+      "evidence": "DeepSeek V4-Pro-0813 prices output at $0.87 per million tokens against Claude Opus 5's $25 — roughly one twenty-ninth — with cache-hit input at about 1/138th. Grok 4.6 sits at an ~85% discount to near-parity performance. Meta open-sourced its most advanced model (Muse Spark 1.2) for the first time, escalating a theme it was previously a bystander to; Pinterest reports open-source at under 8% the cost of closed models. OpenAI's July enterprise revenue +32% MoM (overall +20% MoM) is the one data point capable of reconciling deflation with the capex bull case — elevated to the batch's top tracking priority.",
+      "sources": ["TMTB"],
+      "grade": "c",
+      "direction": "neutral",
+      "tickers": ["META", "MSFT"]
+    },
+    {
+      "id": "orcl-layoffs",
+      "layer": "financing",
+      "headline": "ORCL's layoffs are a genuinely new transmission channel for AI-capex financing pressure",
+      "claim": "The first observed instance of the pressure showing up as headcount rather than external debt — worth tracking separately from the credit-spread lens.",
+      "evidence": "Oracle initiated double-digit layoffs in parts of the organisation, timed ahead of its Sept 1 fiscal Q2. The context: JPM quantifies hyperscaler TTM net income at $599bn against FCF after capex of only $169bn — a $430bn gap being bridged increasingly by financing engineering rather than organic cash generation. JPM's four-multiplier lens (order quality × delivery speed × incremental margin × financing/cash recovery) is now the operative framework, and capital cost is formalized as a competitive moat: CRWV at Ba3/B+/BB- against MSFT at Aaa/AAA.",
+      "sources": ["TMTB", "JPM"],
+      "grade": "c",
+      "direction": "bear",
+      "tickers": ["ORCL", "MSFT", "CRWV"]
+    },
+    {
+      "id": "dell-amzn-rotation",
+      "layer": "structure",
+      "headline": "AI dollars rotated from the most crowded hyperscaler expression to the cheapest physical-delivery one",
+      "claim": "A read on flow, not fundamentals — and explicitly labelled as such by the source.",
+      "evidence": "DELL hit a 52-week high at $496.65, breaking a multi-month range, in the same week AMZN fell in six of eight sessions \"with no real bear case we've heard.\" On the technical side, ISI's Rich Ross made an explicit \"sell the strength in Software, buy the weakness in Semis\" call and flagged MSFT overbought at RSI 78 — reopening, on purely technical grounds, a rotation question ISI's own 8/8 batch had declared resolved toward \"both/and\" on fundamentals.",
+      "sources": ["TMTB", "ISI"],
+      "grade": "c",
+      "direction": "neutral",
+      "tickers": ["DELL", "AMZN", "MSFT"]
+    },
+    {
+      "id": "macro-gate",
+      "layer": "macro",
+      "headline": "Near-term hike risk cooled sharply; the medium-term path did not move",
+      "claim": "Delayed and flattened, not cancelled — and AI's real GDP footprint is small enough to disarm both the bull and the bear version of the macro argument.",
+      "evidence": "A mild July CPI (core +22bp against +20bp expected) cut September hike odds from over 70% on Aug 1 to 34.9%, but the full WIRP curve still peaks at +1.43 cumulative hikes by June 2027 (implied rate 3.989%), and the global tightening bias persists with Eurozone September-hike odds at 89.5%. GS's crowding-out study puts 2026 US AI investment at roughly $600bn — about 2% of GDP and over 10% of business fixed investment — but only ~0.1pp of direct GDP-growth contribution, rising to ~0.3pp with import/export adjustments, because much AI hardware is imported. Bulls cannot claim AI is holding up the economy; bears cannot claim a slowdown would crater GDP. The real exposure sits in trade accounts, corporate credit and the equity wealth effect. Sentiment is stretched (BofA Bull & Bear 9.3/Sell, FMS cash 3.6%, private-client equity allocation at a historical high 66.4%).",
+      "sources": ["TMTB", "GS", "Red-Ring"],
+      "grade": "b",
+      "direction": "neutral",
+      "tickers": []
+    }
+  ],
+
+  "agreement": [
+    { "claim": "The near-term memory trim is being vindicated by the tape in real time.", "detail": "ISI (SNDK's PT cut on a beat, held flat through Investor Day), NSR (its own Micron re-rate is explicitly 2030-structural, and \"prefer downstream\" treats every memory-adjacent semicap the same way) and TMTB (WDC/STX −24.9%/−13.8%; Korea rallying on governance; the normalized memory index still −15.1% since 7/1) all point one direction.", "sources": ["ISI", "NSR", "TMTB"], "grade": "b" },
+    { "claim": "\"Beat-and-raise, hold-the-target\" is the batch's best-corroborated market-structure fact.", "detail": "Three sources, three different vocabularies, one mechanism: ISI's six-name count, NSR's \"prefer downstream\" doctrine across five names, TMTB's 7th confirmation and first sighting in semicap equipment.", "sources": ["ISI", "NSR", "TMTB"], "grade": "b" },
+    { "claim": "Power, not chip supply, is now the binding AI-infrastructure constraint.", "detail": "UBS's enterprise checks flag power and cooling ahead of chip supply; ISI has Nebius auction pricing 15% above prior peak and CoreWeave effectively sold out; Red-Ring and TMTB add Texas approvals and Bloom Energy read-throughs. The strongest extension of the power theme to date.", "sources": ["UBS", "ISI", "Red-Ring", "TMTB"], "grade": "b" },
+    { "claim": "Circular AI financing has become a repeatable, industry-standard mechanism.", "detail": "Two structurally identical instances surfaced in one week. The mechanism itself, not any single deal, is now the object of concern — which means the third instance should be read as confirmation of a pattern, not a new surprise.", "sources": ["UBS", "TMTB", "JPM"], "grade": "b" },
+    { "claim": "The CPU:GPU ratio is structurally rising under agentic workloads.", "detail": "ISI's channel-check framework corroborated by INTC's own real-world benchmark data — a genuinely new, falsifiable, cross-source-confirmed thesis this run.", "sources": ["ISI", "TMTB"], "grade": "b" },
+    { "claim": "Software's real dividing line is the billing unit, not \"AI winner versus loser\".", "detail": "ISI's scarce-versus-substitutable framework, UBS's enterprise checks, JPM's seat-to-usage documentation and TMTB's quantified YTD table all converge on the identical axis.", "sources": ["ISI", "UBS", "JPM", "TMTB"], "grade": "b" }
+  ],
+
+  "disputes": [
+    { "claim": "Memory valuation — timeframe, or genuine disagreement?", "sides": ["NSR: Micron Buy at $1,250 on 2030 through-cycle Price/COGS economics", "ISI / MS / TMTB: 2026–27 cyclical caution — SNDK's target held on a beat, WDC/STX's brutal week, the Korea rally attributed to governance"], "tiebreaker": "Whether a second house engages the Price/COGS framework, and whether the un-contracted commodity tier ever gets a near-term price confirmation.", "sources": ["NSR", "ISI", "TMTB"], "grade": "b", "isNew": true },
+    { "claim": "CoWoS tightness — a 24-hour messaging reversal on the same line", "sides": ["8/11 via 聯合報: \"very close to meeting demand\"", "8/12 via CT: \"still cannot fully meet demand\""], "tiebreaker": "ABF substrate capacity data. Red-Ring's MS-derived model shows nominal 2027 capacity above modeled demand but warns that yield, mix and ramp-timing discounts prevent reading that as oversupply.", "sources": ["TMTB", "Red-Ring"], "grade": "c", "isNew": true },
+    { "claim": "GPU residual value — chip depreciation risk or power/site scarcity?", "sides": ["A residual-value risk premium on the silicon", "Management: a market-access fee for a new short-duration contract product, with weighted-average debt cost actually falling ~300bp", "The counter-read: value belongs to stranded, power-constrained legacy capacity, not the chip"], "tiebreaker": "Whether Ampere/Hopper rental rates keep rising, and whether the CME/Silicon Data compute futures list on Oct 5 to give a second, continuous price.", "sources": ["TMTB", "ISI", "JPM"], "grade": "c", "isNew": true },
+    { "claim": "Software versus semis rotation — reopened on a technical basis after ISI itself declared it resolved", "sides": ["ISI 8/8, on fundamentals: \"both/and\" — budget reprioritization away from software is not happening", "ISI 8/14, Rich Ross on technicals: sell Software (MSFT specifically, RSI 78), buy Semis"], "tiebreaker": "Whether the technical call extends beyond MSFT into the broader consumption-billed cohort that has otherwise been the batch's strongest theme.", "sources": ["ISI"], "grade": "b" },
+    { "claim": "AMAT — same data, opposite conclusions on valuation", "sides": ["NSR: Neutral $525, 32x P/E \"elevated\", prefer downstream", "ISI: Outperform $700 unchanged — AMAT now screens as the cheapest name in ISI's own semicap coverage after the post-earnings selloff"], "tiebreaker": "Whether the multiple compresses or expands from here.", "sources": ["NSR", "ISI"], "grade": "b" },
+    { "claim": "CRWV backlog quality — one print, three landings on financing risk", "sides": ["ISI: Outperform $150, held flat", "JPM: Neutral $120 (from $110), flagging ~6x net leverage and $640M quarterly interest expense against $128M adjusted operating income", "NSR / TMTB: broadly constructive on the residual-value evidence"], "tiebreaker": "Q3 prints, and whether contract conversion continues at improving margins rather than 90-day-cancelable structures being exercised.", "sources": ["ISI", "JPM", "NSR", "TMTB"], "grade": "b" },
+    { "claim": "AMD — is the market's reaction itself the error?", "sides": ["NSR: the 7% post-print selloff is a misread; models ~3x, not ~2x, 2027 datacenter growth on $40bn+ Instinct", "ISI: raises the PT to $620 on largely the same OpenAI-deal logic"], "tiebreaker": "Directionally aligned, but NSR is explicitly betting the market got the number wrong — a falsifiable near-term test.", "sources": ["NSR", "ISI"], "grade": "b" }
+  ],
+
+  "checklist": [
+    { "n": 6, "indicator": "GPU rental / neocloud economics", "baseline": "GPU residual value got its first market price this run — immediately contested. CRWV DDTL 5.5 at SOFR+550bp (100bp over DDTL 5.0); NBIS auction clearing 15% above the prior Blackwell-era peak; short-duration (≤6mo) pricing about 2x mid-term yield; CRWV Ampere rental rates still rising six years post-launch.", "bull": "Ampere/Hopper rental rates continue rising; CME/Silicon Data compute futures launch on schedule.", "bear": "Any quarter of falling legacy-GPU rental rates; CRWV's next DDTL spread widens.", "checkpoint": "Next CRWV DDTL pricing; Oct 5 CME futures launch", "isNew": false },
+    { "n": 7, "indicator": "DRAM / NAND contract prints", "baseline": "TrendForce reports DRAM spot trading remains illiquid with wide bid/ask spreads even as Samsung and SK hynix rally +7% / +6% on governance rather than price. LTA floors unchanged (Samsung 60–70%, SK hynix ~60% of revenue).", "bull": "Contract prices resume co-moving with the equity rally.", "bear": "Spot weakness persists or deepens while equities keep rallying on governance alone — a durable decoupling.", "checkpoint": "Sep / 4Q contract prints", "isNew": false },
+    { "n": 9, "indicator": "Micron / NSR Memory series", "baseline": "Part IV landed. NSR upgrades Micron to Buy, PT $470→$1,250 (+166%) on Price/COGS (2030 peak: $68bn COGS, $164bn FCF, $615bn cumulative cash), with an explicit $610 downside floor at 13x trough EBIT. A 2030-structural call, not a 2026–27 trading signal.", "bull": "A second house corroborates the Price/COGS framework or the $1,250 target.", "bear": "The call remains a single-house outlier with no near-term price confirmation; SNDK-style target discipline persists on MU itself.", "checkpoint": "Next MU print; whether a second house engages Price/COGS", "isNew": false },
+    { "n": 24, "indicator": "Server-CPU / agentic re-acceleration", "baseline": "The best-corroborated theme in the project gets its strongest evidence yet. Server CPU units +27% y/y; CPU:GPU ratio structurally rising 1:4–1:8 → ~1:2 → potentially 2:1–10:1 agentic; INTC's own OCP APAC benchmark confirms independently. AMD x86 share 45% (+336bps y/y), ARM unit share 18% (+560bps y/y).", "bull": "ODM and benchmark data continue confirming the structural ratio shift.", "bear": "The CPU:GPU ratio thesis fails to replicate in independent benchmark data.", "checkpoint": "Quarterly prints + ODM checks", "isNew": false },
+    { "n": 27, "indicator": "Power / speed-to-power / social licence", "baseline": "The best-corroborated NEW convergence this run — UBS (power/cooling flagged ahead of chip supply as the biggest bottleneck), ISI (Nebius auction clearing 15% above the prior Blackwell-era peak — pricing, not just capacity), Red-Ring / TMTB (Texas approvals, Bloom Energy read-throughs on Nebius's Vineland site).", "bull": "Power-pricing evidence continues clearing above prior peaks; interconnection reform progresses.", "bear": "Power-pricing evidence reverses — auctions clear below prior peaks; permitting politics worsen.", "checkpoint": "Monthly; next NBIS / CRWV auction data", "isNew": false },
+    { "n": 28, "indicator": "AI financing circularity / GPU residual-value pricing", "baseline": "Two structurally identical circular-financing structures confirmed in one week (NVDA's $500bn platform, the Google–Anthropic $200bn TPU SPV). CoreWeave's DDTL 5.5 gives the first market price on residual value, immediately contested by a power/site-scarcity reattribution. UBS's Cap Goods and equity teams split internally on the NVDA structure in the same week.", "bull": "Additional structures confirm without a downgrade; Ampere rental rates keep rising; CME compute futures launch on schedule.", "bear": "A formal credit-desk downgrade of any circular structure; Ampere/Hopper rental rates fall; the power/site-scarcity reattribution is confirmed, undermining the chip-residual-value framing entirely.", "checkpoint": "NVDA 10-Q backstop balance; next CRWV DDTL; Oct 5 CME futures", "isNew": true },
+    { "n": 29, "indicator": "\"Beat-and-raise, hold-the-target\" regime", "baseline": "Formalized as the dominant single-name pricing pattern: six names under ISI's count plus five under NSR's \"prefer downstream\" doctrine, all beat-raise-but-capped, against systematic refreshes raising roughly a dozen PTs the same week. TMTB's 7th confirmation, first sighting in semicap equipment. NVDA's own 9-quarter EPS-surprise / stock-move correlation is 0.37.", "bull": "The pattern reverses — a beat finally moves a PT up, signalling crowding has genuinely cleared.", "bear": "The pattern spreads further (into hyperscaler earnings reactions) or deepens — targets cut, not just held, on beats.", "checkpoint": "Every earnings print through NVDA Aug 26", "isNew": true }
+  ],
+
+  "implications": [
+    { "ticker": "NVDA", "scope": "name", "direction": "neutral", "line": "Express through convexity, not delta, into Aug 26. Six of the last eight T+1 reactions were negative despite beating every time, the 9-quarter surprise/move correlation is 0.37, and implied (4.68%) sits ~33% below the 7.03% realized average. Separately, NVDA is now the credit anchor of the whole financing edifice — only ~$35bn of the $125bn backstop cap is drawn, and the pace of that climb is the best real-time gauge of how hard the structure is being used.", "sources": ["TMTB", "GS", "UBS"], "grade": "c" },
+    { "ticker": "MU", "scope": "name", "direction": "bull", "line": "NSR upgraded to Buy, PT $470→$1,250 (+166%), on a new Price/COGS framework with an explicit $610 downside floor at 13x trough EBIT. Important and well-constructed — and explicitly a 2030 through-cycle call. Do not trade it as a near-term catalyst, and do not extrapolate it to the un-contracted commodity tier. Single-house so far; no second house has engaged the framework.", "sources": ["NSR"], "grade": "b" },
+    { "ticker": "SNDK", "scope": "name", "direction": "neutral", "line": "The cleanest single illustration of the pricing regime. The PT was cut to $2,800 on a blowout beat-raise (Data Center revenue +103% q/q, $93.9bn minimum contracted revenue), then held flat through its own Investor Day despite a materially more bullish long-term model, with management \"sidestepping\" the multiple question. JPM went the other way, restoring OW with a Dec-27 PT of $2,250 on the NBM/LTA structural-margin-floor thesis.", "sources": ["ISI", "JPM"], "grade": "b" },
+    { "ticker": "WDC", "scope": "name", "direction": "bear", "line": "Worst week in ISI's coverage universe at −24.9%. The un-contracted commodity tier is where the trim was aimed, and this is the evidence it was aimed correctly.", "sources": ["ISI"], "grade": "a" },
+    { "ticker": "STX", "scope": "name", "direction": "bear", "line": "−13.8% on the week alongside WDC. Same read: commodity/consumer memory beta remains correctly de-risked, and the storage index is still net negative (84.91 vs 7/1 = 100) six weeks into a rally that feels violent.", "sources": ["ISI", "TMTB"], "grade": "a" },
+    { "ticker": "AMAT", "scope": "name", "direction": "neutral", "line": "The batch's widest single-name rating split: NSR Neutral $525 (32x P/E \"elevated\", prefer downstream) against ISI Outperform $700 unchanged, where AMAT now screens as the cheapest name in ISI's own semicap coverage after the selloff. It is also the first semicap name to be sold on a beat — guide 6.8%/8.1% above Street, still −4% after-hours, because gross margin expanded only 40bp. Became the fourth semicap major to re-raise rather than reaffirm WFE guidance, with customer capacity-planning visibility now extending to 2030.", "sources": ["NSR", "ISI"], "grade": "b" },
+    { "ticker": "AMD", "scope": "name", "direction": "bull", "line": "NSR reads the 7% post-print selloff as a market misread and models ~3x, not ~2x, 2027 datacenter growth on $40bn+ Instinct; ISI raised the PT to $620 on largely the same OpenAI-deal logic. A falsifiable near-term test of whether the tape or the model is wrong. Separately, x86 share of 45% (+336bps y/y) sits inside the CPU Renaissance thesis.", "sources": ["NSR", "ISI"], "grade": "b" },
+    { "ticker": "AVGO", "scope": "name", "direction": "neutral", "line": "Sits at the centre of the second circular-financing structure — Broadcom sells TPUs into the Google–Anthropic $200bn SPV funded by Apollo/Blackstone debt, with Anthropic leasing under a second guarantee. Also holds a 10GW custom-XPU deal with OpenAI. The residual-value guarantee exposure is the specific thing to watch if the power/site reattribution of GPU residual value holds.", "sources": ["TMTB", "ISI"], "grade": "b" },
+    { "ticker": "MRVL", "scope": "name", "direction": "bull", "line": "Both datacenter engines trending up: XPU-attach from 20% toward 30%+ in FY27, interconnect from 70% toward 80%+ y/y, with 10+ XPU-attach projects moving to FY28 volume. The Oct 6 investor day is the stated checkpoint for the >30% attach trajectory.", "sources": ["NSR"], "grade": "b" },
+    { "ticker": "INTC", "scope": "name", "direction": "neutral", "line": "The $19.7bn equity raise is read as de-risking, not as new demand evidence. The more interesting contribution is data, not equity: INTC's own OCP APAC benchmark is the independent corroboration of the CPU Renaissance thesis — adding a second GPU under agentic load cuts GPU utilization from 30% to 15%, while adding CPU capacity raises it to 52–76%. The NVDA–INTC partnership is read skeptically, not material before 2027.", "sources": ["NSR", "ISI"], "grade": "b" },
+    { "ticker": "KLAC", "scope": "read-through", "direction": "neutral", "line": "One of the five names under NSR's \"prefer downstream\" doctrine — Neutral held through a beat-raise. The WFE ratchet keeps rising underneath the rating (ISI $155bn/$215bn/$307bn for 2026/27/30; Bernstein $148bn/$204bn/$259bn for 2026/27/28), which is the tension: the numbers go up, the multiple does not.", "sources": ["NSR", "ISI"], "grade": "b" },
+    { "ticker": "LRCX", "scope": "read-through", "direction": "neutral", "line": "Same read as KLAC — Neutral held through beat-raise under \"prefer downstream\", with consensus WFE still capitulating upward around it. JPM adds hardware-forum takeaways from the same week.", "sources": ["NSR", "JPM"], "grade": "b" },
+    { "ticker": "MCHP", "scope": "name", "direction": "bull", "line": "Gross margin broke its 65% target early — part of the quantitative confirmation that the semi cycle is broadening beyond AI. June WSTS showed non-storage sales +38% y/y, the third straight month of acceleration.", "sources": ["JPM"], "grade": "b" },
+    { "ticker": "ALAB", "scope": "read-through", "direction": "neutral", "line": "The connectivity/Trainium checklist line carried no ALAB-specific evidence this run — everything under it was MRVL. Flagged as an evidence gap rather than a view.", "sources": ["NSR"], "grade": "c" },
+    { "ticker": "CSCO", "scope": "name", "direction": "neutral", "line": "Beat and got no target for it — NSR initiates Neutral $115, calling the beat-and-raise \"past a good entry point\". The valuable content is the supply signal: CSCO named pump lasers as its only tight item, cross-validating COHR from the buyer's side. Gross margin guidance cut 66.3% → 65–66% on memory-cost mix, with management noting customers accept it as an industry problem — full-industry cost pass-through.", "sources": ["NSR", "TMTB"], "grade": "a" },
+    { "ticker": "COHR", "scope": "name", "direction": "bull", "line": "The seller-side half of the same-morning cross-validation: zero spare laser capacity for external sale. The document rates this the highest-quality evidence type it has logged. Still only fell 4–6% on a strong quarter — the reaction gap versus weaker-evidenced names is smaller than the evidence gap, which the document reads as top-tier evidence being underpriced. COHR also disputes GS's \"minimal impact\" read on the China optical-component ban, saying customers are already starting new supply discussions.", "sources": ["TMTB", "ISI"], "grade": "a" },
+    { "ticker": "LITE", "scope": "name", "direction": "bull", "line": "+8% on an FQ1 guide 8% above Street, with the gross-margin and operating-margin curve shifting up structurally — 50%+ GM is now achieved at half the revenue base once thought necessary. A margin-structure change, not just a demand beat, which is the higher bar this regime demands.", "sources": ["TMTB"], "grade": "b" },
+    { "ticker": "ANET", "scope": "name", "direction": "bull", "line": "PT raised $200 → $250 on a CY26 revenue-growth guide lifted to 40% from 27.8%. One of the rare genuine target raises this run — which, under the beat-and-raise regime, is precisely why it reads as higher-signal than the beats that held.", "sources": ["ISI"], "grade": "b" },
+    { "ticker": "DELL", "scope": "name", "direction": "bull", "line": "52-week high at $496.65, breaking a multi-month range, read as AI dollars rotating from the most crowded hyperscaler expression to the cheapest physical-delivery one. A flow read, not a fundamentals call — and it sits against the memory-BOM headwind hitting device BOM costs.", "sources": ["TMTB"], "grade": "c" },
+    { "ticker": "HPQ", "scope": "read-through", "direction": "bear", "line": "Read-through from UBS's 2026 PC-unit forecast cut of −11% y/y, blamed explicitly on memory pricing. This is the first clean device-volume-destruction data point the project has logged, distinct from the \"capex growth is a pricing mirage\" framing.", "sources": ["UBS"], "grade": "b" },
+    { "ticker": "MSFT", "scope": "name", "direction": "neutral", "line": "Two houses, opposite lenses, same week. JPM raised OW to $625 from $550 on Azure, Copilot and RPO strength; ISI's Rich Ross flagged it overbought at RSI 78 and made it the named vehicle for an explicit \"sell Software\" technical call. The monetization detail cuts both ways: Copilot is past 30m seats but that is only 7% attach of 450m M365 seats.", "sources": ["JPM", "ISI"], "grade": "b" },
+    { "ticker": "ORCL", "scope": "name", "direction": "bear", "line": "Initiated double-digit layoffs in parts of the organisation ahead of its Sept 1 fiscal Q2 — the first observed instance of AI-capex financing pressure transmitting into headcount rather than external debt. A new channel worth tracking separately from credit spreads.", "sources": ["TMTB"], "grade": "c" },
+    { "ticker": "CRM", "scope": "name", "direction": "bull", "line": "Restored to OW at $250 by JPM. The more useful datum is the billing-unit divide showing up inside one company: Data 360 +23% against seat-billed Apps +7%. That is the batch's cleanest convergence expressed on a single P&L.", "sources": ["JPM"], "grade": "b" },
+    { "ticker": "PANW", "scope": "cohort", "direction": "bull", "line": "Cohort-level, not name-specific: security is the top-performing software cohort year-to-date at +80–100%, against seat-billed SaaS at −13% to −45%. ISI's scarce-versus-substitutable framework puts security explicitly on the scarce side.", "sources": ["TMTB", "ISI"], "grade": "c" },
+    { "ticker": "CRWD", "scope": "cohort", "direction": "bull", "line": "Same cohort read as PANW — security +80–100% YTD, and on the scarce side of the scarce-versus-substitutable spectrum. No name-specific evidence in this batch.", "sources": ["TMTB", "ISI"], "grade": "c" },
+    { "ticker": "NOW", "scope": "cohort", "direction": "neutral", "line": "Sits on the consumption-versus-seat fault line rather than on either side of it cleanly. The cohort numbers are consumption-billed +50–80% against seat-billed −13% to −45%; which side a name lands on is now the question worth answering per name.", "sources": ["TMTB", "JPM"], "grade": "c" },
+    { "ticker": "GOOGL", "scope": "name", "direction": "bull", "line": "Two distinct developments. Morgan Stanley models Google's 2027 HBM share at ~35% against NVIDIA's ~36% — multi-ASIC diversification is now quantified, not asserted. And the Google–Anthropic $200bn TPU SPV puts Google at the centre of the second circular-financing structure, which is a demand accelerant and a structural risk in the same disclosure.", "sources": ["Red-Ring", "TMTB"], "grade": "b" },
+    { "ticker": "AMZN", "scope": "name", "direction": "neutral", "line": "Fell in six of eight sessions \"with no real bear case we've heard\" — the crowded-hyperscaler side of the rotation into physical-delivery names. A positioning observation explicitly offered without a fundamental thesis attached.", "sources": ["TMTB"], "grade": "d" },
+    { "ticker": "META", "scope": "name", "direction": "neutral", "line": "US DAU share for Meta AI rose 15% → 18%, its largest monthly gain, but engagement depth lags badly at 9.5 minutes average against ChatGPT's 22 — share gain without depth gain. Meta also open-sourced its most advanced model (Muse Spark 1.2) for the first time, escalating the open-source pricing-erosion theme it had been a bystander to. Connect on Sep 23–24 is the checkpoint.", "sources": ["TMTB"], "grade": "c" },
+    { "ticker": "CRWV", "scope": "name", "external": true, "externalReason": "Not present in any of the four price workbooks — no technical strip available.", "direction": "neutral", "line": "+18% on A100 contracts extended to 2029, full-SKU pricing +25% and new-contract contribution margins +5–10pts — turning the residual-value thesis into three-lane evidence. Against that, JPM's Neutral $120 flags ~6x net leverage and $640M of quarterly interest expense against $128M of adjusted operating income, and the DDTL 5.5 priced 100bp wide of DDTL 5.0 on a maturity longer than its own collateral. ISI holds Outperform $150. Three houses, one print, three different landings on financing risk.", "sources": ["ISI", "JPM", "TMTB", "NSR"], "grade": "b" },
+    { "ticker": "NBIS", "scope": "name", "external": true, "externalReason": "Not present in any of the four price workbooks — no technical strip available.", "direction": "bull", "line": "The cleanest power-scarcity price evidence in the batch: an auction clearing 15% above the highest Blackwell-era price ever charged, with $20–25M/MW/yr long-term economics (under two-year payback) against $40–50M/MW short-term. Management explicitly withheld capacity — \"we could have sold out today but chose not to\" — a bullish signal that is also a falsifiable bet against itself.", "sources": ["ISI"], "grade": "b" },
+    { "ticker": "TSM", "scope": "name", "external": true, "externalReason": "Not present in any of the four price workbooks — no technical strip available.", "direction": "bull", "line": "July revenue NT$467.6bn (~$14.5bn), +45% y/y and about 32% of the 3Q consensus — on pace. 2026 capex confirmed at a record $60–64bn. UBS raised CoWoS capacity assumptions to 130k wpm by YE26 and 250k industry-wide by YE27, from 120k/150k, flowing straight into GPU unit estimates (+2% C2026, +17% C2027). The open question is whether the bottleneck has already migrated to ABF substrate.", "sources": ["UBS", "TMTB"], "grade": "b" },
+    { "ticker": "TEAM", "scope": "name", "external": true, "externalReason": "Not present in any of the four price workbooks — no technical strip available.", "direction": "bear", "line": "The batch's own debunking case: the loudest \"AI software winner\" story is merely flat year-to-date despite a headline +28% single-day pop. Cited specifically to argue against reading an AI premium into that name.", "sources": ["TMTB"], "grade": "c" },
+    { "ticker": "ARM", "scope": "read-through", "external": true, "externalReason": "Not present in any of the four price workbooks — no technical strip available.", "direction": "bull", "line": "Unit share 18%, up 560bps y/y. If the CPU Renaissance ratios hold, ARM's ecosystem position becomes structurally more important than GPU unit counts — the read-through the document flags explicitly.", "sources": ["ISI"], "grade": "b" }
+  ]
+}

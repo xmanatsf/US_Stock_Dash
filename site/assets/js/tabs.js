@@ -41,9 +41,15 @@ export async function initNav(active) {
   try { idx = await loadIndex(); } catch { host.innerHTML = ""; return; }
   const h = readState().horizon;
   const us = Object.entries(idx.universes).sort((a, b) => a[1].order - b[1].order);
+  // Pages are not universes: they have no workbook and therefore no validation status, so they
+  // never carry the warning glyph. They sort after the universes by the same order key.
+  const pages = Object.entries(idx.pages || {}).sort((a, b) => a[1].order - b[1].order);
   host.innerHTML = us.map(([k, u]) =>
     `<a class="tabBtn${k === active ? " active" : ""}" href="${u.tab}.html?h=${h}"
-        data-universe="${k}">${u.label}${u.status !== "ok" ? " ⚠" : ""}</a>`).join("");
+        data-universe="${k}">${u.label}${u.status !== "ok" ? " ⚠" : ""}</a>`).join("")
+    + pages.map(([k, p]) =>
+      `<a class="tabBtn page${k === active ? " active" : ""}" href="${p.tab}.html?h=${h}"
+          data-page="${k}">${p.label}</a>`).join("");
 }
 
 function themeToggle() {

@@ -10,6 +10,10 @@ Path-independent indicators must match the legacy golden to 1e-9. Three series a
 differ and are asserted as intentional deltas -- if they matched, the port silently kept the
 inferior implementation.
 
+This runs against a PINNED workbook vintage (GOLDEN_WORKBOOK below), not the newest file in
+data/raw. It is a test of the engine, not of the data. Refreshing the dashboard does not and must
+not move it.
+
     python scripts/tests/test_regression_semis.py
 """
 
@@ -31,6 +35,17 @@ import validators as V      # noqa: E402
 
 TOL = 1e-9
 GOLDEN = os.path.join(ROOT, "reference", "golden")
+
+# The input workbook is PART OF THE GOLDEN CAPTURE, not a live input.
+#
+# This test measures engine parity against the shipped dashboards; it says nothing about whether
+# the site is running current data. The goldens are a fixed capture of the 1,255-day grid
+# 2021-08-09..2026-08-07, and reference/golden/README.md forbids editing them. resolve_input()
+# returns the NEWEST date-stamped workbook, so leaving it in charge here would silently swap the
+# baseline every time data/raw gains a vintage -- and CapIQ's 5y window ROLLS rather than extends,
+# so both ends of the grid move and every date and price assertion below fails for a reason that
+# has nothing to do with the engine. Pinned deliberately. Re-capture the goldens if this must move.
+GOLDEN_WORKBOOK = "US semi stocks 5y price and volume 20260807.xlsx"
 
 
 class Result:
@@ -78,7 +93,14 @@ def compare_series(ours, gold, label, res, tol=TOL, allow_head_none=0):
 def load_semis(cfg):
     u = cfg.universe("semis")
     s = u["source"]
-    path = L.resolve_input(cfg.raw_dir, s["stem"], s.get("dateStamped", True))
+    path = os.path.join(cfg.raw_dir, GOLDEN_WORKBOOK)
+    if not os.path.exists(path):
+        raise SystemExit(
+            f"the golden-vintage workbook is missing: {path}\n"
+            f"This test is pinned to it on purpose (see GOLDEN_WORKBOOK above). Newer vintages in\n"
+            f"data/raw are fine and expected -- but this file must stay there, or the regression\n"
+            f"gate has nothing to compare reference/golden/*.json against."
+        )
     book, _ = L.load_price_volume(path, price_sheet=s["priceSheet"], volume_sheet=s["volumeSheet"],
                                   price_label=s["priceLabel"], volume_label=s["volumeLabel"])
     book, _ = L.drop_calendar_days(book, cfg.parameters["calendar"]["holidayFlatlineThreshold"])

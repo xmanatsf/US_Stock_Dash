@@ -213,3 +213,95 @@ footer#footer .src { color: var(--muted); }
   width: 1px; background: var(--axis); }
 .bucketRow .bar i { position: absolute; top: 2px; bottom: 2px; border-radius: 3px; }
 .bucketRow .sub { color: var(--muted); font-size: 11.5px; display: block; }
+
+/* ---------------------------------------------------------------- fab5 cross-source page
+ * This page renders CLAIMS, not measurements, so its chips mean "who said it / how well
+ * evidenced" rather than "which test passed". Grade colour runs strongest (a) to weakest (d) and
+ * deliberately does NOT reuse the good/critical pair, which on every other tab means bullish or
+ * bearish -- a grade is about evidence quality, never about direction. Direction gets its own,
+ * quieter treatment: a left edge and a small word, never a filled chip. */
+
+.tabBtn.page { border-style: dashed; }
+
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 900px) { .grid3 { grid-template-columns: 1fr; } }
+
+.card.instr { border-top: 3px solid var(--s1); }
+.instrN { font-size: 11px; font-weight: 700; color: var(--s1); letter-spacing: .08em;
+  margin-bottom: 4px; }
+.instrN::before { content: "INSTRUCTION "; }
+
+.srcRow { display: flex; flex-wrap: wrap; gap: 8px; }
+.srcPill { font-size: 11.5px; color: var(--ink2); background: color-mix(in srgb, var(--muted) 10%, transparent);
+  border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px; }
+.srcPill b { color: var(--ink); }
+
+.chip.src { background: color-mix(in srgb, var(--s1) 13%, transparent); color: var(--s1);
+  font-weight: 600; letter-spacing: .02em; }
+.chip.grade-a { background: color-mix(in srgb, var(--s4) 22%, transparent); color: var(--s4); font-weight: 700; }
+.chip.grade-b { background: color-mix(in srgb, var(--s4) 13%, transparent); color: var(--s4); font-weight: 600; }
+.chip.grade-c { background: color-mix(in srgb, var(--muted) 16%, transparent); color: var(--ink2); }
+.chip.grade-d { background: transparent; color: var(--muted); border: 1px dashed var(--axis); }
+.chip.newTag { background: color-mix(in srgb, var(--s2) 16%, transparent); color: var(--s2);
+  font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.chip.scope, .chip.univ { background: color-mix(in srgb, var(--muted) 12%, transparent); color: var(--muted); }
+
+.chipRow { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+.dirTag { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+.dirTag.dir-bull { color: var(--good-text); }
+.dirTag.dir-bear { color: var(--critical); }
+.dirTag.dir-neutral { color: var(--muted); }
+.dir-edge-bull { border-left: 3px solid var(--good); }
+.dir-edge-bear { border-left: 3px solid var(--critical); }
+.dir-edge-neutral { border-left: 3px solid var(--axis); }
+
+.hBtn .cnt { color: var(--muted); font-variant-numeric: tabular-nums; margin-left: 3px; }
+.hBtn.active .cnt { color: rgba(255,255,255,.75); }
+
+.insHead { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px;
+  flex-wrap: wrap; margin-bottom: 6px; }
+.insHead h3 { margin: 0; flex: 1 1 380px; line-height: 1.35; }
+.insClaim { font-size: 13.5px; margin: 0 0 8px; }
+.insEvidence { font-size: 12.5px; color: var(--ink2); margin: 0; }
+.evLbl { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted);
+  margin-right: 5px; }
+
+.tkRefs { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.tkRef { font-size: 11.5px; font-weight: 600; font-variant-numeric: tabular-nums;
+  border: 1px solid var(--border); border-radius: 6px; padding: 2px 7px; text-decoration: none;
+  background: var(--page); }
+.tkRef.ext { color: var(--muted); border-style: dashed; }
+
+.colHead { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; margin: 0 0 8px; }
+.colHead.agree { color: var(--good-text); }
+.colHead.dispute { color: var(--serious); }
+.card.conv { border-left: 3px solid var(--good); }
+.card.disp { border-left: 3px solid var(--serious); }
+.sides { margin: 8px 0; padding-left: 18px; font-size: 12.5px; color: var(--ink2); }
+.sides li { margin: 3px 0; }
+
+.ckTbl td { vertical-align: top; font-size: 12.5px; }
+.ckTbl .ckBase { min-width: 240px; color: var(--ink2); }
+.ckTbl .ckBull { color: var(--good-text); min-width: 150px; }
+.ckTbl .ckBear { color: var(--critical); min-width: 150px; }
+.ckTbl .ckWhen { color: var(--muted); min-width: 130px; }
+
+.impGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(430px, 1fr)); gap: 14px; }
+@media (max-width: 760px) { .impGrid { grid-template-columns: 1fr; } }
+.impHead { display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  flex-wrap: wrap; margin-bottom: 8px; }
+.impTk { font-size: 17px; font-weight: 700; letter-spacing: -.01em; margin-right: 8px; }
+.impLine { font-size: 13px; margin: 10px 0 0; }
+.impFoot { margin-top: 10px; }
+.impGo { font-size: 12px; }
+.impGo.none { color: var(--muted); font-style: italic; }
+
+.liveStrip { background: var(--page); border: 1px solid var(--border); border-radius: 10px;
+  padding: 9px 12px; }
+.statRow.tight { gap: 16px; margin-top: 0; }
+.statRow.tight b { font-size: 15px; }
+.liveStrip .chipRow { margin-top: 8px; }
+.regimeChip.tiny { font-size: 10.5px; padding: 2px 8px; font-weight: 600; }
+
+.hier { margin: 6px 0 8px; padding-left: 20px; font-size: 13px; }
+.hier li { margin: 2px 0; }

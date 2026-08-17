@@ -1,13 +1,13 @@
 {
  "schemaVersion": 1,
- "builtAt": "2026-08-09T21:57:55",
+ "builtAt": "2026-08-16T22:53:11",
  "universes": {
   "market_internals": {
    "label": "Market Internals",
    "tab": "market-internals",
    "order": 1,
    "status": "ok",
-   "version": "20260809-d053bf5",
+   "version": "20260816-b52b7ac",
    "dir": "market_internals"
   },
   "semis": {
@@ -15,7 +15,7 @@
    "tab": "semis",
    "order": 2,
    "status": "ok",
-   "version": "20260807-ab598b2",
+   "version": "20260816-7e03b55",
    "dir": "semis"
   },
   "software": {
@@ -23,7 +23,7 @@
    "tab": "software",
    "order": 3,
    "status": "ok",
-   "version": "20260809-b18b38b",
+   "version": "20260816-729ca16",
    "dir": "software"
   },
   "hw_networking": {
@@ -31,8 +31,21 @@
    "tab": "hw-networking",
    "order": 4,
    "status": "ok",
-   "version": "20260809-3266d4d",
+   "version": "20260816-aa381de",
    "dir": "hw_networking"
+  }
+ },
+ "pages": {
+  "fab5": {
+   "label": "Fab5 Cross-Source Read",
+   "tab": "fab5",
+   "order": 5,
+   "kind": "insight",
+   "version": "20260814-4ba788e",
+   "asOf": "2026-08-14",
+   "dir": "insights",
+   "file": "fab5.json",
+   "sourceDoc": "Fab5_Cross_Source_Synthesis_20260814.md"
   }
  }
 }

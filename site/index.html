@@ -67,8 +67,12 @@ btn.onclick = () => {
     return;
   }
   const us = Object.entries(idx.universes).sort((a, b) => a[1].order - b[1].order);
+  // Pages have no workbook and no validation status, so no warning glyph and no verdict row.
+  const pages = Object.entries(idx.pages || {}).sort((a, b) => a[1].order - b[1].order);
   nav.innerHTML = us.map(([k, u]) =>
-    `<a class="tabBtn" href="tabs/${u.tab}.html">${u.label}${u.status !== "ok" ? " ⚠" : ""}</a>`).join("");
+    `<a class="tabBtn" href="tabs/${u.tab}.html">${u.label}${u.status !== "ok" ? " ⚠" : ""}</a>`).join("")
+    + pages.map(([k, p]) =>
+      `<a class="tabBtn page" href="tabs/${p.tab}.html">${p.label}</a>`).join("");
 
   const rows = await Promise.all(us.map(async ([k, u]) => {
     try {
@@ -101,7 +105,16 @@ btn.onclick = () => {
         <div class="banner fatal">Could not load: ${e.message}</div></div>`;
     }
   }));
-  cards.innerHTML = rows.join("");
+
+  const pageCards = pages.map(([k, p]) => `<div class="card">
+      <h3><a href="tabs/${p.tab}.html">${p.label}</a></h3>
+      <p class="note">Cross-source research read · synthesis as of ${p.asOf} ·
+        <code>${p.sourceDoc || ""}</code></p>
+      <p class="note">Sourced claims, not measurements — the only computed content is the live
+        technical strip joined onto each named ticker from the tabs above.</p>
+    </div>`);
+
+  cards.innerHTML = rows.concat(pageCards).join("");
 })();
 </script>
 </body>

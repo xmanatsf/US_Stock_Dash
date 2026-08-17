@@ -21,6 +21,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+import build_fab5 as F5   # noqa: E402
 import config as C        # noqa: E402
 import loaders as L       # noqa: E402
 import pipeline as P      # noqa: E402
@@ -63,7 +64,18 @@ def main(argv=None) -> int:
     P._write(os.path.join(cfg.processed_dir, "benchmarks.json"), bench)
     print(f"  {sorted(bench['series'])} over {len(bench['dates'])} sessions")
 
-    index = {"schemaVersion": 1, "builtAt": built_at, "universes": {}}
+    # index.json is rewritten from scratch every run and is the ONLY source of the nav. With
+    # --only that used to leave a one-entry file behind, silently deleting the other three tabs
+    # from the nav until the next full build. Seed from whatever is already on disk and overwrite
+    # just the universes actually rebuilt.
+    index = {"schemaVersion": 1, "builtAt": built_at, "universes": {}, "pages": {}}
+    idx_path = os.path.join(cfg.processed_dir, "index.json")
+    if args.only and os.path.exists(idx_path):
+        with open(idx_path, encoding="utf-8") as f:
+            prior = json.load(f)
+        index["universes"] = prior.get("universes", {})
+        index["pages"] = prior.get("pages", {})
+
     worst = 0
     for k in keys:
         print(f"\n=== building {k}")
@@ -105,7 +117,23 @@ def main(argv=None) -> int:
             "dir": k,
         }
 
-    p = os.path.join(cfg.processed_dir, "index.json")
+    # The Fab5 page is built LAST: it joins every ticker it names to the universe payloads above,
+    # so it must read them after they are on disk. A failure here is not fatal to the four
+    # dashboards -- they are already written -- so it is reported and the page is left out of the
+    # nav rather than taking the whole build down with it.
+    print("\n=== building fab5 (cross-source page)")
+    try:
+        doc = F5.build(cfg, built_at)
+        F5.emit(cfg, doc)
+        F5.print_console(doc)
+        index["pages"]["fab5"] = F5.index_entry(doc)
+    except F5.Fab5Error as e:
+        print(f"  FAILED {e}")
+        print("  the four universe tabs are unaffected; fab5 is omitted from the nav")
+        index["pages"].pop("fab5", None)
+        worst = 1
+
+    p = idx_path
     with open(p, "w", encoding="utf-8") as f:
         json.dump(index, f, indent=1)
 

@@ -27,6 +27,62 @@ SITE = os.path.join(ROOT, "site")
 SHOTS = os.path.join(ROOT, "reference", "shots")
 
 
+def check_strip_agreement(failures):
+    """The fab5 page's live strip must be READ from the universe payload, never recomputed.
+
+    A page that quotes a price is a second source of prices, and a second source of prices is a
+    source of disagreement. This asserts field-by-field that it is a copy: same last price, same
+    RSI tail, same off-high, same regime as the tab the link points at. Returns the number of
+    tickers checked, or None if it failed.
+    """
+    import json
+    data = os.path.join(ROOT, "data", "processed")
+    fp = os.path.join(data, "insights", "fab5.json")
+    if not os.path.exists(fp):
+        failures.append("fab5: data/processed/insights/fab5.json is missing")
+        print("  FAIL fab5 payload not built")
+        return None
+    with open(fp, encoding="utf-8") as f:
+        doc = json.load(f)
+
+    bad, checked = [], 0
+    summaries, manifests = {}, {}
+    for imp in doc["implications"]:
+        live = imp.get("live")
+        if not live:
+            continue
+        uni, t = live["universe"], imp["ticker"]
+        if uni not in summaries:
+            with open(os.path.join(data, uni, "summary.json"), encoding="utf-8") as f:
+                summaries[uni] = json.load(f)
+            with open(os.path.join(data, uni, "manifest.json"), encoding="utf-8") as f:
+                manifests[uni] = json.load(f)
+        summ, man = summaries[uni], manifests[uni]
+        row = next((r for r in summ["stocks"] if r["t"] == t), None)
+        if row is None:
+            bad.append(f"{t}: not in {uni} summary.stocks")
+            continue
+        with open(os.path.join(data, uni, man["tickers"][t]["f"]), encoding="utf-8") as f:
+            shard = json.load(f)
+        rsi = next((v for v in reversed(shard["rsi"]) if v is not None), None)
+
+        for field, expect in (("px", row["px"]), ("ret1y", row["ret1y"]),
+                              ("offHi", row["offHi"]), ("roc", row["roc"]),
+                              ("a20", row["a20"]), ("a50", row["a50"]),
+                              ("relVol", row["relVol"]), ("rsi", rsi),
+                              ("regime", summ["verdict"]["regime"]),
+                              ("asOf", man["lastDate"])):
+            if live.get(field) != expect:
+                bad.append(f"{t}.{field}: page={live.get(field)!r} payload={expect!r}")
+        checked += 1
+
+    if bad:
+        failures.append(f"fab5: live strip disagrees with the universe payload: {bad[:5]}")
+        print(f"  FAIL strip disagreement ({len(bad)}): {bad[:5]}")
+        return None
+    return checked
+
+
 def serve(directory):
     handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=directory)
     socketserver.TCPServer.allow_reuse_address = True
@@ -46,12 +102,15 @@ def main() -> int:
     httpd, port = serve(SITE)
     base = f"http://127.0.0.1:{port}"
     tabs = ["market-internals", "semis", "software", "hw-networking"]
+    # fab5 is a PAGE, not a universe: no charts, no horizon control, no stock selector. It gets
+    # its own assertions below rather than being run through the chart battery.
+    pages = ["fab5"]
     failures = []
     os.makedirs(SHOTS, exist_ok=True)
 
     with sync_playwright() as pw:
         browser = pw.chromium.launch(headless=not args.headed)
-        for name in ["index"] + tabs:
+        for name in ["index"] + tabs + pages:
             page = browser.new_page(viewport={"width": 1280, "height": 1000})
             errors, console_errors = [], []
             page.on("pageerror", lambda e: errors.append(str(e)))
@@ -73,7 +132,72 @@ def main() -> int:
             else:
                 print("  PASS no console errors")
 
-            if name != "index":
+            if name in pages:
+                # 1. the page rendered its sections rather than the error banner
+                counts = page.evaluate("""() => ({
+                    insights: document.querySelectorAll('#insightList .insight').length,
+                    agree: document.querySelectorAll('.card.conv').length,
+                    disputes: document.querySelectorAll('.card.disp').length,
+                    checklist: document.querySelectorAll('.ckTbl tbody tr').length,
+                    imps: document.querySelectorAll('.imp').length,
+                    fatal: document.querySelectorAll('.banner.fatal').length,
+                })""")
+                print(f"  sections: {counts}")
+                if counts["fatal"]:
+                    failures.append(f"{name}: rendered a fatal banner")
+                    print("  FAIL fatal banner on the page")
+                for k, minimum in (("insights", 5), ("agree", 3), ("disputes", 3),
+                                   ("checklist", 3), ("imps", 5)):
+                    if counts[k] < minimum:
+                        failures.append(f"{name}: only {counts[k]} {k} rendered (expected >= {minimum})")
+                        print(f"  FAIL {k}: {counts[k]} < {minimum}")
+                if all(counts[k] >= m for k, m in (("insights", 5), ("agree", 3),
+                                                   ("disputes", 3), ("checklist", 3), ("imps", 5))):
+                    print("  PASS every section rendered content")
+
+                # 2. deep links must point at a tab that exists and carry a ticker
+                links = page.eval_on_selector_all(
+                    ".impGo[href]", "a => a.map(x => x.getAttribute('href'))")
+                bad = []
+                for h in links:
+                    tab = h.split("/")[-1].split("?")[0].replace(".html", "")
+                    if tab not in tabs or "?t=" not in h:
+                        bad.append(h)
+                print(f"  deep links: {len(links)} ticker links into the universe tabs")
+                if not links:
+                    failures.append(f"{name}: no ticker deep links rendered at all")
+                    print("  FAIL no deep links")
+                elif bad:
+                    failures.append(f"{name}: deep links pointing nowhere: {bad[:3]}")
+                    print(f"  FAIL bad deep links: {bad[:3]}")
+                else:
+                    print("  PASS every deep link targets an existing tab with a ticker")
+
+                # 3. THE assertion that matters: the strip must agree with the universe payload.
+                # If this page ever computes its own numbers it becomes a second, quietly
+                # divergent source of prices -- which is the one failure mode worth a test.
+                mismatches = check_strip_agreement(failures)
+                if mismatches is not None:
+                    print(f"  PASS live strip agrees with the universe payload "
+                          f"({mismatches} tickers checked)")
+
+                # 4. filters must actually filter
+                before = page.eval_on_selector_all(".imp", "e => e.length")
+                page.click('.impFilter[data-dir="bull"]')
+                page.wait_for_timeout(200)
+                after = page.eval_on_selector_all(".imp", "e => e.length")
+                page.click('.impFilter[data-dir="all"]')
+                page.wait_for_timeout(200)
+                restored = page.eval_on_selector_all(".imp", "e => e.length")
+                print(f"  direction filter: {before} -> {after} -> {restored}")
+                if not (0 < after < before and restored == before):
+                    failures.append(f"{name}: direction filter is a no-op "
+                                    f"({before} -> {after} -> {restored})")
+                    print("  FAIL direction filter did not filter")
+                else:
+                    print("  PASS direction filter narrows and restores")
+
+            elif name != "index":
                 charts = page.eval_on_selector_all(
                     "[data-chart]", "els => els.map(e => ({id: e.id, svg: !!e.querySelector('svg'),"
                     " empty: !!e.querySelector('.emptyNote')}))")

@@ -49,15 +49,35 @@ def main() -> int:
     g = json.load(open(GOLDEN, encoding="utf-8"))
     o = json.load(open(OURS, encoding="utf-8"))
 
-    gd, od = g["dates"], o["dates"]
-    print(f"[grid] golden {len(gd)} days, ours {len(od)} days, identical={gd == od}")
-    if gd != od:
-        print("  FAIL grids differ; nothing else is comparable")
-        return 1
+    gdates, odates = g["dates"], o["dates"]
+    print(f"[grid] golden {len(gdates)} days ({gdates[0]}..{gdates[-1]}), "
+          f"ours {len(odates)} days ({odates[0]}..{odates[-1]}), identical={gdates == odates}")
 
-    n = len(gd)
-    gr, orr = g["regimes"], o["regimes"]
-    gs, os_ = g["scores"], o["scores"]
+    # The goldens are a fixed capture of one workbook vintage; CapIQ's 5y window ROLLS rather than
+    # extends, so a data refresh moves both ends of our grid and the two will never again be
+    # identical. Compare on the date INTERSECTION instead of giving up -- the divergence this file
+    # exists to track (see reference/golden/README.md) must survive routine refreshes.
+    gi = {d: i for i, d in enumerate(gdates)}
+    oi = {d: i for i, d in enumerate(odates)}
+    shared = [d for d in gdates if d in oi]
+    if not shared:
+        print("  FAIL the two grids do not overlap at all; nothing is comparable")
+        return 1
+    if gdates != odates:
+        gonly = [d for d in gdates if d not in oi]
+        oonly = [d for d in odates if d not in gi]
+        print(f"  overlap {len(shared)} sessions ({shared[0]}..{shared[-1]})")
+        print(f"  golden-only {len(gonly)} sessions"
+              + (f" ({gonly[0]}..{gonly[-1]})" if gonly else ""))
+        print(f"  ours-only   {len(oonly)} sessions"
+              + (f" ({oonly[0]}..{oonly[-1]})" if oonly else ""))
+
+    gd = od = shared
+    n = len(shared)
+    gr = [g["regimes"][gi[d]] for d in shared]
+    orr = [o["regimes"][oi[d]] for d in shared]
+    gs = [g["scores"][gi[d]] for d in shared]
+    os_ = [o["scores"][oi[d]] for d in shared]
 
     both = [i for i in range(n) if gr[i] is not None and orr[i] is not None]
     agree = sum(1 for i in both if gr[i] == orr[i])
@@ -102,13 +122,20 @@ def main() -> int:
     print(f"  golden last: {grr[-1][0]} from {grr[-1][1]}")
     print(f"  ours   last: {orr_runs[-1][0]} from {orr_runs[-1][1]}")
 
-    print("\n[final verdict]")
+    same_day = gdates[-1] == odates[-1]
+    print(f"\n[final verdict]  golden last session {gdates[-1]}, ours {odates[-1]}"
+          f"{'' if same_day else '  -- DIFFERENT DAYS, so a mismatch below is expected, not a defect'}")
     gv = g["verdict"]
     ov = o["verdict"]
     for k in ("regime", "score", "coverage", "comp", "peakDate", "peakVal", "drawdown"):
         a, b = gv.get(k), ov.get(k)
-        ok = "==" if a == b else "!="
+        ok = ("==" if a == b else "!=") if same_day else ("==" if a == b else "differs")
         print(f"  {k:<12} golden={str(a):<24} ours={str(b):<24} {ok}")
+    if not same_day:
+        print("  The seven-field final-verdict match was verified on the 20260807 vintage, where both\n"
+              "  builds ended on 2026-08-07. Once the data is refreshed this block compares two\n"
+              "  different sessions and is informational only -- the overlap sections above are the\n"
+              "  comparison that still means something.")
 
     if args.verbose:
         print("\n[first 25 label disagreements]")
