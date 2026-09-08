@@ -1,7 +1,7 @@
 """Build the Fab5 cross-source page.
 
 This is not a universe. There is no workbook, no composite and no regime — the content is a
-hand-authored reading of `Fab5_Cross_Source_Synthesis_20260814.md`, which is prose and cannot be
+hand-authored reading of the current Fab5 synthesis markdown, which is prose and cannot be
 honestly parsed. What this script adds on top of that hand-authored file is the one thing the
 page must not get wrong: every ticker it names is joined to the SAME pipeline output the other
 four tabs render, at build time, so the page can never quietly become a second and divergent
@@ -277,11 +277,6 @@ def build(cfg: C.Config, built_at: str) -> dict:
 
     grids = {k: (m["lastDate"], m["dateCount"]) for k, (m, _) in unis.items()}
     doc["universeAsOf"] = sorted({g[0] for g in grids.values()})
-    doc["builtAt"] = built_at
-    doc["version"] = P._version(
-        doc["asOf"].replace("-", ""),
-        [json.dumps(doc.get("insights"), sort_keys=True),
-         json.dumps(doc.get("implications"), sort_keys=True)])
     doc["joinStats"] = {"joined": joined, "external": external,
                         "universes": {k: len(m.get("tickers", {})) for k, (m, _) in unis.items()}}
 
@@ -310,6 +305,31 @@ def build(cfg: C.Config, built_at: str) -> dict:
             "houseCount": len(doc.get("sources", [])),
             "layerCount": len(doc.get("layers", [])),
         }
+
+        # A tile that restates something the build can count should not carry a hand-typed
+        # number: the moment a checklist row is added, "30" is wrong and nothing says so.
+        fills = {"reportCount": doc.get("reportCount"),
+                 "checklistTotal": doc["infographic"]["checklistTotal"],
+                 "houseCount": doc["infographic"]["houseCount"]}
+        for st in doc.get("stats", []):
+            key = st.get("generatedFrom")
+            if not key:
+                continue
+            if key not in fills or fills[key] is None:
+                raise Fab5Error(
+                    f"stats tile {st.get('kicker')!r} claims generatedFrom {key!r}, which this "
+                    f"build does not produce. Known: {sorted(fills)}")
+            st["num"] = str(fills[key])
+
+    # Version drives the ?v= cache-buster on every fetch, so it has to move when ANY rendered
+    # field moves -- a reworded stat tile or a new scenario would otherwise ship behind a stale
+    # cached payload. Hash the whole document, minus the fields that change on every run.
+    volatile = ("builtAt", "version", "contentFile")
+    doc["builtAt"] = built_at
+    doc["version"] = P._version(
+        doc["asOf"].replace("-", ""),
+        [json.dumps({k: v for k, v in doc.items() if k not in volatile}, sort_keys=True,
+                    default=str)])
     return doc
 
 

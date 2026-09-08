@@ -83,6 +83,34 @@ def check_strip_agreement(failures):
     return checked
 
 
+def news_expected_counts(failures):
+    """What the news page SHOULD render, read out of the built payload.
+
+    The six sections are toggled with [hidden] rather than rebuilt, so every row exists in the DOM
+    at once and can be counted while another section is showing.
+    """
+    import json
+    fp = os.path.join(ROOT, "data", "processed", "insights", "news.json")
+    if not os.path.exists(fp):
+        failures.append("news: data/processed/insights/news.json is missing")
+        print("  FAIL news payload not built")
+        return None
+    with open(fp, encoding="utf-8") as f:
+        doc = json.load(f)
+    return {
+        "layers": len(doc["layers"]),
+        "reads": len(doc["reads"]),
+        "timeline": len(doc["timeline"]),
+        "agree": len(doc["agreement"]),
+        "conflicts": len(doc["conflicts"]),
+        "signals": len(doc["signals"]),
+        "scenarios": len(doc["scenarios"]),
+        "calendar": len(doc["calendar"]),
+        "index": doc["generated"]["counts"]["articles"],
+        "sections": 6,   # the six named sections are the page's structure, not its content
+    }
+
+
 def serve(directory):
     handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=directory)
     socketserver.TCPServer.allow_reuse_address = True
@@ -260,19 +288,21 @@ def main() -> int:
                 if counts["fatal"]:
                     failures.append(f"{name}: rendered a fatal banner")
                     print("  FAIL fatal banner on the page")
-                # The counts the upstream build pins, asserted again at the DOM. A row added to
-                # the payload without the prose being rewritten fails the build; this catches the
-                # other direction -- a row that never made it onto the page.
-                for k, expect in (("layers", 4), ("reads", 8), ("timeline", 9), ("agree", 6),
-                                  ("conflicts", 10), ("signals", 18), ("scenarios", 3),
-                                  ("index", 108), ("sections", 6)):
-                    if counts[k] != expect:
-                        failures.append(f"{name}: {counts[k]} {k} rendered, expected {expect}")
-                        print(f"  FAIL {k}: {counts[k]} != {expect}")
-                if all(counts[k] == e for k, e in (("reads", 8), ("timeline", 9),
-                                                   ("conflicts", 10), ("signals", 18),
-                                                   ("index", 108))):
-                    print("  PASS every section rendered at its pinned count")
+                # Expected counts come from the PAYLOAD, never from constants. The news window
+                # rolls weekly -- article count, brief count and every section length change with
+                # it -- so hardcoding them here would vintage-lock this test the way
+                # test_regression_semis is locked, but by accident rather than on purpose. What
+                # is actually being asserted is "every row in the payload reached the page".
+                expected = news_expected_counts(failures)
+                if expected:
+                    bad = {k: (counts[k], v) for k, v in expected.items() if counts[k] != v}
+                    if bad:
+                        for k, (got, want) in bad.items():
+                            failures.append(f"{name}: {got} {k} rendered, payload has {want}")
+                            print(f"  FAIL {k}: {got} != {want}")
+                    else:
+                        print(f"  PASS every row in the payload reached the page "
+                              f"({', '.join(f'{k} {v}' for k, v in expected.items())})")
 
                 # 2. the infographic's five rows
                 ig = page.evaluate("""() => ({

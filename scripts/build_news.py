@@ -280,12 +280,16 @@ def build(cfg: C.Config, built_at: str) -> dict:
         "auditNotes": audit.get("notes") or [],
     }
     doc["citeMap"] = cite_map
+
+    # Version drives the ?v= cache-buster, so it must move when ANY rendered field moves -- a
+    # reworded conflict adjudication or a new calendar entry would otherwise ship behind a stale
+    # cached payload. Hash the whole document, minus the fields that change on every run.
+    volatile = ("builtAt", "version", "contentFile")
     doc["builtAt"] = built_at
     doc["version"] = P._version(
         doc["asOf"].replace("-", ""),
-        [json.dumps(doc.get("signals"), sort_keys=True),
-         json.dumps(doc.get("timeline"), sort_keys=True),
-         json.dumps(counts, sort_keys=True)])
+        [json.dumps({k: v for k, v in doc.items() if k not in volatile}, sort_keys=True,
+                    default=str)])
     return doc
 
 
