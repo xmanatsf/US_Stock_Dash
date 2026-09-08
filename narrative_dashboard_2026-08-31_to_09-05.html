@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The week&rsquo;s narrative shifts</title>
+<style>
+:root{
+  --color-bg:#f3f2f2; --color-surface:#eae9e9; --color-text:#201f1d;
+  --color-accent:#b68235; --color-accent-2:#ac803e;
+  --color-divider:color-mix(in srgb,#201f1d 16%,transparent);
+  --ink-2:color-mix(in srgb,#201f1d 68%,transparent);
+  --ink-3:color-mix(in srgb,#201f1d 48%,transparent);
+  --neutral-100:#f8f4f4; --neutral-200:#eae7e7; --neutral-300:#d7d3d3;
+  --neutral-600:#7d7979; --neutral-800:#444141; --neutral-900:#2d2b2b;
+  --accent-100:#fff3e4; --accent-200:#ffe3bf; --accent-700:#7d5411; --accent-800:#5a3b0a;
+  /* status — reserved, never reused as a series colour */
+  --st-ok:#3f6b3f; --st-ok-bg:#e8efe6;
+  --st-warn:#8a6410; --st-warn-bg:#fbeeda;
+  --st-bad:#8f3a2e; --st-bad-bg:#f8e7e3;
+  --st-new:#2a5f78; --st-new-bg:#e3eef3;
+  /* chart series — validated: light L-band/chroma/CVD/normal-vision/contrast all PASS */
+  --s1:#b07d1f; --s2:#0f6f96; --s3:#a04a5e;
+  --font-heading:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --font-body:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --sp2:9.2px; --sp3:13.8px; --sp4:18.4px; --sp6:27.6px; --sp8:36.8px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --color-bg:#141312; --color-surface:#1c1b1a; --color-text:#eceae7;
+    --color-accent:#dcae63; --color-accent-2:#cfa259;
+    --color-divider:color-mix(in srgb,#eceae7 18%,transparent);
+    --ink-2:color-mix(in srgb,#eceae7 70%,transparent);
+    --ink-3:color-mix(in srgb,#eceae7 50%,transparent);
+    --neutral-100:#232120; --neutral-200:#2b2928; --neutral-300:#3a3736;
+    --neutral-600:#8d8987; --neutral-800:#c4c0bc; --neutral-900:#e4e1dd;
+    --accent-100:#2a2118; --accent-200:#3a2c1a; --accent-700:#e8c185; --accent-800:#f0d3a6;
+    --st-ok:#8fbb87; --st-ok-bg:#1e2a1d;
+    --st-warn:#dcb266; --st-warn-bg:#2c2214;
+    --st-bad:#dd9184; --st-bad-bg:#2e1c19;
+    --st-new:#8fc0d8; --st-new-bg:#16252c;
+    --s1:#b5813a; --s2:#3f96bd; --s3:#c9738a;
+  }
+}
+:root[data-theme="dark"]{
+  --color-bg:#141312; --color-surface:#1c1b1a; --color-text:#eceae7;
+  --color-accent:#dcae63; --color-accent-2:#cfa259;
+  --color-divider:color-mix(in srgb,#eceae7 18%,transparent);
+  --ink-2:color-mix(in srgb,#eceae7 70%,transparent);
+  --ink-3:color-mix(in srgb,#eceae7 50%,transparent);
+  --neutral-100:#232120; --neutral-200:#2b2928; --neutral-300:#3a3736;
+  --neutral-600:#8d8987; --neutral-800:#c4c0bc; --neutral-900:#e4e1dd;
+  --accent-100:#2a2118; --accent-200:#3a2c1a; --accent-700:#e8c185; --accent-800:#f0d3a6;
+  --st-ok:#8fbb87; --st-ok-bg:#1e2a1d;
+  --st-warn:#dcb266; --st-warn-bg:#2c2214;
+  --st-bad:#dd9184; --st-bad-bg:#2e1c19;
+  --st-new:#8fc0d8; --st-new-bg:#16252c;
+  --s1:#b5813a; --s2:#3f96bd; --s3:#c9738a;
+}
+*{box-sizing:border-box}
+body{background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);
+  font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px 90px}
+h1,h2,h3,h4{font-family:var(--font-heading);font-weight:400;letter-spacing:-0.015em;margin:0}
+p{margin:0 0 var(--sp3)}
+em{color:var(--ink-2)}
+strong{font-weight:700}
+.kicker{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3);
+  font-family:var(--font-body)}
+.rule{border:0;border-top:1px solid var(--color-divider);margin:0}
+.rule-hard{border:0;border-top:1px solid var(--color-text);margin:0}
+
+/* masthead */
+header.mast{padding:34px 0 26px;border-bottom:1px solid var(--color-text)}
+.mast-row{display:flex;align-items:baseline;gap:var(--sp4);flex-wrap:wrap}
+.mast-row .kicker:first-child{margin-right:auto}
+h1{font-size:clamp(34px,5.4vw,58px);line-height:1.06;margin:16px 0 0;max-width:20ch}
+.dek{font-size:17px;color:var(--ink-2);max-width:66ch;margin:16px 0 0;line-height:1.6}
+
+/* stat strip */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--color-divider)}
+.stat{padding:24px 22px 22px;border-right:1px solid var(--color-divider)}
+.stat:last-child{border-right:0}
+.stat .num{font-family:var(--font-heading);font-size:clamp(26px,3.4vw,38px);line-height:1.05;
+  display:block;margin:8px 0 6px;letter-spacing:-0.02em}
+.stat .lab{font-size:12.5px;color:var(--ink-2);line-height:1.45}
+.stat .num.sm{font-size:clamp(20px,2.4vw,27px)}
+
+/* generic section */
+section{padding:46px 0 0}
+.sec-head{display:flex;align-items:baseline;gap:var(--sp3);margin-bottom:var(--sp4);flex-wrap:wrap}
+.sec-head h3{font-size:26px}
+.sec-head .kicker{margin-left:auto}
+
+/* tags */
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;letter-spacing:0.04em;
+  text-transform:uppercase;padding:2px 8px;border-radius:3px;white-space:nowrap;
+  font-family:var(--font-body);font-weight:700}
+.tag .dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.t-ok{background:var(--st-ok-bg);color:var(--st-ok)}
+.t-warn{background:var(--st-warn-bg);color:var(--st-warn)}
+.t-bad{background:var(--st-bad-bg);color:var(--st-bad)}
+.t-new{background:var(--st-new-bg);color:var(--st-new)}
+.t-line{border:1px solid var(--color-accent);color:var(--color-accent)}
+
+/* tables */
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:660px}
+th{text-align:left;font-size:10.5px;letter-spacing:0.09em;text-transform:uppercase;
+  color:var(--ink-3);padding:8px 10px 8px 0;border-bottom:1px solid var(--color-text);
+  font-weight:400;vertical-align:bottom}
+td{padding:11px 10px 11px 0;border-bottom:1px solid var(--color-divider);vertical-align:top;
+  line-height:1.5}
+tbody tr:hover{background:color-mix(in srgb,var(--color-text) 4%,transparent)}
+td.idx{font-family:var(--font-heading);font-size:16px;color:var(--ink-3);width:34px}
+td.ind{font-weight:700;width:180px}
+td.st{width:120px}
+td.nx{color:var(--ink-2);width:250px}
+
+/* — figures — */
+.figs{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:start}
+figure{margin:0}
+figcaption{font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-top:14px}
+.fig-t{font-family:var(--font-heading);font-size:19px;line-height:1.25;margin:0 0 4px}
+.fig-s{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--ink-3);
+  margin:0 0 18px;display:block}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin:0 0 16px;font-size:12px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.swatch{width:11px;height:11px;border-radius:2px;flex:none;
+  box-shadow:0 0 0 2px var(--color-bg)}
+.plot{position:relative}
+.gridline{position:absolute;top:0;bottom:20px;width:1px;
+  background:color-mix(in srgb,var(--color-text) 9%,transparent)}
+.gridlab{position:absolute;bottom:0;font-size:10.5px;color:var(--ink-3);transform:translateX(-50%)}
+
+/* range plot */
+.rrow{position:relative;height:46px;margin-bottom:6px}
+.rlab{font-size:12.5px;line-height:1.25;margin-bottom:5px;display:block}
+.rlab b{font-weight:700}
+.rtrack{position:relative;height:13px}
+.rbar{position:absolute;height:13px;border-radius:4px;cursor:default}
+.rbar::after{content:attr(data-v);position:absolute;left:calc(100% + 9px);top:-2px;
+  font-size:11.5px;color:var(--ink-2);white-space:nowrap;font-weight:700}
+
+/* grouped bars */
+.grow{margin-bottom:19px}
+.gname{font-size:12.5px;margin-bottom:6px;display:flex;justify-content:space-between;gap:10px}
+.gname i{font-style:normal;color:var(--ink-3);font-size:11px}
+.gbar{height:11px;border-radius:0 4px 4px 0;margin-bottom:2px;position:relative;min-width:2px}
+.gbar span{position:absolute;left:calc(100% + 8px);top:-3px;font-size:11px;
+  color:var(--ink-2);white-space:nowrap}
+details.tv{margin-top:16px;font-size:12.5px}
+details.tv summary{cursor:pointer;color:var(--ink-3);font-size:11px;letter-spacing:0.09em;
+  text-transform:uppercase}
+details.tv table{min-width:0;margin-top:10px;font-size:12.5px}
+details.tv td,details.tv th{padding:6px 12px 6px 0}
+@media (max-width:860px){.figs{grid-template-columns:1fr;gap:40px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--color-divider)}
+  section > div[style*="grid-template-columns:1.35fr"]{display:block !important}
+  section > div[style*="grid-template-columns:1.35fr"] > div:last-child{
+    border-left:0 !important;padding-left:0 !important;margin-top:26px}}
+@media (max-width:560px){.stats{grid-template-columns:1fr}
+  .stat{border-right:0;border-bottom:1px solid var(--color-divider)}}
+
+
+.reads{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--color-divider)}
+.reads .read{padding:22px 22px 22px 0;border-bottom:1px solid var(--color-divider);
+  border-right:1px solid var(--color-divider)}
+.reads .read{padding-left:22px}
+.reads .read:nth-child(3n){border-right:0;padding-right:0}
+.reads .read:nth-child(3n+1){padding-left:0}
+.reads h4{font-size:19px;line-height:1.24;margin:7px 0 8px}
+.reads p{font-size:13.5px;line-height:1.55;margin:0;color:var(--ink-2)}
+.reads strong{color:var(--color-text)}
+@media (max-width:860px){.reads{grid-template-columns:1fr 1fr}
+  .reads .read:nth-child(3n){border-right:1px solid var(--color-divider);padding-right:22px}
+  .reads .read:nth-child(3n+1){padding-left:22px}
+  .reads .read:nth-child(2n){border-right:0;padding-right:0}
+  .reads .read:nth-child(2n+1){padding-left:0}}
+@media (max-width:560px){.reads{grid-template-columns:1fr}
+  .reads .read,.reads .read:nth-child(3n),.reads .read:nth-child(2n){
+    border-right:0;padding-left:0;padding-right:0}}
+
+
+.creg{display:grid;grid-template-columns:1fr 1fr;gap:0 44px}
+.cf{padding:22px 0;border-top:1px solid var(--color-divider)}
+.cf-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:9px}
+.cf-n{font-family:var(--font-heading);font-size:20px;color:var(--color-accent);flex:none}
+.cf-h h4{font-size:19px;line-height:1.24;margin:0;flex:1 1 auto;min-width:0}
+.cf p{font-size:13.5px;line-height:1.55;margin:0 0 9px;color:var(--ink-2)}
+.cf p:last-child{margin-bottom:0}
+.cf p b{color:var(--color-text)}
+.cf .cf-r{padding-left:14px;border-left:2px solid var(--color-accent)}
+@media (max-width:860px){.creg{grid-template-columns:1fr}}
+
+/* calendar */
+.cal{display:grid;grid-template-columns:repeat(2,1fr);gap:0 44px;border-top:1px solid var(--color-divider)}
+.cev{display:flex;gap:18px;padding:16px 0;border-bottom:1px solid var(--color-divider)}
+.cev .d{font-family:var(--font-heading);font-size:15px;width:88px;flex:none;line-height:1.35}
+.cev .d small{display:block;font-family:var(--font-body);font-size:10.5px;
+  letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-3)}
+.cev .b{font-size:13.5px;line-height:1.5;color:var(--ink-2)}
+.cev .b b{color:var(--color-text)}
+@media (max-width:700px){.cal{grid-template-columns:1fr}}
+
+/* bear */
+.bear{display:grid;grid-template-columns:1.25fr 1fr;gap:46px;align-items:start}
+@media (max-width:860px){.bear{grid-template-columns:1fr;gap:30px}}
+footer{margin-top:58px;padding-top:26px;border-top:1px solid var(--color-text);
+  font-size:12.5px;color:var(--ink-3);line-height:1.6}
+footer b{color:var(--ink-2)}
+.src{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:18px 0 22px}
+@media (max-width:700px){.src{grid-template-columns:repeat(2,1fr)}}
+.src div span{display:block;font-family:var(--font-heading);font-size:22px;color:var(--color-text)}
+
+/* ===== tabs ===== */
+nav.tabs{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid var(--color-divider);margin:34px 0 0}
+nav.tabs button{appearance:none;background:none;border:0;border-bottom:2px solid transparent;
+  font-family:var(--font-heading);font-size:15px;letter-spacing:.01em;color:var(--ink-2);
+  padding:11px 17px 9px;cursor:pointer;margin-bottom:-1px;font-feature-settings:"tnum"}
+nav.tabs button:hover{color:var(--color-text);background:color-mix(in srgb,var(--color-accent) 6%,transparent)}
+nav.tabs button[aria-selected="true"]{color:var(--color-text);border-bottom-color:var(--color-accent)}
+nav.tabs button:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}
+nav.tabs .tcount{font-size:11px;color:var(--ink-3);margin-left:6px;font-feature-settings:"tnum"}
+.panel[hidden]{display:none!important}
+.panel{padding-top:4px}
+
+/* ===== filter chips ===== */
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 18px}
+.chip{appearance:none;background:none;font-family:var(--font-body);font-size:12px;
+  border:1px solid var(--color-divider);border-radius:999px;padding:5px 12px;cursor:pointer;
+  color:var(--ink-2);display:inline-flex;align-items:center;gap:6px;font-feature-settings:"tnum"}
+.chip:hover{border-color:var(--color-accent);color:var(--color-text)}
+.chip[aria-pressed="true"]{border-color:var(--color-accent);color:var(--accent-800);
+  background:color-mix(in srgb,var(--color-accent) 9%,transparent)}
+.chip:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}
+.chip .n{font-size:10.5px;color:var(--ink-3)}
+.chip[aria-pressed="true"] .n{color:var(--accent-700)}
+.filt-note{font-size:12px;color:var(--ink-3);margin:-8px 0 16px;font-style:italic}
+
+/* ===== four-layer read ===== */
+.lay{display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:0;
+  border-top:1px solid var(--color-divider)}
+.lay .l{border-bottom:1px solid var(--color-divider);border-right:1px solid var(--color-divider);
+  padding:20px 22px 22px}
+.lay .l:last-child{border-right:0}
+.lay .ln{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--color-accent);
+  font-feature-settings:"tnum";display:block;margin-bottom:7px}
+.lay h4{font-family:var(--font-heading);font-size:17px;line-height:1.25;margin:0 0 9px}
+.lay p{font-size:13.5px;line-height:1.58;color:var(--ink-2);margin:0 0 9px}
+.lay .lk{font-size:12px;line-height:1.5;color:var(--color-text);border-left:2px solid var(--color-accent);
+  padding-left:10px;margin-top:11px}
+
+/* ===== per-record depth on reads ===== */
+.read .rmeta{margin-top:11px;padding-top:10px;border-top:1px dotted var(--color-divider)}
+.read .rl{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
+.read .rv{font-size:12px;line-height:1.5;color:var(--ink-2);margin:0 0 8px}
+.read .rv.none{color:var(--ink-3);font-style:italic}
+.read .rsrc{font-size:11px;color:var(--ink-3);letter-spacing:.02em}
+.read .rsrc b{color:var(--accent-700);font-weight:normal}
+
+/* ===== timeline ===== */
+.tl{border-left:1px solid var(--color-divider);margin-left:6px;padding-left:0}
+.tl .ev{position:relative;padding:0 0 26px 26px}
+.tl .ev::before{content:"";position:absolute;left:-4.5px;top:6px;width:8px;height:8px;border-radius:50%;
+  background:var(--color-bg);border:1.5px solid var(--color-accent)}
+.tl .ev.big::before{background:var(--color-accent)}
+.tl .d{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--color-accent);
+  font-feature-settings:"tnum";display:block;margin-bottom:4px}
+.tl h4{font-family:var(--font-heading);font-size:17px;line-height:1.25;margin:0 0 7px}
+.tl p{font-size:13.5px;line-height:1.6;color:var(--ink-2);margin:0 0 7px}
+.tl .src{font-size:11px;color:var(--ink-3)}
+
+/* ===== agreement map ===== */
+.agree{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.agree .ag{border:1px solid var(--color-divider);border-radius:4px;padding:16px 18px}
+.agree .agn{font-family:var(--font-heading);font-size:20px;color:var(--color-accent);
+  font-feature-settings:"tnum";line-height:1;float:left;margin:2px 10px 0 0}
+.agree h4{font-family:var(--font-heading);font-size:15.5px;line-height:1.3;margin:0 0 7px;overflow:hidden}
+.agree p{font-size:13px;line-height:1.55;color:var(--ink-2);margin:0;clear:both}
+
+/* ===== per-house call chips on conflicts ===== */
+.calls{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 2px}
+.call{font-size:11px;border:1px solid var(--color-divider);border-radius:3px;padding:3px 8px;
+  color:var(--ink-2);white-space:nowrap}
+.call b{color:var(--color-text);font-weight:normal;letter-spacing:.04em}
+.call.a{border-color:color-mix(in srgb,var(--st-ok) 40%,transparent);background:var(--st-ok-bg)}
+.call.b{border-color:color-mix(in srgb,var(--st-bad) 40%,transparent);background:var(--st-bad-bg)}
+.call.c{border-color:color-mix(in srgb,var(--st-new) 40%,transparent);background:var(--st-new-bg)}
+
+/* ===== scenarios ===== */
+.scen{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:0;
+  border-top:1px solid var(--color-divider);border-left:1px solid var(--color-divider)}
+.scen .s{border-bottom:1px solid var(--color-divider);border-right:1px solid var(--color-divider);padding:18px 20px}
+.scen .sh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:9px}
+.scen .st2{font-family:var(--font-heading);font-size:16px}
+.scen .pct{font-family:var(--font-heading);font-size:23px;color:var(--color-accent);font-feature-settings:"tnum"}
+.scen p{font-size:13px;line-height:1.56;color:var(--ink-2);margin:0 0 9px}
+.scen .trg{font-size:12px;line-height:1.5;border-top:1px dotted var(--color-divider);padding-top:9px;color:var(--ink-2)}
+.scen .trg b{color:var(--color-text)}
+
+/* ===== inventory / evidence ===== */
+.inv table{width:100%;border-collapse:collapse;font-size:12.5px}
+.inv th{text-align:left;font-family:var(--font-heading);font-weight:600;font-size:11px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);
+  border-bottom:1px solid var(--color-text);padding:0 12px 7px 0}
+.inv td{border-bottom:1px solid var(--color-divider);padding:9px 12px 9px 0;vertical-align:top;color:var(--ink-2)}
+.inv td.n{font-feature-settings:"tnum";color:var(--color-text);width:44px}
+.inv td.s{color:var(--color-text);width:118px}
+.inv code{font-size:11.5px;background:var(--neutral-200);padding:1px 4px;border-radius:2px}
+.grades{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:22px}
+.grades .g{border:1px solid var(--color-divider);border-radius:4px;padding:14px 16px}
+.grades .gl{font-family:var(--font-heading);font-size:15px;color:var(--color-accent);margin-bottom:6px}
+.grades p{font-size:12.5px;line-height:1.52;color:var(--ink-2);margin:0}
+.flags{margin-top:24px}
+.flags li{font-size:13px;line-height:1.6;color:var(--ink-2);margin-bottom:9px}
+
+/* ===== addendum banner ===== */
+.adx{border:1px solid color-mix(in srgb,var(--st-new) 34%,transparent);background:var(--st-new-bg);
+  border-radius:4px;padding:18px 22px;margin:26px 0 0}
+.adx .ah{display:flex;align-items:center;gap:10px;margin-bottom:9px;flex-wrap:wrap}
+.adx h3{font-family:var(--font-heading);font-size:18px;margin:0}
+.adx p{font-size:13.5px;line-height:1.6;color:var(--ink-2);margin:0 0 9px}
+.adx p:last-child{margin-bottom:0}
+.adx ul{margin:0;padding-left:19px}
+.adx li{font-size:13px;line-height:1.58;color:var(--ink-2);margin-bottom:6px}
+
+@media print{
+  nav.tabs{display:none}
+  .panel[hidden]{display:block!important}
+  .chips{display:none}
+  .tscroll{overflow:visible}
+}
+@media (max-width:620px){
+  nav.tabs button{padding:9px 11px 8px;font-size:13.5px}
+  .lay .l{border-right:0}
+}
+td.bl,td.br{width:212px;font-size:12px;line-height:1.46;color:var(--ink-2);padding-left:10px}
+td.bl{border-left:2px solid color-mix(in srgb,var(--st-ok) 45%,transparent)}
+td.br{border-left:2px solid color-mix(in srgb,var(--st-bad) 45%,transparent)}
+#p-signals td.nx{width:210px}
+#p-signals td.ind{width:150px}
+#p-signals table{min-width:1080px}
+/* the signal board is a data table, not body copy - let it break the editorial measure */
+@media (min-width:1180px){
+  #p-signals{width:min(1400px,calc(100vw - 56px));margin-left:50%;transform:translateX(-50%)}
+}
+
+
+/* ===== additions for the narrative dashboard ===== */
+
+/* the article index is a data table like the signal board */
+#p-index table{min-width:900px}
+#p-index td.aid{font-family:var(--font-heading);font-size:14px;color:var(--ink-3);width:46px}
+#p-index td.apub{width:96px}
+#p-index td.adate{width:86px;font-feature-settings:"tnum"}
+#p-index td.athe{width:150px;color:var(--ink-2)}
+#p-index td.atit a{color:var(--color-text);text-decoration:none;border-bottom:1px solid var(--color-divider)}
+#p-index td.atit a:hover{color:var(--color-accent);border-bottom-color:var(--color-accent)}
+@media (min-width:1180px){
+  #p-index{width:min(1300px,calc(100vw - 56px));margin-left:50%;transform:translateX(-50%)}
+}
+
+/* citation links inside body copy */
+a.cite{font-size:11px;letter-spacing:.02em;color:var(--color-accent);text-decoration:none;
+  white-space:nowrap;border-bottom:1px solid color-mix(in srgb,var(--color-accent) 35%,transparent);
+  font-feature-settings:"tnum"}
+a.cite:hover{border-bottom-color:var(--color-accent);background:color-mix(in srgb,var(--color-accent) 8%,transparent)}
+
+/* step plot for the probability arc.
+   Gridlines live in their own wrapper inset by the label column, so they line up
+   with the bars rather than with the figure edge. */
+.steps{position:relative;padding:6px 0 22px}
+.sgridwrap{position:absolute;left:146px;right:0;top:0;bottom:0;pointer-events:none}
+.srow{display:grid;grid-template-columns:132px 1fr;gap:14px;align-items:center;margin-bottom:9px}
+.slab{font-size:12px;line-height:1.3;color:var(--ink-2)}
+.slab b{display:block;color:var(--color-text);font-size:12.5px}
+.strack{position:relative;height:15px;background:color-mix(in srgb,var(--color-text) 5%,transparent);border-radius:3px}
+.sfill{position:absolute;left:0;top:0;height:15px;border-radius:3px 4px 4px 3px;background:var(--s1)}
+.sfill span{position:absolute;left:calc(100% + 8px);top:-2px;font-size:11.5px;font-weight:700;
+  color:var(--ink-2);white-space:nowrap;font-feature-settings:"tnum"}
+.srow.alt .sfill{background:var(--s2)}
+.sgrid{position:absolute;top:0;bottom:18px;width:1px;background:color-mix(in srgb,var(--color-text) 9%,transparent)}
+.sgl{position:absolute;bottom:0;font-size:10.5px;color:var(--ink-3);transform:translateX(-50%);font-feature-settings:"tnum"}
+
+/* stacked publication bars */
+.pstack{margin-bottom:16px}
+.pname{font-size:12.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:10px}
+.pname i{font-style:normal;color:var(--ink-3);font-size:11px;font-feature-settings:"tnum"}
+.pbar{display:flex;height:16px;gap:2px}
+.pseg{height:16px;position:relative;min-width:3px}
+.pseg:first-child{border-radius:3px 0 0 3px}
+.pseg:last-child{border-radius:0 3px 3px 0}
+.pseg[data-v]:hover::after{content:attr(data-v);position:absolute;left:50%;bottom:calc(100% + 6px);
+  transform:translateX(-50%);background:var(--color-text);color:var(--color-bg);font-size:11px;
+  padding:3px 7px;border-radius:3px;white-space:nowrap;z-index:5;pointer-events:none}
+
+/* editorial-probability marker on scenario tiles */
+.scen .pct small{display:block;font-family:var(--font-body);font-size:9.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-3);text-align:right;margin-top:-4px}
+
+/* "what the prior week expected" blocks reuse .rmeta */
+.read .rv b{color:var(--color-text)}
+
+/* perimeter table */
+.perim td.s{width:210px}
+
+/* integrity callout */
+.integ{border:1px solid color-mix(in srgb,var(--st-warn) 34%,transparent);background:var(--st-warn-bg);
+  border-radius:4px;padding:16px 20px;margin:24px 0 0}
+.integ p{font-size:13px;line-height:1.6;color:var(--ink-2);margin:0 0 8px}
+.integ p:last-child{margin-bottom:0}
+.integ b{color:var(--color-text)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="mast">
+  <div class="mast-row">
+    <span class="kicker">The week&rsquo;s narrative shifts</span>
+    <span class="kicker">31 August &ndash; 5 September 2026</span>
+    <span class="kicker">108 article entries &middot; 8 briefs &middot; WSJ, Bloomberg &amp; Barron&rsquo;s</span>
+  </div>
+  <h1>The Fed lost control of the story in four sessions.</h1>
+  <p class="dek">A single speech on 28 August moved September hike odds from 35% to 60%. Within four trading sessions the number went to 70%, back to 50%, and up past 60% again &mdash; on no new inflation data. <strong>The week&rsquo;s real finding is not the direction but the amplitude:</strong> a market repricing policy by that much, that fast, is telling you the reaction function is illegible. Everything else in the archive &mdash; AI capital, energy, labour &mdash; is now downstream of a rate path nobody can price.</p>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Sections">
+<button role="tab" id="t-insights" aria-controls="p-insights" aria-selected="true" tabindex="0">Key insights</button>
+<button role="tab" id="t-timeline" aria-controls="p-timeline" aria-selected="false" tabindex="-1">Timeline<span class="tcount">9</span></button>
+<button role="tab" id="t-conflicts" aria-controls="p-conflicts" aria-selected="false" tabindex="-1">Conflicts<span class="tcount">10</span></button>
+<button role="tab" id="t-signals" aria-controls="p-signals" aria-selected="false" tabindex="-1">Signals<span class="tcount">18</span></button>
+<button role="tab" id="t-action" aria-controls="p-action" aria-selected="false" tabindex="-1">Action</button>
+<button role="tab" id="t-index" aria-controls="p-index" aria-selected="false" tabindex="-1">Index<span class="tcount">108</span></button>
+</nav>
+
+<div class="panel" id="p-insights" role="tabpanel" aria-labelledby="t-insights">
+
+<section class="stats" style="padding-top:0" aria-label="Key figures">
+  <div class="stat">
+    <span class="kicker">September hike odds</span>
+    <span class="num sm" style="font-size:clamp(17px,2.05vw,24px);white-space:nowrap">35&#8202;&rarr;&#8202;70&#8202;&rarr;&#8202;50&#8202;&rarr;&#8202;60<span style="color:var(--ink-3);font-size:0.66em">%</span></span>
+    <span class="lab">The full round trip, in <strong>four sessions</strong>, with no CPI print in between. Reported figures from different instruments and snapshot times &mdash; an approximate arc, not a continuous series.</span>
+  </div>
+  <div class="stat">
+    <span class="kicker">Data-centre construction</span>
+    <span class="num">$75bn</span>
+    <span class="lab">Private data-centre spending, annualised, in July &mdash; <strong>up $51bn since end-2023</strong> while all other private construction <strong>fell $120bn</strong>. The clearest measure in the archive of AI capital reaching the real economy.</span>
+  </div>
+  <div class="stat">
+    <span class="kicker">Beat, and sold anyway</span>
+    <span class="num sm">+221%<span style="color:var(--ink-3);font-size:0.68em"> &rarr; </span>&minus;5.6%</span>
+    <span class="lab">Broadcom&rsquo;s AI chip growth against its share move the same morning. Ciena beat and raised and fell 11%. <strong>Expectations, not growth rates, set returns.</strong></span>
+  </div>
+  <div class="stat">
+    <span class="kicker">Payrolls vs consensus</span>
+    <span class="num">162k</span>
+    <span class="lab">Against a consensus of 53&ndash;58k &mdash; beating <strong>every</strong> estimate. It reversed the week&rsquo;s dovish turn in a single print and left the September decision on CPI.</span>
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section>
+  <div class="sec-head"><h3>The four-layer read</h3><span class="kicker">Where the argument actually sits</span></div>
+  <div class="lay">
+    <div class="l">
+      <span class="ln">Layer 1</span>
+      <h4>Policy and rates</h4>
+      <p>The binding variable, and the one nobody can price. Warsh shifted the presumption from <em>hold unless data justifies a move</em> to <b>raise unless data says otherwise</b> &mdash; Kohn&rsquo;s formulation. He then declined to give a path, on principle. <a class="cite" href="https://www.wsj.com/economy/central-banking/warsh-makes-the-case-for-higher-rates-and-raises-the-bar-for-standing-pat-3cc1b306?mod=lead_feature_below_a_pos2" title="Warsh Makes the Case for Higher Rates and Raises the Bar for Standing Pat">WSJ&nbsp;&middot;&nbsp;08-31</a></p>
+      <p>Four sessions later Waller said he could support holding, and the odds halved. Then payrolls beat every estimate and they went back up. <b>The archive records no new inflation data in between.</b> <a class="cite" href="https://www.wsj.com/finance/stocks/stocks-bonds-rally-after-dovish-fed-comments-b95763ae" title="Stocks, Bonds Rally After Dovish Fed Comments">WSJ&nbsp;&middot;&nbsp;09-04</a> <a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-04/fed-rate-decision-still-hangs-on-inflation-after-jobs-report?srnd=homepage-americas" title="Fed Rate Decision Still Hangs on Inflation After Jobs Report">Bloomberg&nbsp;&middot;&nbsp;09-05</a></p>
+      <p class="lk">The question is no longer whether the Fed hikes. It is whether a reaction function this illegible can be traded at all.</p>
+    </div>
+    <div class="l">
+      <span class="ln">Layer 2</span>
+      <h4>AI capital</h4>
+      <p>Demand is not in question anywhere in the archive. <b>What is in question is who carries the financing.</b> Hyperscalers issued $219bn of investment-grade paper this year and are projected to reach 6.3% of the US IG market by end-2027, from 3% at end-2025. <a class="cite" href="https://www.barrons.com/articles/bond-market-strategy-rising-yields-portfolio-c278240d" title="The Death of the Safe Haven: How to Fix Your Bond Strategy as Yields Rise">Barron's&nbsp;&middot;&nbsp;09-04</a></p>
+      <p>SB Energy is the cleanest specimen: warrants worth ~$5.5bn issued to land OpenAI as a tenant, <b>zero data centres in operation</b>, a claimed backlog above $400bn, and Ohio financing that depends on an Nvidia residual-value guarantee. <a class="cite" href="https://www.wsj.com/tech/ai/the-5-5-billion-perk-softbanks-data-center-venture-offered-to-land-openai-a5c7fb5e?mod=hp_lead_pos5" title="The $5.5 Billion Perk SoftBank's Data-Center Venture Offered to Land OpenAI">WSJ&nbsp;&middot;&nbsp;08-31</a></p>
+      <p class="lk">A 60/40 portfolio now owns the same five companies on both sides of the balance sheet.</p>
+    </div>
+    <div class="l">
+      <span class="ln">Layer 3</span>
+      <h4>The real economy</h4>
+      <p>This is where the AI trade stops being a market story. Private data-centre construction is running at a <b>$75bn annualised rate, up $51bn since end-2023, while all other private construction fell $120bn.</b> <a class="cite" href="https://www.wsj.com/finance/investing/why-well-have-to-get-used-to-meh-job-reports-e903a625" title="Why We'll Have to Get Used to 'Meh' Job Reports | Markets A.M. for Sept. 3">WSJ&nbsp;&middot;&nbsp;09-04</a></p>
+      <p>It now shows in labour data: goods-producing payrolls grew 0.6% over six months against services&rsquo; 0.4%, with manufacturing up 43,000 in three months &mdash; attributed to data-centre construction and tax incentives. <a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-04/job-growth-in-us-manufacturing-construction-outshines-services" title="Job Growth in US Manufacturing, Construction Outshines Services">Bloomberg&nbsp;&middot;&nbsp;09-05</a></p>
+      <p class="lk">AI capex has become a macro variable. A de-rating would remove a primary support for the real economy, not just for equities.</p>
+    </div>
+    <div class="l">
+      <span class="ln">Layer 4</span>
+      <h4>Energy and the exit problem</h4>
+      <p>Oil is the input that makes the rate debate unresolvable, and the archive gives no date for its relief. A US blockade has halted Iranian exports since July while Gulf flows recovered to <b>over 40% of prewar volume</b> &mdash; yet both sides are described as having no clear exit. <a class="cite" href="https://www.wsj.com/world/middle-east/time-is-no-longer-on-irans-side-in-the-battle-of-the-blockades-e47b657d?mod=hp_lead_pos2" title="Time Is No Longer on Iran's Side in the Battle of the Blockades">WSJ&nbsp;&middot;&nbsp;09-05</a></p>
+      <p>Positioning and officialdom point opposite ways on the same day: hedge funds took net-bullish Brent to a May high while Bessent described a post-war $40&ndash;50 scenario with <b>no timeline attached</b>. <a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-04/hedge-funds-hike-bullish-oil-bets-to-may-high-as-iran-war-flares" title="Hedge Funds Hike Bullish Oil Bets to May High as Iran War Flares">Bloomberg&nbsp;&middot;&nbsp;09-05</a> <a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-04/bessent-sees-oil-as-low-as-40-post-iran-war-taking-yields-down" title="Bessent Sees Oil as Low as $40 Post-Iran War, Taking Yields Down">Bloomberg&nbsp;&middot;&nbsp;09-05</a></p>
+      <p class="lk">A forecast without a date cannot discipline a position with one.</p>
+    </div>
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section>
+  <div class="sec-head"><h3>Eight reads</h3><span class="kicker">What the prior week expected &middot; against what this week established</span></div>
+  <p style="color:var(--ink-2);max-width:78ch;margin-bottom:26px">Each read is measured against the <b>22&ndash;29 August briefs</b>, which are read as context but are <em>not</em> counted in this dashboard&rsquo;s totals or index. Warsh&rsquo;s Jackson Hole speech falls on 28 August &mdash; the last day of that prior week &mdash; so this window is entirely its aftermath, and the prior week made explicit, testable predictions about what would follow.</p>
+  <div class="reads">
+
+    <div class="read"><span class="kicker">One</span><h4>The whipsaw arrived on schedule</h4><p>Hike odds ran 35% &rarr; 60% &rarr; ~70% &rarr; ~50% &rarr; 60%+ in four sessions on <strong>no new inflation data</strong>. The move was pure reaction-function uncertainty.</p>
+      <div class="rmeta">
+        <span class="rl">The prior week predicted</span><p class="rv">MUFG&rsquo;s Goncalves warned that if tough talk were followed by skipped hikes, <b>markets would recalibrate again &mdash; the same whipsaw that followed July</b>. DWS&rsquo;s Catrambone said Warsh had signalled hikes <em>the data may not support</em>.</p>
+        <span class="rl">What proved it</span><p class="rv"><b>Both were right within four sessions</b>, and Catrambone reappears in this window making the same argument &mdash; that the market may be &ldquo;doing the Fed&rsquo;s job,&rdquo; overpricing hikes the Fed won&rsquo;t deliver. <a class="cite" href="https://www.bloomberg.com/news/articles/2026-08-30/bond-investors-wary-after-warsh-fans-wagers-fed-poised-to-hike" title="Bond Investors Wary After Warsh Speech Fuels Rate-Hike Bets">Bloomberg&nbsp;&middot;&nbsp;08-31</a></p>
+        <span class="rsrc">Source <b>Bloomberg &middot; WSJ &middot; Barron&rsquo;s</b></span>
+      </div></div>
+
+    <div class="read"><span class="kicker">Two</span><h4>Rate risk, not demand risk, repriced AI</h4><p>Broadcom grew AI chip revenue <strong>221% to $16.7bn</strong>, guided to 236%, and fell 5.6%. Ciena beat, raised, and fell 11% &mdash; the worst performer in the S&amp;P 500 that session.</p>
+      <div class="rmeta">
+        <span class="rl">The prior week predicted</span><p class="rv">22V&rsquo;s DeBusschere: AI buildout names&rsquo; sensitivity to the 10-year would <b>&ldquo;increase meaningfully from here.&rdquo;</b></p>
+        <span class="rl">What proved it</span><p class="rv">Neither selloff was a demand miss. Broadcom entered at 20.2x forward earnings against Nvidia below 17x; Ciena&rsquo;s rejection was margin trajectory, with ~0.7pp of its expansion a <b>non-recurring tariff refund</b>. <a class="cite" href="https://www.barrons.com/articles/broadcom-stock-earnings-nvidia-0e2d44a3" title="Why Nvidia Is the Big Winner From Broadcom Earnings">Barron's&nbsp;&middot;&nbsp;09-04</a> <a class="cite" href="https://www.barrons.com/articles/ciena-earnings-stock-price-artificial-intelligence-c431a41a" title="Ciena Beats Earnings Estimates. The Stock Is the Worst Performer in S&amp;P 500 Today.">Barron's&nbsp;&middot;&nbsp;09-04</a></p>
+        <span class="rsrc">Source <b>Barron&rsquo;s</b></span>
+      </div></div>
+
+    <div class="read"><span class="kicker">Three</span><h4>Software beat semis, exactly as charted</h4><p>Snowflake rose <strong>17%</strong> on 35% revenue growth the same day Broadcom fell on 221%. Growth <em>accelerated</em> where the Street modelled deceleration.</p>
+      <div class="rmeta">
+        <span class="rl">The prior week predicted</span><p class="rv">Barron&rsquo;s technicals had the rotation already visible: <b>28 large-cap software names gained more than 20% in a month versus exactly one semiconductor name</b> &mdash; Marvell, which then fell 7%.</p>
+        <span class="rl">What proved it</span><p class="rv">The cleanest confirmation in the archive. Snowflake raised FY27 product revenue growth to 36% from 31% <em>and</em> margin to 14.5% from 10%. The bear case that halved the stock &mdash; agents displacing data platforms &mdash; <b>inverted: agents are driving consumption.</b> <a class="cite" href="https://www.barrons.com/articles/snowflake-earnings-stock-price-44551799" title="Snowflake Stock Is Soaring. How the Software Giant's Earnings Silenced AI Skeptics.">Barron's&nbsp;&middot;&nbsp;09-04</a></p>
+        <span class="rsrc">Source <b>Barron&rsquo;s</b></span>
+      </div></div>
+
+    <div class="read"><span class="kicker">Four</span><h4>Nvidia&rsquo;s lending became someone else&rsquo;s filing</h4><p>SB Energy&rsquo;s IPO documents show <strong>zero data centres operating</strong>, 800MW under construction, a claimed backlog above $400bn, and an H1 net loss of $3.2bn driven by warrant-liability swings.</p>
+      <div class="rmeta">
+        <span class="rl">The prior week predicted</span><p class="rv">The prior week named the <em>structure</em> from Nvidia&rsquo;s side &mdash; a ~$105bn Ohio backstop, ~$50bn invested in frontier labs, and Ninety One&rsquo;s line that <b>&ldquo;Nvidia is increasingly carrying the working capital of its own customer base.&rdquo;</b></p>
+        <span class="rl">What established it</span><p class="rv">This week supplied <b>the counterparty&rsquo;s own disclosure</b>: SB Energy warns it is &ldquo;substantially dependent&rdquo; on OpenAI, and that Ohio financing depends significantly on the Nvidia residual-value guarantee. OpenAI separately invested $500m in SB Energy and committed to buy its software. <a class="cite" href="https://www.wsj.com/tech/ai/the-5-5-billion-perk-softbanks-data-center-venture-offered-to-land-openai-a5c7fb5e?mod=hp_lead_pos5" title="The $5.5 Billion Perk SoftBank's Data-Center Venture Offered to Land OpenAI">WSJ&nbsp;&middot;&nbsp;08-31</a></p>
+        <span class="rsrc">Source <b>WSJ</b></span>
+      </div></div>
+
+    <div class="read"><span class="kicker">Five</span><h4>The credit signal escalated past &ldquo;doubled&rdquo;</h4><p>Oracle&rsquo;s five-year CDS went from <strong>~0.4% of bond value a year ago to more than 2%</strong>, and BofA projects five hyperscalers at 6.3% of the US IG market by end-2027.</p>
+      <div class="rmeta">
+        <span class="rl">The prior week predicted</span><p class="rv">Barron&rsquo;s cover found CDS costs on Alphabet, Meta and Amazon debt had <b>&ldquo;roughly doubled since the start of the year&rdquo;</b> even as spreads stayed tight &mdash; &ldquo;Big Tech is no longer a debt-free juggernaut.&rdquo;</p>
+        <span class="rl">What proved it</span><p class="rv"><b>It went further than doubling, and found a name.</b> Oracle is the crossover case: revenue growth accelerated 12% &rarr; 21%, yet the bear case is entirely financial structure &mdash; negative free cash flow and ~$260bn of off-balance-sheet commitments, roughly 3x FY2027 capex. <a class="cite" href="https://www.barrons.com/articles/bond-market-strategy-rising-yields-portfolio-c278240d" title="The Death of the Safe Haven: How to Fix Your Bond Strategy as Yields Rise">Barron's&nbsp;&middot;&nbsp;09-04</a> <a class="cite" href="https://www.barrons.com/articles/oracle-orcl-stock-jefferies-earnings-peak-negative-5877e325" title="Oracle Stock Could Be Software's Next Big Winner">Barron's&nbsp;&middot;&nbsp;09-04</a></p>
+        <span class="rsrc">Source <b>Barron&rsquo;s</b></span>
+      </div></div>
+
+    <div class="read"><span class="kicker">Six</span><h4>AI capex showed up in the payroll data</h4><p>Goods-producing payrolls grew <strong>0.6% over six months against services&rsquo; 0.4%</strong> &mdash; the strongest such stretch since 2023 &mdash; with a breadth measure across 72 manufacturing industries at a near-four-year high.</p>
+      <div class="rmeta">
+        <span class="rl">The prior week predicted</span><p class="rv">The mechanism, asserted but not measured: the IMF&rsquo;s Georgieva called it &ldquo;a tug of war between the negative supply shock from the Middle East and the positive demand shock from AI,&rdquo; and <b>ING estimated the buildout at roughly a third of recent US growth</b>.</p>
+        <span class="rl">What established it</span><p class="rv">Citi attributes the manufacturing strength <b>specifically to data-centre construction and OBBBA tax incentives</b>. Read with the $75bn construction figure, the transmission moved from assertion to measurement in one week. <a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-04/job-growth-in-us-manufacturing-construction-outshines-services" title="Job Growth in US Manufacturing, Construction Outshines Services">Bloomberg&nbsp;&middot;&nbsp;09-05</a> <a class="cite" href="https://www.wsj.com/finance/investing/why-well-have-to-get-used-to-meh-job-reports-e903a625" title="Why We'll Have to Get Used to 'Meh' Job Reports | Markets A.M. for Sept. 3">WSJ&nbsp;&middot;&nbsp;09-04</a></p>
+        <span class="rsrc">Source <b>Bloomberg &middot; WSJ</b></span>
+      </div></div>
+
+    <div class="read"><span class="kicker">Seven</span><h4>Both sides of the Iran war ran out of exits</h4><p>The blockade has stopped Iranian Gulf exports since July, and Gulf flows recovered to <strong>over 40% of prewar volume</strong> &mdash; yet neither the blockade nor the strait closure produced concessions.</p>
+      <div class="rmeta">
+        <span class="rl">The prior week predicted</span><p class="rv">All mediation tracks &mdash; Pakistan, Oman, Qatar &mdash; stalled in a single week, with Trump refusing to return to the June Versailles memorandum. Birmingham&rsquo;s Karim: <b>&ldquo;the old MOU is essentially dead in all aspects.&rdquo;</b></p>
+        <span class="rl">What proved it</span><p class="rv">WSJ states it plainly: <b>both sides are now without a clear exit.</b> And the US midterm calendar may push Tehran toward escalation rather than compromise &mdash; the 1980 hostage-crisis playbook, explicitly invoked. <a class="cite" href="https://www.wsj.com/world/middle-east/time-is-no-longer-on-irans-side-in-the-battle-of-the-blockades-e47b657d?mod=hp_lead_pos2" title="Time Is No Longer on Iran's Side in the Battle of the Blockades">WSJ&nbsp;&middot;&nbsp;09-05</a></p>
+        <span class="rsrc">Source <b>WSJ &middot; Bloomberg</b></span>
+      </div></div>
+
+    <div class="read"><span class="kicker">Eight</span><h4>The permitting number got a price tag</h4><p>Altman conceded the industry &ldquo;has done a terrible job&rdquo; communicating benefits &mdash; and disclosed that <strong>at least 75 data-centre projects worth ~$130bn were blocked or delayed by local opposition in Q1 alone</strong>, approaching the full-year 2025 total.</p>
+      <div class="rmeta">
+        <span class="rl">The prior week predicted</span><p class="rv">Only a sentiment number: <b>75% of Americans oppose a data centre near their home</b>, with &ldquo;tens of billions&rdquo; of projects blocked. Barron&rsquo;s cover already recommended <em>already-permitted</em> data-centre owners because a backlash slows new approvals.</p>
+        <span class="rl">What established it</span><p class="rv">A dollar figure and a quarter, from the CEO with the most to lose by conceding it. WSJ adds the politics: a <b>bipartisan</b> populist revolt, and AI labs with no grassroots constituency to answer it. <a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-03/sam-altman-says-openai-has-fumbled-at-communicating-ai-benefits" title="Sam Altman Says OpenAI Has Fumbled at Communicating AI Benefits">Bloomberg&nbsp;&middot;&nbsp;09-04</a> <a class="cite" href="https://www.wsj.com/tech/ai/how-big-tech-blinded-itself-to-the-grassroots-ai-revolt-cb6f5715?mod=itp_wsj" title="How Big Tech Blinded Itself to the Grassroots AI Revolt">WSJ&nbsp;&middot;&nbsp;08-31</a></p>
+        <span class="rsrc">Source <b>Bloomberg &middot; WSJ</b></span>
+      </div></div>
+
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section aria-label="Figures">
+  <div class="figs">
+
+    <figure>
+      <p class="fig-t">Four sessions, no new inflation data, a 35-point round trip</p>
+      <span class="fig-s">Reported odds of a September rate hike &middot; 27 August &ndash; 4 September 2026</span>
+      <div class="steps" style="margin-right:74px">
+        <div class="sgridwrap">
+          <div class="sgrid" style="left:0%"></div>
+          <div class="sgrid" style="left:25%"></div>
+          <div class="sgrid" style="left:50%"></div>
+          <div class="sgrid" style="left:75%"></div>
+          <div class="sgl" style="left:0%">0%</div>
+          <div class="sgl" style="left:25%">25%</div>
+          <div class="sgl" style="left:50%">50%</div>
+          <div class="sgl" style="left:75%">75%</div>
+        </div>
+        <div class="srow">
+          <span class="slab"><b>27 Aug</b>before Jackson Hole</span>
+          <div class="strack"><div class="sfill" style="width:35%" title="Roughly 35% before Warsh's speech"><span>35%</span></div></div>
+        </div>
+        <div class="srow">
+          <span class="slab"><b>28&ndash;31 Aug</b>after Warsh</span>
+          <div class="strack"><div class="sfill" style="width:60%" title="57–60% after the Jackson Hole speech"><span>57&ndash;60%</span></div></div>
+        </div>
+        <div class="srow">
+          <span class="slab"><b>1&ndash;3 Sep</b>bond selloff peak</span>
+          <div class="strack"><div class="sfill" style="width:70%" title="About 70% at the peak of the bond selloff"><span>~70%</span></div></div>
+        </div>
+        <div class="srow">
+          <span class="slab"><b>3&ndash;4 Sep</b>after Waller</span>
+          <div class="strack"><div class="sfill" style="width:50%" title="A coin flip after Waller's dovish comments"><span>48&ndash;50%</span></div></div>
+        </div>
+        <div class="srow">
+          <span class="slab"><b>4 Sep</b>after payrolls</span>
+          <div class="strack"><div class="sfill" style="width:62%" title="Just above 60% after August payrolls beat every estimate"><span>60%+</span></div></div>
+        </div>
+      </div>
+      <figcaption>The archive records <strong>no CPI or PCE release inside this window</strong> &mdash; August CPI is dated 11 September. Every move came from speech, positioning and one payroll print. <em>These are article-reported snapshots from different instruments (CME FedWatch, fed funds futures, swaps) at different times of day; Barron&rsquo;s records the Waller move as 48% from 63% where WSJ and Bloomberg record ~50% from ~70%. Treat this as an arc, not a series.</em> <a class="cite" href="https://www.barrons.com/articles/september-stock-market-forecast-032f82b8?mod=hp_latestnews" title="Buckle Up for Wall Street's Worst Month (Stock Market September Forecast)">Barron's&nbsp;&middot;&nbsp;08-31</a> <a class="cite" href="https://www.wsj.com/economy/consumers/what-does-a-bond-selloff-mean-for-american-consumers-236e4be6" title="What Does a Bond Selloff Mean for American Consumers?">WSJ&nbsp;&middot;&nbsp;09-04</a> <a class="cite" href="https://www.wsj.com/finance/stocks/stocks-bonds-rally-after-dovish-fed-comments-b95763ae" title="Stocks, Bonds Rally After Dovish Fed Comments">WSJ&nbsp;&middot;&nbsp;09-04</a> <a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-04/fed-rate-decision-still-hangs-on-inflation-after-jobs-report?srnd=homepage-americas" title="Fed Rate Decision Still Hangs on Inflation After Jobs Report">Bloomberg&nbsp;&middot;&nbsp;09-05</a></figcaption>
+      <details class="tv"><summary>Table view</summary>
+        <table><thead><tr><th>Date</th><th>Reported odds</th><th>Driver</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>27 Aug</td><td>34&ndash;35%</td><td>Baseline, pre-speech</td><td>Barron&rsquo;s, Bloomberg</td></tr>
+          <tr><td>28&ndash;31 Aug</td><td>57&ndash;60%</td><td>Warsh at Jackson Hole</td><td>Barron&rsquo;s, Bloomberg, WSJ</td></tr>
+          <tr><td>1&ndash;3 Sep</td><td>~70%</td><td>Global bond selloff</td><td>WSJ, Bloomberg</td></tr>
+          <tr><td>3&ndash;4 Sep</td><td>48&ndash;50%</td><td>Waller opens the door to holding</td><td>WSJ, Barron&rsquo;s, Bloomberg</td></tr>
+          <tr><td>4 Sep</td><td>just above 60%</td><td>August payrolls +162,000</td><td>Bloomberg</td></tr>
+        </tbody></table>
+      </details>
+    </figure>
+
+    <figure>
+      <p class="fig-t">Which house covered what</p>
+      <span class="fig-s">Article entries by primary theme and publication &middot; all 108 entries</span>
+      <div class="legend">
+        <span><i class="swatch" style="background:var(--s1)"></i> WSJ</span>
+        <span><i class="swatch" style="background:var(--s2)"></i> Bloomberg</span>
+        <span><i class="swatch" style="background:var(--s3)"></i> Barron&rsquo;s</span>
+      </div>
+      <div class="plot" style="padding-bottom:4px;margin-right:56px">
+  <div class="pstack">
+    <span class="pname"><b>Rates &amp; policy</b><i>18 entries</i></span>
+    <div class="pbar" style="width:60.00%"><div class="pseg" style="background:var(--s1);width:27.78%" data-v="WSJ: 5" title="Rates &amp; policy &mdash; WSJ: 5 entries"></div><div class="pseg" style="background:var(--s2);width:33.33%" data-v="Bloomberg: 6" title="Rates &amp; policy &mdash; Bloomberg: 6 entries"></div><div class="pseg" style="background:var(--s3);width:38.89%" data-v="Barron's: 7" title="Rates &amp; policy &mdash; Barron's: 7 entries"></div></div>
+  </div>
+  <div class="pstack">
+    <span class="pname"><b>AI capital</b><i>30 entries</i></span>
+    <div class="pbar" style="width:100.00%"><div class="pseg" style="background:var(--s1);width:16.67%" data-v="WSJ: 5" title="AI capital &mdash; WSJ: 5 entries"></div><div class="pseg" style="background:var(--s2);width:46.67%" data-v="Bloomberg: 14" title="AI capital &mdash; Bloomberg: 14 entries"></div><div class="pseg" style="background:var(--s3);width:36.67%" data-v="Barron's: 11" title="AI capital &mdash; Barron's: 11 entries"></div></div>
+  </div>
+  <div class="pstack">
+    <span class="pname"><b>Energy &amp; geopolitics</b><i>20 entries</i></span>
+    <div class="pbar" style="width:66.67%"><div class="pseg" style="background:var(--s1);width:50.00%" data-v="WSJ: 10" title="Energy &amp; geopolitics &mdash; WSJ: 10 entries"></div><div class="pseg" style="background:var(--s2);width:45.00%" data-v="Bloomberg: 9" title="Energy &amp; geopolitics &mdash; Bloomberg: 9 entries"></div><div class="pseg" style="background:var(--s3);width:5.00%" data-v="Barron's: 1" title="Energy &amp; geopolitics &mdash; Barron's: 1 entries"></div></div>
+  </div>
+  <div class="pstack">
+    <span class="pname"><b>Real economy &amp; labour</b><i>14 entries</i></span>
+    <div class="pbar" style="width:46.67%"><div class="pseg" style="background:var(--s1);width:57.14%" data-v="WSJ: 8" title="Real economy &amp; labour &mdash; WSJ: 8 entries"></div><div class="pseg" style="background:var(--s2);width:28.57%" data-v="Bloomberg: 4" title="Real economy &amp; labour &mdash; Bloomberg: 4 entries"></div><div class="pseg" style="background:var(--s3);width:14.29%" data-v="Barron's: 2" title="Real economy &amp; labour &mdash; Barron's: 2 entries"></div></div>
+  </div>
+  <div class="pstack">
+    <span class="pname"><b>Markets &amp; portfolios</b><i>13 entries</i></span>
+    <div class="pbar" style="width:43.33%"><div class="pseg" style="background:var(--s1);width:61.54%" data-v="WSJ: 8" title="Markets &amp; portfolios &mdash; WSJ: 8 entries"></div><div class="pseg" style="background:var(--s2);width:7.69%" data-v="Bloomberg: 1" title="Markets &amp; portfolios &mdash; Bloomberg: 1 entries"></div><div class="pseg" style="background:var(--s3);width:30.77%" data-v="Barron's: 4" title="Markets &amp; portfolios &mdash; Barron's: 4 entries"></div></div>
+  </div>
+  <div class="pstack">
+    <span class="pname"><b>Execution &amp; health</b><i>8 entries</i></span>
+    <div class="pbar" style="width:26.67%"><div class="pseg" style="background:var(--s1);width:62.50%" data-v="WSJ: 5" title="Execution &amp; health &mdash; WSJ: 5 entries"></div><div class="pseg" style="background:var(--s2);width:25.00%" data-v="Bloomberg: 2" title="Execution &amp; health &mdash; Bloomberg: 2 entries"></div><div class="pseg" style="background:var(--s3);width:12.50%" data-v="Barron's: 1" title="Execution &amp; health &mdash; Barron's: 1 entries"></div></div>
+  </div>
+  <div class="pstack">
+    <span class="pname"><b>Other stories</b><i>5 entries</i></span>
+    <div class="pbar" style="width:16.67%"><div class="pseg" style="background:var(--s1);width:80.00%" data-v="WSJ: 4" title="Other stories &mdash; WSJ: 4 entries"></div><div class="pseg" style="background:var(--s2);width:20.00%" data-v="Bloomberg: 1" title="Other stories &mdash; Bloomberg: 1 entries"></div></div>
+  </div>
+</div>
+      <figcaption>Coverage volume, not importance. Each entry carries <strong>one editorial primary theme</strong> assigned from its title, so a multi-topic story counts once even where it supports several sections above. Repeated coverage is retained rather than de-duplicated &mdash; the El Ni&ntilde;o story appears in two WSJ briefs and is counted twice. <em>The old dashboard&rsquo;s single bar could not show which house covered what; the split is the point, and it is visible here that the three publications divide the week rather than duplicate it.</em></figcaption>
+      <details class="tv"><summary>Table view</summary>
+  <table><thead><tr><th>Primary theme</th><th>WSJ</th><th>Bloomberg</th><th>Barron's</th><th>Total</th></tr></thead>
+  <tbody>
+    <tr><td>Rates &amp; policy</td><td>5</td><td>6</td><td>7</td><td><b>18</b></td></tr>
+    <tr><td>AI capital</td><td>5</td><td>14</td><td>11</td><td><b>30</b></td></tr>
+    <tr><td>Energy &amp; geopolitics</td><td>10</td><td>9</td><td>1</td><td><b>20</b></td></tr>
+    <tr><td>Real economy &amp; labour</td><td>8</td><td>4</td><td>2</td><td><b>14</b></td></tr>
+    <tr><td>Markets &amp; portfolios</td><td>8</td><td>1</td><td>4</td><td><b>13</b></td></tr>
+    <tr><td>Execution &amp; health</td><td>5</td><td>2</td><td>1</td><td><b>8</b></td></tr>
+    <tr><td>Other stories</td><td>4</td><td>1</td><td>0</td><td><b>5</b></td></tr>
+    <tr><td><b>All themes</b></td><td><b>45</b></td><td><b>37</b></td><td><b>26</b></td><td><b>108</b></td></tr>
+  </tbody></table>
+</details>
+    </figure>
+
+  </div>
+</section>
+</div>
+<div class="panel" id="p-timeline" role="tabpanel" aria-labelledby="t-timeline" hidden>
+<section>
+  <div class="sec-head"><h3>How the week actually moved</h3><span class="kicker">Nine movements &middot; 28 August &ndash; 5 September</span></div>
+  <p style="color:var(--ink-2);max-width:78ch;margin-bottom:24px">Dates below are <b>brief filename dates</b> unless a movement is anchored to a named event. Briefs routinely summarise the prior day&rsquo;s stories, so the sequence is the order in which the archive <em>recorded</em> events, not always the order in which they happened. The 28 August entry is the prior week&rsquo;s closing brief, included because the entire window is its aftermath.</p>
+  <div class="tl">
+
+    <div class="ev big">
+      <span class="d">28 August &middot; the pivot</span>
+      <h4>Warsh raises the bar for standing still</h4>
+      <p>In his first Jackson Hole keynote as chairman, Warsh sets a conditional test &mdash; the Fed must be confident inflation is moving to target &ldquo;clearly and at sufficient speed. Otherwise, we have work to do&rdquo; &mdash; and says he would be hard-pressed to call financial conditions restrictive. He discloses his method: a diffusion index across all 199 PCE components, with 58% of items rising more than 3% over twelve months. He gives no path, on principle.</p>
+      <p>Hike odds move from 35% to 56&ndash;60%. The two-year yield posts its largest single-day gain on a Jackson Hole speech day since 1996, and for <b>the first time since 2022 the S&amp;P 500 closes lower on the day of a chair&rsquo;s Jackson Hole address</b>. Warsh drops the argument he made while seeking the chairmanship &mdash; that AI would push prices down enough to permit faster cuts. Kohn&rsquo;s verdict: <em>&ldquo;the AI fairy didn&rsquo;t show up.&rdquo;</em></p>
+      <p class="src">Prior-week baseline &middot; WSJ, Bloomberg, Barron&rsquo;s 28&ndash;29 August</p>
+    </div>
+
+    <div class="ev">
+      <span class="d">31 August</span>
+      <h4>The military lull breaks</h4>
+      <p>US forces strike two Iranian rocket launchers on Larak Island &mdash; the first American action in weeks &mdash; after the launchers prepared to fire sea-mine-laden rockets into the Strait of Hormuz. The IRGC retaliates against US bases in Jordan; eight missiles are intercepted. Brent rises 2.4% above $90.</p>
+      <p>Read against the prior week, this is not routine escalation. US interceptor inventories in Europe were described as &ldquo;beyond critical,&rdquo; Trump had paused strikes in late July amid a munitions debate, and the US had <em>declined</em> to retaliate for earlier attacks on Hormuz shipping. Resuming strikes spends a constrained resource. A credibility gap opens the same day: the US declared the strait cleared of mines the prior week, but allies privately warn it is still likely mined.</p>
+      <p class="src"><a class="cite" href="https://www.bloomberg.com/news/articles/2026-08-30/us-strikes-iranian-rocket-launchers-in-first-attack-in-weeks" title="US and Iran Exchange Attacks for First Time in About a Month">Bloomberg&nbsp;&middot;&nbsp;08-31</a> &middot; <a class="cite" href="https://www.wsj.com/world/middle-east/u-s-strikes-two-iranian-rocket-launchers-in-first-attack-in-weeks-17602dcf?mod=hp_lead_pos2" title="Fighting Flares in Middle East After U.S. Strike on Iranian Rocket Launchers">WSJ&nbsp;&middot;&nbsp;08-31</a></p>
+    </div>
+
+    <div class="ev">
+      <span class="d">31 August</span>
+      <h4>Two houses describe the same Venezuela deal differently</h4>
+      <p>Barron&rsquo;s reports a <b>25-year</b> bilateral project across 17 strategic oilfields targeting more than 1.5m barrels a day. Bloomberg reports a <b>100-year concession</b> over 17 fields, with the US controlling 55% of effective output and taking the oil at cost. Same fields, same 65 billion barrels, four-fold difference in duration &mdash; and the prior week&rsquo;s WSJ reporting put the reserve figure at <em>90</em> billion barrels.</p>
+      <p>Neither discrepancy is corrected anywhere in the archive.</p>
+      <p class="src"><a class="cite" href="https://www.barrons.com/livecoverage/sunday0830?mod=hp_WIND_A_1_1" title="Trump Says Venezuelan Oil Will Refill the U.S. Petroleum Reserve (Live Coverage, Aug. 30)">Barron's&nbsp;&middot;&nbsp;08-31</a> &middot; <a class="cite" href="https://www.bloomberg.com/news/articles/2026-08-30/trump-s-venezuela-oil-grab-reprises-industry-s-neocolonial-past" title="Trump's Venezuela Oil Grab Reprises Industry's Neocolonial Past">Bloomberg&nbsp;&middot;&nbsp;08-31</a></p>
+    </div>
+
+    <div class="ev">
+      <span class="d">31 August</span>
+      <h4>The momentum trade comes apart</h4>
+      <p>The S&amp;P 500 Momentum Index is down more than 9% since 1 July against the index&rsquo;s 2.8% gain &mdash; on track for its worst quarterly underperformance in <b>25 years</b>, after a record 44% second-quarter surge. July was the trade&rsquo;s second-worst month in roughly 40 years, behind only April 2009.</p>
+      <p>The trigger was not macro: cancer-vaccine news sent heavily shorted biotech flying, with Moderna up about 150% in the month, and 19 August was the worst day for systematic long-short managers in over two years. Speculators now hold <b>some of the largest net-short positions in Nasdaq-100 futures in two decades</b> &mdash; a fact that sits awkwardly beside every Magnificent Seven name rising four sessions later.</p>
+      <p class="src"><a class="cite" href="https://www.wsj.com/finance/stocks/the-sudden-unraveling-of-wall-streets-momentum-trade-fe79b4fa?mod=hp_lead_pos3" title="The Sudden Unraveling of Wall Street's Momentum Trade">WSJ&nbsp;&middot;&nbsp;08-31</a></p>
+    </div>
+
+    <div class="ev">
+      <span class="d">1&ndash;3 September</span>
+      <h4>The bond selloff goes global</h4>
+      <p>The 10-year sets a fresh 2026 high of 4.795% during a G-20 meeting that ends with no consensus statement, then peaks at 4.82% &mdash; the highest since October 2023. This is not an American event: <b>Japan&rsquo;s 10-year touches 3% for the first time in 30 years</b>, France&rsquo;s is up 65bp year-to-date and Britain&rsquo;s 67bp.</p>
+      <p>Hike odds reach roughly 70%. Mortgage rates hit 6.71%, the highest since July 2025, and the share of pending home sales turns negative year-over-year for the first time since November 2025. Greg Ip supplies the week&rsquo;s most uncomfortable arithmetic: on CBO&rsquo;s rule of thumb, debt rising from 35% to 100% of GDP should have added 1.3 percentage points to yields &mdash; <b>yet yields are no higher than in 2006. The fiscal risk premium has not yet been charged.</b></p>
+      <p class="src"><a class="cite" href="https://www.wsj.com/world/g-20-squabbling-overshadows-summit-as-global-bond-markets-strain-dd61e2ef" title="G-20 Squabbling Overshadows Summit as Global Bond Markets Strain">WSJ&nbsp;&middot;&nbsp;09-04</a> &middot; <a class="cite" href="https://www.wsj.com/economy/the-bond-market-issues-world-leaders-a-failing-grade-621cf4dc" title="The Bond Market Issues World Leaders a Failing Grade">WSJ&nbsp;&middot;&nbsp;09-04</a> &middot; <a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-03/us-mortgage-rates-climb-to-6-71-highest-since-july-2025" title="US Mortgage Rates Climb to 6.71%, Highest Since July 2025">Bloomberg&nbsp;&middot;&nbsp;09-04</a></p>
+    </div>
+
+    <div class="ev big">
+      <span class="d">3 September</span>
+      <h4>Waller halves the odds in one sentence</h4>
+      <p>Fed Governor Waller says he would be inclined to support holding if the next two weeks of inflation data confirm disinflation &mdash; while explicitly keeping the hawkish option: &ldquo;if inflation comes in hot, I would consider a rate hike.&rdquo; Hike odds collapse from ~70% to a coin flip. The Dow gains 624 points, every Magnificent Seven name rises, and the Roundhill Mag 7 ETF closes just short of a record.</p>
+      <p>The rally is fragile by construction: yields fell <em>although</em> everything that drove them up remained in place, and Brent rose 1% to $96 the same session.</p>
+      <p class="src"><a class="cite" href="https://www.wsj.com/finance/stocks/stocks-bonds-rally-after-dovish-fed-comments-b95763ae" title="Stocks, Bonds Rally After Dovish Fed Comments">WSJ&nbsp;&middot;&nbsp;09-04</a> &middot; <a class="cite" href="https://www.barrons.com/livecoverage/stock-market-news-today-090326" title="Stock Market News for Thursday, Sept. 3, 2026 (Live Coverage)">Barron's&nbsp;&middot;&nbsp;09-04</a></p>
+    </div>
+
+    <div class="ev big">
+      <span class="d">3 September</span>
+      <h4>The same day splits the AI trade in three</h4>
+      <p>Broadcom reports AI chip revenue up 221% to $16.7bn, guides to 236%, projects $115bn of FY2027 AI chip sales rising to $230bn in 2028 &mdash; and falls 5.6%. Ciena beats and raises and falls 11%, the worst performer in the S&amp;P 500. Snowflake beats and raises and rises 17%.</p>
+      <p>Barron&rsquo;s draws the conclusion the whole week supports: <b>the sixth most valuable US company posted 221% sales growth and got &ldquo;one big shrug,&rdquo; while Snowflake&rsquo;s 35% triggered a 16% pop.</b> Ciena&rsquo;s CEO adds the mechanism &mdash; the market treats AI infrastructure as &ldquo;an amorphous blob,&rdquo; with fast money moving before investors can separate winners from losers.</p>
+      <p class="src"><a class="cite" href="https://www.barrons.com/articles/broadcom-stock-earnings-nvidia-0e2d44a3" title="Why Nvidia Is the Big Winner From Broadcom Earnings">Barron's&nbsp;&middot;&nbsp;09-04</a> &middot; <a class="cite" href="https://www.barrons.com/articles/ciena-earnings-stock-price-artificial-intelligence-c431a41a" title="Ciena Beats Earnings Estimates. The Stock Is the Worst Performer in S&amp;P 500 Today.">Barron's&nbsp;&middot;&nbsp;09-04</a> &middot; <a class="cite" href="https://www.barrons.com/articles/snowflake-earnings-stock-price-44551799" title="Snowflake Stock Is Soaring. How the Software Giant's Earnings Silenced AI Skeptics.">Barron's&nbsp;&middot;&nbsp;09-04</a> &middot; <a class="cite" href="https://www.barrons.com/articles/stock-market-things-to-know-today-d343c1a0" title="Broadcom and Snowflake Perfectly Sum Up the AI Trade (The Barron's Daily)">Barron's&nbsp;&middot;&nbsp;09-04</a></p>
+    </div>
+
+    <div class="ev">
+      <span class="d">3&ndash;4 September</span>
+      <h4>Nvidia buys the open-model commons</h4>
+      <p>Nvidia agrees to acquire Hugging Face for $12.93bn &mdash; roughly 80x an estimated $150m of ARR, for 18 million developers and about 3 million shared models. DA Davidson reads it as <b>defensive blocking</b>: had a frontier lab or Google bought it, they could have throttled US open-source AI.</p>
+      <p>The competitive context arrives within a day. Moonshot, valued at $50bn and confidentially filed for a Hong Kong IPO, ships open-weight models at near-parity with US closed models for a fraction of the cost. DeepSeek plans to deploy at least 160,000 Huawei Ascend accelerators &mdash; <b>for inference, while still training on Nvidia</b> &mdash; and Huawei&rsquo;s own constraint turns out to be top-end memory.</p>
+      <p class="src"><a class="cite" href="https://www.barrons.com/articles/nvidia-stock-hugging-face-acquisition-a07b514d" title="Nvidia's $12.9 Billion Deal for Hugging Face Boosts Exposure to Open Model AI">Barron's&nbsp;&middot;&nbsp;09-04</a> &middot; <a class="cite" href="https://www.wsj.com/tech/ai/moonshot-ai-yang-ceo-china-6f12ddbf?mod=lead_feature_below_a_pos2" title="The 33-Year-Old AI Hotshot Taking Silicon Valley Swagger Back to Beijing">WSJ&nbsp;&middot;&nbsp;09-05</a> &middot; <a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-04/deepseek-plans-big-huawei-ai-chip-order-to-power-new-data-center?srnd=homepage-americas" title="DeepSeek Plans Big Huawei AI Chip Order to Power New Data Center">Bloomberg&nbsp;&middot;&nbsp;09-05</a></p>
+    </div>
+
+    <div class="ev big">
+      <span class="d">4 September</span>
+      <h4>Payrolls beat every estimate and reverse the week</h4>
+      <p>August payrolls rise 162,000 against a consensus of 53&ndash;58,000 &mdash; above <b>all</b> estimates &mdash; with unemployment steady at 4.1%. Hike odds go back above 60%. Trump demands cuts on Truth Social and tells the board to &ldquo;be patriots&rdquo; while the market prices a hike.</p>
+      <p>The print is stronger than the labour market it describes. The separation rate is at its lowest since the years after the financial crisis, the long-term unemployed are 27% of the total against 21% two years ago, and only 33% of job seekers told Gallup it is a good time to find a quality job. <b>Aggregate job creation improved; mobility did not.</b></p>
+      <p class="src"><a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-04/fed-rate-decision-still-hangs-on-inflation-after-jobs-report?srnd=homepage-americas" title="Fed Rate Decision Still Hangs on Inflation After Jobs Report">Bloomberg&nbsp;&middot;&nbsp;09-05</a> &middot; <a class="cite" href="https://www.wsj.com/economy/jobs/american-workers-have-slammed-the-brakes-on-switching-jobs-767c45d1?mod=hp_lead_pos1" title="American Workers Have Slammed the Brakes on Switching Jobs">WSJ&nbsp;&middot;&nbsp;09-05</a> &middot; <a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-04/job-growth-in-us-manufacturing-construction-outshines-services" title="Job Growth in US Manufacturing, Construction Outshines Services">Bloomberg&nbsp;&middot;&nbsp;09-05</a></p>
+    </div>
+
+  </div>
+</section>
+</div>
+<div class="panel" id="p-conflicts" role="tabpanel" aria-labelledby="t-conflicts" hidden>
+<section>
+  <div class="sec-head"><h3>Where all three houses agree</h3><span class="kicker">Six points &middot; no publication dissents</span></div>
+  <div class="agree">
+    <div class="ag"><span class="agn">1</span><h4>The September decision turns on CPI, not on jobs</h4><p>Every rates piece in the window lands here, including the ones arguing opposite directions on the outcome. The 11 September print is named repeatedly as the swing factor.</p></div>
+    <div class="ag"><span class="agn">2</span><h4>AI demand is not the question; the financing is</h4><p>No article in the archive disputes demand. Every bear argument is about balance sheets, spreads, off-balance-sheet commitments or expectations &mdash; not orders.</p></div>
+    <div class="ag"><span class="agn">3</span><h4>Oil is the unresolved inflation input</h4><p>WSJ, Bloomberg and Barron&rsquo;s all route the rate debate through crude. Bessent goes further, calling the oil-yield correlation &ldquo;the highest they&rsquo;ve ever had.&rdquo;</p></div>
+    <div class="ag"><span class="agn">4</span><h4>Expectations, not growth rates, are setting returns</h4><p>Reached independently through three different lenses &mdash; Barron&rsquo;s on Broadcom versus Snowflake, Bloomberg on Chinese tech being punished for AI capex, and WSJ on the momentum unwind.</p></div>
+    <div class="ag"><span class="agn">5</span><h4>The labour market is low-hire and low-fire</h4><p>The strong payroll print did not change this reading in any brief. Both WSJ pieces and the Bloomberg goods-payroll story describe improved job creation alongside historically low mobility.</p></div>
+    <div class="ag"><span class="agn">6</span><h4>Open-weight models are now a competitive fact</h4><p>Nvidia paid ~80x ARR for the open-model hub in the same week Moonshot filed at $50bn and DeepSeek ordered Huawei silicon. No source treats open models as marginal.</p></div>
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section>
+  <div class="sec-head"><h3>Conflict registry</h3><span class="kicker">Ten disagreements &middot; who is on which side</span></div>
+  <p style="color:var(--ink-2);max-width:78ch;margin-bottom:22px">&ldquo;House&rdquo; here means publication. Some entries are genuine disagreements between outlets; others are the same quantity measured at different perimeters or moments, which is a reporting artefact rather than a dispute &mdash; each entry says which it is. <b>The dashboard does not silently pick a number.</b></p>
+  <div class="creg">
+
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">&#9312;</span><h4>The Venezuela concession</h4><span class="tag t-bad"><i class="dot"></i>Unresolved &middot; top item</span></div>
+      <div class="calls"><span class="call a"><b>Barron&rsquo;s</b> &middot; 25-year bilateral project</span><span class="call b"><b>Bloomberg</b> &middot; 100-year concession</span><span class="call c"><b>WSJ, prior week</b> &middot; 90bn barrels, not 65bn</span></div>
+      <p>Barron&rsquo;s reports a <b>25-year</b> project across 17 strategic oilfields targeting more than 1.5m barrels a day. Bloomberg, twice and in two separate weeks, reports a <b>100-year concession</b> over the same 17 fields, with the US taking 55% of effective output at cost. And the prior week&rsquo;s WSJ reporting described 17 fields holding roughly <b>90 billion</b> barrels, where every in-window account says 65 billion.</p>
+      <p class="cf-r"><b>The honest adjudication:</b> this is not a perimeter difference &mdash; a 25-year project and a 100-year concession are different instruments, and the reserve figure moved by 25 billion barrels between the talks and the announcement. <b>No source acknowledges the other.</b> Anyone using this deal to model supply should treat all three figures as unverified. What both houses agree on is more useful anyway: eight months after Trump asked for $100bn of commitments, <em>almost every major is still on the sidelines</em>, including his own allies Continental and Hilcorp. <a class="cite" href="https://www.barrons.com/livecoverage/sunday0830?mod=hp_WIND_A_1_1" title="Trump Says Venezuelan Oil Will Refill the U.S. Petroleum Reserve (Live Coverage, Aug. 30)">Barron's&nbsp;&middot;&nbsp;08-31</a> <a class="cite" href="https://www.bloomberg.com/news/articles/2026-08-30/trump-s-venezuela-oil-grab-reprises-industry-s-neocolonial-past" title="Trump's Venezuela Oil Grab Reprises Industry's Neocolonial Past">Bloomberg&nbsp;&middot;&nbsp;08-31</a> <a class="cite" href="https://www.wsj.com/business/energy-oil/why-big-oil-is-wary-of-trumps-foray-into-venezuelas-oil-patch-4ec1e72b" title="Why Big Oil Is Wary of Trump's Foray Into Venezuela's Oil Patch">WSJ&nbsp;&middot;&nbsp;09-04</a></p>
+    </div>
+
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">&#9313;</span><h4>Will the Fed actually deliver?</h4><span class="tag t-bad"><i class="dot"></i>Unresolvable pre-event</span></div>
+      <div class="calls"><span class="call a"><b>Market pricing</b> &middot; 60%+ hike</span><span class="call b"><b>ABN AMRO, Brandywine, DWS</b> &middot; doubt follow-through</span><span class="call b"><b>TD Securities</b> &middot; base case is hold</span><span class="call c"><b>42 Macro</b> &middot; hike now, cuts in 2027</span></div>
+      <p>Swaps price a hike as more likely than not, while major bond managers openly doubt the Fed will follow through. Brandywine&rsquo;s Chen: <em>&ldquo;talk is talk&hellip; action speaks louder.&rdquo;</em> DWS frames the risk precisely &mdash; the market may be <b>&ldquo;doing the Fed&rsquo;s job,&rdquo;</b> overpricing hikes the Fed won&rsquo;t deliver. BofA&rsquo;s Bhave takes the other side: <em>&ldquo;talk is cheap&rdquo;</em> &mdash; Warsh must deliver in September or forfeit the credibility he just earned.</p>
+      <p class="cf-r"><b>This is the item that dictates expression rather than direction.</b> The prior week&rsquo;s warning from MUFG &mdash; that tough talk followed by a skipped hike produces another whipsaw &mdash; already came true once inside this window. <b>Whichever side is wrong, the fracture itself is the tradable fact.</b> <a class="cite" href="https://www.bloomberg.com/news/articles/2026-08-30/bond-investors-wary-after-warsh-fans-wagers-fed-poised-to-hike" title="Bond Investors Wary After Warsh Speech Fuels Rate-Hike Bets">Bloomberg&nbsp;&middot;&nbsp;08-31</a> <a class="cite" href="https://www.barrons.com/articles/treasury-bond-market-fed-warsh-inflation-7689b45a?mod=hp_latestnews" title="Bond Traders Buy Warsh's Tough Talk on Inflation, for Now">Barron's&nbsp;&middot;&nbsp;08-31</a></p>
+    </div>
+
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">&#9314;</span><h4>Oil: positioning against officialdom</h4><span class="tag t-warn"><i class="dot"></i>Live &middot; different horizons</span></div>
+      <div class="calls"><span class="call b"><b>Hedge funds</b> &middot; net-bullish Brent at a May high</span><span class="call a"><b>Bessent</b> &middot; $40&ndash;50 post-war</span></div>
+      <p>On the same day, in the same publication: hedge funds pushed net-bullish Brent positioning to its highest since May (+37,837 contracts to 261,435), with retail diesel at a record $5.85 a gallon and gasoline positioning the most bullish ever recorded for the time of year &mdash; while the Treasury Secretary described a post-war market &ldquo;very much oversupplied&rdquo; at $40&ndash;50.</p>
+      <p class="cf-r"><b>Not a contradiction &mdash; a horizon mismatch, and Bloomberg flags it in both pieces.</b> But note the asymmetry: the bullish position has a date and a price; <b>the bearish forecast has neither</b>, and a House Armed Services member describes the military situation as &ldquo;stalled.&rdquo; An undated forecast cannot discipline a dated position. <a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-04/hedge-funds-hike-bullish-oil-bets-to-may-high-as-iran-war-flares" title="Hedge Funds Hike Bullish Oil Bets to May High as Iran War Flares">Bloomberg&nbsp;&middot;&nbsp;09-05</a> <a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-04/bessent-sees-oil-as-low-as-40-post-iran-war-taking-yields-down" title="Bessent Sees Oil as Low as $40 Post-Iran War, Taking Yields Down">Bloomberg&nbsp;&middot;&nbsp;09-05</a></p>
+    </div>
+
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">&#9315;</span><h4>Is hyperscaler issuance opportunity or pressure?</h4><span class="tag t-bad"><i class="dot"></i>Live &middot; primary axis</span></div>
+      <div class="calls"><span class="call a"><b>Jefferies equity</b> &middot; $26.5tn TAM, 3.7x backlog cover</span><span class="call b"><b>Fixed-income strategists</b> &middot; source of real-rate pressure</span><span class="call b"><b>Ironsides</b> &middot; AI slowdown would ease long rates</span><span class="call c"><b>Apollo</b> &middot; either outcome rewards 5% yields</span></div>
+      <p>Barron&rsquo;s prints both sides in the same issue and <b>names the asymmetry itself</b>: the equity desk treats hyperscaler issuance as evidence of opportunity, while fixed-income strategists cite the same $219bn of IG paper as the source of real-rate pressure. Ironsides&rsquo; Knapp goes further &mdash; an AI capex slowdown would <em>ease</em> long-maturity real rates and enable a Treasury rally.</p>
+      <p class="cf-r"><b>Apollo&rsquo;s Sl&oslash;k supplies the only frame that survives both:</b> 2027 is an AI-outcome trade, not an inflation trade. Productivity success is &ldquo;massively deflationary&rdquo; and pushes rates lower; failure means a ~50% Nasdaq drawdown and a flight into Treasuries, which also pushes long rates lower. <b>Both paths reward locking in ~5% long yields today</b> &mdash; which is the closest thing to a consensus trade anywhere in the archive. <a class="cite" href="https://www.barrons.com/articles/bond-market-strategy-rising-yields-portfolio-c278240d" title="The Death of the Safe Haven: How to Fix Your Bond Strategy as Yields Rise">Barron's&nbsp;&middot;&nbsp;09-04</a> <a class="cite" href="https://www.barrons.com/articles/microsoft-stock-amazon-google-ai-c1f27f95" title="Microsoft, Amazon and 8 More Stocks Set to Win in a $26 Trillion AI Market">Barron's&nbsp;&middot;&nbsp;09-04</a></p>
+    </div>
+
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">&#9316;</span><h4>Positioning: record shorts, record highs</h4><span class="tag t-warn"><i class="dot"></i>Live</span></div>
+      <div class="calls"><span class="call b"><b>WSJ</b> &middot; largest NDX net shorts in two decades</span><span class="call a"><b>Barron&rsquo;s</b> &middot; Mag 7 ETF near a record close</span></div>
+      <p>WSJ reports speculators holding some of the largest net-short Nasdaq-100 futures positions in twenty years, after the worst momentum unwind in 25 years. Four sessions later Barron&rsquo;s reports every Magnificent Seven name higher and the Roundhill Mag 7 ETF at $70.58, just short of its $70.94 record close.</p>
+      <p class="cf-r"><b>Both are true and the combination is the point.</b> Extreme short positioning beneath an index at record levels is the setup for exactly the kind of one-sentence, 600-point reversal Waller produced. It also means the 3 September rally is weak evidence of conviction &mdash; <b>a short-covering move and a re-rating look identical for one session.</b> <a class="cite" href="https://www.wsj.com/finance/stocks/the-sudden-unraveling-of-wall-streets-momentum-trade-fe79b4fa?mod=hp_lead_pos3" title="The Sudden Unraveling of Wall Street's Momentum Trade">WSJ&nbsp;&middot;&nbsp;08-31</a> <a class="cite" href="https://www.barrons.com/livecoverage/stock-market-news-today-090326" title="Stock Market News for Thursday, Sept. 3, 2026 (Live Coverage)">Barron's&nbsp;&middot;&nbsp;09-04</a></p>
+    </div>
+
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">&#9317;</span><h4>Rate-odds instruments</h4><span class="tag t-new"><i class="dot"></i>Perimeter, not disagreement</span></div>
+      <div class="calls"><span class="call c"><b>Barron&rsquo;s</b> &middot; 48% from 63% (CME FedWatch)</span><span class="call c"><b>WSJ / Bloomberg</b> &middot; ~50% from ~70% (futures, swaps)</span></div>
+      <p>The Waller move is reported as a fall from 63% to 48% by Barron&rsquo;s and from about 70% to a coin flip by WSJ and Bloomberg. Different instruments, different snapshot times within one session.</p>
+      <p class="cf-r"><b>Label it and move on.</b> The direction and rough magnitude agree; the levels do not, and blending them into a single series would manufacture precision the archive does not support. This is why the figure opposite is drawn as an arc with a stated caveat rather than a line. <a class="cite" href="https://www.barrons.com/livecoverage/stock-market-news-today-090326" title="Stock Market News for Thursday, Sept. 3, 2026 (Live Coverage)">Barron's&nbsp;&middot;&nbsp;09-04</a> <a class="cite" href="https://www.wsj.com/finance/stocks/stocks-bonds-rally-after-dovish-fed-comments-b95763ae" title="Stocks, Bonds Rally After Dovish Fed Comments">WSJ&nbsp;&middot;&nbsp;09-04</a></p>
+    </div>
+
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">&#9318;</span><h4>What the payroll print means</h4><span class="tag t-warn"><i class="dot"></i>Live</span></div>
+      <div class="calls"><span class="call a"><b>Bloomberg</b> &middot; +162k beat all estimates, hawkish</span><span class="call b"><b>WSJ</b> &middot; low-hire, low-fire; mobility unchanged</span><span class="call c"><b>WSJ, pre-print</b> &middot; weak prints no longer signal recession</span></div>
+      <p>Bloomberg reports the beat as supporting the hawkish camp. WSJ&rsquo;s pre-print piece had argued the regime shift is <b>demographic, not cyclical</b> &mdash; aging plus an immigration clampdown cut labour supply, so weak payrolls stop signalling recession. WSJ&rsquo;s post-print piece then documents the lowest separation rate since the years after the financial crisis and nearly two million people out of work for six months or more.</p>
+      <p class="cf-r"><b>These reconcile, and the reconciliation is the insight:</b> if labour supply is constrained, a strong payroll number is a <em>supply</em> statement as much as a demand one &mdash; which makes it more inflationary, not less, and therefore more hawkish than its usual reading. <b>The same fact that makes weak prints benign makes strong prints dangerous.</b> <a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-04/fed-rate-decision-still-hangs-on-inflation-after-jobs-report?srnd=homepage-americas" title="Fed Rate Decision Still Hangs on Inflation After Jobs Report">Bloomberg&nbsp;&middot;&nbsp;09-05</a> <a class="cite" href="https://www.wsj.com/finance/investing/why-well-have-to-get-used-to-meh-job-reports-e903a625" title="Why We'll Have to Get Used to 'Meh' Job Reports | Markets A.M. for Sept. 3">WSJ&nbsp;&middot;&nbsp;09-04</a> <a class="cite" href="https://www.wsj.com/economy/jobs/american-workers-have-slammed-the-brakes-on-switching-jobs-767c45d1?mod=hp_lead_pos1" title="American Workers Have Slammed the Brakes on Switching Jobs">WSJ&nbsp;&middot;&nbsp;09-05</a></p>
+    </div>
+
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">&#9319;</span><h4>SK Hynix&rsquo;s lost DRAM share</h4><span class="tag t-ok"><i class="dot"></i>Closed within one article</span></div>
+      <p>The headline metric shows SK Hynix falling from 29% to 25% of DRAM revenue share while CXMT went from 8% to 10% &mdash; and Counterpoint <em>revised up</em> its own prior estimate of Chinese share, meaning the gains were being underestimated in real time.</p>
+      <p class="cf-r"><b>Resolves toward the caveat.</b> Barron&rsquo;s notes the loss is partly a deliberate mix shift into HBM, so headline share understates positioning quality. And with DRAM revenue up 57% quarter-on-quarter and NAND up 70%, <b>share is a poor lens on a market growing this fast</b> &mdash; every participant can post enormous growth while losing points. The muted price reaction suggests the market already treats Chinese share gains as structural rather than news. <a class="cite" href="https://www.barrons.com/articles/micron-stock-memory-chip-market-share-china-sk-hynix-493ec42b" title="China Is Grabbing Memory Market Share. This Stock Could Be a Big Loser.">Barron's&nbsp;&middot;&nbsp;09-04</a></p>
+    </div>
+
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">&#9320;</span><h4>The Hugging Face price</h4><span class="tag t-ok"><i class="dot"></i>Closed &middot; rounding</span></div>
+      <div class="calls"><span class="call a"><b>WSJ</b> &middot; $12.93bn / ~$13bn</span><span class="call a"><b>Barron&rsquo;s</b> &middot; $11.9bn + up to $1.0bn retention</span><span class="call a"><b>Bloomberg</b> &middot; ~$13bn</span></div>
+      <p>Compatible. Barron&rsquo;s splits the components where the others quote the total, and the exact figure is $12,930,300,000 &mdash; reportedly chosen so its first six digits render the Unicode code point for the hugging-face emoji.</p>
+      <p class="cf-r">Recorded only so the three figures are not mistaken for a dispute. <b>The real disagreement is about what was bought:</b> Barron&rsquo;s and Bloomberg frame it as a hedge and a distribution play at ~80x ARR; DA Davidson frames it as defensive blocking of the open-source commons. Those are not the same thesis, and the archive does not adjudicate. <a class="cite" href="https://www.barrons.com/articles/nvidia-stock-hugging-face-acquisition-a07b514d" title="Nvidia's $12.9 Billion Deal for Hugging Face Boosts Exposure to Open Model AI">Barron's&nbsp;&middot;&nbsp;09-04</a> <a class="cite" href="https://www.wsj.com/tech/ai/the-deeply-nerdy-founders-behind-nvidias-13-billion-bet-on-hugging-face-3a4b5227?mod=lead_feature_below_a_pos3" title="The 'Deeply Nerdy' Hugging Face Founders Behind Nvidia's $13 Billion AI Bet">WSJ&nbsp;&middot;&nbsp;09-05</a></p>
+    </div>
+
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">&#9321;</span><h4>Is it a war?</h4><span class="tag t-bad"><i class="dot"></i>Live &middot; rhetoric vs market</span></div>
+      <div class="calls"><span class="call a"><b>Vance</b> &middot; &ldquo;wouldn&rsquo;t call it a war&rdquo;</span><span class="call a"><b>Trump</b> &middot; &ldquo;small potatoes&rdquo;</span><span class="call b"><b>Markets</b> &middot; still pricing escalation</span></div>
+      <p>The Vice President says he would not call it a war and there is &ldquo;no active shooting&rdquo;; the President calls it &ldquo;small potatoes&rdquo; and says &ldquo;we&rsquo;re not fighting right now.&rdquo; The same briefs record 18 US service members dead, more than 3,500 Iranians killed, a Pentagon cost of about $37.5bn as of July, and a request for $67bn more &mdash; with strikes on US bases in Jordan, Kuwait and Bahrain inside the window.</p>
+      <p class="cf-r"><b>Bloomberg adjudicates this one itself</b>, noting the downplaying contrasts with market signals still pricing meaningful escalation risk. For the purposes of this dashboard the market reading governs: oil positioning, diesel at a record, and the yield path are the observable variables, and none of them behave as though the conflict has ended. <a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-03/vance-plays-down-iran-conflict-says-wouldn-t-call-it-a-war" title="Vance Says Iran Conflict Isn't a 'War,' Risking Midterm Backlash">Bloomberg&nbsp;&middot;&nbsp;09-04</a> <a class="cite" href="https://www.bloomberg.com/news/articles/2026-09-04/trump-calls-iran-conflict-small-potatoes-plays-down-war?srnd=homepage-americas" title="Trump Calls Iran Conflict 'Small Potatoes,' Plays Down War">Bloomberg&nbsp;&middot;&nbsp;09-05</a></p>
+    </div>
+
+  </div>
+  <p style="margin-top:26px;color:var(--ink-2);font-size:13.5px"><span class="kicker">Also carried, unresolved</span><br>
+  <b>Novartis and Bristol Myers on a shared CAR-T root cause.</b> Oppenheimer suggests Novartis&rsquo;s compression of cell expansion to as little as a day may trigger the immune reaction that killed three patients; Bristol Myers, whose ~5-day platform lets cells stabilise, <b>explicitly disputes a shared root cause</b>. Neither company has released full data. The archive cannot settle it, and the more portable finding is the disclosure asymmetry: <em>the information gap was closed by a sell-side analyst spotting dormant trials in a database, not by either sponsor.</em> <a class="cite" href="https://www.wsj.com/health/pharma/drugmakers-halt-autoimmune-trials-after-deaths-life-threatening-side-effects-14e786fd" title="Exclusive | Drugmakers Halt Autoimmune Trials After Deaths, Life-Threatening Side Effects">WSJ&nbsp;&middot;&nbsp;09-04</a></p>
+</section>
+</div>
+<div class="panel" id="p-signals" role="tabpanel" aria-labelledby="t-signals" hidden>
+<section>
+  <div class="sec-head"><h3>Signal board</h3><span class="kicker">18 indicators &middot; every trigger traceable to a brief</span></div>
+  <p style="color:var(--ink-2);max-width:78ch">Sized to one week of general-interest coverage rather than to a research cycle: eighteen indicators the archive actually supports, not thirty it would not. <b>Every threshold below is a number, date or condition stated in one of the eight briefs</b> &mdash; none is invented to make a row look complete. Where a brief gives no threshold, the trigger is written as the qualitative condition the brief itself names. Status is an editorial reading of this window against the prior week.</p>
+  <div class="chips" role="group" aria-label="Filter indicators"><button class="chip" data-f="all" aria-pressed="true">All <span class="n">18</span></button><button class="chip" data-f="ok" aria-pressed="false">Confirmed <span class="n">3</span></button><button class="chip" data-f="bad" aria-pressed="false">Escalated <span class="n">7</span></button><button class="chip" data-f="warn" aria-pressed="false">In motion <span class="n">5</span></button><button class="chip" data-f="new" aria-pressed="false">New this week <span class="n">3</span></button></div>
+  <div class="tscroll">
+  <table>
+    <thead><tr><th class="idx">#</th><th>Indicator</th><th>Status</th><th>Reading &amp; supporting data</th><th>Bullish trigger</th><th>Bearish trigger</th><th>Next checkpoint</th></tr></thead>
+    <tbody>
+
+      <tr data-st="warn"><td class="idx">1</td><td class="ind">September FOMC</td><td class="st"><span class="tag t-warn"><i class="dot"></i>In motion</span></td><td>Odds ran 35% &rarr; 57&ndash;60% &rarr; ~70% &rarr; 48&ndash;50% &rarr; 60%+ across four sessions with <b>no inflation release in the window</b>. Three officials dissented for a hike in July, plus two non-voters who have since agreed; Waller holds unless inflation is &ldquo;hot&rdquo;; Hammack wants to act now. Target range 3.50&ndash;3.75%</td><td class="bl">The Fed holds <em>and</em> explains the reaction function well enough that the curve does not steepen &mdash; the failure mode Goldman named as &ldquo;a July FOMC re-run for the curve&rdquo;</td><td class="br">A hold with no articulated rationale, repeating July, which produced the sharpest steepening since August 2025; or a hike into a market that produced a 20-point odds swing on commentary alone</td><td class="nx"><b>15&ndash;16 September.</b> Dated in the briefs</td></tr>
+
+      <tr data-st="warn"><td class="idx">2</td><td class="ind">August CPI &mdash; the decisive print</td><td class="st"><span class="tag t-warn"><i class="dot"></i>In motion</span></td><td>Named by every rates piece as the swing factor, including by both sides. July core PCE ran <b>3.7% against a 2% target</b>. Warsh&rsquo;s own disclosed method is a diffusion index across 199 PCE components, with 58% of items rising more than 3% over twelve months</td><td class="bl">A downside surprise. Waller has said explicitly he would support holding if the next two weeks of inflation data confirm disinflation</td><td class="br">An upside surprise. Waller: &ldquo;if inflation comes in hot, I would consider a rate hike&rdquo; &mdash; and Bloomberg calls CPI the only print &ldquo;capable of moving the needle&rdquo;</td><td class="nx"><b>11 September</b>, with PPI the day before</td></tr>
+
+      <tr data-st="bad"><td class="idx">3</td><td class="ind">Long-end yields &mdash; a global event</td><td class="st"><span class="tag t-bad"><i class="dot"></i>Escalated</span></td><td>US 10-year from 4.16% at the start of 2026 to a 4.82% peak, the highest since October 2023; 30-year touched 5.32% mid-August, the highest since 2007. <b>Not American: Japan&rsquo;s 10-year touched 3% for the first time in 30 years</b>, France +65bp YTD, Britain +67bp YTD</td><td class="bl">The 10-year holds below the 4.795&ndash;4.82% band without requiring a dovish Fed surprise; the global leg recedes as JGB and gilt yields stabilise</td><td class="br">The 10-year breaks decisively above 4.82%; or the ex-US leg keeps rising, which would confirm the driver is supply and term premium rather than the Fed &mdash; the case Barron&rsquo;s makes from contained breakevens</td><td class="nx">Whether the ex-US long end leads or follows from here</td></tr>
+
+      <tr data-st="new"><td class="idx">4</td><td class="ind">The uncharged fiscal risk premium</td><td class="st"><span class="tag t-new"><i class="dot"></i>New</span></td><td><b>The single most asymmetric observation in the archive.</b> On CBO&rsquo;s 2bp-per-1pp-of-GDP rule, debt rising from 35% of GDP in 2006 to 100% now should have added ~1.3pp to yields &mdash; <b>yet yields are no higher than in 2006</b>. Barclays&rsquo; Rajadhyaksha expects the market eventually to demand it. US debt has reached $40tn</td><td class="bl">The premium stays uncharged while deficits narrow &mdash; but note no source in the archive forecasts this, and Bessent&rsquo;s 3% deficit target has been endorsed by neither Trump nor Congress</td><td class="br">The market begins charging it. This is a repricing of <em>level</em>, not direction, and would land on top of whatever the Fed does &mdash; the deficit is likely to top 6% of GDP</td><td class="nx">Any auction that tails badly. Cited academic work finds even 0.5&ndash;1.0pp of AI productivity gains leaves debt/GDP <b>rising in every scenario</b></td></tr>
+
+      <tr data-st="bad"><td class="idx">5</td><td class="ind">Housing transmission</td><td class="st"><span class="tag t-bad"><i class="dot"></i>Escalated</span></td><td>30-year mortgage at <b>6.71%, the highest since July 2025</b>, from 6.5% a year ago and briefly under 6% in February. <b>The share of pending sales turned negative year-over-year in August &mdash; the first negative reading since November 2025.</b> Realtor.com: August was &ldquo;the month where higher mortgage rates really caught up to housing demand&rdquo;</td><td class="bl">Pending sales return to positive year-over-year growth; rates retreat from the 6.7% area rather than continuing toward 7%</td><td class="br">First American&rsquo;s call proves right and rates move &ldquo;much closer to 7%&rdquo;; base effects turn adverse as forecast, since rates were <em>declining</em> a year ago &mdash; comparisons &ldquo;might just get uglier in the coming months&rdquo;</td><td class="nx">The next pending-sales print, against a deteriorating base</td></tr>
+
+      <tr data-st="bad"><td class="idx">6</td><td class="ind">Hyperscaler credit concentration</td><td class="st"><span class="tag t-bad"><i class="dot"></i>Escalated</span></td><td>US corporates issued <b>$1.68tn through August, +27% y/y</b>; hyperscalers alone issued <b>$219bn of IG paper</b>, most earmarked for data centres. BofA projects Alphabet, Amazon, Meta, Microsoft and Oracle at <b>6.3% of the US IG market by end-2027, from 3% at end-2025</b> &mdash; so a 60/40 portfolio double-counts the same five names</td><td class="bl">Issuance moderates without a demand signal deteriorating; the projected 6.3% share proves an overshoot</td><td class="br">The share tracks toward 6.3% on schedule while equity multiples compress &mdash; the same names repricing on both sides of the balance sheet at once</td><td class="nx">The pace of IG issuance into year-end. The prior week&rsquo;s baseline: CDS on Alphabet, Meta and Amazon had <b>already roughly doubled</b> since January</td></tr>
+
+      <tr data-st="bad"><td class="idx">7</td><td class="ind">Oracle &mdash; the crossover name</td><td class="st"><span class="tag t-bad"><i class="dot"></i>Escalated</span></td><td>Five-year CDS from <b>~0.4% of bond value a year ago to more than 2%</b>. Equity down 21% YTD, 31% over twelve months. Yet revenue growth <em>accelerated</em> 12% &rarr; 21%, and $183bn of backlog was added since September 2025 against a $138bn total on that date. The bear case is entirely financial structure: negative FCF and <b>~$260bn of off-balance-sheet data-centre commitments, roughly 3x FY2027 capex</b></td><td class="bl">The 10 September print shows the backlog converting without further capex escalation, and CDS retraces from above 2%</td><td class="br">CDS widens further while Jefferies&rsquo; &ldquo;peak negative sentiment&rdquo; call is made <em>against</em> a still-deteriorating credit signal &mdash; equity and credit disagreeing is the warning, not the reassurance</td><td class="nx"><b>10 September earnings.</b> Watch the credit line, not the multiple</td></tr>
+
+      <tr data-st="ok"><td class="idx">8</td><td class="ind">AI capex &rarr; real economy</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span></td><td><b>The cleanest transmission evidence in the archive.</b> Private data-centre construction at a <b>$75bn annualised rate in July, up $51bn since end-2023, while all other private construction fell $120bn</b>. Goods-producing payrolls +0.6% over six months vs services +0.4%; manufacturing +43,000 over three months, the strongest since late 2022; a breadth measure across 72 manufacturing industries at a near-four-year high, attributed by Citi to data-centre construction and tax incentives</td><td class="bl">Construction spending and goods payrolls keep diverging from the rest of the economy; the 72-industry breadth measure holds near its high</td><td class="br">Data-centre construction spending flattens. Because it is now <em>the</em> marginal driver of US construction, a pause removes a primary support for the real economy, not just for equities &mdash; the explicit warning in WSJ&rsquo;s bond-selloff piece</td><td class="nx">Monthly construction spending. Track <b>incremental capacity, not dollars</b> &mdash; and note the prior week&rsquo;s ING estimate that the buildout is roughly a third of recent US growth</td></tr>
+
+      <tr data-st="bad"><td class="idx">9</td><td class="ind">Beat-and-sell regime</td><td class="st"><span class="tag t-bad"><i class="dot"></i>Escalated</span></td><td>Broadcom: AI chips <b>+221% to $16.7bn</b>, guided +236%, FY27 $115bn rising to $230bn FY28 &mdash; <b>shares &minus;5.6%</b> at 20.2x forward vs Nvidia below 17x. Ciena: beat, raised, <b>&minus;11%, worst in the S&amp;P 500</b>, with ~0.7pp of margin expansion a non-recurring tariff refund. Snowflake: beat, raised, <b>+17%</b>. Cross-market confirmation from China &mdash; profits +25.7% y/y, the fastest in five years, yet the CSI 300 fell 9% and the STAR 50 fell 29%</td><td class="bl">A large-cap AI hardware name beats and the stock <em>rises</em> without needing an accelerating growth rate &mdash; evidence the expectations bar has reset rather than kept climbing</td><td class="br">The pattern spreads to Nvidia itself, the one name that has so far escaped it; or targets start being cut on beats rather than merely held, which Ciena&rsquo;s $600 &rarr; $520 already approaches</td><td class="nx">Ciena&rsquo;s CEO supplies the mechanism: the market treats AI infrastructure as <b>&ldquo;an amorphous blob,&rdquo;</b> with algorithms moving before investors separate winners from losers</td></tr>
+
+      <tr data-st="ok"><td class="idx">10</td><td class="ind">Software over semis</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span></td><td>Snowflake +17% on 35% growth the same session Broadcom fell on 221%. FY27 product revenue growth raised to <b>36% from 31% and margin to 14.5% from 10%</b> &mdash; growth and margin revised up together, with 692 net new customers, +32% y/y. The thesis that halved the stock (agents displacing data platforms) <b>inverted</b>: agents are driving platform consumption</td><td class="bl">Software keeps converting AI into consumption rather than losing to it; the KeyBanc bear case &mdash; customers using LLMs to trim warehouse spend &mdash; stays theoretical, as it currently is</td><td class="br">LLM-driven cost optimisation actually starts, which channel work says it has not; or Snowflake&rsquo;s <b>~15x forward revenue against the IGV&rsquo;s 7.4x</b> compresses on any deceleration &mdash; the valuation leaves no room for error</td><td class="nx">Whether customers begin the cost optimisation they have described but not started</td></tr>
+
+      <tr data-st="new"><td class="idx">11</td><td class="ind">Open-weight competition</td><td class="st"><span class="tag t-new"><i class="dot"></i>New</span></td><td>Nvidia paid <b>~80x ARR</b> ($12.93bn for ~$150m) for the open-model hub &mdash; 18m developers, ~3m models. The same week: Moonshot at a <b>$50bn valuation</b> with a confidential Hong Kong filing and Kimi K3 at near-parity for a fraction of the cost; DeepSeek ordering <b>&ge;160,000 Huawei Ascend 950DT</b> for a gigawatt-scale site. Kai-Fu Lee argues China wins on &ldquo;reach&rdquo; &mdash; cheap, high-share, low-monetisation</td><td class="bl">Open models expand aggregate compute demand faster than they compress model pricing &mdash; Huang&rsquo;s explicit thesis, and the reason Nvidia monetises proliferation regardless of which model wins</td><td class="br">Open-weight parity compresses frontier pricing before the Anthropic and OpenAI listings; or Nvidia&rsquo;s stewardship erodes Hugging Face&rsquo;s neutrality and developers defect &mdash; the GitHub/Microsoft precedent named in the archive</td><td class="nx">Two constraints worth watching: <b>DeepSeek still trains on Nvidia</b> and uses Huawei only for inference, and Huawei&rsquo;s own bottleneck is <b>top-end memory</b></td></tr>
+
+      <tr data-st="warn"><td class="idx">12</td><td class="ind">China memory share</td><td class="st"><span class="tag t-warn"><i class="dot"></i>In motion</span></td><td>CXMT took <b>10% of DRAM revenue in 2Q26, from 8% and 4% a year earlier &mdash; and Counterpoint revised up its own prior estimate from 7%</b>, so the gains are being underestimated in real time. YMTC holds 14% of NAND. Micron gained on both fronts; SK Hynix fell 29% &rarr; 25% of DRAM, partly a deliberate HBM mix shift. DRAM revenue +57% q/q, NAND +70% q/q</td><td class="bl">Share losses keep coinciding with enormous absolute revenue growth &mdash; in a market growing this fast, share is a poor lens and every participant can win</td><td class="br">Chinese share gains continue to be revised <em>upward</em> after the fact, which is the tell that the trend is being systematically underestimated; or growth decelerates and share starts mattering again</td><td class="nx">The next Counterpoint revision. The muted price reaction suggests the market already treats this as structural</td></tr>
+
+      <tr data-st="bad"><td class="idx">13</td><td class="ind">AI social licence</td><td class="st"><span class="tag t-bad"><i class="dot"></i>Escalated</span></td><td>Altman conceded the industry &ldquo;has done a terrible job&rdquo; and disclosed that <b>at least 75 data-centre projects worth ~$130bn were blocked or delayed by local opposition in Q1 alone</b> &mdash; approaching the full-year 2025 total. Pennsylvania is the latest state to restrict construction; rural opposition features in Texas Senate race coverage. The prior week had only a sentiment figure: 75% of Americans oppose one nearby</td><td class="bl">The blocked-project run rate falls below the Q1 pace; permitting becomes a scarcity premium for already-permitted owners rather than a brake on aggregate buildout</td><td class="br">The Q1 pace continues, putting the annual figure far above 2025. WSJ&rsquo;s structural point is the danger: this is a <b>bipartisan</b> revolt, and unlike Uber a decade ago, AI labs have <b>no grassroots constituency</b> to mobilise against it</td><td class="nx">Q2 blocked-project data. Note the second-order effect &mdash; permitting scarcity <em>raises</em> the value of already-permitted sites</td></tr>
+
+      <tr data-st="warn"><td class="idx">14</td><td class="ind">Hormuz flows</td><td class="st"><span class="tag t-warn"><i class="dot"></i>In motion</span></td><td>A US blockade has stopped <b>all</b> Iranian Gulf exports since July, while the US helped Gulf states move ~5m b/d through Hormuz plus ~2.5m b/d via Gulf of Oman ports &mdash; <b>together over 40% of prewar regional flow</b>. Crude stays below $100 partly because China drew down reserves and cut imports. Both sides are described as having no clear exit</td><td class="bl">Flows keep recovering toward prewar and the risk premium decays; Iran&rsquo;s economic strain &mdash; trade down 25&ndash;35% &mdash; eventually forces terms</td><td class="br">The tit-for-tat resumes and reverses the recovery, which ANZ names as the specific risk since the market had priced normalisation. The US midterm calendar may push Tehran toward <b>escalation rather than compromise</b> &mdash; the 1980 playbook, explicitly invoked</td><td class="nx">Whether attacks on shipping resume. <b>Measurement caution:</b> the archive carries four different denominators for &ldquo;prewar flow&rdquo; across two weeks</td></tr>
+
+      <tr data-st="warn"><td class="idx">15</td><td class="ind">Oil positioning vs forecast</td><td class="st"><span class="tag t-warn"><i class="dot"></i>In motion</span></td><td>Net-bullish Brent at its <b>highest since May</b> (+37,837 to 261,435 contracts); US crude net-long the highest since June; gasoline net-long the highest since December and the most bullish ever recorded for the time of year. <b>US retail diesel at a record $5.85/gal.</b> Against that, Bessent&rsquo;s $40&ndash;50 post-war call, with no timeline</td><td class="bl">A negotiated de-escalation, which would validate Bessent and unwind both the positioning and, on his own account, a large part of the yield problem &mdash; he calls the oil-yield correlation &ldquo;the highest they&rsquo;ve ever had&rdquo;</td><td class="br">Crowded long positioning unwinds on a headline without the war ending &mdash; the worst of both, since the inflation input persists while the trade breaks</td><td class="nx">Diesel is the cleaner read than crude: it has rallied harder, is squeezed by two conflicts at once, and feeds directly into goods inflation</td></tr>
+
+      <tr data-st="ok"><td class="idx">16</td><td class="ind">Labour mobility</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span></td><td>Payrolls +162,000 beat every estimate, yet the <b>separation rate is at its lowest since the years after the financial crisis</b> and hiring is similarly depressed. The long-term unemployed are <b>27% of the total, up from ~21% two years ago</b>; nearly 2 million have been out of work six months or more; only <b>33%</b> of job seekers told Gallup it is a good time to find a quality job. Openings per unemployed 1.04, from a 2.0 peak in April 2022</td><td class="bl">Separations and hires both rise &mdash; genuine churn returning rather than a strong headline sitting on a frozen market</td><td class="br">Long-term unemployment keeps climbing while headline payrolls look healthy. WSJ&rsquo;s framing is that supply constraints let low hiring hold unemployment steady, which <b>masks deterioration in the headline number</b></td><td class="nx">The quits and separations series, not the payroll headline</td></tr>
+
+      <tr data-st="new"><td class="idx">17</td><td class="ind">Corporate delayering</td><td class="st"><span class="tag t-new"><i class="dot"></i>New</span></td><td>Uber halving &ldquo;micro-teams&rdquo; inside a 10% cut of ~3,300 people, ending with <b>20% fewer managers and a 20% reduction in employees sitting seven or more layers from the CEO</b>. Intel halved layers 12 &rarr; 6; Coinbase capped at five; Google cut small-team managers 35% last year; Axon called its ~4:1 ratio &ldquo;borderline offensive.&rdquo; VW added 50,000 cuts, ~8% of its workforce. <b>40% of Gen Z want promotions that do not require managing</b></td><td class="bl">Flatter structures show up as margin expansion without a capability loss &mdash; the implicit bet, and the reason Grindr&rsquo;s CEO expects it to be permanent as agents absorb coordination work</td><td class="br">The talent-pipeline problem bites: small teams were <b>the low-risk training ground for new managers</b>, and few firms have answered what replaces them. Live Data shows middle managers are a rising share of departures and are backfilled more slowly</td><td class="nx">Watch VW specifically: the works council reframed 50,000 as <b>a planning assumption derived from a margin target</b>, not a contractual headcount &mdash; a real gap between announced and enforceable</td></tr>
+
+      <tr data-st="bad"><td class="idx">18</td><td class="ind">Diversification failure</td><td class="st"><span class="tag t-bad"><i class="dot"></i>Escalated</span></td><td><b>The S&amp;P 500 / Treasury correlation has been positive since March and hit a 30-year high in June</b> &mdash; bonds hedge equities least when rate volatility is the shock. AGG returned roughly nothing YTD; TLT &minus;2.36%. Underneath, BDC portfolio overlap has gone from ~10% in 2010 to <b>over 55%</b>, with overlap in <em>nonaccrual</em> exposures rising faster still; Morgan Stanley&rsquo;s BDC shares 85% of borrowers</td><td class="bl">The equity-bond correlation turns negative again as rate volatility subsides &mdash; which requires the September decision to be resolved, not merely passed</td><td class="br">Correlation stays positive through a drawdown, so the 60/40 fails exactly when needed; or BDC nonaccrual overlap converts a single default into a simultaneous loss across managers</td><td class="nx">Raymond James&rsquo; question is the right one: <b>&ldquo;Does buying multiple BDCs give you the same diversification it did in the past?&rdquo;</b> Practitioners have already moved &mdash; Plaza to 65/22/13 from 70/30</td></tr>
+
+    </tbody>
+  </table>
+  </div>
+</section>
+</div>
+<div class="panel" id="p-action" role="tabpanel" aria-labelledby="t-action" hidden>
+<section>
+  <div class="sec-head"><h3>The reading</h3><span class="kicker">One stance, three instructions</span></div>
+  <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:46px;align-items:start">
+    <div>
+      <h2 style="font-size:clamp(24px,3.2vw,34px);line-height:1.2;max-width:24ch;margin-bottom:20px">Own the AI that turns capital into capacity; avoid the AI that turns capital into commitments &mdash; and take the rate view at the front end, not the long end.</h2>
+      <p>The archive is unanimous that AI demand is real and nowhere disputes it. Every bear argument in eight briefs is about <em>financing</em>: $219bn of hyperscaler IG paper heading to 6.3% of the IG market, Oracle&rsquo;s CDS from 0.4% to over 2% against ~$260bn of off-balance-sheet commitments, and SB Energy claiming a $400bn backlog with <strong>zero data centres in operation</strong> and Ohio financing resting on an Nvidia residual-value guarantee. Set against that, the buildout is now measurable in construction spending and manufacturing payrolls. <strong>Capacity is being created and commitments are being written, and the market is no longer paying the same multiple for both.</strong></p>
+      <p style="margin-bottom:0">The rate leg is the harder call, and the archive contains its own counter-argument. Apollo&rsquo;s Sl&oslash;k makes the elegant case that <em>either</em> AI outcome &mdash; productivity success or a 50% Nasdaq drawdown &mdash; pushes long rates lower, so locking in ~5% wins both ways. <strong>The reason not to take it is in the same week&rsquo;s reporting:</strong> on CBO&rsquo;s own rule the fiscal risk premium should already have added 1.3pp to yields and has not, and hyperscaler supply is set to double as a share of the IG market. Sl&oslash;k&rsquo;s two paths both assume the term premium stays where it is. That is the assumption this archive most directly undermines.</p>
+    </div>
+    <div style="border-left:1px solid var(--color-divider);padding-left:26px">
+      <div style="padding-bottom:18px;border-bottom:1px solid var(--color-divider)">
+        <span class="kicker">Instruction 1</span>
+        <p style="margin:6px 0 0"><strong>Measure AI exposure in gigawatts and revenue, not in announced dollars.</strong> The archive supplies the discriminator: a backlog claim from an operator with no operating capacity is not the same asset as data-centre construction showing up in payroll data.</p>
+      </div>
+      <div style="padding:18px 0;border-bottom:1px solid var(--color-divider)">
+        <span class="kicker">Instruction 2</span>
+        <p style="margin:6px 0 0"><strong>Express the rate view at the front end and in volatility.</strong> A 20-point swing in hike odds on commentary alone, with no inflation print, is optionality being handed out cheaply. The long end carries an uncharged fiscal premium <em>plus</em> a doubling of hyperscaler supply.</p>
+      </div>
+      <div style="padding:18px 0 0">
+        <span class="kicker">Instruction 3</span>
+        <p style="margin:6px 0 0"><strong>Stop treating the bond sleeve as a hedge until the correlation breaks.</strong> Positive since March, a 30-year high in June. Practitioners in the archive have already moved &mdash; Plaza to 65/22/13 from 70/30.</p>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:30px;padding:20px 24px;background:var(--color-surface);border-left:3px solid var(--color-accent)">
+    <span class="kicker">What is <em>not</em> being recommended</span>
+    <p style="margin:8px 0 0">This is <strong>not</strong> a reduction of AI exposure, and the archive does not support one. Snowflake accelerated where deceleration was modelled; cloud operating margins have expanded four consecutive quarters despite rising supply-chain costs; backlog covers committed capex roughly 3.7x; and the buildout is now visible in manufacturing employment across 72 industries. <strong>The distinction being drawn is within the AI complex, not against it.</strong> Cutting gross exposure here would be trading the financing narrative rather than the demand evidence.</p>
+  </div>
+  <div class="integ">
+    <p><b>This section is editorial interpretation, not investment advice.</b> It is a reading of eight local news briefs, not of markets, filings or prices. Nothing here has been verified against a primary source, no position has been tested against data outside this archive, and the probabilities on the scenarios below are the author&rsquo;s judgement rather than anything derived or quoted.</p>
+    <p>The rest of this dashboard is descriptive and is meant to stand on its own if you disagree with everything on this page.</p>
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section>
+  <div class="sec-head"><h3>Near-term outlook</h3><span class="kicker">To the September meeting &middot; probabilities are editorial</span></div>
+  <div class="scen">
+    <div class="s">
+      <div class="sh"><span class="st2">Base case</span><span class="pct">50%<small>editorial</small></span></div>
+      <p>CPI lands ambiguously and the Fed holds without a clean rationale, repeating the July failure mode. Dispersion inside the AI complex stays violent while the index goes nowhere: capacity-backed names hold, financing-dependent names keep de-rating on good news. Oil stays in the $90s with no negotiated exit.</p>
+      <p class="trg"><b>Named trigger:</b> Goldman&rsquo;s &ldquo;July FOMC re-run for the curve&rdquo; &mdash; a hold that steepens rather than soothes.</p>
+    </div>
+    <div class="s">
+      <div class="sh"><span class="st2">Hawkish</span><span class="pct">30%<small>editorial</small></span></div>
+      <p>August CPI comes in hot, the Fed hikes weeks before the midterms, and the front end reprices hard. Barclays and Soci&eacute;t&eacute; G&eacute;n&eacute;rale are already at September <em>and</em> December. Housing takes the first hit as mortgage rates move toward 7%; the beat-and-sell regime extends to Nvidia itself.</p>
+      <p class="trg"><b>Named trigger:</b> Waller&rsquo;s own condition &mdash; &ldquo;if inflation comes in hot, I would consider a rate hike.&rdquo;</p>
+    </div>
+    <div class="s">
+      <div class="sh"><span class="st2">Relief</span><span class="pct">20%<small>editorial</small></span></div>
+      <p>CPI confirms disinflation, the Fed holds with a credible explanation, and oil de-escalates &mdash; the one combination that resolves the yield problem at source, on Bessent&rsquo;s own account of the oil-yield correlation. Duration rallies and the AI complex re-rates on rates rather than results.</p>
+      <p class="trg"><b>Named trigger:</b> a downside CPI surprise, which Bloomberg calls the only print &ldquo;capable of moving the needle.&rdquo;</p>
+    </div>
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section>
+  <div class="sec-head"><h3>The bear case</h3><span class="kicker">What breaks this reading</span></div>
+  <div class="bear">
+    <div>
+      <h2 style="font-size:clamp(22px,2.9vw,31px);line-height:1.22;max-width:26ch;margin-bottom:18px">The thesis does not break on AI demand. It breaks if the long end reprices before the capacity arrives.</h2>
+      <p>The instruction to avoid duration assumes the fiscal premium gets charged gradually. If it is charged suddenly &mdash; a failed auction, a debt-ceiling collision, an oil shock that pushes headline inflation past what a hawkish Fed can absorb &mdash; then <strong>everything reprices at once</strong>, and the distinction between capacity-backed and commitment-backed AI stops mattering because both are long-duration assets.</p>
+      <p>Rogoff&rsquo;s framing from the prior week is the uncomfortable one: the fiscal position goes unaddressed until a crisis forces it, and he explicitly sizes the current conflict as <em>&ldquo;a mini shock compared to what could happen.&rdquo;</em> A doom loop &mdash; higher rates raising interest expense, worsening the debt, demanding higher yields &mdash; does not respect a portfolio&rsquo;s internal distinctions.</p>
+      <p style="margin-bottom:0">The second break is simpler and closer. <strong>If data-centre construction flattens, the transmission that makes AI a macro variable runs in reverse.</strong> It is now the marginal driver of US construction, and the archive says all other private construction has already fallen $120bn. There is nothing underneath it.</p>
+    </div>
+    <div>
+      <div style="border-top:1px solid var(--color-text);padding-top:16px">
+        <span class="kicker">What would change the reading</span>
+        <p style="font-size:13.5px;line-height:1.6;color:var(--ink-2);margin:10px 0 0"><b>Long-end yields fall while hyperscaler issuance continues.</b> That would say the market absorbs the supply and the fiscal premium is not coming &mdash; which would make Sl&oslash;k&rsquo;s trade right and this reading wrong.</p>
+        <p style="font-size:13.5px;line-height:1.6;color:var(--ink-2);margin:14px 0 0"><b>A financing-dependent AI name refinances tight and oversubscribed.</b> The credit discrimination thesis rests on Oracle&rsquo;s CDS and a projected IG share; one clean print against it would weaken the whole distinction.</p>
+        <p style="font-size:13.5px;line-height:1.6;color:var(--ink-2);margin:14px 0 0"><b>Nvidia beats and rises.</b> The beat-and-sell regime has not yet touched it. If the one name that escapes the pattern keeps escaping, the pattern is about valuation dispersion, not about a changed bar for the sector.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section>
+  <div class="sec-head"><h3>The calendar that decides it</h3><span class="kicker">Dated in the briefs</span></div>
+  <div class="cal">
+    <div class="cev"><div class="d">8 Sep<small>2026</small></div><div class="b"><b>Canadian retaliatory tariffs take effect.</b> Against 50% US tariffs on ~$20bn of Canadian goods that, unlike prior rounds, <em>do not exempt USMCA-compliant goods</em>. Landing on an economy that just posted its fastest quarterly growth in three years.</div></div>
+    <div class="cev"><div class="d">9 Sep<small>2026</small></div><div class="b"><b>Apple&rsquo;s iPhone event</b> &mdash; the first under Ternus, and the September full-scale Siri deployment that the archive calls make-or-break, after Apple abandoned homegrown models to pay Google for Gemini.</div></div>
+    <div class="cev"><div class="d">10 Sep<small>2026</small></div><div class="b"><b>Oracle earnings.</b> The crossover name where equity sentiment and credit stress meet. Watch the CDS and the off-balance-sheet commitments, not the multiple.</div></div>
+    <div class="cev"><div class="d">10&ndash;11 Sep<small>2026</small></div><div class="b"><b>PPI, then August CPI.</b> Named by every rates piece in the archive as the print that decides September. Waller&rsquo;s stated condition attaches directly to it.</div></div>
+    <div class="cev"><div class="d">15&ndash;16 Sep<small>2026</small></div><div class="b"><b>FOMC.</b> Into a market that moved 20 points on commentary with no data. Three July dissenters, two sympathetic non-voters, and a chairman who has said he will communicate less.</div></div>
+    <div class="cev"><div class="d">18 Sep<small>2026</small></div><div class="b"><b>Bank of Japan.</b> Swaps price a quarter-point hike plus nearly three more by July, against an average of two per year since 2024. The carry unwind is already cross-asset &mdash; BRL, ZAR and MXN each fell more than 1% against the yen in one session.</div></div>
+    <div class="cev"><div class="d">Sep&ndash;Oct<small>2026</small></div><div class="b"><b>SB Energy&rsquo;s IPO</b>, targeted &ldquo;as soon as next month&rdquo; at $5&ndash;7bn. The single best test of whether public markets will fund a $400bn backlog held by an operator with no data centres in operation.</div></div>
+    <div class="cev"><div class="d">Nov<small>2026</small></div><div class="b"><b>The tariff truce with China expires</b> unless extended, with a 7.5% tariff over excess capacity already queued ahead of the Trump-Xi summit. Same month as the <b>midterms</b>, which the archive repeatedly names as a constraint on both Fed and Iran policy.</div></div>
+    <div class="cev"><div class="d">1H 2027<small></small></div><div class="b"><b>The Hugging Face acquisition closes.</b> Between now and then, the test is whether Huang&rsquo;s pledge holds &mdash; that &ldquo;Nvidia compute will not be required to build on or deploy through Hugging Face.&rdquo; The GitHub precedent is the thing to watch.</div></div>
+    <div class="cev"><div class="d">Undated<small>Imminent</small></div><div class="b"><b>Anthropic&rsquo;s IPO.</b> The $15bn revolver &mdash; 6x last year&rsquo;s facility &mdash; clears a procedural hurdle ahead of filing. Reported annualised revenue above $65bn, roughly seven times its run rate at the end of last year. The highest-information event pending anywhere in this archive.</div></div>
+    <div class="cev"><div class="d">Undated<small>Pending</small></div><div class="b"><b>Moonshot&rsquo;s Hong Kong listing</b>, confidentially filed at a $50bn valuation. It prices open-weight parity directly against the Anthropic and OpenAI listings expected this autumn.</div></div>
+    <div class="cev"><div class="d">2032<small>Statutory</small></div><div class="b"><b>Social Security trust-fund exhaustion</b>, triggering automatic 22% benefit cuts absent legislation &mdash; the archive&rsquo;s reminder that the fiscal arithmetic driving the long end has a hard date attached.</div></div>
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section class="inv">
+  <div class="sec-head"><h3>Source inventory</h3><span class="kicker">8 briefs &middot; 108 article entries &middot; 31 Aug &ndash; 5 Sep</span></div>
+  <div class="tscroll"><table>
+    <thead><tr><th>Brief</th><th>n</th><th>Publication</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td class="s"><a href="barrons_insights_2026-08-31.md">barrons_insights_2026-08-31.md</a></td><td class="n">12</td><td>Barron's</td><td>Opens the window; carries the Jackson Hole aftermath</td></tr>
+      <tr><td class="s"><a href="barrons_insights_2026-09-04.md">barrons_insights_2026-09-04.md</a></td><td class="n">14</td><td>Barron's</td><td>Reports 1&ndash;3 September backwards &mdash; the three days with no brief of their own</td></tr>
+      <tr><td class="s"><a href="bloomberg_insights_2026-08-31.md">bloomberg_insights_2026-08-31.md</a></td><td class="n">14</td><td>Bloomberg</td><td>Opens the window; carries the Jackson Hole aftermath</td></tr>
+      <tr><td class="s"><a href="bloomberg_insights_2026-09-04.md">bloomberg_insights_2026-09-04.md</a></td><td class="n">11</td><td>Bloomberg</td><td>Reports 1&ndash;3 September backwards &mdash; the three days with no brief of their own</td></tr>
+      <tr><td class="s"><a href="bloomberg_insights_2026-09-05.md">bloomberg_insights_2026-09-05.md</a></td><td class="n">12</td><td>Bloomberg</td><td>Closes the window; payrolls and the open-model cluster</td></tr>
+      <tr><td class="s"><a href="wsj_insights_2026-08-31.md">wsj_insights_2026-08-31.md</a></td><td class="n">21</td><td>WSJ</td><td>Opens the window; carries the Jackson Hole aftermath</td></tr>
+      <tr><td class="s"><a href="wsj_insights_2026-09-04.md">wsj_insights_2026-09-04.md</a></td><td class="n">12</td><td>WSJ</td><td>Reports 1&ndash;3 September backwards &mdash; the three days with no brief of their own</td></tr>
+      <tr><td class="s"><a href="wsj_insights_2026-09-05.md">wsj_insights_2026-09-05.md</a></td><td class="n">12</td><td>WSJ</td><td>Closes the window; payrolls and the open-model cluster</td></tr>
+      <tr><td class="s"><b>Total</b></td><td class="n"><b>108</b></td><td colspan="2">Three publications across three brief dates. <b>No briefs exist for 1&ndash;3 September.</b></td></tr>
+    </tbody>
+  </table></div>
+  <div class="grades">
+    <div class="g"><div class="gl">(a) Official data and quoted text</div><p>The August payroll release (+162,000, 4.1%); the July trade balance ($88.6bn); Freddie Mac&rsquo;s mortgage rate (6.71%); CFTC positioning data; Warsh&rsquo;s and Waller&rsquo;s own words; reported company results for Broadcom, Ciena, Snowflake, Lululemon and Novartis.</p></div>
+    <div class="g"><div class="gl">(b) Named, on-record reporting</div><p>Named analyst estimates and targets (Jefferies, Needham, Piper Sandler, Morgan Stanley, Raymond James, Counterpoint, BofA); disclosed deal terms for Hugging Face, Anthropic&rsquo;s revolver and SB Energy&rsquo;s filing; named officials on Venezuela and Iran.</p></div>
+    <div class="g"><div class="gl">(c) Relayed estimates and projections</div><p>Rate-hike probabilities (different instruments, different moments); Jefferies&rsquo; $26.5tn TAM; PwC&rsquo;s $31tn by 2050; Nscale&rsquo;s own projections, <b>explicitly labelled illustrative rather than guidance</b>; survey work from KPMG-Melbourne, Checkr, Gallup and Langston.</p></div>
+    <div class="g"><div class="gl">(d) Anonymous and single-outlet</div><p><b>No (d)-grade item drives a conclusion here.</b> The Venezuela concession terms rest on official announcements that two houses report incompatibly; the DeepSeek-Huawei order and the Armenia chip-diplomacy account rest on people familiar with the matter; allegations that Blackwell chips were smuggled to Inner Mongolia are noted in the source as <em>unverified</em> and are not used.</p></div>
+  </div>
+  <div class="sec-head" style="margin-top:44px"><h3>Figures quoted at multiple perimeters</h3><span class="kicker">Scope and timing, not disagreement</span></div>
+  <div class="tscroll">
+  <table class="perim">
+    <thead><tr><th>Figure</th><th>Range across the archive</th></tr></thead>
+    <tbody>
+      <tr><td class="s">September hike odds</td><td>34&ndash;35% pre-speech / 56&ndash;60% post-Warsh / ~70% at the selloff peak / <b>48% (CME FedWatch) against ~50% (futures)</b> after Waller / just above 60% after payrolls. Different instruments and intraday moments &mdash; <b>an arc, never a series.</b> A separate &ldquo;57% by year-end&rdquo; figure from the prior week is a different horizon entirely.</td></tr>
+      <tr><td class="s">Venezuela</td><td><b>25-year project (Barron&rsquo;s) against a 100-year concession (Bloomberg)</b>, same 17 fields. Reserves quoted at <b>65 billion barrels in-window but 90 billion in the prior week&rsquo;s WSJ reporting.</b> The dashboard does not choose.</td></tr>
+      <tr><td class="s">Hugging Face</td><td>$12.93bn / $12.9bn as $11.9bn plus up to $1.0bn of retention / &ldquo;roughly $13bn&rdquo;. Compatible &mdash; a components-versus-total split plus rounding. Exact figure $12,930,300,000.</td></tr>
+      <tr><td class="s">Hormuz flow</td><td>~5m b/d through the strait plus ~2.5m via Gulf of Oman, &ldquo;over 40% of prewar&rdquo; (in-window WSJ), against the prior week&rsquo;s ~15 vessels a day (WSJ), 6&ndash;8m b/d or &ldquo;about half prewar&rdquo; (Bloomberg) and &ldquo;two-thirds of prewar&rdquo; (Goldman). <b>Four measures, four denominators.</b></td></tr>
+      <tr><td class="s">Spot prices</td><td>Gold $4,686 (30 Aug) &rarr; $4,529 &rarr; ~$4,477&ndash;4,480 (3 Sep). Bitcoin ~$79,000 (WSJ) against ~$81,000 (Bloomberg). Brent ~$90 &rarr; $95.52 &rarr; ~$96. <b>Different snapshots, not conflicting reports.</b></td></tr>
+      <tr><td class="s">Q2 earnings growth</td><td>+53% per-share (WSJ, in-window) against 52% with 97% reported and ~32% year-over-year (Barron&rsquo;s and Bloomberg, prior week). Almost certainly per-share versus aggregate, but <b>no source labels which.</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="sec-head" style="margin-top:44px"><h3>Known gaps and flags</h3><span class="kicker">Seven open &middot; carried, not resolved</span></div>
+  <ol class="flags">
+    <li><b>No briefs exist for 1&ndash;3 September.</b> Three of the six calendar days in this window have no coverage. The bond selloff that peaked in that gap is reconstructed from 4 September briefs reporting backwards &mdash; it is <em>not</em> directly documented. This is a coverage gap, not evidence of a quiet market.</li>
+    <li><b>Brief dates are not publication dates.</b> Briefs routinely summarise the prior day&rsquo;s stories. The index preserves each article&rsquo;s original published text, which frequently disagrees with the filename date it is filed under.</li>
+    <li><b>Repeated coverage is retained, not de-duplicated.</b> The El Ni&ntilde;o story appears in two WSJ briefs under the same URL and is counted twice. The total counts <em>article entries</em>, not unique news events.</li>
+    <li><b>Themes are editorial and title-based</b>, one per entry. A story about AI data centres and electricity prices lands in one bucket while supporting three narrative sections. The coverage chart therefore measures the classifier as much as the archive.</li>
+    <li><b>Nothing here is externally verified.</b> Every figure is reproduced or synthesised from these eight local Markdown files. Where the archive is wrong, this dashboard is wrong in the same way, and where two houses disagree it says so rather than picking.</li>
+    <li><b>The prior week is read but not counted, and its attribution is weaker than the rest.</b> The 22&ndash;29 August briefs supply every &ldquo;what the prior week expected&rdquo; claim. They are attributed <em>by publication only</em> &mdash; the source line under each read lists houses without separating which supplied the baseline quote and which the in-window one &mdash; and only the timeline entry for 28 August carries explicit dates. <b>None of them is linked</b>, because only the eight in-window briefs are parsed, so no baseline claim has the one-click provenance every in-window claim has. They contribute nothing to the 108-entry total, the index or the coverage chart.</li>
+    <li><b>Two threads open at baseline were never closed in this window.</b> Warsh&rsquo;s Jackson Hole remarks on the equilibrium price of AI tokens &mdash; with a Fed task force studying it &mdash; go unmentioned in all eight briefs. So does Nvidia&rsquo;s pause of its AI Compute Partnership revenue-sharing deals, disclosed the prior week at $36bn of commitments and paused on internal antitrust concern. Both matter more than their coverage suggests.</li>
+  </ol>
+</section>
+</div>
+<div class="panel" id="p-index" role="tabpanel" aria-labelledby="t-index" hidden>
+<section>
+  <div class="sec-head"><h3>Article index</h3><span class="kicker">All 108 entries &middot; filter by publication or theme</span></div>
+  <p style="color:var(--ink-2);max-width:78ch">Every article heading carrying a URL across the 8 selected briefs. <b>Titles link to the original article</b> and need internet access; the brief filenames under Sources link to the local Markdown and work offline while this file sits beside them. Filters narrow this table only &mdash; the analysis, totals and coverage chart are fixed.</p>
+  <div class="chips" role="group" aria-label="Filter the article index"><button class="chip" data-k="all" data-v="" aria-pressed="true">All entries <span class="n">108</span></button><button class="chip" data-k="pub" data-v="WSJ" aria-pressed="false">WSJ <span class="n">45</span></button><button class="chip" data-k="pub" data-v="Bloomberg" aria-pressed="false">Bloomberg <span class="n">37</span></button><button class="chip" data-k="pub" data-v="Barron's" aria-pressed="false">Barron's <span class="n">26</span></button><button class="chip" data-k="theme" data-v="Rates &amp; policy" aria-pressed="false">Rates &amp; policy <span class="n">18</span></button><button class="chip" data-k="theme" data-v="AI capital" aria-pressed="false">AI capital <span class="n">30</span></button><button class="chip" data-k="theme" data-v="Energy &amp; geopolitics" aria-pressed="false">Energy &amp; geopolitics <span class="n">20</span></button><button class="chip" data-k="theme" data-v="Real economy &amp; labour" aria-pressed="false">Real economy &amp; labour <span class="n">14</span></button><button class="chip" data-k="theme" data-v="Markets &amp; portfolios" aria-pressed="false">Markets &amp; portfolios <span class="n">13</span></button><button class="chip" data-k="theme" data-v="Execution &amp; health" aria-pressed="false">Execution &amp; health <span class="n">8</span></button><button class="chip" data-k="theme" data-v="Other stories" aria-pressed="false">Other stories <span class="n">5</span></button></div>
+  <p class="filt-note">Showing <b><span id="ixcount">108</span></b> of 108 entries. Each entry carries one editorial primary theme; repeated coverage is retained.</p>
+  <div class="tscroll">
+  <table>
+    <thead><tr><th class="idx">#</th><th>Brief date</th><th>Publication</th><th>Primary theme</th><th>Article</th></tr></thead>
+    <tbody>
+      <tr data-pub="Barron's" data-theme="Markets &amp; portfolios"><td class="aid">A1</td><td class="adate">08-31</td><td class="apub">Barron's</td><td class="athe">Markets &amp; portfolios</td><td class="atit"><a href="https://www.barrons.com/articles/housing-market-discounts-buyers-e19ae5ac?mod=hp_LEDE_B_1">When and Where Home Buyers Can Find Discounts (Now Is the Best Time to Get a Deal on a Home if You Live Here)</a></td></tr>
+      <tr data-pub="Barron's" data-theme="Energy &amp; geopolitics"><td class="aid">A2</td><td class="adate">08-31</td><td class="apub">Barron's</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.barrons.com/livecoverage/sunday0830?mod=hp_WIND_A_1_1">Trump Says Venezuelan Oil Will Refill the U.S. Petroleum Reserve (Live Coverage, Aug. 30)</a></td></tr>
+      <tr data-pub="Barron's" data-theme="Rates &amp; policy"><td class="aid">A3</td><td class="adate">08-31</td><td class="apub">Barron's</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.barrons.com/articles/futures-stock-sunday-trading-52f040e8">Stock Futures Drift Lower, Oil Rises Ahead of Jobs Data, Tech Earnings</a></td></tr>
+      <tr data-pub="Barron's" data-theme="Rates &amp; policy"><td class="aid">A4</td><td class="adate">08-31</td><td class="apub">Barron's</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.barrons.com/articles/jobs-broadcom-dell-hewlett-planet-labs-3211f95e?mod=hp_WIND_A_1_3">Jobs, Broadcom, Dell, Hewlett, Planet Labs, and More to Watch This Week</a></td></tr>
+      <tr data-pub="Barron's" data-theme="AI capital"><td class="aid">A5</td><td class="adate">08-31</td><td class="apub">Barron's</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.barrons.com/articles/numbers-back-up-the-ai-trade-af7d7599?mod=hp_latestnews">6 Numbers That Back Up the AI Trade</a></td></tr>
+      <tr data-pub="Barron's" data-theme="Markets &amp; portfolios"><td class="aid">A6</td><td class="adate">08-31</td><td class="apub">Barron's</td><td class="athe">Markets &amp; portfolios</td><td class="atit"><a href="https://www.barrons.com/articles/private-credit-stocks-bdc-morgan-stanley-ceb607d7?mod=hp_latestnews">Private Credit Stocks Are Rebounding, but Shared Loans Bring Growing Risk</a></td></tr>
+      <tr data-pub="Barron's" data-theme="Rates &amp; policy"><td class="aid">A7</td><td class="adate">08-31</td><td class="apub">Barron's</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.barrons.com/articles/september-stock-market-forecast-032f82b8?mod=hp_latestnews">Buckle Up for Wall Street's Worst Month (Stock Market September Forecast)</a></td></tr>
+      <tr data-pub="Barron's" data-theme="Rates &amp; policy"><td class="aid">A8</td><td class="adate">08-31</td><td class="apub">Barron's</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.barrons.com/articles/treasury-bond-market-fed-warsh-inflation-7689b45a?mod=hp_latestnews">Bond Traders Buy Warsh's Tough Talk on Inflation, for Now</a></td></tr>
+      <tr data-pub="Barron's" data-theme="Rates &amp; policy"><td class="aid">A9</td><td class="adate">08-31</td><td class="apub">Barron's</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.barrons.com/articles/jackson-hole-conference-central-banks-blockchain-tokens-74c013e1?mod=hp_latestnews">Inside Jackson Hole's Big Question: Can Central Banks Modernize Tokenized Markets?</a></td></tr>
+      <tr data-pub="Barron's" data-theme="Real economy &amp; labour"><td class="aid">A10</td><td class="adate">08-31</td><td class="apub">Barron's</td><td class="athe">Real economy &amp; labour</td><td class="atit"><a href="https://www.barrons.com/articles/job-retire-rehire-skills-3dc8d154?mod=hp_latestnews">Looking to Go From Retired to Rehired? How to Do It in a Competitive Job Market.</a></td></tr>
+      <tr data-pub="Barron's" data-theme="Real economy &amp; labour"><td class="aid">A11</td><td class="adate">08-31</td><td class="apub">Barron's</td><td class="athe">Real economy &amp; labour</td><td class="atit"><a href="https://www.barrons.com/articles/dual-fuel-for-u-s-manufacturing-4ceecb33?mod=hp_latestnews">Dual Fuel for U.S. Manufacturing (Mailbag)</a></td></tr>
+      <tr data-pub="Barron's" data-theme="Markets &amp; portfolios"><td class="aid">A12</td><td class="adate">08-31</td><td class="apub">Barron's</td><td class="athe">Markets &amp; portfolios</td><td class="atit"><a href="https://www.barrons.com/articles/how-to-invest-in-gold-for-retirement-etfs-taxes-7ef20769?mod=hp_SP_C_5_1">The Best Way to Own Gold in a Retirement Account—and Why You Should</a></td></tr>
+      <tr data-pub="Barron's" data-theme="Rates &amp; policy"><td class="aid">A13</td><td class="adate">09-04</td><td class="apub">Barron's</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.barrons.com/articles/bond-market-strategy-rising-yields-portfolio-c278240d">The Death of the Safe Haven: How to Fix Your Bond Strategy as Yields Rise</a></td></tr>
+      <tr data-pub="Barron's" data-theme="Markets &amp; portfolios"><td class="aid">A14</td><td class="adate">09-04</td><td class="apub">Barron's</td><td class="athe">Markets &amp; portfolios</td><td class="atit"><a href="https://www.barrons.com/articles/gold-netherlands-fort-knox-68073ffe">Dutch Treat? Netherlands Moves Gold Out of U.S. as Global Risks Rise</a></td></tr>
+      <tr data-pub="Barron's" data-theme="Rates &amp; policy"><td class="aid">A15</td><td class="adate">09-04</td><td class="apub">Barron's</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.barrons.com/livecoverage/stock-market-news-today-090326">Stock Market News for Thursday, Sept. 3, 2026 (Live Coverage)</a></td></tr>
+      <tr data-pub="Barron's" data-theme="AI capital"><td class="aid">A16</td><td class="adate">09-04</td><td class="apub">Barron's</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.barrons.com/articles/nvidia-stock-hugging-face-acquisition-a07b514d">Nvidia's $12.9 Billion Deal for Hugging Face Boosts Exposure to Open Model AI</a></td></tr>
+      <tr data-pub="Barron's" data-theme="AI capital"><td class="aid">A17</td><td class="adate">09-04</td><td class="apub">Barron's</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.barrons.com/articles/oracle-orcl-stock-jefferies-earnings-peak-negative-5877e325">Oracle Stock Could Be Software's Next Big Winner</a></td></tr>
+      <tr data-pub="Barron's" data-theme="AI capital"><td class="aid">A18</td><td class="adate">09-04</td><td class="apub">Barron's</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.barrons.com/articles/microsoft-stock-amazon-google-ai-c1f27f95">Microsoft, Amazon and 8 More Stocks Set to Win in a $26 Trillion AI Market</a></td></tr>
+      <tr data-pub="Barron's" data-theme="AI capital"><td class="aid">A19</td><td class="adate">09-04</td><td class="apub">Barron's</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.barrons.com/articles/broadcom-stock-earnings-nvidia-0e2d44a3">Why Nvidia Is the Big Winner From Broadcom Earnings</a></td></tr>
+      <tr data-pub="Barron's" data-theme="AI capital"><td class="aid">A20</td><td class="adate">09-04</td><td class="apub">Barron's</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.barrons.com/articles/micron-stock-memory-chip-market-share-china-sk-hynix-493ec42b">China Is Grabbing Memory Market Share. This Stock Could Be a Big Loser.</a></td></tr>
+      <tr data-pub="Barron's" data-theme="Execution &amp; health"><td class="aid">A21</td><td class="adate">09-04</td><td class="apub">Barron's</td><td class="athe">Execution &amp; health</td><td class="atit"><a href="https://www.barrons.com/articles/tesla-stock-price-cybercab-event-robo-taxi-cabf48cc">Tesla Has a Cybercab Event. The Stock Needs More Than Demo Rides.</a></td></tr>
+      <tr data-pub="Barron's" data-theme="AI capital"><td class="aid">A22</td><td class="adate">09-04</td><td class="apub">Barron's</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.barrons.com/articles/ai-is-reshaping-retirement-how-to-prepare-1d4547ab">How AI Is Reshaping Retirement—and How to Prepare</a></td></tr>
+      <tr data-pub="Barron's" data-theme="AI capital"><td class="aid">A23</td><td class="adate">09-04</td><td class="apub">Barron's</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.barrons.com/articles/ciena-earnings-stock-price-artificial-intelligence-c431a41a">Ciena Beats Earnings Estimates. The Stock Is the Worst Performer in S&amp;P 500 Today.</a></td></tr>
+      <tr data-pub="Barron's" data-theme="AI capital"><td class="aid">A24</td><td class="adate">09-04</td><td class="apub">Barron's</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.barrons.com/articles/snowflake-earnings-stock-price-44551799">Snowflake Stock Is Soaring. How the Software Giant's Earnings Silenced AI Skeptics.</a></td></tr>
+      <tr data-pub="Barron's" data-theme="AI capital"><td class="aid">A25</td><td class="adate">09-04</td><td class="apub">Barron's</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.barrons.com/articles/stock-market-things-to-know-today-d343c1a0">Broadcom and Snowflake Perfectly Sum Up the AI Trade (The Barron's Daily)</a></td></tr>
+      <tr data-pub="Barron's" data-theme="AI capital"><td class="aid">A26</td><td class="adate">09-04</td><td class="apub">Barron's</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.barrons.com/advisor/articles/robinhood-stock-price-1c6c7ac9">Robinhood Stock Soars Thanks to Wall Street Upgrades, Platform Expansion</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Energy &amp; geopolitics"><td class="aid">A27</td><td class="adate">08-31</td><td class="apub">Bloomberg</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-08-30/us-strikes-iranian-rocket-launchers-in-first-attack-in-weeks">US and Iran Exchange Attacks for First Time in About a Month</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Energy &amp; geopolitics"><td class="aid">A28</td><td class="adate">08-31</td><td class="apub">Bloomberg</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-08-30/trump-s-iran-war-sets-test-for-xi-and-putin-s-security-club">Trump's Iran War Sets Test for Xi and Putin's Security Club</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Energy &amp; geopolitics"><td class="aid">A29</td><td class="adate">08-31</td><td class="apub">Bloomberg</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-08-30/trump-s-venezuela-oil-grab-reprises-industry-s-neocolonial-past">Trump's Venezuela Oil Grab Reprises Industry's Neocolonial Past</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Rates &amp; policy"><td class="aid">A30</td><td class="adate">08-31</td><td class="apub">Bloomberg</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-08-30/bond-investors-wary-after-warsh-fans-wagers-fed-poised-to-hike">Bond Investors Wary After Warsh Speech Fuels Rate-Hike Bets</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Rates &amp; policy"><td class="aid">A31</td><td class="adate">08-31</td><td class="apub">Bloomberg</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-08-31/emerging-market-stocks-fall-as-warsh-stokes-fed-rate-hike-bets">Emerging-Market Stocks Fall as Warsh Stokes Fed Rate-Hike Bets</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Real economy &amp; labour"><td class="aid">A32</td><td class="adate">08-31</td><td class="apub">Bloomberg</td><td class="athe">Real economy &amp; labour</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-08-31/japan-s-firms-hire-foreigners-even-as-takaichi-tightens-rules">Japan's Firms Hire Foreigners Even as Takaichi Tightens Rules</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="AI capital"><td class="aid">A33</td><td class="adate">08-31</td><td class="apub">Bloomberg</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-08-30/apple-s-new-ceo-john-ternus-takes-reins-from-tim-cook-focusing-on-ai">Apple's Ternus Takes the Reins as CEO, With AI as Job No. 1</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Execution &amp; health"><td class="aid">A34</td><td class="adate">08-31</td><td class="apub">Bloomberg</td><td class="athe">Execution &amp; health</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-08-30/nasa-spacex-postpone-iss-mission-launch-after-spacecraft-leak">NASA, SpaceX Postpone ISS Mission Launch After Spacecraft Leak</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Energy &amp; geopolitics"><td class="aid">A35</td><td class="adate">08-31</td><td class="apub">Bloomberg</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-08-31/bessent-to-push-g20-to-rethink-china-trade-terms-reuters-says">Bessent to Push G20 to Rethink China Trade Terms, Reuters Says</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="AI capital"><td class="aid">A36</td><td class="adate">08-31</td><td class="apub">Bloomberg</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-08-31/lithium-miners-post-big-profits-as-battery-storage-demand-surges">Lithium Miners Post Big Profits as Battery Storage Demand Surges</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Energy &amp; geopolitics"><td class="aid">A37</td><td class="adate">08-31</td><td class="apub">Bloomberg</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-08-31/radiant-world-s-senior-china-trader-quits-as-pressure-builds">Radiant World's Senior China Trader Quits as Pressure Builds</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="AI capital"><td class="aid">A38</td><td class="adate">08-31</td><td class="apub">Bloomberg</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-08-31/sk-hynix-weighs-japan-memory-fab-partnership-to-supply-ai-boom">SK Hynix Weighs Japan Memory Plant Deal to Supply AI Boom</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="AI capital"><td class="aid">A39</td><td class="adate">08-31</td><td class="apub">Bloomberg</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.bloomberg.com/opinion/articles/2026-08-30/welcome-to-the-don-t-ask-don-t-tell-ai-economy">Welcome to the Don't Ask, Don't Tell AI Economy</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="AI capital"><td class="aid">A40</td><td class="adate">08-31</td><td class="apub">Bloomberg</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.bloomberg.com/news/newsletters/2026-08-30/john-ternus-management-team-apple-watch-series-12-foldable-iphone-apple-pencil-mtfvmdyu">Apple's New CEO Will Need to Soon Overhaul His Management Team (Power On)</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="AI capital"><td class="aid">A41</td><td class="adate">09-04</td><td class="apub">Bloomberg</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-03/anthropic-nears-finalizing-15-billion-pre-ipo-credit-facility">Anthropic Finalizing $15 Billion Pre-IPO Credit Facility</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Real economy &amp; labour"><td class="aid">A42</td><td class="adate">09-04</td><td class="apub">Bloomberg</td><td class="athe">Real economy &amp; labour</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-03/lululemon-cuts-outlook-again-as-new-ceo-s-challenges-grow">Lululemon Cuts Outlook Again as New CEO's Challenges Grow</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Energy &amp; geopolitics"><td class="aid">A43</td><td class="adate">09-04</td><td class="apub">Bloomberg</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-03/vance-plays-down-iran-conflict-says-wouldn-t-call-it-a-war">Vance Says Iran Conflict Isn't a 'War,' Risking Midterm Backlash</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Markets &amp; portfolios"><td class="aid">A44</td><td class="adate">09-04</td><td class="apub">Bloomberg</td><td class="athe">Markets &amp; portfolios</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-04/carry-trade-exodus-fuels-yen-surge-ahead-of-boj-rate-decision">Carry Trade Exodus Fuels Yen Surge Ahead of BOJ Rate Decision</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="AI capital"><td class="aid">A45</td><td class="adate">09-04</td><td class="apub">Bloomberg</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.bloomberg.com/opinion/articles/2026-09-03/nvidia-s-13-billion-hugging-face-deal-is-a-bargain-hedge">Nvidia's $13 Billion Hugging Face Deal Is a Bargain Hedge (Opinion)</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="AI capital"><td class="aid">A46</td><td class="adate">09-04</td><td class="apub">Bloomberg</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-03/adobe-names-chakravarthy-ceo-to-lead-effort-against-ai-rivals">Adobe Names Chakravarthy CEO, While Other Contender Departs</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Real economy &amp; labour"><td class="aid">A47</td><td class="adate">09-04</td><td class="apub">Bloomberg</td><td class="athe">Real economy &amp; labour</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-03/vw-board-gives-ceo-blume-unanimous-backing-to-overhaul-carmaker">VW Approves Plan to Cut 50,000 More Jobs in Broad Overhaul</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Rates &amp; policy"><td class="aid">A48</td><td class="adate">09-04</td><td class="apub">Bloomberg</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-03/us-mortgage-rates-climb-to-6-71-highest-since-july-2025">US Mortgage Rates Climb to 6.71%, Highest Since July 2025</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Rates &amp; policy"><td class="aid">A49</td><td class="adate">09-04</td><td class="apub">Bloomberg</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-04/gold-to-end-volatile-week-higher-as-fedspeak-trims-rate-hike-bet">Gold to End Volatile Week Higher as Fedspeak Trims Rate-Hike Bet</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Rates &amp; policy"><td class="aid">A50</td><td class="adate">09-04</td><td class="apub">Bloomberg</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-03/stock-market-today-dow-s-p-live-updates">Stocks Rise as Fed Rate-Hike Bets Ease, Yen Gains: Markets Wrap</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="AI capital"><td class="aid">A51</td><td class="adate">09-04</td><td class="apub">Bloomberg</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-03/sam-altman-says-openai-has-fumbled-at-communicating-ai-benefits">Sam Altman Says OpenAI Has Fumbled at Communicating AI Benefits</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Execution &amp; health"><td class="aid">A52</td><td class="adate">09-05</td><td class="apub">Bloomberg</td><td class="athe">Execution &amp; health</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-04/the-sealed-document-tiktok-doesn-t-want-two-senators-to-see?srnd=homepage-americas">The Sealed Document TikTok Doesn't Want Two Senators to See</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Energy &amp; geopolitics"><td class="aid">A53</td><td class="adate">09-05</td><td class="apub">Bloomberg</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-04/trump-calls-iran-conflict-small-potatoes-plays-down-war?srnd=homepage-americas">Trump Calls Iran Conflict 'Small Potatoes,' Plays Down War</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Energy &amp; geopolitics"><td class="aid">A54</td><td class="adate">09-05</td><td class="apub">Bloomberg</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-04/hedge-funds-hike-bullish-oil-bets-to-may-high-as-iran-war-flares">Hedge Funds Hike Bullish Oil Bets to May High as Iran War Flares</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Energy &amp; geopolitics"><td class="aid">A55</td><td class="adate">09-05</td><td class="apub">Bloomberg</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-04/bessent-sees-oil-as-low-as-40-post-iran-war-taking-yields-down">Bessent Sees Oil as Low as $40 Post-Iran War, Taking Yields Down</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="AI capital"><td class="aid">A56</td><td class="adate">09-05</td><td class="apub">Bloomberg</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.bloomberg.com/features/2026-kai-fu-lee-weekend-interview/?srnd=homepage-americas">Kai-Fu Lee: China Will Win the AI Race for Reach</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Rates &amp; policy"><td class="aid">A57</td><td class="adate">09-05</td><td class="apub">Bloomberg</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-04/fed-rate-decision-still-hangs-on-inflation-after-jobs-report?srnd=homepage-americas">Fed Rate Decision Still Hangs on Inflation After Jobs Report</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="AI capital"><td class="aid">A58</td><td class="adate">09-05</td><td class="apub">Bloomberg</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.bloomberg.com/news/features/2026-09-04/what-is-agi-openai-anthropic-race-for-artificial-general-intelligence?srnd=homepage-americas">What Is AGI? OpenAI, Anthropic Race for Artificial General Intelligence</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="AI capital"><td class="aid">A59</td><td class="adate">09-05</td><td class="apub">Bloomberg</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-04/deepseek-plans-big-huawei-ai-chip-order-to-power-new-data-center?srnd=homepage-americas">DeepSeek Plans Big Huawei AI Chip Order to Power New Data Center</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Other stories"><td class="aid">A60</td><td class="adate">09-05</td><td class="apub">Bloomberg</td><td class="athe">Other stories</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-05/china-s-26-earnings-boom-lands-with-a-thud-in-the-stock-market">China's 26% Earnings Boom Lands With a Thud in the Stock Market</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="AI capital"><td class="aid">A61</td><td class="adate">09-05</td><td class="apub">Bloomberg</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-04/ai-cloud-firm-nscale-seeking-3-5-billion-in-pre-ipo-financing">AI Cloud Firm Nscale Seeking $3.5 Billion in Pre-IPO Financing</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="Real economy &amp; labour"><td class="aid">A62</td><td class="adate">09-05</td><td class="apub">Bloomberg</td><td class="athe">Real economy &amp; labour</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-04/job-growth-in-us-manufacturing-construction-outshines-services">Job Growth in US Manufacturing, Construction Outshines Services</a></td></tr>
+      <tr data-pub="Bloomberg" data-theme="AI capital"><td class="aid">A63</td><td class="adate">09-05</td><td class="apub">Bloomberg</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.bloomberg.com/news/articles/2026-09-04/why-apple-being-late-on-ai-may-be-an-advantage">Why Apple Being Late on AI May Be an Advantage</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Real economy &amp; labour"><td class="aid">A64</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Real economy &amp; labour</td><td class="atit"><a href="https://www.wsj.com/business/earnings/corporate-profit-america-44836dc6?mod=hp_lead_pos1">Corporate America's Profits Are Booming—and Signal More Good Times Ahead</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Energy &amp; geopolitics"><td class="aid">A65</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.wsj.com/world/middle-east/u-s-strikes-two-iranian-rocket-launchers-in-first-attack-in-weeks-17602dcf?mod=hp_lead_pos2">Fighting Flares in Middle East After U.S. Strike on Iranian Rocket Launchers</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Energy &amp; geopolitics"><td class="aid">A66</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.wsj.com/world/europe/the-summer-that-scorched-french-grapes-english-gardensand-europes-economy-a7b33771?mod=hp_lead_pos7">The Summer That Scorched French Grapes, English Gardens—and Europe's Economy</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Markets &amp; portfolios"><td class="aid">A67</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Markets &amp; portfolios</td><td class="atit"><a href="https://www.wsj.com/finance/stocks/the-sudden-unraveling-of-wall-streets-momentum-trade-fe79b4fa?mod=hp_lead_pos3">The Sudden Unraveling of Wall Street's Momentum Trade</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Markets &amp; portfolios"><td class="aid">A68</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Markets &amp; portfolios</td><td class="atit"><a href="https://www.wsj.com/personal-finance/high-end-credit-cardholders-find-its-harder-to-get-their-moneys-worth-b10d3bc7?mod=hp_lead_pos4">High-End Credit Cardholders Find It's Harder to Get Their Money's Worth</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Energy &amp; geopolitics"><td class="aid">A69</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.wsj.com/world/europe/the-geopolitical-mismatch-driving-russia-to-threaten-the-west-9b9a5ebd?mod=hp_lead_pos9">The Geopolitical Mismatch Driving Russia to Threaten the West</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Markets &amp; portfolios"><td class="aid">A70</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Markets &amp; portfolios</td><td class="atit"><a href="https://www.wsj.com/economy/housing/these-young-new-yorkers-scored-the-ultimate-deal-a-rent-stabilized-apartment-b130a6a2?mod=hp_lead_pos8">These Young New Yorkers Scored the Ultimate Deal: A Rent-Stabilized Apartment</a></td></tr>
+      <tr data-pub="WSJ" data-theme="AI capital"><td class="aid">A71</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.wsj.com/tech/ai/the-5-5-billion-perk-softbanks-data-center-venture-offered-to-land-openai-a5c7fb5e?mod=hp_lead_pos5">The $5.5 Billion Perk SoftBank's Data-Center Venture Offered to Land OpenAI</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Markets &amp; portfolios"><td class="aid">A72</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Markets &amp; portfolios</td><td class="atit"><a href="https://www.wsj.com/politics/policy/social-security-deadline-congress-26450dee?mod=hp_lead_pos11">The 2032 Social Security Deadline Looms. Congress Is Finally Paying Attention.</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Other stories"><td class="aid">A73</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Other stories</td><td class="atit"><a href="https://www.wsj.com/politics/policy/talarico-is-out-fundraising-paxton-and-flooding-the-airwaves-in-texas-senate-race-ec9277c9?mod=hp_lead_pos10">Talarico Is Out-Fundraising Paxton and Flooding the Airwaves in Texas Senate Race</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Other stories"><td class="aid">A74</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Other stories</td><td class="atit"><a href="https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=hp_lead_pos6">Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Other stories"><td class="aid">A75</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Other stories</td><td class="atit"><a href="https://www.wsj.com/business/a-texas-banking-billionaire-and-his-children-are-locked-in-a-bitter-succession-drama-0b39ffaa?mod=hp_featst_pos5">A Texas Banking Billionaire and His Children Are Locked in a Bitter Succession Drama</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Markets &amp; portfolios"><td class="aid">A76</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Markets &amp; portfolios</td><td class="atit"><a href="https://www.wsj.com/finance/investing/a-roth-ira-on-steroids-wealthy-americans-find-another-tax-free-way-to-invest-82816ffc?mod=hp_lista_pos2">'A Roth IRA on Steroids': Wealthy Americans Find Another Tax-Free Way to Invest</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Rates &amp; policy"><td class="aid">A77</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.wsj.com/economy/central-banking/warsh-makes-the-case-for-higher-rates-and-raises-the-bar-for-standing-pat-3cc1b306?mod=lead_feature_below_a_pos2">Warsh Makes the Case for Higher Rates and Raises the Bar for Standing Pat</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Energy &amp; geopolitics"><td class="aid">A78</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.wsj.com/economy/trade/canadian-small-businesses-to-bear-brunt-of-new-u-s-tariffs-7a434c08?mod=lead_feature_below_a_pos3">Canadian Small Businesses to Bear Brunt of New U.S. Tariffs</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Energy &amp; geopolitics"><td class="aid">A79</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.wsj.com/economy/global/the-strongest-el-nino-in-a-generation-is-wreaking-havoc-on-global-economy-b6fece16?mod=lead_feature_below_a_pos1">The Strongest El Niño in a Generation Is Wreaking Havoc on Global Economy</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Real economy &amp; labour"><td class="aid">A80</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Real economy &amp; labour</td><td class="atit"><a href="https://www.wsj.com/articles/the-college-enrollment-crisis-is-coming-for-bigger-schools-7bd2338e?mod=business_lead_pos3">The College Enrollment Crisis Is Coming for Bigger Schools | The 10-Point for Aug. 30</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Execution &amp; health"><td class="aid">A81</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Execution &amp; health</td><td class="atit"><a href="https://www.wsj.com/health/pharma/why-the-drugmaker-behind-a-pancreatic-cancer-breakthrough-stayed-independent-bc9cf607?mod=itp_wsj">Why Revolution Medicines, the Drugmaker Behind a Pancreatic Cancer Breakthrough, Stayed Independent</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Execution &amp; health"><td class="aid">A82</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Execution &amp; health</td><td class="atit"><a href="https://www.wsj.com/science/space-astronomy/spacex-and-rivals-dodge-traffic-as-satellites-debris-crowd-low-earth-orbit-2a870efe?mod=itp_wsj">SpaceX and Rivals Dodge Traffic as Satellites, Debris Crowd Low-Earth Orbit</a></td></tr>
+      <tr data-pub="WSJ" data-theme="AI capital"><td class="aid">A83</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.wsj.com/tech/ai/how-big-tech-blinded-itself-to-the-grassroots-ai-revolt-cb6f5715?mod=itp_wsj">How Big Tech Blinded Itself to the Grassroots AI Revolt</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Real economy &amp; labour"><td class="aid">A84</td><td class="adate">08-31</td><td class="apub">WSJ</td><td class="athe">Real economy &amp; labour</td><td class="atit"><a href="https://www.wsj.com/lifestyle/careers/remote-job-interview-applications-fraud-c9022cbe?mod=itp_wsj">Employers Are Making Job Candidates Jump Through Hoops to Prove They're Real</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Execution &amp; health"><td class="aid">A85</td><td class="adate">09-04</td><td class="apub">WSJ</td><td class="athe">Execution &amp; health</td><td class="atit"><a href="https://www.wsj.com/health/pharma/drugmakers-halt-autoimmune-trials-after-deaths-life-threatening-side-effects-14e786fd">Exclusive | Drugmakers Halt Autoimmune Trials After Deaths, Life-Threatening Side Effects</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Real economy &amp; labour"><td class="aid">A86</td><td class="adate">09-04</td><td class="apub">WSJ</td><td class="athe">Real economy &amp; labour</td><td class="atit"><a href="https://www.wsj.com/finance/investing/why-well-have-to-get-used-to-meh-job-reports-e903a625">Why We'll Have to Get Used to 'Meh' Job Reports | Markets A.M. for Sept. 3</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Energy &amp; geopolitics"><td class="aid">A87</td><td class="adate">09-04</td><td class="apub">WSJ</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.wsj.com/economy/global/the-strongest-el-nino-in-a-generation-is-wreaking-havoc-on-global-economy-b6fece16">The Strongest El Niño in a Generation Is Wreaking Havoc on Global Economy</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Rates &amp; policy"><td class="aid">A88</td><td class="adate">09-04</td><td class="apub">WSJ</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.wsj.com/economy/consumers/what-does-a-bond-selloff-mean-for-american-consumers-236e4be6">What Does a Bond Selloff Mean for American Consumers?</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Rates &amp; policy"><td class="aid">A89</td><td class="adate">09-04</td><td class="apub">WSJ</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.wsj.com/economy/the-bond-market-issues-world-leaders-a-failing-grade-621cf4dc">The Bond Market Issues World Leaders a Failing Grade</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Rates &amp; policy"><td class="aid">A90</td><td class="adate">09-04</td><td class="apub">WSJ</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.wsj.com/world/g-20-squabbling-overshadows-summit-as-global-bond-markets-strain-dd61e2ef">G-20 Squabbling Overshadows Summit as Global Bond Markets Strain</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Real economy &amp; labour"><td class="aid">A91</td><td class="adate">09-04</td><td class="apub">WSJ</td><td class="athe">Real economy &amp; labour</td><td class="atit"><a href="https://www.wsj.com/economy/trade/u-s-trade-deficit-widened-in-july-51cae4a2">U.S. Trade Deficit Widened in July</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Energy &amp; geopolitics"><td class="aid">A92</td><td class="adate">09-04</td><td class="apub">WSJ</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.wsj.com/business/energy-oil/why-big-oil-is-wary-of-trumps-foray-into-venezuelas-oil-patch-4ec1e72b">Why Big Oil Is Wary of Trump's Foray Into Venezuela's Oil Patch</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Real economy &amp; labour"><td class="aid">A93</td><td class="adate">09-04</td><td class="apub">WSJ</td><td class="athe">Real economy &amp; labour</td><td class="atit"><a href="https://www.wsj.com/business/corporate-america-is-axing-the-micro-team-boss-173d3e4e">Corporate America Is Axing the 'Micro-Team' Boss</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Execution &amp; health"><td class="aid">A94</td><td class="adate">09-04</td><td class="apub">WSJ</td><td class="athe">Execution &amp; health</td><td class="atit"><a href="https://www.wsj.com/business/autos/tesla-cybercabs-hit-austin-streets-in-expansion-of-robotaxi-service-e9845a55">Tesla Cybercabs Hit Austin Streets in Expansion of Robotaxi Service</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Energy &amp; geopolitics"><td class="aid">A95</td><td class="adate">09-04</td><td class="apub">WSJ</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.wsj.com/finance/commodities-futures/oil-rises-amid-elevated-supply-disruption-concerns-fa01461e">Oil Rises Amid Elevated Supply-Disruption Concerns</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Rates &amp; policy"><td class="aid">A96</td><td class="adate">09-04</td><td class="apub">WSJ</td><td class="athe">Rates &amp; policy</td><td class="atit"><a href="https://www.wsj.com/finance/stocks/stocks-bonds-rally-after-dovish-fed-comments-b95763ae">Stocks, Bonds Rally After Dovish Fed Comments</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Real economy &amp; labour"><td class="aid">A97</td><td class="adate">09-05</td><td class="apub">WSJ</td><td class="athe">Real economy &amp; labour</td><td class="atit"><a href="https://www.wsj.com/economy/jobs/american-workers-have-slammed-the-brakes-on-switching-jobs-767c45d1?mod=hp_lead_pos1">American Workers Have Slammed the Brakes on Switching Jobs</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Energy &amp; geopolitics"><td class="aid">A98</td><td class="adate">09-05</td><td class="apub">WSJ</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.wsj.com/world/middle-east/time-is-no-longer-on-irans-side-in-the-battle-of-the-blockades-e47b657d?mod=hp_lead_pos2">Time Is No Longer on Iran's Side in the Battle of the Blockades</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Other stories"><td class="aid">A99</td><td class="adate">09-05</td><td class="apub">WSJ</td><td class="athe">Other stories</td><td class="atit"><a href="https://www.wsj.com/real-estate/manhattan-goldman-family-feud-8562f090?mod=hp_lead_pos7">The Poker Player, the Billionaire Aunt and a $5 Billion Real-Estate War</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Energy &amp; geopolitics"><td class="aid">A100</td><td class="adate">09-05</td><td class="apub">WSJ</td><td class="athe">Energy &amp; geopolitics</td><td class="atit"><a href="https://www.wsj.com/world/russia/why-putins-friends-are-now-confronting-him-over-the-war-7b955852?mod=hp_lead_pos4">Why Putin's Friends Are Now Confronting Him Over the War</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Real economy &amp; labour"><td class="aid">A101</td><td class="adate">09-05</td><td class="apub">WSJ</td><td class="athe">Real economy &amp; labour</td><td class="atit"><a href="https://www.wsj.com/business/entrepreneurship/the-american-dream-is-alive-and-its-minting-millionaires-3903775b?mod=hp_lead_pos8">The American Dream Is Alive. And It's Minting Millionaires.</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Markets &amp; portfolios"><td class="aid">A102</td><td class="adate">09-05</td><td class="apub">WSJ</td><td class="athe">Markets &amp; portfolios</td><td class="atit"><a href="https://www.wsj.com/finance/currencies/for-many-individual-traders-prediction-markets-are-hotand-crypto-is-not-bef27e3d?mod=hp_lead_pos5">For Many Individual Traders, Prediction Markets Are Hot—and Crypto Is Not</a></td></tr>
+      <tr data-pub="WSJ" data-theme="AI capital"><td class="aid">A103</td><td class="adate">09-05</td><td class="apub">WSJ</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.wsj.com/world/u-s-used-promise-of-nvidia-chips-to-broker-armenia-azerbaijan-peace-deal-b6c7cb6e?mod=hp_lead_pos11">U.S. Used Promise of Nvidia Chips to Broker Armenia-Azerbaijan Peace Deal</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Execution &amp; health"><td class="aid">A104</td><td class="adate">09-05</td><td class="apub">WSJ</td><td class="athe">Execution &amp; health</td><td class="atit"><a href="https://www.wsj.com/health/pharma/novartis-says-closely-watched-cholesterol-study-failed-to-meet-goal-7901cb11?mod=hp_lead_pos6">Novartis Stock Prices Fall After Cholesterol Drug Pelacarsen Fails Heart Study</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Markets &amp; portfolios"><td class="aid">A105</td><td class="adate">09-05</td><td class="apub">WSJ</td><td class="athe">Markets &amp; portfolios</td><td class="atit"><a href="https://www.wsj.com/personal-finance/taxes/how-to-play-the-retirement-tax-guessing-game-e7d31f6d?mod=hp_lista_pos2">How to Play the Retirement Tax Guessing Game</a></td></tr>
+      <tr data-pub="WSJ" data-theme="Markets &amp; portfolios"><td class="aid">A106</td><td class="adate">09-05</td><td class="apub">WSJ</td><td class="athe">Markets &amp; portfolios</td><td class="atit"><a href="https://www.wsj.com/finance/investing/youre-not-tough-enough-to-earn-these-huge-returns-3feaad7b?mod=hp_lista_pos3">You're Not Tough Enough to Earn These Huge Supercharged Leveraged ETF Returns</a></td></tr>
+      <tr data-pub="WSJ" data-theme="AI capital"><td class="aid">A107</td><td class="adate">09-05</td><td class="apub">WSJ</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.wsj.com/tech/ai/moonshot-ai-yang-ceo-china-6f12ddbf?mod=lead_feature_below_a_pos2">The 33-Year-Old AI Hotshot Taking Silicon Valley Swagger Back to Beijing</a></td></tr>
+      <tr data-pub="WSJ" data-theme="AI capital"><td class="aid">A108</td><td class="adate">09-05</td><td class="apub">WSJ</td><td class="athe">AI capital</td><td class="atit"><a href="https://www.wsj.com/tech/ai/the-deeply-nerdy-founders-behind-nvidias-13-billion-bet-on-hugging-face-3a4b5227?mod=lead_feature_below_a_pos3">The 'Deeply Nerdy' Hugging Face Founders Behind Nvidia's $13 Billion AI Bet</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section>
+  <div class="sec-head"><h3>Sources</h3><span class="kicker">Local briefs &middot; links work offline</span></div>
+  <div class="cal">
+  <div class="cev"><div class="d">08-31<small>Barron's</small></div><div class="b"><b><a href="barrons_insights_2026-08-31.md">barrons_insights_2026-08-31.md</a></b><br>12 article entries &middot; A1&ndash;A12</div></div>
+  <div class="cev"><div class="d">09-04<small>Barron's</small></div><div class="b"><b><a href="barrons_insights_2026-09-04.md">barrons_insights_2026-09-04.md</a></b><br>14 article entries &middot; A13&ndash;A26</div></div>
+  <div class="cev"><div class="d">08-31<small>Bloomberg</small></div><div class="b"><b><a href="bloomberg_insights_2026-08-31.md">bloomberg_insights_2026-08-31.md</a></b><br>14 article entries &middot; A27&ndash;A40</div></div>
+  <div class="cev"><div class="d">09-04<small>Bloomberg</small></div><div class="b"><b><a href="bloomberg_insights_2026-09-04.md">bloomberg_insights_2026-09-04.md</a></b><br>11 article entries &middot; A41&ndash;A51</div></div>
+  <div class="cev"><div class="d">09-05<small>Bloomberg</small></div><div class="b"><b><a href="bloomberg_insights_2026-09-05.md">bloomberg_insights_2026-09-05.md</a></b><br>12 article entries &middot; A52&ndash;A63</div></div>
+  <div class="cev"><div class="d">08-31<small>WSJ</small></div><div class="b"><b><a href="wsj_insights_2026-08-31.md">wsj_insights_2026-08-31.md</a></b><br>21 article entries &middot; A64&ndash;A84</div></div>
+  <div class="cev"><div class="d">09-04<small>WSJ</small></div><div class="b"><b><a href="wsj_insights_2026-09-04.md">wsj_insights_2026-09-04.md</a></b><br>12 article entries &middot; A85&ndash;A96</div></div>
+  <div class="cev"><div class="d">09-05<small>WSJ</small></div><div class="b"><b><a href="wsj_insights_2026-09-05.md">wsj_insights_2026-09-05.md</a></b><br>12 article entries &middot; A97&ndash;A108</div></div>
+</div>
+</section>
+</div>
+<footer>
+  <div class="src">
+    <div><span>108</span>article entries parsed, 31 Aug &ndash; 5 Sep 2026</div>
+    <div><span>8</span>briefs &mdash; 3 days with coverage, three without</div>
+    <div><span>18</span>live indicators, every trigger traceable to a brief</div>
+    <div><span>10</span>logged conflicts &mdash; four are perimeter, not disagreement</div>
+  </div>
+  <p><b>Evidence grading.</b> Claims are graded (a) official data releases and quoted text, (b) named on-record reporting and disclosed figures, (c) relayed estimates, probabilities and projections, (d) anonymous sourcing and single-outlet claims. <b>No (d)-grade item drives a conclusion in this document.</b> Two items are load-bearing enough to name: the Venezuela concession terms rest on official announcements that two houses report incompatibly and neither corrects, and every rate-probability figure is an article snapshot from a named instrument at an unnamed moment.</p>
+  <p style="margin-top:14px"><b>Scope.</b> A synthesis of a local Markdown archive, not independently verified news. Financial and other real-world claims are reproduced or synthesised from the briefs without external verification. The prior week&rsquo;s briefs (22&ndash;29 August) are read for context and cited in the text but are excluded from every count. Dashboard content is embedded and works offline; original-article links need internet access, and local brief links work while this file remains beside them.</p>
+  <p style="margin-top:18px">Generated 2026-09-07 18:26 UTC by <code>build_narrative_dashboard.mjs</code> from <code>narrative_dashboard_template.html</code> &middot; audit trail in <code>narrative_dashboard_source_audit.json</code> &middot; the prior portable-reader version is preserved as <code>narrative_dashboard_2026-08-31_to_09-05_portable_v1.html</code></p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('nav.tabs button'));
+  function show(k){
+    tabs.forEach(function(b){
+      var on=b.id==='t-'+k;
+      b.setAttribute('aria-selected',on?'true':'false');
+      b.tabIndex=on?0:-1;
+      document.getElementById('p-'+b.id.slice(2)).hidden=!on;
+    });
+    window.scrollTo(0,0);
+  }
+  tabs.forEach(function(b,i){
+    b.addEventListener('click',function(){show(b.id.slice(2));});
+    b.addEventListener('keydown',function(e){
+      var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;
+      if(!d)return;
+      e.preventDefault();
+      var n=tabs[(i+d+tabs.length)%tabs.length];
+      n.focus(); show(n.id.slice(2));
+    });
+  });
+
+  // signal-board status filter
+  var chips=[].slice.call(document.querySelectorAll('#p-signals .chip'));
+  var rows=[].slice.call(document.querySelectorAll('#p-signals tbody tr'));
+  chips.forEach(function(c){
+    c.addEventListener('click',function(){
+      var f=c.getAttribute('data-f');
+      chips.forEach(function(o){o.setAttribute('aria-pressed',o===c?'true':'false');});
+      rows.forEach(function(r){
+        r.hidden = !(f==='all' || r.getAttribute('data-st')===f);
+      });
+    });
+  });
+
+  // article-index filter: publication and theme, one active at a time
+  var ic=[].slice.call(document.querySelectorAll('#p-index .chip'));
+  var ir=[].slice.call(document.querySelectorAll('#p-index tbody tr'));
+  var out=document.getElementById('ixcount');
+  ic.forEach(function(c){
+    c.addEventListener('click',function(){
+      var k=c.getAttribute('data-k'), v=c.getAttribute('data-v'), n=0;
+      ic.forEach(function(o){o.setAttribute('aria-pressed',o===c?'true':'false');});
+      ir.forEach(function(r){
+        var hit = (k==='all') || (r.getAttribute('data-'+k)===v);
+        r.hidden=!hit; if(hit)n++;
+      });
+      if(out)out.textContent=n;
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

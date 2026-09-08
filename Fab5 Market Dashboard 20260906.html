@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fab5 Run 6 &middot; 6 Sep addendum</title>
+<style>
+:root{
+  --color-bg:#f3f2f2; --color-surface:#eae9e9; --color-text:#201f1d;
+  --color-accent:#b68235; --color-accent-2:#ac803e;
+  --color-divider:color-mix(in srgb,#201f1d 16%,transparent);
+  --ink-2:color-mix(in srgb,#201f1d 68%,transparent);
+  --ink-3:color-mix(in srgb,#201f1d 48%,transparent);
+  --neutral-100:#f8f4f4; --neutral-200:#eae7e7; --neutral-300:#d7d3d3;
+  --neutral-600:#7d7979; --neutral-800:#444141; --neutral-900:#2d2b2b;
+  --accent-100:#fff3e4; --accent-200:#ffe3bf; --accent-700:#7d5411; --accent-800:#5a3b0a;
+  /* status — reserved, never reused as a series colour */
+  --st-ok:#3f6b3f; --st-ok-bg:#e8efe6;
+  --st-warn:#8a6410; --st-warn-bg:#fbeeda;
+  --st-bad:#8f3a2e; --st-bad-bg:#f8e7e3;
+  --st-new:#2a5f78; --st-new-bg:#e3eef3;
+  /* chart series — validated: light L-band/chroma/CVD/normal-vision/contrast all PASS */
+  --s1:#b07d1f; --s2:#0f6f96;
+  --font-heading:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --font-body:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --sp2:9.2px; --sp3:13.8px; --sp4:18.4px; --sp6:27.6px; --sp8:36.8px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --color-bg:#141312; --color-surface:#1c1b1a; --color-text:#eceae7;
+    --color-accent:#dcae63; --color-accent-2:#cfa259;
+    --color-divider:color-mix(in srgb,#eceae7 18%,transparent);
+    --ink-2:color-mix(in srgb,#eceae7 70%,transparent);
+    --ink-3:color-mix(in srgb,#eceae7 50%,transparent);
+    --neutral-100:#232120; --neutral-200:#2b2928; --neutral-300:#3a3736;
+    --neutral-600:#8d8987; --neutral-800:#c4c0bc; --neutral-900:#e4e1dd;
+    --accent-100:#2a2118; --accent-200:#3a2c1a; --accent-700:#e8c185; --accent-800:#f0d3a6;
+    --st-ok:#8fbb87; --st-ok-bg:#1e2a1d;
+    --st-warn:#dcb266; --st-warn-bg:#2c2214;
+    --st-bad:#dd9184; --st-bad-bg:#2e1c19;
+    --st-new:#8fc0d8; --st-new-bg:#16252c;
+    --s1:#b5813a; --s2:#3f96bd;
+  }
+}
+:root[data-theme="dark"]{
+  --color-bg:#141312; --color-surface:#1c1b1a; --color-text:#eceae7;
+  --color-accent:#dcae63; --color-accent-2:#cfa259;
+  --color-divider:color-mix(in srgb,#eceae7 18%,transparent);
+  --ink-2:color-mix(in srgb,#eceae7 70%,transparent);
+  --ink-3:color-mix(in srgb,#eceae7 50%,transparent);
+  --neutral-100:#232120; --neutral-200:#2b2928; --neutral-300:#3a3736;
+  --neutral-600:#8d8987; --neutral-800:#c4c0bc; --neutral-900:#e4e1dd;
+  --accent-100:#2a2118; --accent-200:#3a2c1a; --accent-700:#e8c185; --accent-800:#f0d3a6;
+  --st-ok:#8fbb87; --st-ok-bg:#1e2a1d;
+  --st-warn:#dcb266; --st-warn-bg:#2c2214;
+  --st-bad:#dd9184; --st-bad-bg:#2e1c19;
+  --st-new:#8fc0d8; --st-new-bg:#16252c;
+  --s1:#b5813a; --s2:#3f96bd;
+}
+*{box-sizing:border-box}
+body{background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);
+  font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px 90px}
+h1,h2,h3,h4{font-family:var(--font-heading);font-weight:400;letter-spacing:-0.015em;margin:0}
+p{margin:0 0 var(--sp3)}
+em{color:var(--ink-2)}
+strong{font-weight:700}
+.kicker{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3);
+  font-family:var(--font-body)}
+.rule{border:0;border-top:1px solid var(--color-divider);margin:0}
+.rule-hard{border:0;border-top:1px solid var(--color-text);margin:0}
+
+/* masthead */
+header.mast{padding:34px 0 26px;border-bottom:1px solid var(--color-text)}
+.mast-row{display:flex;align-items:baseline;gap:var(--sp4);flex-wrap:wrap}
+.mast-row .kicker:first-child{margin-right:auto}
+h1{font-size:clamp(34px,5.4vw,58px);line-height:1.06;margin:16px 0 0;max-width:20ch}
+.dek{font-size:17px;color:var(--ink-2);max-width:66ch;margin:16px 0 0;line-height:1.6}
+
+/* stat strip */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--color-divider)}
+.stat{padding:24px 22px 22px;border-right:1px solid var(--color-divider)}
+.stat:last-child{border-right:0}
+.stat .num{font-family:var(--font-heading);font-size:clamp(26px,3.4vw,38px);line-height:1.05;
+  display:block;margin:8px 0 6px;letter-spacing:-0.02em}
+.stat .lab{font-size:12.5px;color:var(--ink-2);line-height:1.45}
+.stat .num.sm{font-size:clamp(20px,2.4vw,27px)}
+
+/* generic section */
+section{padding:46px 0 0}
+.sec-head{display:flex;align-items:baseline;gap:var(--sp3);margin-bottom:var(--sp4);flex-wrap:wrap}
+.sec-head h3{font-size:26px}
+.sec-head .kicker{margin-left:auto}
+
+/* tags */
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;letter-spacing:0.04em;
+  text-transform:uppercase;padding:2px 8px;border-radius:3px;white-space:nowrap;
+  font-family:var(--font-body);font-weight:700}
+.tag .dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.t-ok{background:var(--st-ok-bg);color:var(--st-ok)}
+.t-warn{background:var(--st-warn-bg);color:var(--st-warn)}
+.t-bad{background:var(--st-bad-bg);color:var(--st-bad)}
+.t-new{background:var(--st-new-bg);color:var(--st-new)}
+.t-line{border:1px solid var(--color-accent);color:var(--color-accent)}
+
+/* tables */
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:660px}
+th{text-align:left;font-size:10.5px;letter-spacing:0.09em;text-transform:uppercase;
+  color:var(--ink-3);padding:8px 10px 8px 0;border-bottom:1px solid var(--color-text);
+  font-weight:400;vertical-align:bottom}
+td{padding:11px 10px 11px 0;border-bottom:1px solid var(--color-divider);vertical-align:top;
+  line-height:1.5}
+tbody tr:hover{background:color-mix(in srgb,var(--color-text) 4%,transparent)}
+td.idx{font-family:var(--font-heading);font-size:16px;color:var(--ink-3);width:34px}
+td.ind{font-weight:700;width:180px}
+td.st{width:120px}
+td.nx{color:var(--ink-2);width:250px}
+
+/* — figures — */
+.figs{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:start}
+figure{margin:0}
+figcaption{font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-top:14px}
+.fig-t{font-family:var(--font-heading);font-size:19px;line-height:1.25;margin:0 0 4px}
+.fig-s{font-size:11px;letter-spacing:0.09em;text-transform:uppercase;color:var(--ink-3);
+  margin:0 0 18px;display:block}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin:0 0 16px;font-size:12px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.swatch{width:11px;height:11px;border-radius:2px;flex:none;
+  box-shadow:0 0 0 2px var(--color-bg)}
+.plot{position:relative}
+.gridline{position:absolute;top:0;bottom:20px;width:1px;
+  background:color-mix(in srgb,var(--color-text) 9%,transparent)}
+.gridlab{position:absolute;bottom:0;font-size:10.5px;color:var(--ink-3);transform:translateX(-50%)}
+
+/* range plot */
+.rrow{position:relative;height:46px;margin-bottom:6px}
+.rlab{font-size:12.5px;line-height:1.25;margin-bottom:5px;display:block}
+.rlab b{font-weight:700}
+.rtrack{position:relative;height:13px}
+.rbar{position:absolute;height:13px;border-radius:4px;cursor:default}
+.rbar::after{content:attr(data-v);position:absolute;left:calc(100% + 9px);top:-2px;
+  font-size:11.5px;color:var(--ink-2);white-space:nowrap;font-weight:700}
+
+/* grouped bars */
+.grow{margin-bottom:19px}
+.gname{font-size:12.5px;margin-bottom:6px;display:flex;justify-content:space-between;gap:10px}
+.gname i{font-style:normal;color:var(--ink-3);font-size:11px}
+.gbar{height:11px;border-radius:0 4px 4px 0;margin-bottom:2px;position:relative;min-width:2px}
+.gbar span{position:absolute;left:calc(100% + 8px);top:-3px;font-size:11px;
+  color:var(--ink-2);white-space:nowrap}
+details.tv{margin-top:16px;font-size:12.5px}
+details.tv summary{cursor:pointer;color:var(--ink-3);font-size:11px;letter-spacing:0.09em;
+  text-transform:uppercase}
+details.tv table{min-width:0;margin-top:10px;font-size:12.5px}
+details.tv td,details.tv th{padding:6px 12px 6px 0}
+@media (max-width:860px){.figs{grid-template-columns:1fr;gap:40px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--color-divider)}
+  section > div[style*="grid-template-columns:1.35fr"]{display:block !important}
+  section > div[style*="grid-template-columns:1.35fr"] > div:last-child{
+    border-left:0 !important;padding-left:0 !important;margin-top:26px}}
+@media (max-width:560px){.stats{grid-template-columns:1fr}
+  .stat{border-right:0;border-bottom:1px solid var(--color-divider)}}
+
+
+.reads{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--color-divider)}
+.reads .read{padding:22px 22px 22px 0;border-bottom:1px solid var(--color-divider);
+  border-right:1px solid var(--color-divider)}
+.reads .read{padding-left:22px}
+.reads .read:nth-child(3n){border-right:0;padding-right:0}
+.reads .read:nth-child(3n+1){padding-left:0}
+.reads h4{font-size:19px;line-height:1.24;margin:7px 0 8px}
+.reads p{font-size:13.5px;line-height:1.55;margin:0;color:var(--ink-2)}
+.reads strong{color:var(--color-text)}
+@media (max-width:860px){.reads{grid-template-columns:1fr 1fr}
+  .reads .read:nth-child(3n){border-right:1px solid var(--color-divider);padding-right:22px}
+  .reads .read:nth-child(3n+1){padding-left:22px}
+  .reads .read:nth-child(2n){border-right:0;padding-right:0}
+  .reads .read:nth-child(2n+1){padding-left:0}}
+@media (max-width:560px){.reads{grid-template-columns:1fr}
+  .reads .read,.reads .read:nth-child(3n),.reads .read:nth-child(2n){
+    border-right:0;padding-left:0;padding-right:0}}
+
+
+.creg{display:grid;grid-template-columns:1fr 1fr;gap:0 44px}
+.cf{padding:22px 0;border-top:1px solid var(--color-divider)}
+.cf-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:9px}
+.cf-n{font-family:var(--font-heading);font-size:20px;color:var(--color-accent);flex:none}
+.cf-h h4{font-size:19px;line-height:1.24;margin:0;flex:1 1 auto;min-width:0}
+.cf p{font-size:13.5px;line-height:1.55;margin:0 0 9px;color:var(--ink-2)}
+.cf p:last-child{margin-bottom:0}
+.cf p b{color:var(--color-text)}
+.cf .cf-r{padding-left:14px;border-left:2px solid var(--color-accent)}
+@media (max-width:860px){.creg{grid-template-columns:1fr}}
+
+/* calendar */
+.cal{display:grid;grid-template-columns:repeat(2,1fr);gap:0 44px;border-top:1px solid var(--color-divider)}
+.cev{display:flex;gap:18px;padding:16px 0;border-bottom:1px solid var(--color-divider)}
+.cev .d{font-family:var(--font-heading);font-size:15px;width:88px;flex:none;line-height:1.35}
+.cev .d small{display:block;font-family:var(--font-body);font-size:10.5px;
+  letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-3)}
+.cev .b{font-size:13.5px;line-height:1.5;color:var(--ink-2)}
+.cev .b b{color:var(--color-text)}
+@media (max-width:700px){.cal{grid-template-columns:1fr}}
+
+/* bear */
+.bear{display:grid;grid-template-columns:1.25fr 1fr;gap:46px;align-items:start}
+@media (max-width:860px){.bear{grid-template-columns:1fr;gap:30px}}
+footer{margin-top:58px;padding-top:26px;border-top:1px solid var(--color-text);
+  font-size:12.5px;color:var(--ink-3);line-height:1.6}
+footer b{color:var(--ink-2)}
+.src{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:18px 0 22px}
+@media (max-width:700px){.src{grid-template-columns:repeat(2,1fr)}}
+.src div span{display:block;font-family:var(--font-heading);font-size:22px;color:var(--color-text)}
+
+/* ===== tabs ===== */
+nav.tabs{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid var(--color-divider);margin:34px 0 0}
+nav.tabs button{appearance:none;background:none;border:0;border-bottom:2px solid transparent;
+  font-family:var(--font-heading);font-size:15px;letter-spacing:.01em;color:var(--ink-2);
+  padding:11px 17px 9px;cursor:pointer;margin-bottom:-1px;font-feature-settings:"tnum"}
+nav.tabs button:hover{color:var(--color-text);background:color-mix(in srgb,var(--color-accent) 6%,transparent)}
+nav.tabs button[aria-selected="true"]{color:var(--color-text);border-bottom-color:var(--color-accent)}
+nav.tabs button:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}
+nav.tabs .tcount{font-size:11px;color:var(--ink-3);margin-left:6px;font-feature-settings:"tnum"}
+.panel[hidden]{display:none!important}
+.panel{padding-top:4px}
+
+/* ===== filter chips ===== */
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 18px}
+.chip{appearance:none;background:none;font-family:var(--font-body);font-size:12px;
+  border:1px solid var(--color-divider);border-radius:999px;padding:5px 12px;cursor:pointer;
+  color:var(--ink-2);display:inline-flex;align-items:center;gap:6px;font-feature-settings:"tnum"}
+.chip:hover{border-color:var(--color-accent);color:var(--color-text)}
+.chip[aria-pressed="true"]{border-color:var(--color-accent);color:var(--accent-800);
+  background:color-mix(in srgb,var(--color-accent) 9%,transparent)}
+.chip:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}
+.chip .n{font-size:10.5px;color:var(--ink-3)}
+.chip[aria-pressed="true"] .n{color:var(--accent-700)}
+.filt-note{font-size:12px;color:var(--ink-3);margin:-8px 0 16px;font-style:italic}
+
+/* ===== four-layer read ===== */
+.lay{display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:0;
+  border-top:1px solid var(--color-divider)}
+.lay .l{border-bottom:1px solid var(--color-divider);border-right:1px solid var(--color-divider);
+  padding:20px 22px 22px}
+.lay .l:last-child{border-right:0}
+.lay .ln{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--color-accent);
+  font-feature-settings:"tnum";display:block;margin-bottom:7px}
+.lay h4{font-family:var(--font-heading);font-size:17px;line-height:1.25;margin:0 0 9px}
+.lay p{font-size:13.5px;line-height:1.58;color:var(--ink-2);margin:0 0 9px}
+.lay .lk{font-size:12px;line-height:1.5;color:var(--color-text);border-left:2px solid var(--color-accent);
+  padding-left:10px;margin-top:11px}
+
+/* ===== per-record depth on reads ===== */
+.read .rmeta{margin-top:11px;padding-top:10px;border-top:1px dotted var(--color-divider)}
+.read .rl{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:2px}
+.read .rv{font-size:12px;line-height:1.5;color:var(--ink-2);margin:0 0 8px}
+.read .rv.none{color:var(--ink-3);font-style:italic}
+.read .rsrc{font-size:11px;color:var(--ink-3);letter-spacing:.02em}
+.read .rsrc b{color:var(--accent-700);font-weight:normal}
+
+/* ===== timeline ===== */
+.tl{border-left:1px solid var(--color-divider);margin-left:6px;padding-left:0}
+.tl .ev{position:relative;padding:0 0 26px 26px}
+.tl .ev::before{content:"";position:absolute;left:-4.5px;top:6px;width:8px;height:8px;border-radius:50%;
+  background:var(--color-bg);border:1.5px solid var(--color-accent)}
+.tl .ev.big::before{background:var(--color-accent)}
+.tl .d{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--color-accent);
+  font-feature-settings:"tnum";display:block;margin-bottom:4px}
+.tl h4{font-family:var(--font-heading);font-size:17px;line-height:1.25;margin:0 0 7px}
+.tl p{font-size:13.5px;line-height:1.6;color:var(--ink-2);margin:0 0 7px}
+.tl .src{font-size:11px;color:var(--ink-3)}
+
+/* ===== agreement map ===== */
+.agree{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.agree .ag{border:1px solid var(--color-divider);border-radius:4px;padding:16px 18px}
+.agree .agn{font-family:var(--font-heading);font-size:20px;color:var(--color-accent);
+  font-feature-settings:"tnum";line-height:1;float:left;margin:2px 10px 0 0}
+.agree h4{font-family:var(--font-heading);font-size:15.5px;line-height:1.3;margin:0 0 7px;overflow:hidden}
+.agree p{font-size:13px;line-height:1.55;color:var(--ink-2);margin:0;clear:both}
+
+/* ===== per-house call chips on conflicts ===== */
+.calls{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 2px}
+.call{font-size:11px;border:1px solid var(--color-divider);border-radius:3px;padding:3px 8px;
+  color:var(--ink-2);white-space:nowrap}
+.call b{color:var(--color-text);font-weight:normal;letter-spacing:.04em}
+.call.a{border-color:color-mix(in srgb,var(--st-ok) 40%,transparent);background:var(--st-ok-bg)}
+.call.b{border-color:color-mix(in srgb,var(--st-bad) 40%,transparent);background:var(--st-bad-bg)}
+.call.c{border-color:color-mix(in srgb,var(--st-new) 40%,transparent);background:var(--st-new-bg)}
+
+/* ===== scenarios ===== */
+.scen{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:0;
+  border-top:1px solid var(--color-divider);border-left:1px solid var(--color-divider)}
+.scen .s{border-bottom:1px solid var(--color-divider);border-right:1px solid var(--color-divider);padding:18px 20px}
+.scen .sh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:9px}
+.scen .st2{font-family:var(--font-heading);font-size:16px}
+.scen .pct{font-family:var(--font-heading);font-size:23px;color:var(--color-accent);font-feature-settings:"tnum"}
+.scen p{font-size:13px;line-height:1.56;color:var(--ink-2);margin:0 0 9px}
+.scen .trg{font-size:12px;line-height:1.5;border-top:1px dotted var(--color-divider);padding-top:9px;color:var(--ink-2)}
+.scen .trg b{color:var(--color-text)}
+
+/* ===== inventory / evidence ===== */
+.inv table{width:100%;border-collapse:collapse;font-size:12.5px}
+.inv th{text-align:left;font-family:var(--font-heading);font-weight:600;font-size:11px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);
+  border-bottom:1px solid var(--color-text);padding:0 12px 7px 0}
+.inv td{border-bottom:1px solid var(--color-divider);padding:9px 12px 9px 0;vertical-align:top;color:var(--ink-2)}
+.inv td.n{font-feature-settings:"tnum";color:var(--color-text);width:44px}
+.inv td.s{color:var(--color-text);width:118px}
+.inv code{font-size:11.5px;background:var(--neutral-200);padding:1px 4px;border-radius:2px}
+.grades{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:22px}
+.grades .g{border:1px solid var(--color-divider);border-radius:4px;padding:14px 16px}
+.grades .gl{font-family:var(--font-heading);font-size:15px;color:var(--color-accent);margin-bottom:6px}
+.grades p{font-size:12.5px;line-height:1.52;color:var(--ink-2);margin:0}
+.flags{margin-top:24px}
+.flags li{font-size:13px;line-height:1.6;color:var(--ink-2);margin-bottom:9px}
+
+/* ===== addendum banner ===== */
+.adx{border:1px solid color-mix(in srgb,var(--st-new) 34%,transparent);background:var(--st-new-bg);
+  border-radius:4px;padding:18px 22px;margin:26px 0 0}
+.adx .ah{display:flex;align-items:center;gap:10px;margin-bottom:9px;flex-wrap:wrap}
+.adx h3{font-family:var(--font-heading);font-size:18px;margin:0}
+.adx p{font-size:13.5px;line-height:1.6;color:var(--ink-2);margin:0 0 9px}
+.adx p:last-child{margin-bottom:0}
+.adx ul{margin:0;padding-left:19px}
+.adx li{font-size:13px;line-height:1.58;color:var(--ink-2);margin-bottom:6px}
+
+@media print{
+  nav.tabs{display:none}
+  .panel[hidden]{display:block!important}
+  .chips{display:none}
+  .tscroll{overflow:visible}
+}
+@media (max-width:620px){
+  nav.tabs button{padding:9px 11px 8px;font-size:13.5px}
+  .lay .l{border-right:0}
+}
+td.bl,td.br{width:212px;font-size:12px;line-height:1.46;color:var(--ink-2);padding-left:10px}
+td.bl{border-left:2px solid color-mix(in srgb,var(--st-ok) 45%,transparent)}
+td.br{border-left:2px solid color-mix(in srgb,var(--st-bad) 45%,transparent)}
+#p-monitor td.nx{width:210px}
+#p-monitor td.ind{width:150px}
+#p-monitor table{min-width:1080px}
+/* the signal board is a data table, not body copy - let it break the editorial measure */
+@media (min-width:1180px){
+  #p-monitor{width:min(1400px,calc(100vw - 56px));margin-left:50%;transform:translateX(-50%)}
+}
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="mast-row">
+    <span class="kicker">Fab5 Cross-Source Synthesis &middot; Run 6</span>
+    <span class="kicker">5 September 2026 &middot; addendum 6 September</span>
+    <span class="kicker">51 reports &middot; seven houses &middot; 11 Aug – 6 Sep</span>
+  </div>
+  <h1>Own what funds itself.</h1>
+  <p class="dek">The binding constraint moved again, and every house moved with it independently. Chip supply bound 2023–24. Power and cooling bound 2025 to mid-2026. <strong>From the second half of 2026 the binding constraint is credit.</strong> Fundamentals did not weaken — they strengthened almost everywhere this run looked. What changed is that the marginal dollar funding the buildout is now borrowed, increasingly by counterparties who are not hyperscalers, and the market has begun to price the difference.</p>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Sections">
+<button role="tab" id="t-insights" aria-controls="p-insights" aria-selected="true" tabindex="0">Key insights</button>
+<button role="tab" id="t-timeline" aria-controls="p-timeline" aria-selected="false" tabindex="-1">Timeline<span class="tcount">9</span></button>
+<button role="tab" id="t-conflicts" aria-controls="p-conflicts" aria-selected="false" tabindex="-1">Conflicts<span class="tcount">9</span></button>
+<button role="tab" id="t-monitor" aria-controls="p-monitor" aria-selected="false" tabindex="-1">Monitor<span class="tcount">30</span></button>
+<button role="tab" id="t-action" aria-controls="p-action" aria-selected="false" tabindex="-1">Action</button>
+</nav>
+
+<div class="panel" id="p-insights" role="tabpanel" aria-labelledby="t-insights">
+<div class="adx">
+  <div class="ah">
+    <span class="tag t-new"><i class="dot"></i>Addendum</span>
+    <h3>6 September 2026 &middot; two TMTB files backfilled</h3>
+  </div>
+  <p>Two files inside the Run 6 window were never consumed &mdash; one with a non-standard root filename, one in a <code>Claude outputs/</code> subfolder created 4 September that a root-level glob never reached. <b>Neither changes the thesis or the recommendation; both sharpen it.</b> Report count 49 &rarr; 51.</p>
+  <ul>
+    <li><b>Memory cost inflation now has a documented downstream free-cash-flow channel.</b> Run 6 traced it only as far as NVIDIA's guided 71&ndash;72% margin trough. Zscaler takes FY27 capex/revenue from 8% to low-double-digits explicitly on memory, storage and processor prices; Samsara cuts FY27 FCF margin ~200bp to ~12% on component and freight inflation, persisting into 2027; Marvell's 3Q gross-margin guide compressed to 58.0% against 58.5% expected. <span class="tag t-line">TXN's price letter is grade (d) and not load-bearing</span></li>
+    <li><b>The optical timetable moved forward a full year.</b> Lumentum: NPO now expected to be larger than CPO, commercialisation pulled from end-2028/early-2029 to <b>end-2027/early-2028</b>. OCS is repricing from network component to compute-availability insurance &mdash; a per-rack deployment routing around failed GPUs, priced against $20&ndash;40m of compute-time value at risk.</li>
+    <li><b>Indicators #30 and #31 each gain an independent second leg.</b> Okta accelerated 29% with no meaningful AI revenue at all; Zscaler disclosed that non-seat pricing was ~30% of new-and-upsell ACV &mdash; the first hard quantification in this project. And Microsoft is contesting Virginia's transmission pre-payment rule, the first hyperscaler to fight a state cost order.</li>
+  </ul>
+  <p><b>One refinement to the stance:</b> &ldquo;funds itself&rdquo; must now be tested against hardware and capex exposure, not only balance-sheet leverage. Samsara is the instructive case &mdash; strong unit economics, accelerating ARR, and cash flow still took a 200bp hit because it buys physical devices.</p>
+</div>
+<section class="stats" style="padding-top:0" aria-label="Key figures">
+  <div class="stat">
+    <span class="kicker">NVIDIA obligations</span>
+    <span class="num">$279bn</span>
+    <span class="lab">Disclosed supply commitments, up <strong>114% q/q</strong> from $119bn, "a large portion" of it memory. Widen the perimeter to obligations plus guarantees and it is <strong>$530.5bn</strong> against ~$96bn of quarterly revenue.</span>
+  </div>
+  <div class="stat">
+    <span class="kicker">Tenant credit split</span>
+    <span class="num sm">8–9%<span style="color:var(--ink-3);font-size:0.68em"> vs </span>5.9–6.5%</span>
+    <span class="lab">CoreWeave / NVIDIA-tenant data-centre bond YTW against Amazon-tenant, in one BofA table. The credit market now publicly discriminates by tenant quality.</span>
+  </div>
+  <div class="stat">
+    <span class="kicker">Correction window</span>
+    <span class="num sm">Sep 26 – Jan 27</span>
+    <span class="lab">Each of the past six cycles corrected within four months of industry revenue peaking y/y. The second derivative peaks in the Sep-26 quarter. <strong>No source contested it.</strong></span>
+  </div>
+  <div class="stat">
+    <span class="kicker">Broadcom FY28</span>
+    <span class="num">~15 of 20<span style="color:var(--ink-3);font-size:0.62em">GW</span></span>
+    <span class="lab">75% from Anthropic and OpenAI — two externally-financed labs. Concentration has not increased; it has <strong>changed credit quality</strong>.</span>
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section>
+  <div class="sec-head"><h3>The four-layer read</h3><span class="kicker">Where the argument actually sits</span></div>
+  <div class="lay">
+    <div class="l">
+      <span class="ln">Layer 1</span>
+      <h4>Operational fundamentals</h4>
+      <p>Stronger than Run 5, with the constraint moved downstream of the fab. Cloud backlog approaching <b>$1.7trn</b> on ISI's count against forward cloud capex just over $620bn &mdash; roughly <b>4x cover, with sales revisions exceeding capex revisions.</b> AWS +37% at a record 39.4% operating margin; Google Cloud +82% with margin 20.7% &rarr; 35.6%.</p>
+      <p>What binds is conversion, not demand. Amazon's raise from $200bn to $220bn was entirely memory inflation with <b>zero incremental capacity.</b> DELL says upside is limited by memory/SSD supply and site readiness, not demand.</p>
+      <p class="lk">The 2027 question has been rewritten from &ldquo;can you get the order&rdquo; to &ldquo;can you light the equipment up.&rdquo;</p>
+    </div>
+    <div class="l">
+      <span class="ln">Layer 2</span>
+      <h4>Market structure</h4>
+      <p>Genuinely contradictory, and both halves are real. <b>Bullish:</b> mega-cap tech under-owned by 129bps versus the S&amp;P and widening; ETF shorts covering a sixth straight week; the S&amp;P ex-AI up nearly 8% since late June while the index ranged &mdash; the AI complex has been a net <em>drag</em>. SOX at 19.3x NTM, below the S&amp;P's 19.5x.</p>
+      <p><b>Bearish:</b> CFTC non-dealer Nasdaq positioning turned negative for the first time since May 2025 on a record &minus;$21bn week, <em>during</em> a +7% rally. Ten stocks are 38% of the S&amp;P against a 27% dot-com peak, with three-month implied correlation at generational lows.</p>
+      <p class="lk">Extreme concentration plus low correlation is mathematically fragile. The rotation Run 5 called for has been happening <em>inside</em> the complex, not out of it.</p>
+    </div>
+    <div class="l">
+      <span class="ln">Layer 3</span>
+      <h4>Financing and credit</h4>
+      <p>This is where the run's information is, and five houses reached it independently in ten days without cross-citation. Red-Ring priced it first on 24 August (AVGO and NVDA CDS at all-time wides of 126.2bp and 86.7bp); ISI framed it four days later, <b>swapping its fourth bear trigger from equities to IG Tech credit spreads.</b></p>
+      <p>The cleanest signal is the tenant split: AMZN-tenant data-centre bonds at <b>5.9&ndash;6.5% YTW</b> against CoreWeave/NVDA-tenant paper at <b>8&ndash;9%</b>. The credit market is discriminating by tenant quality, publicly.</p>
+      <p class="lk">Price signal preceded framework by four days. Worth watching for again.</p>
+    </div>
+    <div class="l">
+      <span class="ln">Layer 4</span>
+      <h4>Macro and policy</h4>
+      <p>An unresolvable September and a 2027 collision. On 3 September, reading the same Waller speech: GS put hike odds at ~60%, ISI at &ldquo;under 50 per cent&rdquo;, and <b>TMTB read it as a priced cut with ~60% odds of action within weeks.</b> The same number, opposite directions.</p>
+      <p>ISI's three-wave inflation model now names <b>AI capex at ~2pp</b> of the ~53% July diffusion index, with the channel identified explicitly as memory-chip costs.</p>
+      <p class="lk">The first time in this project's history that the AI capex cycle appears as a quantified input to the Fed's reaction function rather than as a sector story.</p>
+    </div>
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section>
+  <div class="sec-head"><h3>Nine reads</h3><span class="kicker">What the run established &middot; against what Run 5 predicted</span></div>
+  <div class="reads">
+    <div class="read"><span class="kicker">One</span><h4>The third migration</h4><p>Chip supply 2023&ndash;24 &rarr; power and cooling 2025&ndash;26H1 &rarr; <strong>credit and spreads from 2026H2</strong>. TMTB states it explicitly; four other houses arrive at it by their own routes.</p>
+      <div class="rmeta">
+        <span class="rl">Run 5 predicted</span><p class="rv">&ldquo;AI financing circularity is now a standing risk, not an isolated one &mdash; the third instance should be treated as confirmation of a pattern, not a new surprise.&rdquo;</p>
+        <span class="rl">What proved it</span><p class="rv">Five houses reached credit independently in ten days without cross-citation. Red-Ring priced CDS at all-time wides on 24 Aug; ISI made IG Tech OAS its formal fourth bear trigger four days later.</p>
+        <span class="rsrc">Source <b>TMTB &middot; Red-Ring &middot; ISI &middot; JPM &middot; MS</b></span>
+      </div></div>
+    <div class="read"><span class="kicker">Two</span><h4>Capex has stopped being a proxy</h4><p>A rising share of incremental capex is swallowed by memory inflation rather than converted into capacity. <strong>Amazon's raise from $200bn to $220bn bought zero incremental GW.</strong> Track GW, not dollars.</p>
+      <div class="rmeta">
+        <span class="rl">Run 5 predicted</span><p class="rv none">Nothing on this. Run 5 asked whether spend could be powered, financed and margin-translated &mdash; it did not anticipate that capex would stop measuring demand.</p>
+        <span class="rl">What established it</span><p class="rv">Amazon's 31 July raise with zero incremental capacity; NVIDIA's own margin guide naming memory inflation it cannot fully offset; DELL naming memory/SSD supply rather than demand as the limit.</p>
+        <span class="rsrc">Source <b>TMTB &middot; UBS &middot; MS</b></span>
+      </div></div>
+    <div class="read"><span class="kicker">Three</span><h4>Targets are now cut on beats</h4><p>ADI, AVGO, CIEN &mdash; and <strong>Credo cut 10.2% in the same week it raised its own guide</strong>, P/E compressing 34x to 23x. The escape valve is accelerating growth or a new quantified AI disclosure.</p>
+      <div class="rmeta">
+        <span class="rl">Run 5 predicted</span><p class="rv">Indicator #29's bearish trigger: &ldquo;The pattern spreads further &hellip; or deepens (targets get cut, not just held, on beats).&rdquo;</p>
+        <span class="rl">What proved it</span><p class="rv"><b>The trigger fired.</b> ADI $474 &rarr; $462 on a clean beat-and-raise; AVGO cut on a beat with CY27 EPS cut 7.5%; CIEN cut 31.8% while FY27 EPS was raised 24% above Street; Credo the cleanest instance recorded anywhere.</p>
+        <span class="rsrc">Source <b>ISI &middot; JPM &middot; TMTB</b></span>
+      </div></div>
+    <div class="read"><span class="kicker">Four</span><h4>GPUs outlive the depreciation schedule</h4><p>A 2020-vintage A100 still rents at $1.65/hr on a ~$5,000 residual, and CoreWeave has extended A100 contracts to 2029. <strong>The residual-value dispute resolves bullish</strong> &mdash; but the sample is non-hyperscaler clouds only.</p>
+      <div class="rmeta">
+        <span class="rl">Run 5 predicted</span><p class="rv">As a <em>bear</em> trigger: &ldquo;the power/site-scarcity reattribution is confirmed, undermining the chip residual-value framing entirely.&rdquo;</p>
+        <span class="rl">What happened instead</span><p class="rv"><b>It resolved against the bear.</b> Silicon Data's rental series held and CoreWeave extended A100 contracts to 2029. Both mechanisms operate; the reattribution is not vindicated as an exclusive explanation.</p>
+        <span class="rsrc">Source <b>Red-Ring &middot; ISI</b></span>
+      </div></div>
+    <div class="read"><span class="kicker">Five</span><h4>The market did not reprice the backstop cut</h4><p>NVIDIA cut its OpenAI Ohio backstop 52%, from ~$250bn to under $120bn. Neoclouds moved +1.71% against +13.6% on the original announcement &mdash; <strong>an eight-fold amplitude contraction.</strong> The run's most important unpriced variable.</p>
+      <div class="rmeta">
+        <span class="rl">Run 5 predicted</span><p class="rv">The metric, not the direction: &ldquo;track NVDA's 10-Q disclosure of backstop and guarantee balances &mdash; the pace of that climb is the single best real-time gauge of how aggressively the structure is being used.&rdquo;</p>
+        <span class="rl">What happened instead</span><p class="rv">The balance moved the <em>other</em> way, and the market did not react. Run 5 had the right instrument and the wrong sign.</p>
+        <span class="rsrc">Source <b>Red-Ring &middot; TMTB</b></span>
+      </div></div>
+    <div class="read"><span class="kicker">Six</span><h4>&ldquo;AI destroys seats&rdquo; was falsified twice in one day</h4><p>On 27 August, Salesforce reported Sales, Service and Slack seats all growing y/y and Okta said there is no evidence AI is reducing seats. <strong>Microsoft then chose a $99/month seat bundle</strong> to carry agent governance.</p>
+      <div class="rmeta">
+        <span class="rl">Run 5 predicted</span><p class="rv"><b>The opposite.</b> Run 5 carried agents-reduce-seats as the working frame &mdash; this read is a falsification of the project's own prior, not a confirmation of it.</p>
+        <span class="rl">What proved it</span><p class="rv">Two independent falsifications on one day, plus &mdash; from the 6 September addendum &mdash; <b>Okta accelerating 29% with no meaningful AI revenue at all</b>, the cleanest control case available.</p>
+        <span class="rsrc">Source <b>TMTB &middot; Barclays and BTIG via TMTB</b> <span class="tag t-new"><i class="dot"></i>Addendum</span></span>
+      </div></div>
+    <div class="read"><span class="kicker">Seven</span><h4>The bottleneck migrated past ABF</h4><p>TSMC's own VP closed the CoWoS dispute toward tightness. But the live constraints are further upstream: <strong>InP substrate, cleanroom availability, advanced-node SoC allocation &mdash; and skilled electricians</strong>, which only Red-Ring names.</p>
+      <div class="rmeta">
+        <span class="rl">Run 5 predicted</span><p class="rv">Indicator #20's bullish trigger: &ldquo;ABF substrate capacity data resolves the dispute toward continued tightness.&rdquo;</p>
+        <span class="rl">What proved it</span><p class="rv"><b>The trigger fired</b> &mdash; TSMC's VP of Advanced Packaging named ABF substrate and memory shortages persisting &ldquo;over the next couple of years.&rdquo; The addendum extends it: Lumentum pulled NPO commercialisation forward a full year, to end-2027/early-2028.</p>
+        <span class="rsrc">Source <b>TSMC (a) &middot; NSR &middot; AMAT &middot; Red-Ring &middot; LITE</b> <span class="tag t-new"><i class="dot"></i>Addendum</span></span>
+      </div></div>
+    <div class="read"><span class="kicker">Eight</span><h4>Target prices are a corrupted signal</h4><p>Inside ISI, nine hours apart: numbers cut and target held (+58.7% upside) against numbers raised 24% and target cut a third (+5.9%). JPM independently warns five names <strong>changed target horizon at the same time as target price.</strong> Read the EPS revision and the horizon, never the headline.</p>
+      <div class="rmeta">
+        <span class="rl">Run 5 predicted</span><p class="rv">That &ldquo;beat-and-raise, hold-the-target&rdquo; had formalised as the default expectation and was spreading into semicap for the first time.</p>
+        <span class="rl">What proved it</span><p class="rv">It escalated past <em>holding</em> to <em>cutting</em>, and then appeared inside a single house on a single day. Two houses reached the corrupted-signal conclusion independently.</p>
+        <span class="rsrc">Source <b>ISI &middot; JPM</b></span>
+      </div></div>
+    <div class="read"><span class="kicker">Nine</span><h4>State restriction is bullish behind-the-meter</h4><p>300+ state bills in six weeks; Texas has suspended ~1,800 data centres; the restriction impulse is <strong>not partisan</strong>. But moratoria raise on-site generation demand because the grid cannot carry the load &mdash; &ldquo;going fully BTM is the insulation trade.&rdquo;</p>
+      <div class="rmeta">
+        <span class="rl">Run 5 predicted</span><p class="rv"><b>The sign the other way.</b> Indicator #27's bearish trigger was &ldquo;permitting politics worsen.&rdquo; Run 6 inverts it &mdash; worsening politics is bullish for behind-the-meter generation.</p>
+        <span class="rl">What proved it</span><p class="rv">ISI's inverted read, plus MS reframing community opposition as &ldquo;a development constraint that needs to be underwritten like land, power or labor.&rdquo; The addendum adds the first hyperscaler to contest a state cost order &mdash; Microsoft, in Virginia.</p>
+        <span class="rsrc">Source <b>ISI &middot; MS &middot; Red-Ring</b> <span class="tag t-new"><i class="dot"></i>Addendum</span></span>
+      </div></div>
+
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section aria-label="Figures">
+  <div class="figs">
+
+    <figure>
+      <p class="fig-t">The credit market has started pricing the tenant, not the building</p>
+      <span class="fig-s">Data-centre project bond yield to worst, by tenant · one BofA table, August 2026</span>
+      <div class="legend">
+        <span><i class="swatch" style="background:var(--s2)"></i> Investment-grade hyperscaler tenant</span>
+        <span><i class="swatch" style="background:var(--s1)"></i> Neocloud / vendor-financed tenant</span>
+      </div>
+      <div class="plot" style="padding-bottom:20px;margin-right:72px">
+        <div class="gridline" style="left:0%"></div>
+        <div class="gridline" style="left:22.2%"></div>
+        <div class="gridline" style="left:44.4%"></div>
+        <div class="gridline" style="left:66.7%"></div>
+        <div class="gridline" style="left:88.9%"></div>
+        <div class="rrow">
+          <span class="rlab"><b>Amazon-tenant projects</b></span>
+          <div class="rtrack">
+            <div class="rbar" style="background:var(--s2);left:20%;width:13.3%" data-v="5.9 – 6.5%"
+              title="Amazon-tenant data-centre project bonds: 5.9–6.5% YTW"></div>
+          </div>
+        </div>
+        <div class="rrow">
+          <span class="rlab"><b>CoreWeave / NVIDIA-tenant projects</b></span>
+          <div class="rtrack">
+            <div class="rbar" style="background:var(--s1);left:66.7%;width:22.2%" data-v="8.0 – 9.0%"
+              title="CoreWeave / NVIDIA-tenant data-centre project bonds: 8.0–9.0% YTW"></div>
+          </div>
+        </div>
+        <div class="gridlab" style="left:0%">5%</div>
+        <div class="gridlab" style="left:22.2%">6%</div>
+        <div class="gridlab" style="left:44.4%">7%</div>
+        <div class="gridlab" style="left:66.7%">8%</div>
+        <div class="gridlab" style="left:88.9%">9%</div>
+      </div>
+      <figcaption>Roughly <strong>250bp of spread for the same physical asset</strong>, separated only by who signs the lease. This is the single best price signal in the run, and it is the mechanical basis for the recommendation. Against it: AFRM's $550m securitization priced more than four times oversubscribed at the tightest spread of its series — <em>non-AI consumer credit shows no spillover, so the crowding-out is concentrated in IG and hyperscaler-adjacent paper, not general.</em></figcaption>
+      <details class="tv"><summary>Table view</summary>
+        <table><thead><tr><th>Tenant</th><th>YTW</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Amazon</td><td>5.9 – 6.5%</td><td>BofA, via Red-Ring 24 Aug</td></tr>
+          <tr><td>CoreWeave / NVIDIA</td><td>8.0 – 9.0%</td><td>BofA, same table</td></tr>
+        </tbody></table>
+      </details>
+    </figure>
+
+    <figure>
+      <p class="fig-t">The memory price slope is already rolling over in the channel</p>
+      <span class="fig-s">Contract price change, quarter on quarter · Red-Ring channel series</span>
+      <div class="legend">
+        <span><i class="swatch" style="background:var(--s2)"></i> 3Q26 expected</span>
+        <span><i class="swatch" style="background:var(--s1)"></i> 4Q26 expected</span>
+      </div>
+      <div class="plot" style="padding-bottom:20px;margin-right:56px">
+        <div class="gridline" style="left:0%"></div>
+        <div class="gridline" style="left:40%"></div>
+        <div class="gridline" style="left:80%"></div>
+        <div class="grow">
+          <span class="gname"><b>PC DRAM</b><i>midpoint of range</i></span>
+          <div class="gbar" style="background:var(--s2);width:82%" title="PC DRAM 3Q26: +18–23%"><span>+18–23%</span></div>
+          <div class="gbar" style="background:var(--s1);width:22%" title="PC DRAM 4Q26: +3–8%"><span>+3–8%</span></div>
+        </div>
+        <div class="grow">
+          <span class="gname"><b>Server DRAM</b><i></i></span>
+          <div class="gbar" style="background:var(--s2);width:62%" title="Server DRAM 3Q26: +13–18%"><span>+13–18%</span></div>
+          <div class="gbar" style="background:var(--s1);width:22%" title="Server DRAM 4Q26: +3–8%"><span>+3–8%</span></div>
+        </div>
+        <div class="grow">
+          <span class="gname"><b>Enterprise SSD</b><i></i></span>
+          <div class="gbar" style="background:var(--s2);width:82%" title="Enterprise SSD 3Q26: +18–23%"><span>+18–23%</span></div>
+          <div class="gbar" style="background:var(--s1);width:22%" title="Enterprise SSD 4Q26: +3–8%"><span>+3–8%</span></div>
+        </div>
+        <div class="gridlab" style="left:0%">0%</div>
+        <div class="gridlab" style="left:40%">+10%</div>
+        <div class="gridlab" style="left:80%">+20%</div>
+      </div>
+      <figcaption>Alongside it, <strong>channel inventory has gone from ~1.5 months at the start of the year to ~4 months</strong>, mobile DRAM has decelerated from +70–83% in 2Q26 to 0–5%, and total NAND 4Q26 sits at 0–5%. This is the entire bear case on the memory cycle, and it is one source's channel work against three houses' contract data. Red-Ring's own rule: <em>strong pricing and equipment upgrades can coexist with rising channel inventory — separate "shortage" from "channel pull-forward."</em></figcaption>
+      <details class="tv"><summary>Table view</summary>
+        <table><thead><tr><th>Category</th><th>3Q26</th><th>4Q26</th></tr></thead>
+        <tbody>
+          <tr><td>PC DRAM</td><td>+18 – 23%</td><td>+3 – 8%</td></tr>
+          <tr><td>Server DRAM</td><td>+13 – 18%</td><td>+3 – 8%</td></tr>
+          <tr><td>Enterprise SSD</td><td>+18 – 23%</td><td>+3 – 8%</td></tr>
+          <tr><td>Total NAND</td><td>~+20% (mobile)</td><td>0 – 5%</td></tr>
+          <tr><td>Mobile DRAM</td><td>+70 – 83% (2Q26)</td><td>0 – 5%</td></tr>
+        </tbody></table>
+      </details>
+    </figure>
+
+  </div>
+</section>
+</div>
+
+<div class="panel" id="p-timeline" role="tabpanel" aria-labelledby="t-timeline" hidden>
+<section>
+  <div class="sec-head"><h3>What changed since 14 August</h3><span class="kicker">Nine movements &middot; 11 Aug &ndash; 6 Sep</span></div>
+  <div class="tl">
+    <div class="ev">
+      <span class="d">11 &ndash; 18 August</span>
+      <h4>The discount-rate shock</h4>
+      <p>Ten- and thirty-year yields approached their 2007 highs on 18 August; semis fell 3.5% and the Nasdaq 1.2% on a day of universally good fundamental news. A simultaneous contraction in valuation and narrative, not in earnings &mdash; semis fell harder than software because semis are the concentrated carrier of AI crowding. Money exits the heaviest position, not the most expensive valuation. US public debt crossed $40.047trn.</p>
+      <p class="src">TMTB &middot; Red-Ring</p>
+    </div>
+    <div class="ev big">
+      <span class="d">18 &ndash; 22 August</span>
+      <h4>The capex ladder goes up again, on all rungs</h4>
+      <p>UBS raised top-12 hyperscaler capex 9%/27% to <b>$998bn/$1,447bn/$1,612bn</b> (2026/27/28E) and lifted WFE a third consecutive time to $158/$226/$274.5bn. ISI raised its 2027 WFE base case to $215bn from $180bn. NSR published the highest number anywhere &mdash; $450bn of 2026 AI-infrastructure capex and $3tn by 2030. TSMC's 2026 revenue guide moved from &ldquo;above 30%&rdquo; to &ldquo;slightly above 40%.&rdquo;</p>
+      <p class="src">UBS &middot; ISI &middot; NSR &middot; JPM &mdash; and inside the same week, ISI's Lipacis reported DRAM brokers <em>discounting</em> into franchise distributors, contradicting his own colleague's memory-inflation preview. Neither analyst referenced the other.</p>
+    </div>
+    <div class="ev">
+      <span class="d">22 August</span>
+      <h4>Jackson Hole &mdash; Warsh more hawkish than the pre-read</h4>
+      <p>2% PCE a &ldquo;firm, fixed target&rdquo;; 54% of PCE items above 3% (UBS independently replicated at 53%); an explicit refusal to credit long yields as restraint; closing on &ldquo;committed to a discipline, not to a decision.&rdquo; He named AI as a possible new factor of production and cited the two leading labs' combined annualised token sales above $100bn, up more than 500% y/y &mdash; <b>without using productivity to justify easing.</b></p>
+      <p class="src">UBS &middot; ISI &middot; TMTB</p>
+    </div>
+    <div class="ev big">
+      <span class="d">26 August</span>
+      <h4>NVIDIA deletes the demand debate</h4>
+      <p>FY28 guided roughly <b>+70% (~$680&ndash;700bn)</b>, about ten points above even the most optimistic buy-side bogey of 60%. Data centre reached 93% of revenue, with ACIE (+138% y/y) growing faster than Hyperscale (+102%) &mdash; the buyer base is broadening. Two disclosures matter more than the guide: <b>gross margin guided to a 71&ndash;72% trough in FQ4:27 on memory inflation the company cannot fully offset</b>, and supply commitments jumping $119bn &rarr; $279bn (+114% q/q), &ldquo;a large portion&rdquo; of it memory.</p>
+      <p class="src">Company disclosure, grade (a) &middot; all seven houses</p>
+    </div>
+    <div class="ev">
+      <span class="d">26 Aug &ndash; 3 September</span>
+      <h4>Earnings adjudicate on quality, not on beats</h4>
+      <p>DELL's traditional server and networking revenue rose 122% y/y against +96% expected, FY27 guidance raised from &ldquo;slightly above 60%&rdquo; to &ldquo;over 100%.&rdquo; Apple's clean gross margin fell ~48.1% &rarr; ~46.5% <em>despite</em> a $150&ndash;250 ASP increase. On the same 3 September tape, Broadcom fell 4%, NetApp 9% and HPE 5% on numbers that were beautiful but whose quality was in doubt. <b>Credo's target was cut 10.2% in the same week it raised its own growth guide.</b></p>
+      <p class="src">ISI &middot; JPM &middot; TMTB</p>
+    </div>
+    <div class="ev">
+      <span class="d">28 August</span>
+      <h4>The software blowout <span class="tag t-new"><i class="dot"></i>Addendum</span></h4>
+      <p>Software outperformed semis by ~5pts on NVIDIA's +9% print day. <b>OKTA +29%, CRM +22%, CRWD +20%</b> on net-new-ARR and cRPO beats that broke a defensively positioned book. Dario Amodei appeared on the Salesforce call alongside Benioff. Marvell fell 5% despite raising its FY27 guide to $12.0bn and FY28 to $18.0bn &mdash; the 3Q gross-margin guide of 58.0% dominated.</p>
+      <p class="src">TMTB EOD wrap, backfilled 6 September &middot; grade (a) for reported figures</p>
+    </div>
+    <div class="ev">
+      <span class="d">28 Aug &ndash; 3 September</span>
+      <h4>The macro gate opens, then half-closes</h4>
+      <p>ISI reversed its own call on 28 August (September FOMC live for a <em>hike</em>, ~50%), hardened it on 31 August, added oil as a second independent trigger on 1 September as WTI moved close to $90, then resolved dovishly on 3 September when Waller proposed a materially looser three-month-annualised test. August payrolls printed +162,000 against ISI's own +70k preview: stronger but not hotter. Two supertankers were attacked in the Strait of Hormuz on 1 September.</p>
+      <p class="src">ISI &middot; UBS &middot; TMTB</p>
+    </div>
+    <div class="ev big">
+      <span class="d">1 &ndash; 6 September</span>
+      <h4>The credit tape starts pricing tenant quality</h4>
+      <p>Broadcom is raising more than $60bn senior plus roughly $30bn subordinated through an Apollo/Blackstone SPV, <b>with Broadcom itself guaranteeing part of the senior tranche.</b> Nebius's $4.5bn convertible dragged CoreWeave down 4% and Oracle 3% &mdash; the first time AI financing dilution priced as a sector factor. Alphabet paid its highest-ever coupon (6.98%) despite A$18bn of demand. And <b>NVIDIA quietly cut its OpenAI Ohio backstop 52%, from ~$250bn to under $120bn &mdash; and the market did not reprice it.</b></p>
+      <p class="src">Red-Ring &middot; TMTB &middot; MS &middot; JPM</p>
+    </div>
+    <div class="ev">
+      <span class="d">4 September</span>
+      <h4>Memory inflation surfaces downstream <span class="tag t-new"><i class="dot"></i>Addendum</span></h4>
+      <p>Zscaler and Samsara both cut cash-flow guidance and named the same cause. ZS takes FY27 capex/revenue from 8% to low-double-digits on <b>memory, storage and processor prices with supply tightening</b>; IOT cuts FY27 FCF margin ~200bp to ~12% on component and freight inflation. Bernstein's 3Q26 prints (~+19% DRAM, ~+20% NAND) sit inside the band already carried. Microsoft moved to challenge Virginia's transmission pre-payment rule.</p>
+      <p class="src">TMTB morning wrap, backfilled 6 September &middot; grade (a) for guidance, (b) for the FT report</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="panel" id="p-conflicts" role="tabpanel" aria-labelledby="t-conflicts" hidden>
+<section>
+  <div class="sec-head"><h3>Where all seven houses agree</h3><span class="kicker">Six points &middot; no source dissents</span></div>
+  <div class="agree">
+    <div class="ag"><span class="agn">1</span><h4>2027 capex goes up, not down</h4><p>Every house that models it raised. <b>No source cut a 2027 number this run.</b></p></div>
+    <div class="ag"><span class="agn">2</span><h4>Memory pricing is at or near record, and near-term prints are still rising</h4><p>DRAM gross margin 87%, NAND 80%; DRAM ASPs +5x and NAND +4x since 1Q25; 18 consecutive weeks of spot increases; export prices +135% y/y in 1H26.</p></div>
+    <div class="ag"><span class="agn">3</span><h4>Power is the physical binding constraint and holds the margin pool</h4><p>Two unrelated ISI desks reached this independently in the same week without citing each other. NSR: &ldquo;grid capacity, not chip supply, is emerging as the scarcest resource.&rdquo;</p></div>
+    <div class="ag"><span class="agn">4</span><h4>The Marvell $120bn headline is a ceiling, not a base case</h4><p>JPM, NSR and MS reached this independently: warrant-implied commercial stickiness, not RPO, and explicitly not a core TPU accelerator order. NSR's own 2028 estimate is ~$10bn. <b>Only the market read it as displacement.</b></p></div>
+    <div class="ag"><span class="agn">5</span><h4>Custom silicon versus GPU is not zero-sum</h4><p>MS's CoWoS allocation build has NVIDIA at 780k wafers (2026e) &rarr; 1,222k (2027e), Broadcom 300k &rarr; 484k and AMD 60k &rarr; 530k &mdash; <b>all three scaling simultaneously.</b> The constraint is packaging capacity, not competitive share.</p></div>
+    <div class="ag"><span class="agn">6</span><h4>Credit is the new binding constraint</h4><p>Reached in sequence by Red-Ring (price), ISI (framework), TMTB (structure) and JPM (valuation instruction) &mdash; without cross-citation.</p></div>
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section>
+  <div class="sec-head"><h3>Conflict registry</h3><span class="kicker">Nine disagreements &middot; three closed &middot; who is on which side</span></div>
+  <div class="creg">
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">①</span><h4>The memory cycle top</h4><span class="tag t-bad"><i class="dot"></i>Unresolved &middot; top item</span></div>
+      <div class="calls"><span class="call a"><b>UBS</b> &middot; later top &mdash; DRAM 2Q28, NAND 4Q27</span><span class="call a"><b>MS</b> &middot; later &mdash; deficits &minus;4% to &minus;17%</span><span class="call a"><b>NSR</b> &middot; later &mdash; margins locked at floors</span><span class="call b"><b>Red-Ring</b> &middot; closer &mdash; inventory 1.5 &rarr; 4 months</span></div>
+      <p><b>For a much later top:</b> UBS dates DRAM to 2Q28 and NAND to 4Q27 and reframes the constraint as affordability; MS shows persistent total-DRAM deficits of −4% to −17% through the horizon; NSR shows margins locked at floors above prior-cycle peaks. <b>For a closer one:</b> Red-Ring's channel inventory ~1.5 → ~4 months, 4Q26 momentum at +3–8%, Kioxia expecting no restock until 1Q27, YMTC targeting largest-NAND-maker status by end-2027.</p>
+      <p class="cf-r"><b>The honest adjudication:</b> these are less contradictory than they look — the split is contracted versus un-contracted. NSR itself supplies the caveat the bears need: <em>supply agreements are temporary protection whose favourable terms would not be renewed in a real downturn; only HBM's buyer concentration is structural.</em> And you cannot simultaneously assume locked volume is low risk <em>and</em> full participation in spot upside.</p>
+    </div>
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">②</span><h4>The rate-reading fracture</h4><span class="tag t-bad"><i class="dot"></i>Unresolvable pre-event</span></div>
+      <div class="calls"><span class="call b"><b>GS</b> &middot; hike ~60%</span><span class="call c"><b>ISI</b> &middot; hike under 50%</span><span class="call a"><b>TMTB</b> &middot; priced <em>cut</em>, ~60% odds</span></div>
+      <p>Four readings of one Waller speech, same day, spanning both directions: GS ~60% hike (~65% in quick hits); ISI "under 50 per cent"; <b>TMTB ~60% odds of action on a 35bp+ cut.</b> One layer down, MS dissents from ISI on whether the balance sheet substitutes for hikes in 2027.</p>
+      <p class="cf-r">This is the item that dictates position <em>expression</em> rather than direction. <b>Whichever reading is mis-specified, the fracture itself is the signal.</b></p>
+    </div>
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">③</span><h4>CoWoS and the migrating bottleneck</h4><span class="tag t-ok"><i class="dot"></i>Closed</span></div>
+      <p>Run 5 could not adjudicate "near satisfied" against "still tight." <b>It resolves toward still tight</b> on TSMC's own VP naming ABF substrate and memory shortages as persisting "over the next couple of years." The more useful finding is that the bottleneck has migrated <em>past</em> ABF.</p>
+    </div>
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">④</span><h4>GPU residual value vs power scarcity</h4><span class="tag t-ok"><i class="dot"></i>Closed</span></div>
+      <p><b>Resolves toward residual value being real, with power still binding — both mechanisms operate, and the reattribution is not vindicated as an exclusive explanation.</b> Red-Ring's caveat stands: the sample is non-hyperscaler clouds only, and rental prices depend on supply tightness, generational efficiency and power prices. #6 and #28 are split rather than merged so the audit trail survives.</p>
+    </div>
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">⑤</span><h4>Where AI monetization accrues</h4><span class="tag t-warn"><i class="dot"></i>Live</span></div>
+      <div class="calls"><span class="call b"><b>UBS</b> &middot; enterprises hesitant on open models</span><span class="call a"><b>ISI</b> &middot; Duolingo cut unit cost ~97% via open source</span><span class="call a"><b>Red-Ring</b> &middot; Chinese models under 2% &rarr; ~45% of OpenRouter</span></div>
+      <p>The open-model sub-dispute is the unreconciled part: UBS found enterprises hesitant on open models; ISI found Duolingo cut unit cost ~97% <em>mostly via open-source models</em>; Red-Ring found Chinese models went from under 2% to ~45% of OpenRouter traffic in 18 months. <b>The likely resolution is contextual — regulated enterprise buyers behave as UBS found, consumer and developer buyers as ISI and Red-Ring found — but no source has tested it.</b></p>
+    </div>
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">⑥</span><h4>The valuation-horizon split</h4><span class="tag t-warn"><i class="dot"></i>Live</span></div>
+      <div class="calls"><span class="call a"><b>ISI / Lipacis</b> &middot; AVGO +58.7% upside</span><span class="call b"><b>ISI / Daryanani</b> &middot; CIEN +5.9%</span><span class="call c"><b>JPM</b> &middot; five names moved horizon with target</span></div>
+      <p>Inside ISI on 3 September, nine hours apart: Lipacis cut AVGO's numbers and held his target (+58.7% upside, CY28 EPS discounted back two years); Daryanani raised CIEN's numbers 24% above Street and cut his target a third (+5.9%, rolled <em>backward</em> to FTM EPS). <b>A 53-point spread in implied upside, same buildout, same firm, same day — neither note acknowledges the other.</b></p>
+      <p class="cf-r">JPM independently warns that five names changed target horizon at the same time as target price. <b>Target-price changes are currently a corrupted signal across the street.</b></p>
+    </div>
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">⑦</span><h4>Additive capital, or relocated leverage?</h4><span class="tag t-bad"><i class="dot"></i>Live &middot; primary axis</span></div>
+      <div class="calls"><span class="call a"><b>NSR</b> &middot; additive &mdash; under 15% leverage, cost falling to ~6%</span><span class="call b"><b>Red-Ring</b> &middot; relocated &mdash; off-balance-sheet is not gone</span><span class="call b"><b>MS</b> &middot; counterparty &mdash; CRWV tenant debt to $116.2bn</span><span class="call b"><b>TMTB</b> &middot; structural &mdash; AVGO guarantees its own customer's debt</span><span class="call c"><b>UBS</b> &middot; states it, leaves it open</span></div>
+      <p>UBS states it and leaves it open. NSR says additive and manageable (&lt;15% leverage, financing costs <em>falling</em> to ~6%). Red-Ring says off-balance-sheet does not mean the risk disappeared. MS supplies the counterparty version. TMTB the structural one.</p>
+      <p class="cf-r"><b>Best available price signal, and it points to discrimination rather than distress:</b> the 5.9–6.5% vs 8–9% tenant split, with no spillover into non-AI credit.</p>
+    </div>
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">⑧</span><h4>The un-repriced backstop cut</h4><span class="tag t-new"><i class="dot"></i>Unpriced</span></div>
+      <p>NVIDIA cut its OpenAI Ohio backstop 52%, from ~$250bn to under $120bn for the first ~5GW phase. Neoclouds moved +1.71% against +13.6% on the original announcement.</p>
+      <p class="cf-r"><b>The cleanest test in the registry, because the market has already told us it is not watching.</b> If the backstop was load-bearing, a further reduction should eventually move neocloud credit and equity together; if it was not, the vendor-financing alarm is somewhat overstated. Either outcome is informative — which is rare.</p>
+    </div>
+    <div class="cf">
+      <div class="cf-h"><span class="cf-n">⑨</span><h4>Bloom vs PowerGen</h4><span class="tag t-warn"><i class="dot"></i>Live</span></div>
+      <div class="calls"><span class="call b"><b>ISI industrials</b> &middot; SOFC worst available &mdash; $140/MWh, $3,899/kW</span><span class="call a"><b>ISI clean energy</b> &middot; Bloom ASP rising to $4,473/kW, $350 target</span></div>
+      <p>Two pages apart in one ISI publication on 1 September: the industrials desk published a BNEF stack making solid-oxide fuel cells the <em>worst</em> technology available ($140/MWh, $3,899/kW), while the clean-energy desk modelled Bloom's ASP <em>rising</em> to $4,473/kW with a $350 target. <b>Nobody at the firm reconciled them</b> — and behind-the-meter generation is now an investment conclusion (#27, #31).</p>
+    </div>
+  </div>
+  <p style="margin-top:26px;color:var(--ink-2);font-size:13.5px"><span class="kicker">Also closed</span><br>
+  <b>"Has a second house engaged NSR's Price/COGS framework?"</b> — answered, and the answer is <b>no</b>. BofA came closest from a different direction, applying SanDisk's ~80% gross-margin structure to Micron. That argument moves memory's margin structure toward software and asks the market to abandon cyclical low multiples. It is a parallel argument, not a corroboration.</p>
+</section>
+</div>
+
+<div class="panel" id="p-monitor" role="tabpanel" aria-labelledby="t-monitor" hidden>
+<section>
+  <div class="sec-head"><h3>Signal board</h3><span class="kicker">30 indicators &middot; bullish/bearish triggers restored &middot; 11 revisited in the addendum</span></div>
+  <p style="color:var(--ink-2);max-width:76ch">Run 5 carried 28 live indicators (#1–#11 and #13–#29; #12 was retired 14 July 2026). Nothing is retired this run. <strong>#30 and #31 are added.</strong> Row count reconciles: 28 − 0 + 2 = 30.</p>
+  <div class="chips" role="group" aria-label="Filter indicators"><button class="chip" data-f="all" aria-pressed="true">All <span class="n">30</span></button><button class="chip" data-f="ok" aria-pressed="false">Confirmed <span class="n">15</span></button><button class="chip" data-f="bad" aria-pressed="false">Escalated / contradicted <span class="n">7</span></button><button class="chip" data-f="warn" aria-pressed="false">In motion <span class="n">6</span></button><button class="chip" data-f="new" aria-pressed="false">New this run <span class="n">2</span></button><button class="chip" data-f="adx" aria-pressed="false">Updated in addendum <span class="n">11</span></button></div><p class="filt-note">Triggers carry forward from the 14 August table, refreshed where Run 6 evidence has already moved past them. #30 and #31 are new this run; #17 is the one row Run 5 left blank on both sides, so its triggers are newly specified rather than carried.</p>
+  <div class="tscroll">
+  <table>
+    <thead><tr><th class="idx">#</th><th>Indicator</th><th>Status</th><th>Reading &amp; supporting data</th><th>Bullish trigger</th><th>Bearish trigger</th><th>Next checkpoint</th></tr></thead>
+    <tbody>
+      <tr data-st="ok" data-adx="0"><td class="idx">1</td><td class="ind">TSMC / CoWoS / 2027 capex</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span></td><td>CoWoS 160kwpm end-26 → 200–250kwpm end-27; TSMC begins outsourcing CoW to ASE/SPIL in 2027, its share falling ~80–84% → ~72–74%; capex to $60–64bn; 2026 revenue guide "slightly above 40%"</td><td class="bl">TSMC's October print confirms 2027 capex at or above $60–64bn and CoW outsourcing to ASE/SPIL starts on schedule</td><td class="br">2027 capex guided below $60bn, or CoW outsourcing slips — either would say TSMC sees packaging demand rolling over; overseas/N2 margin dilution beyond guidance</td><td class="nx">TSMC's October print and 2027 capex framing; whether CoW outsourcing starts on schedule</td></tr>
+      <tr data-st="ok" data-adx="1"><td class="idx">2</td><td class="ind">Hyperscaler capex + monetization</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span> <span class="tag t-new"><i class="dot"></i>Addendum</span></td><td>Top-12 capex $998bn/$1,447bn/$1,612bn (2026/27/28E, UBS perimeter); backlog ~$2.5trn against forward cloud capex just over $620bn — <b>~4x cover with sales revisions exceeding capex revisions</b>; AWS +37% at a record 39.4% OPM; MSFT AI-infra steady-state ROIC ~21–27%</td><td class="bl">Monetization metrics keep pairing with capex raises and sales revisions keep exceeding capex revisions; demand breadth stays non-frontier-lab (MSFT's >$50bn backlog increment, Foundry >100k customers)</td><td class="br">The net-income/FCF gap widens without a credible financing bridge; backlog cover falls below ~3x; a hyperscaler cuts capex for reasons *not* attributable to memory deflation</td><td class="nx">TMTB's caveat <em>is</em> the checkpoint: capex has failed as a proxy for semi demand because memory inflation absorbs it. Track incremental GW, not dollars</td></tr>
+      <tr data-st="ok" data-adx="0"><td class="idx">3</td><td class="ind">Korea flows + capital returns</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span> <span class="tag t-line">(d)→(b)</span></td><td>Samsung Won90–110trn 2024–26; SK hynix Won40trn buyback completing by Nov 2026. <b>Two mechanical gotchas: escrowed LTA prepayments are excluded from FCF, and the Won15trn employee buyback is excluded from the headline</b></td><td class="bl">The January 2027 Samsung board meeting extends the programme; SK hynix completes the Won40trn buyback/cancellation by November 2026 on schedule</td><td class="br">The Won90–110trn programme is not extended; or the two mechanical gotchas (escrowed LTA prepayments excluded from FCF, the Won15trn employee-comp buyback excluded from the headline) turn out to have been double-counted; governance narrative fades without follow-through</td><td class="nx">January 2027 Samsung board meeting — the next capital-allocation catalyst</td></tr>
+      <tr data-st="bad" data-adx="0"><td class="idx">4</td><td class="ind">SOX mid-cycle correction clock</td><td class="st"><span class="tag t-bad"><i class="dot"></i>Contradicted</span></td><td>Run 5 treated this as resolved. <b>Reopened with a date: each of the past six cycles corrected within four months of industry y/y revenue peaking, and the second derivative peaks in the Sep-26 quarter.</b> SOX at 19.3x NTM, below the S&amp;P's 19.5x. Counter: the S&amp;P ex-AI is up ~8% since late June</td><td class="bl">The Sep-26 quarter industry revenue y/y print fails to confirm the second-derivative peak, or the window closes end-January 2027 uncontested with no correction</td><td class="br">The Sep-26 print confirms the peak and the correction begins inside the September 2026 – January 2027 window; SOX multiple expands past the S&P's while estimates fall</td><td class="nx">Industry revenue y/y for the Sep-26 quarter; whether any house contests the window</td></tr>
+      <tr data-st="ok" data-adx="0"><td class="idx">5</td><td class="ind">Leverage / crowding</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span></td><td>CTA asymmetry <b>4.5x downside skew</b> ($51bn selling on −14% vs $11bn buying on +14%), severe convexity below SPX ~7,050–7,100 — and UBS forecasts selling <em>with no price decline assumed at all</em>. CFTC non-dealer Nasdaq positioning turned negative for the first time since May 2025 on a record −$21bn week, during a +7% rally</td><td class="bl">Gradual, broad-based re-gross; CFTC non-dealer Nasdaq positioning turns positive again without a price spike; the 4.5x CTA downside skew compresses</td><td class="br">SPX through 7,050–7,100, where CTA convexity turns severe; a bogey-miss cluster into the September event calendar; short fuel exhausts with positioning still pinned at max-long 1.00</td><td class="nx">SPX 7,050–7,100; whether ETF short-covering (six straight weeks) stops</td></tr>
+      <tr data-st="ok" data-adx="0"><td class="idx">6</td><td class="ind">GPU rental / neocloud unit economics</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Resolved bullish</span></td><td>Silicon Data: A100 $1.65/hr (~$5,000 residual) → B200 $5.61 (~$70,000); <b>a 2020-vintage A100 is still rented and CoreWeave extended A100 contracts to 2029</b>. CRWV 2Q revenue $2.6bn (+112%), July price increase ~25%, 59% adj. EBITDA margin <b>but a $626m net loss</b>; MS models CRWV FY27E FCF margin at −133.7%</td><td class="bl">Ampere/Hopper rental rates keep rising; the 5 October CME compute-futures launch delivers a second independent price signal consistent with Silicon Data's marks</td><td class="br">Any quarter of falling legacy-GPU rental rates; the CoreWeave A100 extension to 2029 is not renewed at price; CRWV's next DDTL spread widens</td><td class="nx">The NBIS valuation split: Citi Buy $278 on revenue vs MS Equal-weight $144 on EBITDA, same day. Neither disputes demand; both dispute the denominator</td></tr>
+      <tr data-st="warn" data-adx="1"><td class="idx">7</td><td class="ind">DRAM / NAND contract prints</td><td class="st"><span class="tag t-warn"><i class="dot"></i>Confirmed, slope diverging</span> <span class="tag t-new"><i class="dot"></i>Addendum</span></td><td>DRAM GM <b>87%</b>, NAND <b>80%</b> — all-time highs; ASPs +5x and +4x since 1Q25; 18 consecutive weeks of spot increases. MU: C2027 tighter than C2026, <b>&lt;50% of requested DC volumes fulfilled</b>. But 4Q26 collapses to +3–8% DRAM and 0–5% NAND</td><td class="bl">4Q26 prints land above the guided +3–8% DRAM / 0–5% NAND — the slope does not roll; mobile DRAM re-accelerates from its decelerating base</td><td class="br">4Q26 prints at or below the low end and 1Q27 guides negative; spot weakness persists while equities keep rallying on governance alone — a durable decoupling</td><td class="nx">Micron's next print — specifically whether the ~50% HBM increase appears with pricing detail</td></tr>
+      <tr data-st="ok" data-adx="1"><td class="idx">8</td><td class="ind">Memory de-spec + demand destruction</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span> <span class="tag t-new"><i class="dot"></i>Addendum</span></td><td><b>NVDA gross margin guided to a 71–72% trough in FQ4:27 on memory it cannot fully offset.</b> JPM's de-spec list: Rubin Ultra 16-Hi → 8-Hi/12-Hi HBM4E; Vera SOCAMM 1.5TB → 768GB. Smartphone units −14% y/y (steepest ever); Apple's largest-ever Pro price hikes modelled specifically to offset memory. <b>The "high end is immune" assumption is explicitly broken</b></td><td class="bl">Consumer destruction stays contained; HBM de-spec keeps correlating with rising, not falling, aggregate consumption; NVDA's 71–72% FQ4:27 trough proves to be the floor; the downstream FCF channel stops at ZS/IOT</td><td class="br">A demand-driven (not supply-driven) HBM de-spec; PC unit cuts spread to other device categories; **the ZS/IOT downstream FCF-margin channel spreads to a third and fourth capex-sensitive name** (addendum, 6 Sep)</td><td class="nx">JPM's mechanical warning is the checkpoint: HBM tightness shows up first as a change in stack count, not as a shortage</td></tr>
+      <tr data-st="warn" data-adx="0"><td class="idx">9</td><td class="ind">Micron / memory valuation frameworks</td><td class="st"><span class="tag t-warn"><i class="dot"></i>Answered "no"</span></td><td>No house engaged the Price/COGS framework itself. Three-way dispute instead: NSR $1,250; UBS $1,625 on C2029E EPS in a model embedding an FY29 downcycle — <b>while UBS's own screen calls MU the most expensive name in its semis coverage and UBS discloses a short ≥0.5% of MU shares</b>; BofA $1,550 on an 80% GM framework</td><td class="bl">A second house engages Price/COGS directly, or Micron's print validates NSR's FY28E volume/mix build (GM cut to 83.4%, capex +65% to $66bn) rather than a peak-margin bet</td><td class="br">The framework stays a single-house outlier with no price confirmation; a PT is held or cut on a Micron beat, confirming #29's regime now applies to memory too</td><td class="nx">The December 2026 CHIPS Act expiry and the ~100% FCF return that may follow</td></tr>
+      <tr data-st="ok" data-adx="0"><td class="idx">10</td><td class="ind">Meta agent productivity</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span></td><td>The ~$17bn youth-safety settlement (~1% of revenue) removes one of two overhangs, framed as a GOOGL-style clearing event; META trades 25% below its own long-term multiple. Bernstein: <b>close to half of incremental digital ad dollars in 2026</b>. But ~$347bn of leases not yet commenced, and the ROI has split into a proven ad cash cow and an unproven high-capital option</td><td class="bl">Hatch/PSI clears its safety gate and Connect delivers quantified agent monetization; engagement depth converges toward ChatGPT's</td><td class="br">Hatch slips again or ships degraded; share gain without engagement-depth gain persists, confirming a low-quality DAU trend</td><td class="nx">Hatch/PSI is the first verification gate. Track task success rate, trust incidents, paid conversion, inference cost per task</td></tr>
+      <tr data-st="warn" data-adx="0"><td class="idx">11</td><td class="ind">Enterprise token economics</td><td class="st"><span class="tag t-warn"><i class="dot"></i>Advancing</span></td><td>Bullish: OpenAI enterprise revenue has surpassed consumer; ChatGPT Ads at $1bn annualised in under 200 days; <b>99% per-step accuracy over 50 steps implies ~60% completion ⇒ premium frontier economics</b>. Bearish: UBS's CFO dinner; Red-Ring's 13 interviews finding committed budgets near seat saturation; <b>JPM's WDAY ratio — 5,500 agent users, 200 paying</b></td><td class="bl">Enterprise revenue growth keeps outrunning per-token price declines; Anthropic's S1 confirms it with disclosed figures</td><td class="br">Token-volume growth fails to outrun price declines in the next monthly data point — the Jevons bet breaks; or the S1 discloses unit economics inconsistent with NSR's build</td><td class="nx">Anthropic's S1. Also: Gemini 3.8 Flash pricing is scheduled to double on 1 Jan 2027 — an adoption subsidy</td></tr>
+      <tr data-st="ok" data-adx="0"><td class="idx">13</td><td class="ind">2027 capex vs buy-side bar</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span></td><td>WFE raised a third consecutive time by UBS to $158/$226/$274.5bn; ISI to $215bn from $180bn; JPM's cross-check $159/$205/$237bn. AMAT's order book extends to 1H28 and <b>of ten new fab projects observed last quarter, most were DRAM</b></td><td class="bl">Guides keep landing above raised consensus</td><td class="br">A volume (not price-optics) capex cut anywhere in the stack</td><td class="nx">JPM's caution: AMAT's "2x capacity by 2028" is an <em>option</em>, not a TAM forecast. Extrapolating it misreads supply willingness as confirmed demand</td></tr>
+      <tr data-st="bad" data-adx="0"><td class="idx">14</td><td class="ind">Hyperscaler FCF / financing</td><td class="st"><span class="tag t-bad"><i class="dot"></i>Escalated</span></td><td><b>NVDA supply commitments $279bn (+114% q/q) plus ~$160bn of guarantees; Red-Ring's combined derivation $530.5bn against ~$96bn of quarterly revenue.</b> ~$3trn of off-balance-sheet commitments across nine AI spenders. ISI swapped its fourth bear trigger to IG Tech spreads. Counter: NSR's ~$2trn of needs = &lt;15% leverage, and financing costs compressing from the mid-teens to ~6%</td><td class="bl">The $430bn gap narrows via genuine OCF growth rather than financing engineering; IG Tech OAS holds inside March's peak; Broadcom's raise prices tight and oversubscribed</td><td class="br">IG Tech OAS widens beyond March's peak — ISI's formal fourth bear trigger and "the second most important chart there is"; AVGO CDS through 126.2bp; a third circular structure draws a formal credit-desk downgrade</td><td class="nx">IG Tech OAS vs March's peak; AVGO CDS through 126.2bp; the pricing of Broadcom's ~$100bn raise. Plus the <b>1H27 debt-limit collision</b> — $39.9tn against a $41.1tn ceiling</td></tr>
+      <tr data-st="warn" data-adx="1"><td class="idx">15</td><td class="ind">ALAB / Trainium / custom silicon</td><td class="st"><span class="tag t-warn"><i class="dot"></i>Reframed</span> <span class="tag t-new"><i class="dot"></i>Addendum</span></td><td>JPM, NSR and MS independently: the Marvell/Google $120bn is <b>a warrant-implied ceiling, not RPO, and not a core TPU accelerator order</b>. AVGO retains ~80% of the TPU opportunity. The concentration data is the real finding — Alchip's Trainium revenue 60% → 82% of total by 2028e; MediaTek's TPU revenue 38% → 65%. <b>MS flags each individually and never aggregates them</b></td><td class="bl">The 6 October Marvell investor day confirms the >30% attach trajectory and stands behind the raised FY28 $18.0bn guide and 60% data-centre growth; AMD's rumoured Google TPU role proves adjacent rather than displacing</td><td class="br">Attach trajectory stalls below 30%; the raised FY28 guide is walked back; AMD's TPU involvement proves displacing. Note the 3Q gross-margin guide already compressed to 58.0% against 58.5% expected</td><td class="nx">Whether AMD's rumoured Google TPU involvement is adjacent content or displacement</td></tr>
+      <tr data-st="ok" data-adx="0"><td class="idx">16</td><td class="ind">Leveraged / thematic ETF flows</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span></td><td>Korean leveraged-ETF AUM −66%; HF leverage 5.7x → 3.2x; UBS calls the deleveraging "fairly complete." US: first net outflow in five weeks (−$4.4bn) while gold (+$7.3bn) and crypto (+$3.2bn) saw their biggest inflows since last October. <b>QQQ +$9.1bn while SOXX saw ~−$3bn of outflow</b></td><td class="bl">Stable AUM and inflows with breadth; SOXX outflows reverse alongside QQQ inflows</td><td class="br">Re-leveraging without a fundamental catalyst; SOXX outflows persist against QQQ inflows — the complex being sold into index strength</td><td class="nx">Whether SOXX outflows persist against QQQ inflows — the cleanest read on rotation <em>inside</em> the complex</td></tr>
+      <tr data-st="ok" data-adx="0"><td class="idx">17</td><td class="ind">CTA / positioning triggers</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span></td><td>See #5. <b>Bonds run the opposite convexity: CTAs at −1.00 with +$223bn of DV01-equivalent buying on a −52bp rally ⇒ risk-off gets double amplification and long duration is the cleanest hedge.</b> NDX signal rebuilt 0.36 → 0.82. UBS's own caveat: squeeze potential is a wasting asset</td><td class="bl">Bond CTAs at −1.00 unwind into a rally without equity CTAs having to sell; the NDX signal stabilises below the rebuilt 0.82 without a vol spike</td><td class="br">SPX through 7,050–7,100 opens the four-session no-op window present in every UBS scenario; NDX expected vol past 27.9% with the signal at 0.82 — double amplification while bonds sit at −1.00</td><td class="nx">SPX 7,050–7,100; the four-session no-op window in every UBS scenario</td></tr>
+      <tr data-st="warn" data-adx="1"><td class="idx">18</td><td class="ind">NeoCloud + frontier-lab buyers</td><td class="st"><span class="tag t-warn"><i class="dot"></i>Advancing</span> <span class="tag t-new"><i class="dot"></i>Addendum</span></td><td><b>Anthropic overtook OpenAI on revenue for the first time: Q2 $11.5–11.6bn with positive adjusted operating income, versus OpenAI's $6.7bn with its loss widening to $12.3bn.</b> NVIDIA holds 122.8m SpaceX shares while naming SpaceXAI a lead-partner-tier customer. <b>All three of SpaceX's large AI compute contracts are cancelable on 90 days' notice</b> — ISI flagged it in three separate batches</td><td class="bl">Contract conversion continues at improving margins; Q4/2027 formal guides confirm the auction-pricing trajectory; Anthropic's S1 confirms the buyer side</td><td class="br">90-day-cancelable structures get exercised; a neocloud funding event; ORCL-style pre-contracting (98% of AI capacity already committed) proves to cap upside rather than de-risk it</td><td class="nx">Anthropic's S1. And TMTB's warning: valuing an IPO off revenue two years out is the third and most fragile station of this cycle's valuation methodology</td></tr>
+      <tr data-st="bad" data-adx="1"><td class="idx">19</td><td class="ind">DRAM cycle-top clock</td><td class="st"><span class="tag t-bad"><i class="dot"></i>Contradicted</span> <span class="tag t-new"><i class="dot"></i>Addendum</span></td><td><b>UBS now dates the DRAM upcycle to 2Q28 and NAND to 4Q27</b> — materially later than the late-4Q26 call that anchored the Run 5 trim — and reframes the constraint from supply to <em>affordability</em>. MS shows persistent deficits of −4% to −17%. NSR shows margins contractually locked. <b>Against: channel inventory ~1.5 → ~4 months</b></td><td class="bl">Micron confirms the ~50% HBM increase with detail; channel inventory recedes from ~4 months for two consecutive months</td><td class="br">**Channel inventory extends past four months** — the single most decisive read in the registry; warnings propagate to franchise pricing while equities rally on governance alone</td><td class="nx">Channel inventory past four months moves this bearish; Micron confirming the ~50% HBM increase moves it bullish. <b>The registry's top unresolved item</b></td></tr>
+      <tr data-st="ok" data-adx="1"><td class="idx">20</td><td class="ind">ABF / substrate / packaging</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Resolved tight</span> <span class="tag t-new"><i class="dot"></i>Addendum</span></td><td>TSMC's VP of Advanced Packaging: ABF substrate and memory shortages "expected to persist over the next couple of years." <b>Cleanroom availability is the binding semicap constraint, not tools or backlog.</b> New upstream bottlenecks: InP substrate, advanced-node SoC allocation, skilled trades. SK hynix intends to adopt Intel EMIB while also evaluating CoWoS-L/R — dual sourcing</td><td class="bl">InP epi capacity expands on schedule (Coherent doubling by end-F1Q27 and again by end-2027; Sumitomo Chemical 4-inch volume production) *without* relieving pricing — tightness persisting through the expansion; the NPO pull-forward is corroborated by CIEN or COHR</td><td class="br">InP and advanced-node SoC allocation ease faster than expected; the UBS Taiwan desk's 2 September ABF selling proves early rather than wrong</td><td class="nx">InP epi capacity. <b>Counter-signal: the UBS Taiwan desk was selling ABF substrate makers on 2 September</b></td></tr>
+      <tr data-st="bad" data-adx="1"><td class="idx">21</td><td class="ind">Credit spreads / SPV pricing</td><td class="st"><span class="tag t-bad"><i class="dot"></i>Escalated</span> <span class="tag t-new"><i class="dot"></i>Addendum</span></td><td><b>AVGO and NVDA CDS at all-time wides of 126.2bp and 86.7bp.</b> The 5.9–6.5% vs 8–9% tenant split. Alphabet paid its highest-ever coupon (6.98%) despite A$18bn of demand. <b>NBIS's $4.5bn convertible dragged CRWV −4% and ORCL −3% — the first time AI financing dilution priced as a sector factor.</b> Counter: AFRM priced &gt;4x oversubscribed at its tightest-ever spread</td><td class="bl">The tenant-quality spread holds at 5.9–6.5% against 8.0–9.0% without widening; Broadcom's ~$100bn raise prices inside guidance and fully subscribed</td><td class="br">The tenant spread widens beyond the current split; CRWV's next DDTL widens; a formal credit-desk downgrade of the NVDA or Google-Anthropic structures</td><td class="nx">Whether the tenant-quality spread widens beyond ~250bp; ~75% of the tech maturity wall falls in 2028</td></tr>
+      <tr data-st="ok" data-adx="0"><td class="idx">22</td><td class="ind">Rubin / Kyber delivery</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span></td><td>Rubin began production shipping in August 2026, expected at ~20% of F3Q data-center revenue; racks may exceed 50,000 units in 2027, <b>initially led by xAI and Meta rather than traditional hyperscalers</b>. Revenue per GW ~$18bn Hopper → ~$25bn Blackwell → &gt;$40bn Vera Rubin. HVDC advancing on Rubin Ultra "even with the Kyber delay"</td><td class="bl">ODM prints confirm the 2-chip Rubin Ultra ramp on the revised schedule; the Vera SOCAMM content upside lands</td><td class="br">Kyber slips a second time; Rubin Ultra HBM4E de-spec deepens below 8-Hi; the Feynman-generation timeline pushes out</td><td class="nx"><b>The memory upside is not in HBM</b>: three independent confirmations that HBM content is roughly flat GB300 → VR200, and the increment comes from customisable conventional DRAM (SOCAMM2)</td></tr>
+      <tr data-st="warn" data-adx="0"><td class="idx">23</td><td class="ind">Humanoid</td><td class="st"><span class="tag t-warn"><i class="dot"></i>Partly resolved</span></td><td>Stale for a fourth run from the Humanoid workstation itself (silent since 12 July). But MS closes the substantive gap: shipments +272% y/y in 1H26; 50k units 2026e → 446k 2030e. <b>The investable finding is market structure — the Humanoid 100 basket is +44–47% while the China Humanoid Value Chain sub-index is −21.8% YTD. Units are exploding but the equity return is accruing upstream</b></td><td class="bl">Repeat commercial orders at scale; the Humanoid workstation resumes publishing</td><td class="br">Component ASP war confirmed; OEM in-sourcing spreads. **Source risk, not thesis risk: if Humanoid is still silent at Run 7, retire the source and reassign the indicator to MS**</td><td class="nx">Whether the workstation resumes. If Run 7 finds it silent, retire the source rather than the indicator</td></tr>
+      <tr data-st="ok" data-adx="0"><td class="idx">24</td><td class="ind">Server-CPU / agentic re-acceleration</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span></td><td><b>DELL's traditional server and networking revenue rose 122% y/y with FY27 guidance raised from "slightly above 60%" to "over 100%" — management explicitly naming agentic workloads.</b> Mercury: 2Q26 server CPU units 9% above the five-year trendline, a seven-point swing; ASPs +44% y/y. AMD: inference CPU:GPU shifting 1:4 → 1:1</td><td class="bl">ODM and benchmark data keep confirming the structural ratio shift, and it appears in a second reported P&L before 1H2027</td><td class="br">The CPU:GPU ratio thesis fails to replicate in independent benchmark data; the 1H2027 tradeable moment passes without a print</td><td class="nx"><b>1H2027 is the first tradeable moment</b> on the memory-hierarchy roadmap. Beneficiary correction: NSR models Intel's server share <em>declining</em> to 20% by 2030 while NVDA goes to 35%+</td></tr>
+      <tr data-st="ok" data-adx="1"><td class="idx">25</td><td class="ind">Optical transceiver gap</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span> <span class="tag t-new"><i class="dot"></i>Addendum</span></td><td><b>The copper wall, quantified: 800G copper is reliable to ~10 metres; at 1.6T that shrinks to 2–3 metres; at 3.2T optics is required within the rack.</b> LITE undershipping by &gt;30% with all EML capacity under LTAs through CY2027. Coherent sold out through FY27 — <b>but with FY26 operating cash flow of ~$80m against $1.10bn of capex.</b> Vendor-timeline split: NVDA/AVGO say CPO is production-ready; Astera says "later in the decade"</td><td class="bl">1.6T ASPs and lead times hold; **CIEN or COHR corroborates LITE's NPO pull-forward to end-2027/early-2028**; OCS revenue clears $100m next quarter</td><td class="br">Regulatory scope expands to name transceivers explicitly; the pump-laser bottleneck eases faster than expected; the NPO pull-forward goes uncorroborated by a second vendor through the March 2027 OFC</td><td class="nx"><b>CIEN settles the shape of the risk</b>: it refutes the demand bear case and confirms the pricing bear case by omission ⇒ the FY27–28 optics risk is a <em>margin</em> risk, not a volume risk</td></tr>
+      <tr data-st="bad" data-adx="0"><td class="idx">26</td><td class="ind">Macro gate (Warsh / oil / rates)</td><td class="st"><span class="tag t-bad"><i class="dot"></i>Transformed</span></td><td>Warsh's text was materially more hawkish than the pre-meeting read; he <b>refused to credit long yields as restraint, removing the bond market's automatic stabilizer</b>, and named AI as a factor of production without using productivity to justify easing. ISI's three-wave model is quantified with <b>AI named explicitly as memory-chip costs</b>. MS dissents: expects balance-sheet reduction in 2027 as a partial substitute for hikes</td><td class="bl">The 30-year breaks stably below 5%; oil stays contained; the 30 September BEA revision lowers reported core PCE by ~20bp as ISI expects</td><td class="br">The 10-year through 4.7% and the 30-year through 5.3%; WTI decisively above $100; a hawkish September FOMC into a market that produced four readings of one speech across three houses</td><td class="nx">September FOMC; the 30 September BEA revision (~20bp lower core PCE — <em>after</em> the meeting); WTI above $100; and BofA's level: <b>the 30-year stably below 5%, with 4.7%/5.3% as the credibility band</b></td></tr>
+      <tr data-st="ok" data-adx="0"><td class="idx">27</td><td class="ind">Power / speed-to-power / social license</td><td class="st"><span class="tag t-ok"><i class="dot"></i>Confirmed</span></td><td><b>A 38GW projected US shortfall 2026–28. Musk: ~15GW of compute will be unable to be energised in 2027.</b> Turbine pricing roughly doubled in twelve months; grid connections take 5+ years against 4 for a turbine; large gas turbines are sold out to ~2030. Two unrelated ISI desks reached the same conclusion in one week without citing each other: <b>the operating margin in the capex stack sits with power and cooling</b>. After power, Red-Ring alone names skilled trades as the "pace cars"</td><td class="bl">Power-pricing evidence keeps clearing above prior peaks; interconnection reform progresses; behind-the-meter build accelerates fast enough to substitute for grid delay</td><td class="br">Auction pricing clears below prior peaks; permitting politics worsen faster than BTM can substitute</td><td class="nx">JPM's inference: power scarcity does not depress supply-chain revenue — <b>it raises the content value of every energisable rack.</b> Track revenue/GW, time-to-energise, financing closure and HBM security</td></tr>
+      <tr data-st="bad" data-adx="0"><td class="idx">28</td><td class="ind">AI financing circularity</td><td class="st"><span class="tag t-bad"><i class="dot"></i>Escalated</span></td><td><b>NVIDIA's &gt;$500bn third-party capital platform with up to 25% residual-value support on some projects; PORTS-Pike at $1.5bn equity plus up to $105bn of credit support; BofA's ~$230bn RVG ≈ 64% of 2026–27 FCF.</b> Broadcom's ~$100bn raise <b>with AVGO guaranteeing part of the senior tranche</b> — de-consolidation minimises accounting pressure while the correlated risk survives. UBS: the theme has moved from "risk flagged by strategists" to "solution being engineered by the vendors themselves"</td><td class="bl">Additional structures confirm without a downgrade; the 5 October CME compute-futures launch lands on schedule; the 52% OpenAI Ohio backstop cut stays immaterial because it was never load-bearing</td><td class="br">A formal credit-desk downgrade of any circular structure; Ampere/Hopper rental rates fall; the market belatedly reprices the 52% backstop cut — revealing that it *was* load-bearing</td><td class="nx">The 52% OpenAI Ohio backstop cut the market did not reprice. Red-Ring's standing instruction: <b>"off-balance-sheet does not mean the risk disappeared"</b></td></tr>
+      <tr data-st="bad" data-adx="0"><td class="idx">29</td><td class="ind">Beat-and-raise, hold-the-target</td><td class="st"><span class="tag t-bad"><i class="dot"></i>Escalated</span></td><td><b>The regime has moved past holding targets to cutting them on good news: ADI, AVGO, CIEN cut 31.8% while FY27 EPS was raised 24% above Street — and Credo cut 10.2% in the same week it raised its own guide.</b> Index-level: 77% EPS beat rate delivering 0.7% outperformance against a −0.5 stdev aggregate reaction. The mechanism is the ADI analog — <b>this cycle's overshoot is 30% with only 29% compression so far</b></td><td class="bl">The escape valve widens — a beat moves a PT up *without* requiring an accelerating growth rate or a new quantified AI disclosure, signalling crowding has genuinely cleared</td><td class="br">The AI-disclosure multiple compresses, so a quantified AI disclosure stops earning its ~3 turns of EV/sales and the last escape valve closes; or the ADI analog completes — compression reaching the 38–60% of prior overshoots against this cycle's 30% overshoot and 29% compression to date</td><td class="nx"><b>The escape valve Run 5 missed:</b> the regime breaks on accelerating growth or a new quantified AI disclosure. Roughly three-plus turns of EV/sales for a quantified AI contribution, near-zero without one — with a symmetric penalty (DDOG −19% on disclosed concentration)</td></tr>
+      <tr data-st="new" data-adx="1"><td class="idx">30</td><td class="ind">Seats versus tokens</td><td class="st"><span class="tag t-new"><i class="dot"></i>New</span> <span class="tag t-new"><i class="dot"></i>Addendum</span></td><td><b>"AI destroys seats" was independently falsified twice on 27 August</b> — CRM reported Sales, Service and Slack seats all growing y/y; OKTA said there is no evidence AI is reducing seats. BTIG downgraded WDAY because large customers are <em>cautious on usage-based models</em>; Microsoft chose a $99/month seat bundle to carry agent governance. TMTB: <b>"token billing is superior at scaling with agent usage but inferior at getting approved by procurement"</b></td><td class="bl">The non-seat share of new and upsell ACV holds around the ~30% Zscaler disclosed *without* total ARR growth decelerating — mix shifting without demand loss; seat-based vendors keep reporting seat growth (CRM, OKTA)</td><td class="br">A vendor reports a seat-count decline attributable to agents; or the non-seat share climbs sharply while total ARR growth decelerates — mix shift turning into revenue loss. Microsoft's E7 seat bundle converting to consumption is the bellwether</td><td class="nx">Whether any vendor reports a seat-count decline attributable to agents; whether the E7 seat bundle holds or converts to consumption. Watch cRPO/NNARR, not AI-attributed revenue lines</td></tr>
+      <tr data-st="new" data-adx="1"><td class="idx">31</td><td class="ind">State-level data-centre politics</td><td class="st"><span class="tag t-new"><i class="dot"></i>New</span> <span class="tag t-new"><i class="dot"></i>Addendum</span></td><td><b>300+ moratoriums since 2023 and 300+ state bills in the first six weeks of 2026 alone.</b> ERCOT halted "Batch Zero" (~200GW, slipping past April 2027); Texas has suspended ~1,800 data centres. 60–71% of Americans oppose a local AI data centre, and <b>the restriction impulse is not partisan.</b> MS: community opposition is "a development constraint that needs to be underwritten like land, power or labor"</td><td class="bl">The 10 December Texas audit and April 2027 ERCOT Batch Zero resolve without material capacity loss; restriction keeps translating into behind-the-meter demand rather than cancelled projects — ISI's inverted read holds</td><td class="br">A state order forces a hyperscaler to absorb transmission pre-payment at scale — **Microsoft's Virginia challenge is the live test case** (addendum, 6 Sep); moratoria begin cancelling rather than relocating projects; the BTM cost stack proves higher than ISI's own desks assume</td><td class="nx"><b>10 December 2026</b> (Texas audit); <b>April 2027</b> (ERCOT Batch Zero). Note the inversion: state restriction is <em>bullish</em> behind-the-meter — "going fully BTM is the insulation trade"</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+</div>
+
+<div class="panel" id="p-action" role="tabpanel" aria-labelledby="t-action" hidden>
+<section>
+  <div class="sec-head"><h3>The recommendation</h3><span class="kicker">One stance, three instructions</span></div>
+  <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:46px;align-items:start">
+    <div>
+      <h2 style="font-size:clamp(24px,3.2vw,34px);line-height:1.2;max-width:24ch;margin-bottom:20px">Own the AI that funds itself; underweight the AI that has to borrow — and express the view through volatility, not direction.</h2>
+      <p>Five houses converged on credit as the binding variable in ten days <em>without citing each other</em>. Red-Ring priced it first on 24 August (AVGO and NVDA CDS at all-time wides of 126.2bp and 86.7bp; the tenant-yield split). ISI framed it four days later, swapping its fourth bear trigger from equities to IG Tech spreads — "the second most important chart there is." TMTB structured it: Broadcom guaranteeing part of the senior tranche of the ~$100bn raise that funds its own largest customer. JPM turned it into a valuation instruction. Morgan Stanley supplied the counterparty arithmetic. <strong>When five houses converge on a variable in ten days without cross-citation, that variable is the one to trade.</strong></p>
+      <p style="margin-bottom:0">The expression is volatility because <strong>one Waller speech produced four readings across three houses, spanning both directions</strong> — GS at ~60% odds of a September hike (~65% in its own quick hits), ISI under 50%, TMTB at ~60% odds of action on a 35bp+ cut. That is not resolvable by analysis before the event. Layered on it: the dated correction window, a CTA book with 4.5x downside skew, and VIX at the fifth percentile.</p>
+    </div>
+    <div style="border-left:1px solid var(--color-divider);padding-left:26px">
+      <div style="padding-bottom:18px;border-bottom:1px solid var(--color-divider)">
+        <span class="kicker">Instruction 1</span>
+        <p style="margin:6px 0 0"><strong>Long the self-funders against the balance-sheet-dependent tail.</strong> Emanuel's Low Leverage Leaders basket is already the right shape — NVDA, MU, AMD, PLTR, LRCX, ANET, MRVL, ALAB — <em>ex-SpaceX, given that all three of its large AI compute contracts are cancelable on 90 days' notice.</em></p>
+      </div>
+      <div style="padding:18px 0;border-bottom:1px solid var(--color-divider)">
+        <span class="kicker">Instruction 2</span>
+        <p style="margin:6px 0 0"><strong>Buy the September–January optionality rather than a direction.</strong> XLK one-month implied 23.6% against 27.7% realized; VIX 14.43. Long duration is the corroborating hedge, not a separate view.</p>
+      </div>
+      <div style="padding:18px 0 0">
+        <span class="kicker">Instruction 3</span>
+        <p style="margin:6px 0 0"><strong>Hold the memory trim at the un-contracted tier only, and size it small.</strong> Three houses are against it; one balanced source is half for it.</p>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:30px;padding:20px 24px;background:var(--color-surface);border-left:3px solid var(--color-accent)">
+    <span class="kicker">What is <em>not</em> being recommended</span>
+    <p style="margin:8px 0 0">This is <strong>not</strong> a reduction of AI exposure. Backlog cover is ~4x with sales revisions exceeding capex revisions; mega-cap tech is under-owned by 129bps and widening; SOX trades at 19.3x NTM, <em>below</em> the S&amp;P's 19.5x; and the S&amp;P ex-AI is up nearly 8% since late June — <strong>the AI complex has been a net drag, not an overheating source.</strong> Cutting gross exposure here would be trading the narrative rather than the evidence.</p>
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section>
+  <div class="sec-head"><h3>Near-term outlook</h3><span class="kicker">Weeks &middot; with named triggers</span></div>
+  <div class="scen">
+    <div class="s">
+      <div class="sh"><span class="st2">Base case</span><span class="pct">55%</span></div>
+      <p>Fundamentals keep printing well, the tape keeps discriminating on quality rather than on beats, and the index goes nowhere in particular while dispersion stays violent. <b>September's 17 investor days mean price action is driven by company-set multi-year targets rather than quarterly results</b> &mdash; the same fact that made the last six weeks a target-cutting regime. Rotation continues <em>inside</em> the complex: quality balance sheets over levered growth, adopters over builders, upstream over integrators.</p>
+      <p class="trg"><b>Confirms it:</b> another beat-and-punish cluster; IG Tech OAS holding inside March's peak; the 30-year staying between 4.7% and 5.3%.</p>
+    </div>
+    <div class="s">
+      <div class="sh"><span class="st2">Bull case</span><span class="pct">20%</span></div>
+      <p>The 30-year breaks stably below 5% and, on BofA's explicit formulation, the persistent underperformance of AI capex spenders and builders versus adopters ends. Add any of: <b>Micron's print confirming the ~50% HBM price increase with pricing detail; Anthropic's S1 validating the value-chain economics; Broadcom's ~$100bn raise pricing tight and heavily subscribed.</b></p>
+      <p class="trg"><b>Watch:</b> the 30-year through 5% on a sustained basis; IG Tech OAS tightening through 100bp.</p>
+    </div>
+    <div class="s">
+      <div class="sh"><span class="st2">Bear case</span><span class="pct">25%</span></div>
+      <p>Not the usual 10&ndash;15%, because ISI's window is <em>dated</em>: each of the past six cycles saw a mid-cycle correction within four months of industry y/y revenue peaking, and the second derivative peaks in the Sep-26 quarter &mdash; so the window is <b>September 2026 &ndash; January 2027</b>, uncontested by any other source.</p>
+      <p class="trg"><b>Triggers, most informative first:</b> IG Tech OAS widening beyond March's peak &mdash; ISI's formal fourth bear trigger and &ldquo;the second most important chart there is&rdquo;; AVGO CDS through 126.2bp; WTI decisively above $100; a hawkish September FOMC; channel inventory extending past four months.</p>
+    </div>
+  </div>
+  <p class="filt-note" style="margin-top:18px"><b>Fundamentals say</b> backlog cover is ~4x, sales revisions exceed capex revisions, memory deficits persist through the horizon, and NVIDIA guided ten points above the best bogey. <b>Positioning says</b> the marginal buyer is short-covering plus new futures longs, the short fuel is running out, ten stocks are 38% of the index with correlation at generational lows, credit is the most crowded systematic asset class, and the CTA book is 4.5x skewed to the downside. <b>These do not point the same way, and the resolution is that fundamentals set the medium-term direction while positioning sets the near-term amplitude.</b></p>
+</section>
+<hr class="rule-hard" style="margin-top:52px">
+<section>
+  <div class="sec-head"><h3>Medium-term outlook</h3><span class="kicker">Quarters</span></div>
+  <div class="scen">
+    <div class="s">
+      <div class="sh"><span class="st2">Base case</span></div>
+      <p>The buildout continues at a scale nobody in this project has yet had to mark down, and returns accrue where they have been accruing &mdash; to the power layer, to upstream enablers, to vendors who can self-finance, and to memory makers whose contracts are locked. Compute capacity roughly quadruples to <b>~120GW by 2028</b> on MS's numbers.</p>
+      <p class="trg"><b>The 2027 constraint is energisation, not orders.</b> The buyer base keeps broadening &mdash; which reduces dependence on a few hyperscalers while raising the dispersion of customer credit quality.</p>
+    </div>
+    <div class="s">
+      <div class="sh"><span class="st2">Bull case</span></div>
+      <p>The AI-disclosure multiple generalises. A quantified AI contribution earns roughly three-plus turns of EV/sales and near-zero without one &mdash; Snowflake 9.3x &rarr; 12.4x and held; Datadog 10.9x &rarr; 13.9x &rarr; 16.9x; MongoDB zero turns on a solid AI-silent quarter.</p>
+      <p class="trg"><b>If more of the complex can produce per-SKU quantified disclosure</b>, the multiple compression of the last six weeks reverses with no change in fundamentals.</p>
+    </div>
+    <div class="s">
+      <div class="sh"><span class="st2">Bear case</span></div>
+      <p>ISI's ADI analog: once NTM EPS clears the prior cycle peak by a low-double-digit percentage, the multiple historically absorbs the beats &mdash; 38% and 60% compression after 15% and 11% overshoots. <b>This cycle's overshoot is 30% with only 29% compression so far.</b></p>
+      <p class="trg"><b>If the analog holds</b>, the correction is a multiple event with earnings still rising &mdash; the hardest kind to trade and the easiest to argue away in real time.</p>
+    </div>
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section>
+  <div class="sec-head"><h3>The bear case</h3><span class="kicker">What breaks the thesis</span></div>
+  <div class="bear">
+    <div>
+      <h2 style="font-size:clamp(22px,2.9vw,31px);line-height:1.22;max-width:26ch;margin-bottom:18px">The thesis does not break on a demand miss. It breaks if financing reverses before fundamentals stall.</h2>
+      <p>Red-Ring identifies the mechanism: the platform migrates GPU residual value, utilisation, customer credit and re-lease risk into private credit, insurance money and project finance — creating the possibility that <strong>multiple financing vehicles mark down residual value and tighten leverage simultaneously</strong>, forcing project cancellations into an order book that is still nominally strong. Morgan Stanley identifies the counterparty: CoreWeave tenant debt to $116.2bn by 2028, with tenant-level leverage compounding faster than the assets are being de-risked. TMTB identifies the correlated structure: <strong>Broadcom guaranteeing part of the senior tranche of the debt that funds its own largest customer</strong>, so an Anthropic disappointment produces falling orders and guarantee payouts at once.</p>
+      <p style="margin-bottom:0"><strong>The observable precursor is not a bankruptcy — it is spread widening in IG Tech while equities are still making highs.</strong> That specific divergence is what the current price structure would produce first, and it is why the monitoring order is credit before equities.</p>
+    </div>
+    <div>
+      <div style="padding:20px 22px;background:var(--color-surface);margin-bottom:20px">
+        <span class="kicker">The slower break</span>
+        <p style="margin:8px 0 0;font-size:13.5px"><strong>Cost-push ASP inflation.</strong> Vera Rubin and Grace Blackwell system prices are reportedly up ~15–17% attributed to DRAM cost, and NVIDIA's own gross margin troughs at 71–72% on memory it cannot fully offset. Broadcom's MW gross margin is modelled falling 77.3% → 67.4% by FY28e. <em>If ASP inflation is cost-push rather than value-add, gross margin and customer ROI become the next constraint.</em> Volume growth is no longer automatically converting into margin expansion anywhere in the hardware stack.</p>
+      </div>
+      <div style="padding:20px 22px;border:1px solid var(--color-divider)">
+        <span class="kicker">The multiple version</span>
+        <p style="margin:8px 0 0;font-size:13.5px"><strong>Lipacis's ADI analog.</strong> Once NTM EPS clears the prior cycle peak by a low-double-digit percentage, the multiple has historically done the work of absorbing the beats — 38% and 60% compression after 15% and 11% overshoots. <strong>This cycle's overshoot is 30% with only 29% compression so far.</strong> The framework implies AVGO at $283–$174 against Lipacis's own published bear case of $341, and the note does not acknowledge the conflict. If the analog holds, the correction is a multiple event with earnings still rising — the hardest kind to trade and the easiest to argue away in real time.</p>
+      </div>
+      <div style="padding:20px 22px;margin-top:20px;border-left:3px solid var(--color-accent)">
+        <span class="kicker">And what would kill the recommendation</span>
+        <p style="margin:8px 0 0;font-size:13.5px"><strong>IG Tech spreads tightening decisively through 100bp while the tenant-quality spread compresses.</strong> That would say the credit market has looked at the vendor-financing structures and decided they are additive capital rather than relocated leverage — NSR's case. If it happens, drop the short leg and stay long the complex outright.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section>
+  <div class="sec-head"><h3>The calendar that decides it</h3><span class="kicker">Dated catalysts</span></div>
+  <div class="cal">
+    <div class="cev"><div class="d">Sep 2026<small>Mid-month</small></div><div class="b"><b>September FOMC</b> — into a market where one speech produced four readings across three houses, spanning both directions. The single largest source of near-term volatility, and the reason the recommendation is expressed through optionality.</div></div>
+    <div class="cev"><div class="d">Sep 2026<small>All month</small></div><div class="b"><b>17 investor days.</b> Price action will be driven by company-set multi-year targets, not quarterly results — the same fact that made the last six weeks a target-cutting regime.</div></div>
+    <div class="cev"><div class="d">30 Sep<small>2026</small></div><div class="b"><b>BEA revision</b> — ISI expects it to lower reported core PCE by ~20bp. Note the sequencing: <em>it lands after the FOMC</em>, so the meeting is decided on the unrevised number.</div></div>
+    <div class="cev"><div class="d">Sep – Oct<small>2026</small></div><div class="b"><b>Micron's next print</b> — the decisive evidence on conflict ①. Specifically whether the ~50% HBM price increase appears with pricing detail in company commentary, rather than as NSR's back-solve from NVIDIA's margin give-back.</div></div>
+    <div class="cev"><div class="d">Oct 2026<small>Possible</small></div><div class="b"><b>Meta's Hatch/PSI gate</b> — the first verification of the agent-productivity thesis. Track task success rate, trust incidents, paid conversion and inference cost per task, not headline availability.</div></div>
+    <div class="cev"><div class="d">10 Dec<small>2026</small></div><div class="b"><b>Texas governor's audit of ~300 data centres reports.</b> The most specific date on the state-politics indicator, against a backdrop of ~1,800 suspended approvals.</div></div>
+    <div class="cev"><div class="d">Dec 2026<small></small></div><div class="b"><b>Micron's CHIPS Act restrictions expire</b>, enabling ~100% FCF return. This also partially reconciles the Micron buyback contradiction that has run unresolved across seven consecutive UBS batches.</div></div>
+    <div class="cev"><div class="d">1 Jan<small>2027</small></div><div class="b"><b>Gemini 3.8 Flash introductory pricing is scheduled to double.</b> ISI reads it correctly as an adoption subsidy — and it is the cleanest scheduled test of whether token deflation is structural or promotional.</div></div>
+    <div class="cev"><div class="d">Jan 2027<small></small></div><div class="b"><b>Samsung board meeting</b> — the next Korea capital-allocation catalyst, pushed out from this run.</div></div>
+    <div class="cev"><div class="d">Jan 2027<small>End of window</small></div><div class="b"><b>ISI's mid-cycle correction window closes.</b> Uncontested by any other source this run.</div></div>
+    <div class="cev"><div class="d">Apr 2027<small></small></div><div class="b"><b>ERCOT "Batch Zero"</b> — ~200GW under review, already slipping past this date.</div></div>
+    <div class="cev"><div class="d">1H 2027<small></small></div><div class="b"><b>The debt-limit collision</b> — $39.9tn against a $41.1tn ceiling, roughly $1tn of headroom against ~$2tn of annual net borrowing. Sovereign supply, a debt-ceiling standoff and $1.3tn of hyperscaler capex financing on the same long-end bid. Also the first tradeable moment on the memory-hierarchy roadmap.</div></div>
+    <div class="cev"><div class="d">Undated<small>Imminent</small></div><div class="b"><b>Anthropic's S1.</b> The single highest-information event pending — the first hard check on the value-chain estimates (~20% of tokens, ~85% of revenue, &gt;90% of gross profit), on the $11.5–11.6bn Q2 figure that is currently media-reported rather than audited, and on a company that is simultaneously Broadcom's largest FY27 customer.</div></div>
+    <div class="cev"><div class="d">Undated<small>Pending</small></div><div class="b"><b>Broadcom's ~$100bn raise prices.</b> Watch the subscription and the spread on the AVGO-guaranteed senior tranche — the most direct read available on conflict ⑦.</div></div>
+  </div>
+</section>
+<hr class="rule-hard" style="margin-top:56px">
+<section class="inv">
+  <div class="sec-head"><h3>Source inventory</h3><span class="kicker">51 reports &middot; 11 Aug &ndash; 6 Sep &middot; all seven houses</span></div>
+  <table>
+    <thead><tr><th>Source</th><th>n</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td class="s">UBS</td><td class="n">7</td><td>Batches span weeks of older underlying notes; underlying dates checked</td></tr>
+      <tr><td class="s">NSR</td><td class="n">4</td><td>Filename dates misstate publication dates &mdash; a standing quirk of this source</td></tr>
+      <tr><td class="s">ISI / Evercore</td><td class="n">8</td><td>Largest and most analytically productive set; five live intra-house splits</td></tr>
+      <tr><td class="s">MS</td><td class="n">3</td><td>Quarantines mis-attributed notes and runs its own MD5 dedup</td></tr>
+      <tr><td class="s">JPM</td><td class="n">2</td><td>Chinese output with explicit 事实 / 推论 tagging</td></tr>
+      <tr><td class="s">Red-Ring</td><td class="n">14</td><td><b>8/11 and 8/13 were never consumed by Run 5 and are backfilled here.</b> Per-file evidence maps</td></tr>
+      <tr><td class="s">TMTB</td><td class="n">13</td><td><b>Two files backfilled in the 6 September addendum</b> &mdash; a non-standard root filename (28 Aug) and a <code>Claude outputs/</code> subfolder (4 Sep). Synthesis-of-syntheses; GS-sourced numbers grade (b)</td></tr>
+    </tbody>
+  </table>
+  <div class="grades">
+    <div class="g"><div class="gl">(a) Official disclosure</div><p>NVIDIA's FQ2:27 print, the FQ4:27 margin guide and the $279bn supply-commitment disclosure; DELL, CRM, CRWD, OKTA, ZS, IOT, MRVL, AVGO, CIEN, ADI, Apple, TSMC, Samsung and SK hynix reported figures; Warsh's Jackson Hole text.</p></div>
+    <div class="g"><div class="gl">(b) Named research</div><p>All named analyst estimates and price targets across the seven houses; UBS Evidence Lab; ISI's proprietary survey and Mercury Research share data; MS's CoWoS allocation build; Bernstein, BofA, BNP and DB forecasts; FT, Bloomberg, Nikkei and Digitimes reports.</p></div>
+    <div class="g"><div class="gl">(c) Corroborated checks</div><p>UBS's CFO dinner (12 unnamed CFOs, with UBS's own caveat that it is &ldquo;not a comprehensive read&rdquo;); ISI's HBM allocation-share and AVGO ASIC-margin channel checks; Lumentum's conference remarks as community-transcribed, cross-validated by DB's own published OCS numbers.</p></div>
+    <div class="g"><div class="gl">(d) Rumour and desk colour</div><p><b>None of this drives a conclusion in the document.</b> The 19 August Chinese roadshow note behind UBS's SanDisk 80% gross-margin target; the UBS Neo sales-desk notes; the TXN price letter, relayed via social media and explicitly labelled a non-load-bearing fourth leg.</p></div>
+  </div>
+  <div class="sec-head" style="margin-top:44px"><h3>Figures quoted at multiple perimeters</h3><span class="kicker">Scope, not disagreement</span></div>
+  <table>
+    <thead><tr><th>Figure</th><th>Range across sources</th></tr></thead>
+    <tbody>
+      <tr><td class="s">NVIDIA commitments</td><td><b>$279bn disclosed supply commitments (the anchor)</b> / +~$160bn of guarantees / ~$350bn (JPM's working figure) / ~$366bn including cloud agreements, leases and equity / $530.5bn combined obligations, commitments and guarantees (Red-Ring's derivation). Different scopes &mdash; label which one is in use.</td></tr>
+      <tr><td class="s">AI capex</td><td>UBS <b>$998bn / $1,447bn</b> (2026/27E, top-12 hyperscalers &mdash; the anchor) / ISI $1.3&ndash;1.4tn (2027) / MS $1.2tn / $1.4tn ('27/'28) / GS $733bn (four hyperscalers, 2026E, via Red-Ring).</td></tr>
+      <tr><td class="s">Marvell &mdash; two quantities that both read as &ldquo;120&rdquo;</td><td>The <b>$120bn</b> headline is warrant-implied commercial stickiness on the Google partnership &mdash; a demand ceiling, not RPO. Marvell's <b>FY27 company revenue guide is $12.0bn</b> (raised from $11.5bn on 28 August), FY28 raised to $18.0bn. <b>A factor of ten apart. Do not conflate them.</b></td></tr>
+      <tr><td class="s">Anthropic Q2 revenue</td><td><b>$11.5&ndash;11.6bn</b>, grade (c). A &ldquo;$1.6bn+&rdquo; figure in one Red-Ring-relayed WSJ citation is almost certainly a units error and is not used.</td></tr>
+    </tbody>
+  </table>
+  <div class="sec-head" style="margin-top:44px"><h3>Known gaps and flags</h3><span class="kicker">Eight open &middot; carried, not resolved</span></div>
+  <ol class="flags">
+    <li><code>00_Resources/voice-principles.md</code>, referenced by both CLAUDE.md files, <b>does not exist anywhere on disk.</b> Flagged for the fourth time; it should either be written or the reference removed.</li>
+    <li><b>The Micron buyback contradiction is unresolved across seven consecutive UBS batches</b> &mdash; a $460bn Micron buyback figure against the claim that CHIPS Act constraints preclude a large disclosed buyback.</li>
+    <li><code>ISI_Research_Report_20260906.md</code> is internally dated one day ahead of the synthesis. ISI's own header explains it; consumed as-is.</li>
+    <li><b>The Humanoid workstation has been silent since 12 July 2026</b> &mdash; a fourth consecutive stale run, with indicator #23 now served entirely by MS. If Run 7 finds it still silent, retire the source rather than the indicator.</li>
+    <li><b>SpaceX is omitted from UBS's rack-demand accounting</b> in two consecutive APAC supply-chain notes despite being modelled elsewhere at ~6GW of C2027 capacity &mdash; a real gap between UBS desks.</li>
+    <li>MS's GOOGL price target shows <b>$415 (12 Jul) against $400 in the 17 August boilerplate</b>, with no dedicated GOOGL note in the window. MS flags it itself; unresolved.</li>
+    <li><b>Three ISI internal inconsistencies flagged rather than resolved</b>, including AVGO's stated valuation methodology not matching the exhibit that produces the number.</li>
+    <li><b>NSR's own flagged-unreliable figures, excluded here:</b> the &ldquo;+312% y/y&rdquo; memory aggregate and a &ldquo;$108.0bn NVDA 2FQ26 revenue&rdquo; contradicted by NSR's own $96.2bn.</li>
+  </ol>
+</section>
+</div>
+
+<footer>
+  <div class="src">
+    <div><span>51</span>reports consumed, 11 Aug – 6 Sep 2026</div>
+    <div><span>7</span>houses — UBS 7, NSR 4, ISI 8, MS 3, JPM 2, Red-Ring 14, TMTB 13</div>
+    <div><span>30</span>live indicators — 28 carried, 2 added, none retired; 11 revisited in the addendum</div>
+    <div><span>9</span>live conflicts — 3 closed this run</div>
+  </div>
+  <p><b>Evidence grading.</b> Claims are graded (a) official company disclosure, (b) named research forecasts and contract data, (c) corroborated expert and channel checks, (d) single screenshots, rumours and desk colour. <b>No (d)-grade item drives a conclusion in this document.</b> Two inferences are load-bearing enough to name: NSR's ~50% HBM price increase is <em>back-solved from NVIDIA's guided margin give-back, not disclosed</em>, and the Anthropic Q2 figure of $11.5–11.6bn is media-reported rather than audited.</p>
+  
+  
+  <p style="margin-top:18px">Fab5 Cross-Source Synthesis, Run 6 &middot; 5 September 2026, addendum 6 September &middot; companion to <code>Fab5_Cross_Source_Synthesis_20260905.md</code> &middot; full reconciliation and open flags under <b>Action</b></p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('nav.tabs button'));
+  function show(k){
+    tabs.forEach(function(b){
+      var on=b.id==='t-'+k;
+      b.setAttribute('aria-selected',on?'true':'false');
+      b.tabIndex=on?0:-1;
+      document.getElementById('p-'+b.id.slice(2)).hidden=!on;
+    });
+    window.scrollTo(0,0);
+  }
+  tabs.forEach(function(b,i){
+    b.addEventListener('click',function(){show(b.id.slice(2));});
+    b.addEventListener('keydown',function(e){
+      var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;
+      if(!d)return;
+      e.preventDefault();
+      var n=tabs[(i+d+tabs.length)%tabs.length];
+      n.focus(); show(n.id.slice(2));
+    });
+  });
+  var chips=[].slice.call(document.querySelectorAll('.chip'));
+  var rows=[].slice.call(document.querySelectorAll('#p-monitor tbody tr'));
+  chips.forEach(function(c){
+    c.addEventListener('click',function(){
+      var f=c.getAttribute('data-f');
+      chips.forEach(function(o){o.setAttribute('aria-pressed',o===c?'true':'false');});
+      rows.forEach(function(r){
+        r.hidden = !(f==='all' || (f==='adx' ? r.getAttribute('data-adx')==='1' : r.getAttribute('data-st')===f));
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
