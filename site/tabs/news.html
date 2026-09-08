@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>News Intelligence — US Stock Dashboard</title>
+<link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1 id="tabTitle">News Intelligence</h1>
+      <div id="tabMeta">loading…</div>
+    </div>
+    <button id="themeBtn" type="button">theme</button>
+  </header>
+
+  <nav class="tabBtns" id="tabNav"></nav>
+
+  <div id="app">
+    <section id="masthead"></section>
+    <!-- The infographic sits ABOVE the section nav on purpose: it is the one band that should be
+         visible whichever section a reader has open. -->
+    <section id="infographic"></section>
+    <nav class="tabBtns sectionNav" id="sectionNav"></nav>
+    <section id="sec-insights" class="newsSection"></section>
+    <section id="sec-timeline" class="newsSection" hidden></section>
+    <section id="sec-conflicts" class="newsSection" hidden></section>
+    <section id="sec-signals" class="newsSection" hidden></section>
+    <section id="sec-action" class="newsSection" hidden></section>
+    <section id="sec-index" class="newsSection" hidden></section>
+  </div>
+
+  <footer id="footer"></footer>
+</div>
+<script type="module">
+  import { initNews } from "../assets/js/news.js";
+
+  document.querySelector("#themeBtn").onclick = () => {
+    const r = document.documentElement;
+    const cur = r.getAttribute("data-theme") ||
+      (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    r.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
+  };
+
+  initNews().catch(e => {
+    document.querySelector("#app").innerHTML =
+      `<div class="banner fatal"><b>Failed to initialise.</b> ${e.message}</div>`;
+    console.error(e);
+  });
+</script>
+</body>
+</html>

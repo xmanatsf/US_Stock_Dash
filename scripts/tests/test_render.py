@@ -102,9 +102,11 @@ def main() -> int:
     httpd, port = serve(SITE)
     base = f"http://127.0.0.1:{port}"
     tabs = ["market-internals", "semis", "software", "hw-networking"]
-    # fab5 is a PAGE, not a universe: no charts, no horizon control, no stock selector. It gets
-    # its own assertions below rather than being run through the chart battery.
-    pages = ["fab5"]
+    # fab5 and news are PAGES, not universes: no charts, no horizon control, no stock selector.
+    # They get their own assertions below rather than the chart battery, and the two do not share
+    # a shape -- fab5 joins tickers to universe payloads, news generates an index off an audit
+    # file -- so each is checked against what it actually claims to do.
+    pages = ["fab5", "news"]
     failures = []
     os.makedirs(SHOTS, exist_ok=True)
 
@@ -132,7 +134,7 @@ def main() -> int:
             else:
                 print("  PASS no console errors")
 
-            if name in pages:
+            if name == "fab5":
                 # 1. the page rendered its sections rather than the error banner
                 counts = page.evaluate("""() => ({
                     insights: document.querySelectorAll('#insightList .insight').length,
@@ -236,6 +238,134 @@ def main() -> int:
                     print("  FAIL status filter did not filter")
                 else:
                     print("  PASS status filter narrows and restores")
+
+            elif name == "news":
+                # 1. every section rendered, including the ones hidden behind the section nav.
+                # They are built up-front and toggled with [hidden], so querying them while
+                # another section is showing is exactly the point.
+                counts = page.evaluate("""() => ({
+                    layers: document.querySelectorAll('#sec-insights .ig-theme').length,
+                    reads: document.querySelectorAll('.card.read').length,
+                    timeline: document.querySelectorAll('.tline li').length,
+                    agree: document.querySelectorAll('#sec-conflicts .card.conv').length,
+                    conflicts: document.querySelectorAll('#sec-conflicts .card.disp').length,
+                    signals: document.querySelectorAll('#sigBody tr').length,
+                    scenarios: document.querySelectorAll('#sec-action .ig-scen').length,
+                    calendar: document.querySelectorAll('#sec-action .ig-cal li').length,
+                    index: document.querySelectorAll('#ixBody tr').length,
+                    sections: document.querySelectorAll('.newsSection').length,
+                    fatal: document.querySelectorAll('.banner.fatal').length,
+                })""")
+                print(f"  sections: {counts}")
+                if counts["fatal"]:
+                    failures.append(f"{name}: rendered a fatal banner")
+                    print("  FAIL fatal banner on the page")
+                # The counts the upstream build pins, asserted again at the DOM. A row added to
+                # the payload without the prose being rewritten fails the build; this catches the
+                # other direction -- a row that never made it onto the page.
+                for k, expect in (("layers", 4), ("reads", 8), ("timeline", 9), ("agree", 6),
+                                  ("conflicts", 10), ("signals", 18), ("scenarios", 3),
+                                  ("index", 108), ("sections", 6)):
+                    if counts[k] != expect:
+                        failures.append(f"{name}: {counts[k]} {k} rendered, expected {expect}")
+                        print(f"  FAIL {k}: {counts[k]} != {expect}")
+                if all(counts[k] == e for k, e in (("reads", 8), ("timeline", 9),
+                                                   ("conflicts", 10), ("signals", 18),
+                                                   ("index", 108))):
+                    print("  PASS every section rendered at its pinned count")
+
+                # 2. the infographic's five rows
+                ig = page.evaluate("""() => ({
+                    bands: document.querySelectorAll('#infographic .ig-band').length,
+                    reads: document.querySelectorAll('#infographic .ig-reads li').length,
+                    kpis: document.querySelectorAll('#infographic .ig-kpi').length,
+                    cov: document.querySelectorAll('#infographic .ig-covRow').length,
+                    links: document.querySelectorAll('#infographic .ig-links li').length,
+                    counts: document.querySelectorAll('#infographic .ig-count').length,
+                    zeroMomentum: [...document.querySelectorAll('#infographic .ig-mom')]
+                        .filter(e => /^[▲▼▬]\\s*\\+?0\\b/.test(e.textContent.trim())).length,
+                })""")
+                print(f"  infographic: {ig}")
+                empty = [k for k, v in ig.items() if k != "zeroMomentum" and not v]
+                if empty:
+                    failures.append(f"{name}: infographic row(s) rendered empty: {empty}")
+                    print(f"  FAIL empty infographic rows: {empty}")
+                elif ig["bands"] != 5:
+                    failures.append(f"{name}: infographic has {ig['bands']} rows, expected 5")
+                    print(f"  FAIL {ig['bands']} rows, expected 5")
+                else:
+                    print("  PASS all five infographic rows rendered content")
+                # With no prior audit file the coverage map must say so, never show a zero delta:
+                # a reader would correctly read "0" as a collapse to nothing.
+                if ig["zeroMomentum"]:
+                    failures.append(f"{name}: {ig['zeroMomentum']} coverage row(s) render a zero "
+                                    f"delta where there is no prior window")
+                    print("  FAIL zero momentum rendered for a missing prior window")
+                else:
+                    print("  PASS missing prior window renders as text, not as zero")
+
+                # 3. citations must be real links, not leftover tokens
+                cites = page.evaluate("""() => ({
+                    links: document.querySelectorAll('a.cite').length,
+                    withHref: [...document.querySelectorAll('a.cite')]
+                        .filter(a => (a.getAttribute('href') || '').startsWith('http')).length,
+                    leftover: (document.body.innerText.match(/\\{\\{/g) || []).length,
+                })""")
+                print(f"  citations: {cites}")
+                if cites["leftover"]:
+                    failures.append(f"{name}: {cites['leftover']} unresolved token(s) rendered")
+                    print("  FAIL unresolved {{ }} tokens on the page")
+                elif not cites["links"] or cites["links"] != cites["withHref"]:
+                    failures.append(f"{name}: {cites['links']} cite links, "
+                                    f"{cites['withHref']} with an http href")
+                    print("  FAIL citation links are not all real links")
+                else:
+                    print(f"  PASS {cites['links']} citation links, all resolved to an article")
+
+                # 4. the two filters and the section nav. Sections are built up-front and
+                # toggled with [hidden], so a control has to be brought on screen before it can
+                # be clicked -- which also exercises the nav itself.
+                page.click('.secBtn[data-sec="signals"]')
+                page.wait_for_timeout(200)
+                sig_before = page.eval_on_selector_all("#sigBody tr", "e => e.length")
+                page.click('.sigFilter[data-st="bad"]')
+                page.wait_for_timeout(200)
+                sig_after = page.eval_on_selector_all("#sigBody tr", "e => e.length")
+                page.click('.sigFilter[data-st="all"]')
+                page.wait_for_timeout(200)
+                sig_back = page.eval_on_selector_all("#sigBody tr", "e => e.length")
+                print(f"  signal filter: {sig_before} -> {sig_after} -> {sig_back}")
+                if not (0 < sig_after < sig_before and sig_back == sig_before):
+                    failures.append(f"{name}: signal filter is a no-op")
+                    print("  FAIL signal filter did not filter")
+                else:
+                    print("  PASS signal filter narrows and restores")
+
+                page.click('.secBtn[data-sec="index"]')
+                page.wait_for_timeout(200)
+                shown = page.eval_on_selector_all(
+                    "#ixBody tr:not([hidden])", "e => e.length")
+                page.click('.ixFilter[data-k="pub"][data-v="WSJ"]')
+                page.wait_for_timeout(200)
+                filtered = page.eval_on_selector_all(
+                    "#ixBody tr:not([hidden])", "e => e.length")
+                shown_txt = page.eval_on_selector("#ixcount", "e => e.textContent")
+                print(f"  index filter: {shown} -> {filtered} (counter says {shown_txt})")
+                if not (0 < filtered < shown) or str(filtered) != shown_txt.strip():
+                    failures.append(f"{name}: index filter is a no-op or its counter disagrees "
+                                    f"({shown} -> {filtered}, counter {shown_txt})")
+                    print("  FAIL index filter or its counter")
+                else:
+                    print("  PASS index filter narrows and its counter agrees")
+
+                sec = page.evaluate(
+                    """() => [...document.querySelectorAll('.newsSection')]
+                        .filter(s => !s.hidden).map(s => s.id)""")
+                if sec != ["sec-index"]:
+                    failures.append(f"{name}: section nav shows {sec}, expected only sec-index")
+                    print(f"  FAIL section nav: {sec}")
+                else:
+                    print("  PASS section nav shows exactly one section")
 
             elif name != "index":
                 charts = page.eval_on_selector_all(

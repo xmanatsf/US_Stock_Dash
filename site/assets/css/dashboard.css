@@ -411,3 +411,120 @@ footer#footer .src { color: var(--muted); }
   .tabBtns, #themeBtn, .ctlRow { display: none; }
   .tblWrap { max-height: none; overflow: visible; }
 }
+
+/* ------------------------------------------------------------------ news page
+ * Same rule as the infographics above: the reference is Georgia on gold/teal, this is the site's
+ * sans stack on blue/orange, so what is ported is the ORGANISATION -- masthead, section nav,
+ * timeline rail, conflict cards, signal board, generated index -- in site tokens. The one class
+ * that is not ig-prefixed is .cite, because it is the page's core convention rather than part of
+ * the infographic, and nothing upstream counts it.
+ */
+.mast { border-left: 4px solid var(--s1); }
+.mastHead { font-size: 24px; line-height: 1.25; letter-spacing: -.015em; margin: 6px 0 8px; }
+.mastStand { font-size: 14.5px; color: var(--ink2); margin: 0; max-width: 78ch; }
+
+.cite { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 999px;
+  background: color-mix(in srgb, var(--s1) 12%, transparent); color: var(--s1);
+  text-decoration: none; white-space: nowrap; margin: 0 2px; vertical-align: baseline; }
+.cite:hover { background: color-mix(in srgb, var(--s1) 22%, transparent); }
+
+.sectionNav { border-top: 1px solid var(--grid); border-bottom: 1px solid var(--grid);
+  padding: 10px 0; margin: 16px 0 18px; }
+.secBtn { cursor: pointer; font: inherit; font-size: 13px; }
+.secBtn .cnt { opacity: .7; margin-left: 4px; }
+
+.ig-reads { list-style: none; counter-reset: r; margin: 0; padding: 0; }
+.ig-reads li { counter-increment: r; display: grid; grid-template-columns: 26px 1fr; gap: 10px;
+  padding: 7px 0; border-bottom: 1px solid var(--grid); font-size: 13px; align-items: baseline; }
+.ig-reads li:last-child { border-bottom: 0; }
+.ig-reads li::before { content: counter(r); color: var(--muted); font-size: 11.5px;
+  font-variant-numeric: tabular-nums; }
+.ig-reads li b { display: block; }
+.ig-reads li > div > span { color: var(--ink2); }
+.ig-reads li .chipRow { margin-top: 3px; }
+
+.ig-kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+@media (max-width: 780px) { .ig-kpis { grid-template-columns: repeat(2, 1fr); } }
+.ig-kpi { background: var(--page); border: 1px solid var(--border); border-radius: 11px;
+  padding: 12px 14px; }
+.ig-kpi b { display: block; font-size: 24px; font-weight: 650; letter-spacing: -.02em;
+  color: var(--s2); font-variant-numeric: tabular-nums; }
+.ig-kpi span { font-size: 11.5px; color: var(--muted); text-transform: uppercase;
+  letter-spacing: .06em; }
+
+.ig-cov { display: flex; flex-direction: column; gap: 7px; }
+.ig-covRow { display: grid; grid-template-columns: 200px 1fr auto; gap: 12px;
+  align-items: center; }
+@media (max-width: 760px) { .ig-covRow { grid-template-columns: 1fr; gap: 3px; } }
+.ig-covName b { font-size: 13px; }
+.ig-covName i { display: block; font-style: normal; font-size: 11px; color: var(--muted); }
+.ig-covBar { display: flex; height: 16px; border-radius: 4px; overflow: hidden;
+  min-width: 3px; }
+.ig-seg { display: block; height: 100%; }
+.ig-seg.s1 { background: var(--s1); } .ig-seg.s2 { background: var(--s2); }
+.ig-seg.s3 { background: var(--s3); } .ig-seg.s4 { background: var(--s4); }
+.ig-legend { display: flex; gap: 14px; margin-top: 9px; font-size: 11.5px; color: var(--ink2); }
+.ig-legItem { display: inline-flex; align-items: center; gap: 5px; }
+.ig-legItem i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.ig-legItem i.s1 { background: var(--s1); } .ig-legItem i.s2 { background: var(--s2); }
+.ig-legItem i.s3 { background: var(--s3); } .ig-legItem i.s4 { background: var(--s4); }
+.ig-mom { font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ig-mom.up { color: var(--good-text); } .ig-mom.down { color: var(--critical); }
+.ig-mom.flat { color: var(--muted); }
+/* A missing prior window is a stated absence, never a zero -- it reads as text, not a number. */
+.ig-mom.none { color: var(--muted); font-style: italic; }
+
+.ig-links { list-style: none; margin: 0; padding: 0; }
+.ig-links li { padding: 8px 0; border-bottom: 1px solid var(--grid); font-size: 12.5px; }
+.ig-links li:last-child { border-bottom: 0; }
+.ig-linkPair { display: block; font-weight: 600; font-size: 12px; margin-bottom: 2px; }
+.ig-linkPair i { font-style: normal; color: var(--s2); margin: 0 4px; }
+.ig-links li span:not(.ig-linkPair):not(.chipRow) { color: var(--ink2); }
+
+.readGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 900px) { .readGrid { grid-template-columns: 1fr; } }
+.card.read { border-top: 3px solid var(--s1); position: relative; }
+.readN { font-size: 10.5px; text-transform: uppercase; letter-spacing: .09em;
+  color: var(--muted); margin-bottom: 2px; }
+.readSplit { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px;
+  padding-top: 10px; border-top: 1px solid var(--grid); }
+@media (max-width: 620px) { .readSplit { grid-template-columns: 1fr; } }
+
+.tline { list-style: none; margin: 0; padding: 0; }
+.tline li { display: grid; grid-template-columns: 130px 1fr; gap: 16px; padding: 14px 0;
+  border-bottom: 1px solid var(--grid); }
+.tline li:last-child { border-bottom: 0; }
+.tline li.big .tlBody h3 { font-size: 17px; }
+.tline li.big { background: color-mix(in srgb, var(--s1) 4%, transparent);
+  border-radius: 10px; padding-left: 12px; padding-right: 12px; }
+@media (max-width: 700px) { .tline li { grid-template-columns: 1fr; gap: 4px; } }
+.tlWhen b { font-size: 12.5px; color: var(--ink2); }
+.tlWhen i { display: block; font-style: normal; font-size: 11px; color: var(--muted); }
+.tlBody p { font-size: 13.5px; margin: 6px 0; }
+
+.agreeGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 900px) { .agreeGrid { grid-template-columns: 1fr; } }
+.agreeN { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.cfGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 900px) { .cfGrid { grid-template-columns: 1fr; } }
+.cfHead { display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
+  margin-bottom: 6px; }
+.cfGrid .card p { font-size: 13px; }
+
+.oddsArc { display: flex; gap: 12px; align-items: flex-end; height: 190px; margin: 6px 0 12px; }
+.oddsCol { flex: 1; display: flex; flex-direction: column; height: 100%; }
+.oddsBarWrap { flex: 1; display: flex; align-items: flex-end; }
+.oddsBar { width: 100%; background: linear-gradient(var(--s1), color-mix(in srgb, var(--s1) 55%,
+  transparent)); border-radius: 6px 6px 0 0; position: relative; min-height: 3px; }
+.oddsBar span { position: absolute; top: -19px; left: 0; right: 0; text-align: center;
+  font-size: 12px; font-weight: 650; color: var(--ink); font-variant-numeric: tabular-nums; }
+.oddsWhen { padding-top: 7px; border-top: 1px solid var(--axis); text-align: center; }
+.oddsWhen b { display: block; font-size: 11.5px; }
+.oddsWhen i { font-style: normal; font-size: 10.5px; color: var(--muted); }
+
+.ixTbl td { font-size: 12.5px; }
+.ixTbl td.num { color: var(--muted); }
+.tbl td.zero { color: var(--muted); opacity: .5; }
+.disclaimer { border-left: 3px solid var(--axis); padding-left: 10px; font-style: italic; }
+.edLbl { font-style: normal; font-size: 9.5px; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--muted); margin-left: 5px; }

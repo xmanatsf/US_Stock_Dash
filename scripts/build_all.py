@@ -22,6 +22,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import build_fab5 as F5   # noqa: E402
+import build_news as NW   # noqa: E402
 import config as C        # noqa: E402
 import loaders as L       # noqa: E402
 import pipeline as P      # noqa: E402
@@ -131,6 +132,21 @@ def main(argv=None) -> int:
         print(f"  FAILED {e}")
         print("  the four universe tabs are unaffected; fab5 is omitted from the nav")
         index["pages"].pop("fab5", None)
+        worst = 1
+
+    # The News page reads no universe payload, but it is built beside fab5 for the same reason:
+    # a page failure must not take the dashboards down. Per page, too -- a broken news build
+    # leaves fab5 on the nav.
+    print("\n=== building news (news intelligence page)")
+    try:
+        doc = NW.build(cfg, built_at)
+        NW.emit(cfg, doc)
+        NW.print_console(doc)
+        index["pages"]["news"] = NW.index_entry(doc)
+    except NW.NewsError as e:
+        print(f"  FAILED {e}")
+        print("  the four universe tabs and fab5 are unaffected; news is omitted from the nav")
+        index["pages"].pop("news", None)
         worst = 1
 
     p = idx_path

@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "builtAt": "2026-09-07T21:12:41",
+ "builtAt": "2026-09-07T21:30:20",
  "universes": {
   "market_internals": {
    "label": "Market Internals",
@@ -46,6 +46,17 @@
    "dir": "insights",
    "file": "fab5.json",
    "sourceDoc": "Fab5_Cross_Source_Synthesis_20260905.md"
+  },
+  "news": {
+   "label": "News Intelligence",
+   "tab": "news",
+   "order": 6,
+   "kind": "insight",
+   "version": "20260905-85e7306",
+   "asOf": "2026-09-05",
+   "dir": "insights",
+   "file": "news.json",
+   "sourceDoc": "narrative_dashboard_2026-08-31_to_09-05.html"
   }
  }
 }

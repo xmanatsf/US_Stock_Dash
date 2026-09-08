@@ -1,0 +1,1033 @@
+{
+ "schemaVersion": 1,
+ "id": "news_20260905",
+ "tab": "news",
+ "label": "News Intelligence",
+ "order": 6,
+ "title": "News Intelligence",
+ "asOf": "2026-09-05",
+ "windowFrom": "2026-08-31",
+ "windowTo": "2026-09-05",
+ "priorBaseline": "2026-08-29",
+ "sourceDoc": "narrative_dashboard_2026-08-31_to_09-05.html",
+ "auditFile": "narrative_dashboard_source_audit.json",
+ "upstreamNote": "Cowork Playground/WSJ/ owns this content: the briefs, the tpl/ section files and the build (sh tpl/assemble.sh, then build_narrative_dashboard.mjs). The HTML sitting in this repo is downstream and gets overwritten there, so this page consumes extracted JSON instead — the authored prose below and the audit file beside it. Editing the local copy of the HTML is orphaned work.",
+ "authoringNote": "The analytical prose on this page is hand-maintained here; every count, every article row and every citation link is generated at build time from narrative_dashboard_source_audit.json. That is the upstream generator's own contract — the template carries every analytical claim, the script carries every number and every link — and it is preserved rather than reinvented. A citation key that matches zero articles, or more than one article title fails the build, because a silently wrong citation is worse than no page. Nothing here is externally verified: where the archive is wrong, this page is wrong in the same way, and where two houses disagree it says so rather than picking.",
+ "publications": [
+  "WSJ",
+  "Bloomberg",
+  "Barron's"
+ ],
+ "masthead": {
+  "kicker": "The week's narrative shifts",
+  "dates": "31 August – 5 September 2026",
+  "headline": "The Fed lost control of the story in four sessions.",
+  "standfirst": "A single speech on 28 August moved September hike odds from 35% to 60%. Within four trading sessions the number went to 70%, back to 50%, and up past 60% again — on no new inflation data. The week's real finding is not the direction but the amplitude: a market repricing policy by that much, that fast, is telling you the reaction function is illegible. Everything else in the archive — AI capital, energy, labour — is now downstream of a rate path nobody can price."
+ },
+ "stats": [
+  {
+   "kicker": "September hike odds",
+   "num": "35 → 70 → 50 → 60%",
+   "lab": "The full round trip, in four sessions, with no CPI print in between. Reported figures from different instruments and snapshot times — an approximate arc, not a continuous series.",
+   "cites": [
+    "Stocks, Bonds Rally",
+    "Fed Rate Decision"
+   ],
+   "grade": "c"
+  },
+  {
+   "kicker": "Data-centre construction",
+   "num": "$75bn",
+   "lab": "Private data-centre spending, annualised, in July — up $51bn since end-2023 while all other private construction fell $120bn. The clearest measure in the archive of AI capital reaching the real economy.",
+   "cites": [
+    "Meh"
+   ],
+   "grade": "a"
+  },
+  {
+   "kicker": "Beat, and sold anyway",
+   "num": "+221% → −5.6%",
+   "lab": "Broadcom's AI chip growth against its share move the same morning. Ciena beat and raised and fell 11%. Expectations, not growth rates, set returns.",
+   "cites": [
+    "Why Nvidia Is the Big Winner",
+    "Ciena Beats"
+   ],
+   "grade": "a"
+  },
+  {
+   "kicker": "Payrolls vs consensus",
+   "num": "162k",
+   "lab": "Against a consensus of 53–58k — beating every estimate. It reversed the week's dovish turn in a single print and left the September decision on CPI.",
+   "cites": [
+    "Fed Rate Decision"
+   ],
+   "grade": "a"
+  }
+ ],
+ "narratives": {
+  "thesis": "Rate risk, not demand risk, is repricing everything — and the reaction function that sets it moved 35 points in four sessions on no new data.",
+  "reads": [
+   {
+    "title": "The whipsaw arrived on schedule",
+    "line": "Hike odds ran 35% → 60% → ~70% → ~50% → 60%+ in four sessions on no new inflation data.",
+    "cites": [
+     "Bond Investors Wary"
+    ]
+   },
+   {
+    "title": "Rate risk, not demand risk, repriced AI",
+    "line": "Broadcom grew AI chip revenue 221% and fell 5.6%; Ciena beat, raised, and fell 11%.",
+    "cites": [
+     "Why Nvidia Is the Big Winner"
+    ]
+   },
+   {
+    "title": "Software beat semis, exactly as charted",
+    "line": "Snowflake rose 17% on 35% growth the same day Broadcom fell on 221%.",
+    "cites": [
+     "Snowflake Stock"
+    ]
+   },
+   {
+    "title": "Nvidia's lending became someone else's filing",
+    "line": "SB Energy's IPO documents show zero data centres operating against a claimed backlog above $400bn.",
+    "cites": [
+     "Perk SoftBank"
+    ]
+   },
+   {
+    "title": "The credit signal escalated past “doubled”",
+    "line": "Oracle's five-year CDS went from ~0.4% of bond value a year ago to more than 2%.",
+    "cites": [
+     "Death of the Safe Haven"
+    ]
+   },
+   {
+    "title": "AI capex showed up in the payroll data",
+    "line": "Goods-producing payrolls grew 0.6% over six months against services' 0.4%, attributed to data-centre construction.",
+    "cites": [
+     "Job Growth in US"
+    ]
+   }
+  ]
+ },
+ "layers": [
+  {
+   "id": "policy",
+   "n": 1,
+   "title": "Policy and rates",
+   "paras": [
+    "The binding variable, and the one nobody can price. Warsh shifted the presumption from hold unless data justifies a move to raise unless data says otherwise — Kohn's formulation. He then declined to give a path, on principle. {{cite:Warsh Makes the Case}}",
+    "Four sessions later Waller said he could support holding, and the odds halved. Then payrolls beat every estimate and they went back up. The archive records no new inflation data in between. {{cite:Stocks, Bonds Rally}} {{cite:Fed Rate Decision}}",
+    "The question is no longer whether the Fed hikes. It is whether a reaction function this illegible can be traded at all."
+   ]
+  },
+  {
+   "id": "aicapital",
+   "n": 2,
+   "title": "AI capital",
+   "paras": [
+    "Demand is not in question anywhere in the archive. What is in question is who carries the financing. Hyperscalers issued $219bn of investment-grade paper this year and are projected to reach 6.3% of the US IG market by end-2027, from 3% at end-2025. {{cite:Death of the Safe Haven}}",
+    "SB Energy is the cleanest specimen: warrants worth ~$5.5bn issued to land OpenAI as a tenant, zero data centres in operation, a claimed backlog above $400bn, and Ohio financing that depends on an Nvidia residual-value guarantee. {{cite:Perk SoftBank}}",
+    "A 60/40 portfolio now owns the same five companies on both sides of the balance sheet."
+   ]
+  },
+  {
+   "id": "realeconomy",
+   "n": 3,
+   "title": "The real economy",
+   "paras": [
+    "This is where the AI trade stops being a market story. Private data-centre construction is running at a $75bn annualised rate, up $51bn since end-2023, while all other private construction fell $120bn. {{cite:Meh}}",
+    "It now shows in labour data: goods-producing payrolls grew 0.6% over six months against services' 0.4%, with manufacturing up 43,000 in three months — attributed to data-centre construction and tax incentives. {{cite:Job Growth in US}}",
+    "AI capex has become a macro variable. A de-rating would remove a primary support for the real economy, not just for equities."
+   ]
+  },
+  {
+   "id": "energy",
+   "n": 4,
+   "title": "Energy and the exit problem",
+   "paras": [
+    "Oil is the input that makes the rate debate unresolvable, and the archive gives no date for its relief. A US blockade has halted Iranian exports since July while Gulf flows recovered to over 40% of prewar volume — yet both sides are described as having no clear exit. {{cite:Time Is No Longer}}",
+    "Positioning and officialdom point opposite ways on the same day: hedge funds took net-bullish Brent to a May high while Bessent described a post-war $40–50 scenario with no timeline attached. {{cite:Hedge Funds Hike}} {{cite:Bessent Sees Oil}}",
+    "A forecast without a date cannot discipline a position with one."
+   ]
+  }
+ ],
+ "figure": {
+  "title": "Four sessions, no new inflation data, a 35-point round trip",
+  "kicker": "Reported odds of a September rate hike · 27 August – 4 September 2026",
+  "points": [
+   {
+    "when": "27 Aug",
+    "sub": "before Jackson Hole",
+    "label": "35%",
+    "pct": 35,
+    "driver": "Baseline, pre-speech",
+    "source": "Barron's, Bloomberg"
+   },
+   {
+    "when": "28–31 Aug",
+    "sub": "after Warsh",
+    "label": "57–60%",
+    "pct": 58,
+    "driver": "Warsh at Jackson Hole",
+    "source": "Barron's, Bloomberg, WSJ"
+   },
+   {
+    "when": "1–3 Sep",
+    "sub": "bond selloff peak",
+    "label": "~70%",
+    "pct": 70,
+    "driver": "Global bond selloff",
+    "source": "WSJ, Bloomberg"
+   },
+   {
+    "when": "3–4 Sep",
+    "sub": "after Waller",
+    "label": "48–50%",
+    "pct": 49,
+    "driver": "Waller opens the door to holding",
+    "source": "WSJ, Barron's, Bloomberg"
+   },
+   {
+    "when": "4 Sep",
+    "sub": "after payrolls",
+    "label": "60%+",
+    "pct": 61,
+    "driver": "August payrolls +162,000",
+    "source": "Bloomberg"
+   }
+  ],
+  "note": "The archive records no CPI or PCE release inside this window — August CPI is dated 11 September. Every move came from speech, positioning and one payroll print. These are article-reported snapshots from different instruments (CME FedWatch, fed funds futures, swaps) at different times of day; Barron's records the Waller move as 48% from 63% where WSJ and Bloomberg record ~50% from ~70%. Treat this as an arc, not a series. {{cite:Stocks, Bonds Rally}} {{cite:Fed Rate Decision}}"
+ },
+ "coverageNote": "Coverage volume, not importance. Each entry carries one editorial primary theme assigned from its title, so a multi-topic story counts once even where it supports several sections above. Repeated coverage is retained rather than de-duplicated — the El Niño story appears in two WSJ briefs and is counted twice. The split by publication is the point: the three houses divide the week rather than duplicate it.",
+ "themeLinks": [
+  {
+   "from": "Rates & policy",
+   "to": "AI capital",
+   "line": "The rate path is now the AI trade's dominant variable: neither the Broadcom nor the Ciena selloff was a demand miss.",
+   "cites": [
+    "Why Nvidia Is the Big Winner"
+   ]
+  },
+  {
+   "from": "AI capital",
+   "to": "Real economy & labour",
+   "line": "Data-centre construction at a $75bn annualised rate is showing up in goods-producing payrolls and a 72-industry manufacturing breadth measure.",
+   "cites": [
+    "Job Growth in US"
+   ]
+  },
+  {
+   "from": "Energy & geopolitics",
+   "to": "Rates & policy",
+   "line": "Oil is the unresolved inflation input; Bessent calls the oil-yield correlation “the highest they've ever had.”",
+   "cites": [
+    "Bessent Sees Oil"
+   ]
+  },
+  {
+   "from": "AI capital",
+   "to": "Markets & portfolios",
+   "line": "Hyperscaler IG issuance heading to 6.3% of the index means a 60/40 portfolio owns the same five names on both sides of the balance sheet.",
+   "cites": [
+    "Death of the Safe Haven"
+   ]
+  },
+  {
+   "from": "Rates & policy",
+   "to": "Markets & portfolios",
+   "line": "The equity-bond correlation has been positive since March and hit a 30-year high in June — bonds hedge least when rate volatility is the shock.",
+   "cites": [
+    "Radiant World"
+   ]
+  }
+ ],
+ "readsNote": "Each read is measured against the 22–29 August briefs, which are read as context but are not counted in this page's totals or index. Warsh's Jackson Hole speech falls on 28 August — the last day of that prior week — so this window is entirely its aftermath, and the prior week made explicit, testable predictions about what would follow.",
+ "reads": [
+  {
+   "n": "One",
+   "title": "The whipsaw arrived on schedule",
+   "claim": "Hike odds ran 35% → 60% → ~70% → ~50% → 60%+ in four sessions on no new inflation data. The move was pure reaction-function uncertainty.",
+   "predicted": "MUFG's Goncalves warned that if tough talk were followed by skipped hikes, markets would recalibrate again — the same whipsaw that followed July. DWS's Catrambone said Warsh had signalled hikes the data may not support.",
+   "outcome": "Both were right within four sessions, and Catrambone reappears in this window making the same argument — that the market may be “doing the Fed's job,” overpricing hikes the Fed won't deliver. {{cite:Bond Investors Wary}}",
+   "verdict": "confirmed",
+   "houses": [
+    "Bloomberg",
+    "WSJ",
+    "Barron's"
+   ]
+  },
+  {
+   "n": "Two",
+   "title": "Rate risk, not demand risk, repriced AI",
+   "claim": "Broadcom grew AI chip revenue 221% to $16.7bn, guided to 236%, and fell 5.6%. Ciena beat, raised, and fell 11% — the worst performer in the S&P 500 that session.",
+   "predicted": "22V's DeBusschere: AI buildout names' sensitivity to the 10-year would “increase meaningfully from here.”",
+   "outcome": "Neither selloff was a demand miss. Broadcom entered at 20.2x forward earnings against Nvidia below 17x; Ciena's rejection was margin trajectory, with ~0.7pp of its expansion a non-recurring tariff refund. {{cite:Why Nvidia Is the Big Winner}} {{cite:Ciena Beats}}",
+   "verdict": "confirmed",
+   "houses": [
+    "Barron's"
+   ]
+  },
+  {
+   "n": "Three",
+   "title": "Software beat semis, exactly as charted",
+   "claim": "Snowflake rose 17% on 35% revenue growth the same day Broadcom fell on 221%. Growth accelerated where the Street modelled deceleration.",
+   "predicted": "Barron's technicals had the rotation already visible: 28 large-cap software names gained more than 20% in a month versus exactly one semiconductor name — Marvell, which then fell 7%.",
+   "outcome": "The cleanest confirmation in the archive. Snowflake raised FY27 product revenue growth to 36% from 31% and margin to 14.5% from 10%. The bear case that halved the stock — agents displacing data platforms — inverted: agents are driving consumption. {{cite:Snowflake Stock}}",
+   "verdict": "confirmed",
+   "houses": [
+    "Barron's"
+   ]
+  },
+  {
+   "n": "Four",
+   "title": "Nvidia's lending became someone else's filing",
+   "claim": "SB Energy's IPO documents show zero data centres operating, 800MW under construction, a claimed backlog above $400bn, and an H1 net loss of $3.2bn driven by warrant-liability swings.",
+   "predicted": "The prior week named the structure from Nvidia's side — a ~$105bn Ohio backstop, ~$50bn invested in frontier labs, and Ninety One's line that “Nvidia is increasingly carrying the working capital of its own customer base.”",
+   "outcome": "This week supplied the counterparty's own disclosure: SB Energy warns it is “substantially dependent” on OpenAI, and that Ohio financing depends significantly on the Nvidia residual-value guarantee. OpenAI separately invested $500m in SB Energy and committed to buy its software. {{cite:Perk SoftBank}}",
+   "verdict": "established",
+   "houses": [
+    "WSJ"
+   ]
+  },
+  {
+   "n": "Five",
+   "title": "The credit signal escalated past “doubled”",
+   "claim": "Oracle's five-year CDS went from ~0.4% of bond value a year ago to more than 2%, and BofA projects five hyperscalers at 6.3% of the US IG market by end-2027.",
+   "predicted": "Barron's cover found CDS costs on Alphabet, Meta and Amazon debt had “roughly doubled since the start of the year” even as spreads stayed tight — “Big Tech is no longer a debt-free juggernaut.”",
+   "outcome": "It went further than doubling, and found a name. Oracle is the crossover case: revenue growth accelerated 12% → 21%, yet the bear case is entirely financial structure — negative free cash flow and ~$260bn of off-balance-sheet commitments, roughly 3x FY2027 capex. {{cite:Death of the Safe Haven}} {{cite:Oracle Stock Could Be}}",
+   "verdict": "escalated",
+   "houses": [
+    "Barron's"
+   ]
+  },
+  {
+   "n": "Six",
+   "title": "AI capex showed up in the payroll data",
+   "claim": "Goods-producing payrolls grew 0.6% over six months against services' 0.4% — the strongest such stretch since 2023 — with a breadth measure across 72 manufacturing industries at a near-four-year high.",
+   "predicted": "The mechanism, asserted but not measured: the IMF's Georgieva called it “a tug of war between the negative supply shock from the Middle East and the positive demand shock from AI,” and ING estimated the buildout at roughly a third of recent US growth.",
+   "outcome": "Citi attributes the manufacturing strength specifically to data-centre construction and OBBBA tax incentives. Read with the $75bn construction figure, the transmission moved from assertion to measurement in one week. {{cite:Job Growth in US}} {{cite:Meh}}",
+   "verdict": "established",
+   "houses": [
+    "Bloomberg",
+    "WSJ"
+   ]
+  },
+  {
+   "n": "Seven",
+   "title": "Both sides of the Iran war ran out of exits",
+   "claim": "The blockade has stopped Iranian Gulf exports since July, and Gulf flows recovered to over 40% of prewar volume — yet neither the blockade nor the strait closure produced concessions.",
+   "predicted": "All mediation tracks — Pakistan, Oman, Qatar — stalled in a single week, with Trump refusing to return to the June Versailles memorandum. Birmingham's Karim: “the old MOU is essentially dead in all aspects.”",
+   "outcome": "WSJ states it plainly: both sides are now without a clear exit. And the US midterm calendar may push Tehran toward escalation rather than compromise — the 1980 hostage-crisis playbook, explicitly invoked. {{cite:Time Is No Longer}}",
+   "verdict": "confirmed",
+   "houses": [
+    "WSJ",
+    "Bloomberg"
+   ]
+  },
+  {
+   "n": "Eight",
+   "title": "The permitting number got a price tag",
+   "claim": "Altman conceded the industry “has done a terrible job” communicating benefits — and disclosed that at least 75 data-centre projects worth ~$130bn were blocked or delayed by local opposition in Q1 alone, approaching the full-year 2025 total.",
+   "predicted": "Only a sentiment number: 75% of Americans oppose a data centre near their home, with “tens of billions” of projects blocked. Barron's cover already recommended already-permitted data-centre owners because a backlash slows new approvals.",
+   "outcome": "A dollar figure and a quarter, from the CEO with the most to lose by conceding it. WSJ adds the politics: a bipartisan populist revolt, and AI labs with no grassroots constituency to answer it. {{cite:Sam Altman Says}} {{cite:How Big Tech Blinded}}",
+   "verdict": "established",
+   "houses": [
+    "Bloomberg",
+    "WSJ"
+   ]
+  }
+ ],
+ "timelineNote": "Dates below are brief filename dates unless a movement is anchored to a named event. Briefs routinely summarise the prior day's stories, so the sequence is the order in which the archive recorded events, not always the order in which they happened. The 28 August entry is the prior week's closing brief, included because the entire window is its aftermath.",
+ "timeline": [
+  {
+   "when": "28 August",
+   "sub": "the pivot",
+   "big": true,
+   "title": "Warsh raises the bar for standing still",
+   "paras": [
+    "In his first Jackson Hole keynote as chairman, Warsh sets a conditional test — the Fed must be confident inflation is moving to target “clearly and at sufficient speed. Otherwise, we have work to do” — and says he would be hard-pressed to call financial conditions restrictive. He discloses his method: a diffusion index across all 199 PCE components, with 58% of items rising more than 3% over twelve months. He gives no path, on principle.",
+    "Hike odds move from 35% to 56–60%. The two-year yield posts its largest single-day gain on a Jackson Hole speech day since 1996, and for the first time since 2022 the S&P 500 closes lower on the day of a chair's Jackson Hole address. Warsh drops the argument he made while seeking the chairmanship — that AI would push prices down enough to permit faster cuts. Kohn's verdict: “the AI fairy didn't show up.”"
+   ],
+   "attribution": "Prior-week baseline · WSJ, Bloomberg, Barron's 28–29 August"
+  },
+  {
+   "when": "31 August",
+   "title": "The military lull breaks",
+   "paras": [
+    "US forces strike two Iranian rocket launchers on Larak Island — the first American action in weeks — after the launchers prepared to fire sea-mine-laden rockets into the Strait of Hormuz. The IRGC retaliates against US bases in Jordan; eight missiles are intercepted. Brent rises 2.4% above $90.",
+    "Read against the prior week, this is not routine escalation. US interceptor inventories in Europe were described as “beyond critical,” Trump had paused strikes in late July amid a munitions debate, and the US had declined to retaliate for earlier attacks on Hormuz shipping. Resuming strikes spends a constrained resource. A credibility gap opens the same day: the US declared the strait cleared of mines the prior week, but allies privately warn it is still likely mined."
+   ],
+   "cites": [
+    "US and Iran Exchange",
+    "Fighting Flares"
+   ]
+  },
+  {
+   "when": "31 August",
+   "title": "Two houses describe the same Venezuela deal differently",
+   "paras": [
+    "Barron's reports a 25-year bilateral project across 17 strategic oilfields targeting more than 1.5m barrels a day. Bloomberg reports a 100-year concession over 17 fields, with the US controlling 55% of effective output and taking the oil at cost. Same fields, same 65 billion barrels, four-fold difference in duration — and the prior week's WSJ reporting put the reserve figure at 90 billion barrels.",
+    "Neither discrepancy is corrected anywhere in the archive."
+   ],
+   "cites": [
+    "Trump Says Venezuelan",
+    "Trump's Venezuela Oil Grab"
+   ]
+  },
+  {
+   "when": "31 August",
+   "title": "The momentum trade comes apart",
+   "paras": [
+    "The S&P 500 Momentum Index is down more than 9% since 1 July against the index's 2.8% gain — on track for its worst quarterly underperformance in 25 years, after a record 44% second-quarter surge. July was the trade's second-worst month in roughly 40 years, behind only April 2009.",
+    "The trigger was not macro: cancer-vaccine news sent heavily shorted biotech flying, with Moderna up about 150% in the month, and 19 August was the worst day for systematic long-short managers in over two years. Speculators now hold some of the largest net-short positions in Nasdaq-100 futures in two decades — a fact that sits awkwardly beside every Magnificent Seven name rising four sessions later."
+   ],
+   "cites": [
+    "Momentum Trade"
+   ]
+  },
+  {
+   "when": "1–3 September",
+   "title": "The bond selloff goes global",
+   "paras": [
+    "The 10-year sets a fresh 2026 high of 4.795% during a G-20 meeting that ends with no consensus statement, then peaks at 4.82% — the highest since October 2023. This is not an American event: Japan's 10-year touches 3% for the first time in 30 years, France's is up 65bp year-to-date and Britain's 67bp.",
+    "Hike odds reach roughly 70%. Mortgage rates hit 6.71%, the highest since July 2025, and the share of pending home sales turns negative year-over-year for the first time since November 2025. Greg Ip supplies the week's most uncomfortable arithmetic: on CBO's rule of thumb, debt rising from 35% to 100% of GDP should have added 1.3 percentage points to yields — yet yields are no higher than in 2006. The fiscal risk premium has not yet been charged."
+   ],
+   "cites": [
+    "G-20 Squabbling",
+    "The Bond Market Issues",
+    "US Mortgage Rates Climb"
+   ]
+  },
+  {
+   "when": "3 September",
+   "title": "Waller halves the odds in one sentence",
+   "paras": [
+    "Fed Governor Waller says he would be inclined to support holding if the next two weeks of inflation data confirm disinflation — while explicitly keeping the hawkish option: “if inflation comes in hot, I would consider a rate hike.” Hike odds collapse from ~70% to a coin flip. The Dow gains 624 points, every Magnificent Seven name rises, and the Roundhill Mag 7 ETF closes just short of a record.",
+    "The rally is fragile by construction: yields fell although everything that drove them up remained in place, and Brent rose 1% to $96 the same session."
+   ],
+   "cites": [
+    "Stocks, Bonds Rally",
+    "Stock Market News for Thursday"
+   ]
+  },
+  {
+   "when": "3 September",
+   "big": true,
+   "title": "The same day splits the AI trade in three",
+   "paras": [
+    "Broadcom reports AI chip revenue up 221% to $16.7bn, guides to 236%, projects $115bn of FY2027 AI chip sales rising to $230bn in 2028 — and falls 5.6%. Ciena beats and raises and falls 11%, the worst performer in the S&P 500. Snowflake beats and raises and rises 17%.",
+    "Barron's draws the conclusion the whole week supports: the sixth most valuable US company posted 221% sales growth and got “one big shrug,” while Snowflake's 35% triggered a 16% pop. Ciena's CEO adds the mechanism — the market treats AI infrastructure as “an amorphous blob,” with fast money moving before investors can separate winners from losers."
+   ],
+   "cites": [
+    "Why Nvidia Is the Big Winner",
+    "Ciena Beats",
+    "Snowflake Stock",
+    "Broadcom and Snowflake"
+   ]
+  },
+  {
+   "when": "3–4 September",
+   "title": "Nvidia buys the open-model commons",
+   "paras": [
+    "Nvidia agrees to acquire Hugging Face for $12.93bn — roughly 80x an estimated $150m of ARR, for 18 million developers and about 3 million shared models. DA Davidson reads it as defensive blocking: had a frontier lab or Google bought it, they could have throttled US open-source AI.",
+    "The competitive context arrives within a day. Moonshot, valued at $50bn and confidentially filed for a Hong Kong IPO, ships open-weight models at near-parity with US closed models for a fraction of the cost. DeepSeek plans to deploy at least 160,000 Huawei Ascend accelerators — for inference, while still training on Nvidia — and Huawei's own constraint turns out to be top-end memory."
+   ],
+   "cites": [
+    "Nvidia's $12.9",
+    "The 33-Year-Old",
+    "DeepSeek Plans"
+   ]
+  },
+  {
+   "when": "4 September",
+   "big": true,
+   "title": "Payrolls beat every estimate and reverse the week",
+   "paras": [
+    "August payrolls rise 162,000 against a consensus of 53–58,000 — above all estimates — with unemployment steady at 4.1%. Hike odds go back above 60%. Trump demands cuts on Truth Social and tells the board to “be patriots” while the market prices a hike.",
+    "The print is stronger than the labour market it describes. The separation rate is at its lowest since the years after the financial crisis, the long-term unemployed are 27% of the total against 21% two years ago, and only 33% of job seekers told Gallup it is a good time to find a quality job. Aggregate job creation improved; mobility did not."
+   ],
+   "cites": [
+    "Fed Rate Decision",
+    "American Workers",
+    "Job Growth in US"
+   ]
+  }
+ ],
+ "agreement": [
+  {
+   "n": 1,
+   "claim": "The September decision turns on CPI, not on jobs",
+   "detail": "Every rates piece in the window lands here, including the ones arguing opposite directions on the outcome. The 11 September print is named repeatedly as the swing factor."
+  },
+  {
+   "n": 2,
+   "claim": "AI demand is not the question; the financing is",
+   "detail": "No article in the archive disputes demand. Every bear argument is about balance sheets, spreads, off-balance-sheet commitments or expectations — not orders."
+  },
+  {
+   "n": 3,
+   "claim": "Oil is the unresolved inflation input",
+   "detail": "WSJ, Bloomberg and Barron's all route the rate debate through crude. Bessent goes further, calling the oil-yield correlation “the highest they've ever had.”"
+  },
+  {
+   "n": 4,
+   "claim": "Expectations, not growth rates, are setting returns",
+   "detail": "Reached independently through three different lenses — Barron's on Broadcom versus Snowflake, Bloomberg on Chinese tech being punished for AI capex, and WSJ on the momentum unwind."
+  },
+  {
+   "n": 5,
+   "claim": "The labour market is low-hire and low-fire",
+   "detail": "The strong payroll print did not change this reading in any brief. Both WSJ pieces and the Bloomberg goods-payroll story describe improved job creation alongside historically low mobility."
+  },
+  {
+   "n": 6,
+   "claim": "Open-weight models are now a competitive fact",
+   "detail": "Nvidia paid ~80x ARR for the open-model hub in the same week Moonshot filed at $50bn and DeepSeek ordered Huawei silicon. No source treats open models as marginal."
+  }
+ ],
+ "conflictsNote": "“House” here means publication. Some entries are genuine disagreements between outlets; others are the same quantity measured at different perimeters or moments, which is a reporting artefact rather than a dispute — each entry says which it is. The page does not silently pick a number.",
+ "conflicts": [
+  {
+   "n": 1,
+   "claim": "The Venezuela concession",
+   "status": "unresolved",
+   "statusLabel": "Unresolved · top item",
+   "sides": [
+    {
+     "house": "Barron's",
+     "position": "25-year bilateral project"
+    },
+    {
+     "house": "Bloomberg",
+     "position": "100-year concession"
+    },
+    {
+     "house": "WSJ, prior week",
+     "position": "90bn barrels, not 65bn"
+    }
+   ],
+   "body": "Barron's reports a 25-year project across 17 strategic oilfields targeting more than 1.5m barrels a day. Bloomberg, twice and in two separate weeks, reports a 100-year concession over the same 17 fields, with the US taking 55% of effective output at cost. And the prior week's WSJ reporting described 17 fields holding roughly 90 billion barrels, where every in-window account says 65 billion.",
+   "adjudication": "This is not a perimeter difference — a 25-year project and a 100-year concession are different instruments, and the reserve figure moved by 25 billion barrels between the talks and the announcement. No source acknowledges the other. Anyone using this deal to model supply should treat all three figures as unverified. What both houses agree on is more useful anyway: eight months after Trump asked for $100bn of commitments, almost every major is still on the sidelines, including his own allies Continental and Hilcorp. {{cite:Trump Says Venezuelan}} {{cite:Trump's Venezuela Oil Grab}} {{cite:Why Big Oil}}"
+  },
+  {
+   "n": 2,
+   "claim": "Will the Fed actually deliver?",
+   "status": "unresolved",
+   "statusLabel": "Unresolvable pre-event",
+   "sides": [
+    {
+     "house": "Market pricing",
+     "position": "60%+ hike"
+    },
+    {
+     "house": "ABN AMRO, Brandywine, DWS",
+     "position": "doubt follow-through"
+    },
+    {
+     "house": "TD Securities",
+     "position": "base case is hold"
+    },
+    {
+     "house": "42 Macro",
+     "position": "hike now, cuts in 2027"
+    }
+   ],
+   "body": "Swaps price a hike as more likely than not, while major bond managers openly doubt the Fed will follow through. Brandywine's Chen: “talk is talk… action speaks louder.” DWS frames the risk precisely — the market may be “doing the Fed's job,” overpricing hikes the Fed won't deliver. BofA's Bhave takes the other side: “talk is cheap” — Warsh must deliver in September or forfeit the credibility he just earned.",
+   "adjudication": "This is the item that dictates expression rather than direction. The prior week's warning from MUFG — that tough talk followed by a skipped hike produces another whipsaw — already came true once inside this window. Whichever side is wrong, the fracture itself is the tradable fact. {{cite:Bond Investors Wary}} {{cite:Bond Traders Buy}}"
+  },
+  {
+   "n": 3,
+   "claim": "Oil: positioning against officialdom",
+   "status": "live",
+   "statusLabel": "Live · different horizons",
+   "sides": [
+    {
+     "house": "Hedge funds",
+     "position": "net-bullish Brent at a May high"
+    },
+    {
+     "house": "Bessent",
+     "position": "$40–50 post-war"
+    }
+   ],
+   "body": "On the same day, in the same publication: hedge funds pushed net-bullish Brent positioning to its highest since May (+37,837 contracts to 261,435), with retail diesel at a record $5.85 a gallon and gasoline positioning the most bullish ever recorded for the time of year — while the Treasury Secretary described a post-war market “very much oversupplied” at $40–50.",
+   "adjudication": "Not a contradiction — a horizon mismatch, and Bloomberg flags it in both pieces. But note the asymmetry: the bullish position has a date and a price; the bearish forecast has neither, and a House Armed Services member describes the military situation as “stalled.” An undated forecast cannot discipline a dated position. {{cite:Hedge Funds Hike}} {{cite:Bessent Sees Oil}}"
+  },
+  {
+   "n": 4,
+   "claim": "Is hyperscaler issuance opportunity or pressure?",
+   "status": "live",
+   "statusLabel": "Live · primary axis",
+   "sides": [
+    {
+     "house": "Jefferies equity",
+     "position": "$26.5tn TAM, 3.7x backlog cover"
+    },
+    {
+     "house": "Fixed-income strategists",
+     "position": "source of real-rate pressure"
+    },
+    {
+     "house": "Ironsides",
+     "position": "an AI slowdown would ease long rates"
+    },
+    {
+     "house": "Apollo",
+     "position": "either outcome rewards 5% yields"
+    }
+   ],
+   "body": "Barron's prints both sides in the same issue and names the asymmetry itself: the equity desk treats hyperscaler issuance as evidence of opportunity, while fixed-income strategists cite the same $219bn of IG paper as the source of real-rate pressure. Ironsides' Knapp goes further — an AI capex slowdown would ease long-maturity real rates and enable a Treasury rally.",
+   "adjudication": "Apollo's Sløk supplies the only frame that survives both: 2027 is an AI-outcome trade, not an inflation trade. Productivity success is “massively deflationary” and pushes rates lower; failure means a ~50% Nasdaq drawdown and a flight into Treasuries, which also pushes long rates lower. Both paths reward locking in ~5% long yields today — the closest thing to a consensus trade anywhere in the archive. {{cite:Death of the Safe Haven}} {{cite:Microsoft, Amazon}}"
+  },
+  {
+   "n": 5,
+   "claim": "Positioning: record shorts, record highs",
+   "status": "live",
+   "statusLabel": "Live",
+   "sides": [
+    {
+     "house": "WSJ",
+     "position": "largest NDX net shorts in two decades"
+    },
+    {
+     "house": "Barron's",
+     "position": "Mag 7 ETF near a record close"
+    }
+   ],
+   "body": "WSJ reports speculators holding some of the largest net-short Nasdaq-100 futures positions in twenty years, after the worst momentum unwind in 25 years. Four sessions later Barron's reports every Magnificent Seven name higher and the Roundhill Mag 7 ETF at $70.58, just short of its $70.94 record close.",
+   "adjudication": "Both are true and the combination is the point. Extreme short positioning beneath an index at record levels is the setup for exactly the kind of one-sentence, 600-point reversal Waller produced. It also means the 3 September rally is weak evidence of conviction — a short-covering move and a re-rating look identical for one session. {{cite:Momentum Trade}} {{cite:Stock Market News for Thursday}}"
+  },
+  {
+   "n": 6,
+   "claim": "Rate-odds instruments",
+   "status": "perimeter",
+   "statusLabel": "Perimeter, not disagreement",
+   "sides": [
+    {
+     "house": "Barron's",
+     "position": "48% from 63% (CME FedWatch)"
+    },
+    {
+     "house": "WSJ / Bloomberg",
+     "position": "~50% from ~70% (futures, swaps)"
+    }
+   ],
+   "body": "The Waller move is reported as a fall from 63% to 48% by Barron's and from about 70% to a coin flip by WSJ and Bloomberg. Different instruments, different snapshot times within one session.",
+   "adjudication": "Label it and move on. The direction and rough magnitude agree; the levels do not, and blending them into a single series would manufacture precision the archive does not support. This is why the figure above is drawn as an arc with a stated caveat rather than a line. {{cite:Stock Market News for Thursday}} {{cite:Stocks, Bonds Rally}}"
+  },
+  {
+   "n": 7,
+   "claim": "What the payroll print means",
+   "status": "live",
+   "statusLabel": "Live",
+   "sides": [
+    {
+     "house": "Bloomberg",
+     "position": "+162k beat all estimates, hawkish"
+    },
+    {
+     "house": "WSJ",
+     "position": "low-hire, low-fire; mobility unchanged"
+    },
+    {
+     "house": "WSJ, pre-print",
+     "position": "weak prints no longer signal recession"
+    }
+   ],
+   "body": "Bloomberg reports the beat as supporting the hawkish camp. WSJ's pre-print piece had argued the regime shift is demographic, not cyclical — aging plus an immigration clampdown cut labour supply, so weak payrolls stop signalling recession. WSJ's post-print piece then documents the lowest separation rate since the years after the financial crisis and nearly two million people out of work for six months or more.",
+   "adjudication": "These reconcile, and the reconciliation is the insight: if labour supply is constrained, a strong payroll number is a supply statement as much as a demand one — which makes it more inflationary, not less, and therefore more hawkish than its usual reading. The same fact that makes weak prints benign makes strong prints dangerous. {{cite:Fed Rate Decision}} {{cite:Meh}} {{cite:American Workers}}"
+  },
+  {
+   "n": 8,
+   "claim": "SK Hynix's lost DRAM share",
+   "status": "closed",
+   "statusLabel": "Closed within one article",
+   "sides": [],
+   "body": "The headline metric shows SK Hynix falling from 29% to 25% of DRAM revenue share while CXMT went from 8% to 10% — and Counterpoint revised up its own prior estimate of Chinese share, meaning the gains were being underestimated in real time.",
+   "adjudication": "Resolves toward the caveat. Barron's notes the loss is partly a deliberate mix shift into HBM, so headline share understates positioning quality. And with DRAM revenue up 57% quarter-on-quarter and NAND up 70%, share is a poor lens on a market growing this fast — every participant can post enormous growth while losing points. The muted price reaction suggests the market already treats Chinese share gains as structural rather than news. {{cite:China Is Grabbing Memory}}"
+  },
+  {
+   "n": 9,
+   "claim": "The Hugging Face price",
+   "status": "closed",
+   "statusLabel": "Closed · rounding",
+   "sides": [
+    {
+     "house": "WSJ",
+     "position": "$12.93bn / ~$13bn"
+    },
+    {
+     "house": "Barron's",
+     "position": "$11.9bn + up to $1.0bn retention"
+    },
+    {
+     "house": "Bloomberg",
+     "position": "~$13bn"
+    }
+   ],
+   "body": "Compatible. Barron's splits the components where the others quote the total, and the exact figure is $12,930,300,000 — reportedly chosen so its first six digits render the Unicode code point for the hugging-face emoji.",
+   "adjudication": "Recorded only so the three figures are not mistaken for a dispute. The real disagreement is about what was bought: Barron's and Bloomberg frame it as a hedge and a distribution play at ~80x ARR; DA Davidson frames it as defensive blocking of the open-source commons. Those are not the same thesis, and the archive does not adjudicate. {{cite:Nvidia's $12.9}} {{cite:The 'Deeply Nerdy'}}"
+  },
+  {
+   "n": 10,
+   "claim": "Is it a war?",
+   "status": "live",
+   "statusLabel": "Live · rhetoric vs market",
+   "sides": [
+    {
+     "house": "Vance",
+     "position": "“wouldn't call it a war”"
+    },
+    {
+     "house": "Trump",
+     "position": "“small potatoes”"
+    },
+    {
+     "house": "Markets",
+     "position": "still pricing escalation"
+    }
+   ],
+   "body": "The Vice President says he would not call it a war and there is “no active shooting”; the President calls it “small potatoes” and says “we're not fighting right now.” The same briefs record 18 US service members dead, more than 3,500 Iranians killed, a Pentagon cost of about $37.5bn as of July, and a request for $67bn more — with strikes on US bases in Jordan, Kuwait and Bahrain inside the window.",
+   "adjudication": "Bloomberg adjudicates this one itself, noting the downplaying contrasts with market signals still pricing meaningful escalation risk. For the purposes of this page the market reading governs: oil positioning, diesel at a record, and the yield path are the observable variables, and none of them behave as though the conflict has ended. {{cite:Vance Says Iran}} {{cite:Trump Calls Iran}}"
+  }
+ ],
+ "conflictsAlsoCarried": "Novartis and Bristol Myers on a shared CAR-T root cause. Oppenheimer suggests Novartis's compression of cell expansion to as little as a day may trigger the immune reaction that killed three patients; Bristol Myers, whose ~5-day platform lets cells stabilise, explicitly disputes a shared root cause. Neither company has released full data. The archive cannot settle it, and the more portable finding is the disclosure asymmetry: the information gap was closed by a sell-side analyst spotting dormant trials in a database, not by either sponsor. {{cite:Drugmakers Halt}}",
+ "signalsNote": "Sized to one week of general-interest coverage rather than to a research cycle: eighteen indicators the archive actually supports, not thirty it would not. Every threshold below is a number, date or condition stated in one of the eight briefs — none is invented to make a row look complete. Where a brief gives no threshold, the trigger is written as the qualitative condition the brief itself names. Status is an editorial reading of this window against the prior week.",
+ "signals": [
+  {
+   "n": 1,
+   "indicator": "September FOMC",
+   "status": "warn",
+   "reading": "Odds ran 35% → 57–60% → ~70% → 48–50% → 60%+ across four sessions with no inflation release in the window. Three officials dissented for a hike in July, plus two non-voters who have since agreed; Waller holds unless inflation is “hot”; Hammack wants to act now. Target range 3.50–3.75%.",
+   "bull": "The Fed holds and explains the reaction function well enough that the curve does not steepen — the failure mode Goldman named as “a July FOMC re-run for the curve”.",
+   "bear": "A hold with no articulated rationale, repeating July, which produced the sharpest steepening since August 2025; or a hike into a market that produced a 20-point odds swing on commentary alone.",
+   "next": "15–16 September. Dated in the briefs"
+  },
+  {
+   "n": 2,
+   "indicator": "August CPI — the decisive print",
+   "status": "warn",
+   "reading": "Named by every rates piece in the window as the swing factor, including by both sides. July core PCE ran 3.7% against a 2% target. Warsh's own disclosed method is a diffusion index across 199 PCE components, with 58% of items rising more than 3% over twelve months.",
+   "bull": "A downside surprise. Waller has said explicitly he would support holding if the next two weeks of inflation data confirm disinflation.",
+   "bear": "An upside surprise. Waller: “if inflation comes in hot, I would consider a rate hike” — and Bloomberg calls CPI the only print “capable of moving the needle”.",
+   "next": "11 September, with PPI the day before"
+  },
+  {
+   "n": 3,
+   "indicator": "Long-end yields — a global event",
+   "status": "bad",
+   "reading": "US 10-year from 4.16% at the start of 2026 to a 4.82% peak, the highest since October 2023; 30-year touched 5.32% mid-August, the highest since 2007. Not American: Japan's 10-year touched 3% for the first time in 30 years, France +65bp YTD and Britain +67bp YTD.",
+   "bull": "The 10-year holds below the 4.795–4.82% band without requiring a dovish Fed surprise; the global leg recedes as JGB and gilt yields stabilise.",
+   "bear": "The 10-year breaks decisively above 4.82%; or the ex-US leg keeps rising, which would confirm the driver is supply and term premium rather than the Fed — the case Barron's makes from contained breakevens.",
+   "next": "Whether the ex-US long end leads or follows from here"
+  },
+  {
+   "n": 4,
+   "indicator": "The uncharged fiscal risk premium",
+   "status": "new",
+   "reading": "The single most asymmetric observation in the archive. On CBO's 2bp-per-1pp-of-GDP rule, debt rising from 35% of GDP in 2006 to 100% now should have added ~1.3pp to yields — yet yields are no higher than in 2006. Barclays' Rajadhyaksha expects the market eventually to demand it. US debt has reached $40tn.",
+   "bull": "The premium stays uncharged while deficits narrow — but note no source in the archive forecasts this, and Bessent's 3% deficit target has been endorsed by neither Trump nor Congress.",
+   "bear": "The market begins charging it. This is a repricing of level, not direction, and would land on top of whatever the Fed does — the deficit is likely to top 6% of GDP.",
+   "next": "Any auction that tails badly. Cited academic work finds even 0.5–1.0pp of AI productivity gains leaves debt/GDP rising in every scenario"
+  },
+  {
+   "n": 5,
+   "indicator": "Housing transmission",
+   "status": "bad",
+   "reading": "30-year mortgage at 6.71%, the highest since July 2025, from 6.5% a year ago and briefly under 6% in February. The share of pending sales turned negative year-over-year in August — the first negative reading since November 2025. Realtor.com: August was “the month where higher mortgage rates really caught up to housing demand”.",
+   "bull": "Pending sales return to positive year-over-year growth; rates retreat from the 6.7% area rather than continuing toward 7%.",
+   "bear": "First American's call proves right and rates move “much closer to 7%”; base effects turn adverse as forecast, since rates were declining a year ago — comparisons “might just get uglier in the coming months”.",
+   "next": "The next pending-sales print, against a deteriorating base"
+  },
+  {
+   "n": 6,
+   "indicator": "Hyperscaler credit concentration",
+   "status": "bad",
+   "reading": "US corporates issued $1.68tn through August, +27% y/y; hyperscalers alone issued $219bn of IG paper, most earmarked for data centres. BofA projects Alphabet, Amazon, Meta, Microsoft and Oracle at 6.3% of the US IG market by end-2027, from 3% at end-2025 — so a 60/40 portfolio double-counts the same five names.",
+   "bull": "Issuance moderates without a demand signal deteriorating; the projected 6.3% share proves an overshoot.",
+   "bear": "The share tracks toward 6.3% on schedule while equity multiples compress — the same names repricing on both sides of the balance sheet at once.",
+   "next": "The pace of IG issuance into year-end. The prior week's baseline: CDS on Alphabet, Meta and Amazon had already roughly doubled since January"
+  },
+  {
+   "n": 7,
+   "indicator": "Oracle — the crossover name",
+   "status": "bad",
+   "reading": "Five-year CDS from ~0.4% of bond value a year ago to more than 2%. Equity down 21% YTD and 31% over twelve months. Yet revenue growth accelerated 12% → 21%, and $183bn of backlog was added since September 2025 against a $138bn total on that date. The bear case is entirely financial structure: negative FCF and ~$260bn of off-balance-sheet data-centre commitments, roughly 3x FY2027 capex.",
+   "bull": "The 10 September print shows the backlog converting without further capex escalation, and CDS retraces from above 2%.",
+   "bear": "CDS widens further while Jefferies' “peak negative sentiment” call is made against a still-deteriorating credit signal — equity and credit disagreeing is the warning, not the reassurance.",
+   "next": "10 September earnings. Watch the credit line, not the multiple"
+  },
+  {
+   "n": 8,
+   "indicator": "AI capex → real economy",
+   "status": "ok",
+   "reading": "The cleanest transmission evidence in the archive. Private data-centre construction at a $75bn annualised rate in July, up $51bn since end-2023, while all other private construction fell $120bn. Goods-producing payrolls +0.6% over six months against services' +0.4%; manufacturing +43,000 over three months, the strongest since late 2022; a breadth measure across 72 manufacturing industries at a near-four-year high, attributed by Citi to data-centre construction and tax incentives.",
+   "bull": "Construction spending and goods payrolls keep diverging from the rest of the economy; the 72-industry breadth measure holds near its high.",
+   "bear": "Data-centre construction spending flattens. Because it is now the marginal driver of US construction, a pause removes a primary support for the real economy, not just for equities — the explicit warning in WSJ's bond-selloff piece.",
+   "next": "Monthly construction spending. Track incremental capacity, not dollars — and note the prior week's ING estimate that the buildout is roughly a third of recent US growth"
+  },
+  {
+   "n": 9,
+   "indicator": "Beat-and-sell regime",
+   "status": "bad",
+   "reading": "Broadcom: AI chips +221% to $16.7bn, guided +236%, FY27 $115bn rising to $230bn FY28 — shares −5.6% at 20.2x forward against Nvidia below 17x. Ciena: beat, raised, −11%, worst in the S&P 500, with ~0.7pp of margin expansion a non-recurring tariff refund. Snowflake: beat, raised, +17%. Cross-market confirmation from China — profits +25.7% y/y, the fastest in five years, yet the CSI 300 fell 9% and the STAR 50 fell 29%.",
+   "bull": "A large-cap AI hardware name beats and the stock rises without needing an accelerating growth rate — evidence the expectations bar has reset rather than kept climbing.",
+   "bear": "The pattern spreads to Nvidia itself, the one name that has so far escaped it; or targets start being cut on beats rather than merely held, which Ciena's $600 → $520 already approaches.",
+   "next": "Ciena's CEO supplies the mechanism: the market treats AI infrastructure as “an amorphous blob,” with algorithms moving before investors separate winners from losers"
+  },
+  {
+   "n": 10,
+   "indicator": "Software over semis",
+   "status": "ok",
+   "reading": "Snowflake +17% on 35% growth the same session Broadcom fell on 221%. FY27 product revenue growth raised to 36% from 31% and margin to 14.5% from 10% — growth and margin revised up together, with 692 net new customers, +32% y/y. The thesis that halved the stock, agents displacing data platforms, inverted: agents are driving platform consumption.",
+   "bull": "Software keeps converting AI into consumption rather than losing to it; the KeyBanc bear case — customers using LLMs to trim warehouse spend — stays theoretical, as it currently is.",
+   "bear": "LLM-driven cost optimisation actually starts, which channel work says it has not; or Snowflake's ~15x forward revenue against the IGV's 7.4x compresses on any deceleration — the valuation leaves no room for error.",
+   "next": "Whether customers begin the cost optimisation they have described but not started"
+  },
+  {
+   "n": 11,
+   "indicator": "Open-weight competition",
+   "status": "new",
+   "reading": "Nvidia paid ~80x ARR ($12.93bn for ~$150m) for the open-model hub — 18m developers, ~3m models. The same week: Moonshot at a $50bn valuation with a confidential Hong Kong filing and Kimi K3 at near-parity for a fraction of the cost; DeepSeek ordering at least 160,000 Huawei Ascend 950DT for a gigawatt-scale site. Kai-Fu Lee argues China wins on “reach” — cheap, high-share, low-monetisation.",
+   "bull": "Open models expand aggregate compute demand faster than they compress model pricing — Huang's explicit thesis, and the reason Nvidia monetises proliferation regardless of which model wins.",
+   "bear": "Open-weight parity compresses frontier pricing before the Anthropic and OpenAI listings; or Nvidia's stewardship erodes Hugging Face's neutrality and developers defect — the GitHub/Microsoft precedent named in the archive.",
+   "next": "Two constraints worth watching: DeepSeek still trains on Nvidia and uses Huawei only for inference, and Huawei's own bottleneck is top-end memory"
+  },
+  {
+   "n": 12,
+   "indicator": "China memory share",
+   "status": "warn",
+   "reading": "CXMT took 10% of DRAM revenue in 2Q26, from 8% and 4% a year earlier — and Counterpoint revised up its own prior estimate from 7%, so the gains are being underestimated in real time. YMTC holds 14% of NAND. Micron gained on both fronts; SK Hynix fell 29% → 25% of DRAM, partly a deliberate HBM mix shift. DRAM revenue +57% q/q, NAND +70% q/q.",
+   "bull": "Share losses keep coinciding with enormous absolute revenue growth — in a market growing this fast, share is a poor lens and every participant can win.",
+   "bear": "Chinese share gains continue to be revised upward after the fact, which is the tell that the trend is being systematically underestimated; or growth decelerates and share starts mattering again.",
+   "next": "The next Counterpoint revision. The muted price reaction suggests the market already treats this as structural"
+  },
+  {
+   "n": 13,
+   "indicator": "AI social licence",
+   "status": "bad",
+   "reading": "Altman conceded the industry “has done a terrible job” and disclosed that at least 75 data-centre projects worth ~$130bn were blocked or delayed by local opposition in Q1 alone — approaching the full-year 2025 total. Pennsylvania is the latest state to restrict construction; rural opposition features in Texas Senate race coverage. The prior week had only a sentiment figure: 75% of Americans oppose one nearby.",
+   "bull": "The blocked-project run rate falls below the Q1 pace; permitting becomes a scarcity premium for already-permitted owners rather than a brake on aggregate buildout.",
+   "bear": "The Q1 pace continues, putting the annual figure far above 2025. WSJ's structural point is the danger: this is a bipartisan revolt, and unlike Uber a decade ago, AI labs have no grassroots constituency to mobilise against it.",
+   "next": "Q2 blocked-project data. Note the second-order effect — permitting scarcity raises the value of already-permitted sites"
+  },
+  {
+   "n": 14,
+   "indicator": "Hormuz flows",
+   "status": "warn",
+   "reading": "A US blockade has stopped all Iranian Gulf exports since July, while the US helped Gulf states move ~5m b/d through Hormuz plus ~2.5m b/d via Gulf of Oman ports — together over 40% of prewar regional flow. Crude stays below $100 partly because China drew down reserves and cut imports. Both sides are described as having no clear exit.",
+   "bull": "Flows keep recovering toward prewar and the risk premium decays; Iran's economic strain — trade down 25–35% — eventually forces terms.",
+   "bear": "The tit-for-tat resumes and reverses the recovery, which ANZ names as the specific risk since the market had priced normalisation. The US midterm calendar may push Tehran toward escalation rather than compromise — the 1980 playbook, explicitly invoked.",
+   "next": "Whether attacks on shipping resume. Measurement caution: the archive carries four different denominators for “prewar flow” across two weeks"
+  },
+  {
+   "n": 15,
+   "indicator": "Oil positioning vs forecast",
+   "status": "warn",
+   "reading": "Net-bullish Brent at its highest since May (+37,837 to 261,435 contracts); US crude net-long the highest since June; gasoline net-long the highest since December and the most bullish ever recorded for the time of year. US retail diesel at a record $5.85/gal. Against that, Bessent's $40–50 post-war call, with no timeline.",
+   "bull": "A negotiated de-escalation, which would validate Bessent and unwind both the positioning and, on his own account, a large part of the yield problem — he calls the oil-yield correlation “the highest they've ever had”.",
+   "bear": "Crowded long positioning unwinds on a headline without the war ending — the worst of both, since the inflation input persists while the trade breaks.",
+   "next": "Diesel is the cleaner read than crude: it has rallied harder, is squeezed by two conflicts at once, and feeds directly into goods inflation"
+  },
+  {
+   "n": 16,
+   "indicator": "Labour mobility",
+   "status": "ok",
+   "reading": "Payrolls +162,000 beat every estimate, yet the separation rate is at its lowest since the years after the financial crisis and hiring is similarly depressed. The long-term unemployed are 27% of the total, up from ~21% two years ago; nearly 2 million have been out of work six months or more; only 33% of job seekers told Gallup it is a good time to find a quality job. Openings per unemployed 1.04, from a 2.0 peak in April 2022.",
+   "bull": "Separations and hires both rise — genuine churn returning rather than a strong headline sitting on a frozen market.",
+   "bear": "Long-term unemployment keeps climbing while headline payrolls look healthy. WSJ's framing is that supply constraints let low hiring hold unemployment steady, which masks deterioration in the headline number.",
+   "next": "The quits and separations series, not the payroll headline"
+  },
+  {
+   "n": 17,
+   "indicator": "Corporate delayering",
+   "status": "new",
+   "reading": "Uber halving “micro-teams” inside a 10% cut of ~3,300 people, ending with 20% fewer managers and a 20% reduction in employees sitting seven or more layers from the CEO. Intel halved layers 12 → 6; Coinbase capped at five; Google cut small-team managers 35% last year; Axon called its ~4:1 ratio “borderline offensive.” VW added 50,000 cuts, ~8% of its workforce. 40% of Gen Z want promotions that do not require managing.",
+   "bull": "Flatter structures show up as margin expansion without a capability loss — the implicit bet, and the reason Grindr's CEO expects it to be permanent as agents absorb coordination work.",
+   "bear": "The talent-pipeline problem bites: small teams were the low-risk training ground for new managers, and few firms have answered what replaces them. Live Data shows middle managers are a rising share of departures and are backfilled more slowly.",
+   "next": "Watch VW specifically: the works council reframed 50,000 as a planning assumption derived from a margin target, not a contractual headcount — a real gap between announced and enforceable"
+  },
+  {
+   "n": 18,
+   "indicator": "Diversification failure",
+   "status": "bad",
+   "reading": "The S&P 500 / Treasury correlation has been positive since March and hit a 30-year high in June — bonds hedge equities least when rate volatility is the shock. AGG returned roughly nothing YTD; TLT −2.36%. Underneath, BDC portfolio overlap has gone from ~10% in 2010 to over 55%, with overlap in nonaccrual exposures rising faster still; Morgan Stanley's BDC shares 85% of borrowers.",
+   "bull": "The equity-bond correlation turns negative again as rate volatility subsides — which requires the September decision to be resolved, not merely passed.",
+   "bear": "Correlation stays positive through a drawdown, so the 60/40 fails exactly when needed; or BDC nonaccrual overlap converts a single default into a simultaneous loss across managers.",
+   "next": "Raymond James' question is the right one: “Does buying multiple BDCs give you the same diversification it did in the past?” Practitioners have already moved — Plaza to 65/22/13 from 70/30"
+  }
+ ],
+ "action": {
+  "headline": "Own the AI that turns capital into capacity; avoid the AI that turns capital into commitments — and take the rate view at the front end, not the long end.",
+  "body": [
+   "The archive is unanimous that AI demand is real and nowhere disputes it. Every bear argument in eight briefs is about financing: $219bn of hyperscaler IG paper heading to 6.3% of the IG market, Oracle's CDS from 0.4% to over 2% against ~$260bn of off-balance-sheet commitments, and SB Energy claiming a $400bn backlog with zero data centres in operation and Ohio financing resting on an Nvidia residual-value guarantee. Set against that, the buildout is now measurable in construction spending and manufacturing payrolls. Capacity is being created and commitments are being written, and the market is no longer paying the same multiple for both.",
+   "The rate leg is the harder call, and the archive contains its own counter-argument. Apollo's Sløk makes the elegant case that either AI outcome — productivity success or a 50% Nasdaq drawdown — pushes long rates lower, so locking in ~5% wins both ways. The reason not to take it is in the same week's reporting: on CBO's own rule the fiscal risk premium should already have added 1.3pp to yields and has not, and hyperscaler supply is set to double as a share of the IG market. Sløk's two paths both assume the term premium stays where it is. That is the assumption this archive most directly undermines."
+  ],
+  "instructions": [
+   {
+    "n": 1,
+    "title": "Measure AI exposure in gigawatts and revenue, not in announced dollars",
+    "body": "The archive supplies the discriminator: a backlog claim from an operator with no operating capacity is not the same asset as data-centre construction showing up in payroll data."
+   },
+   {
+    "n": 2,
+    "title": "Express the rate view at the front end and in volatility",
+    "body": "A 20-point swing in hike odds on commentary alone, with no inflation print, is optionality being handed out cheaply. The long end carries an uncharged fiscal premium plus a doubling of hyperscaler supply."
+   },
+   {
+    "n": 3,
+    "title": "Stop treating the bond sleeve as a hedge until the correlation breaks",
+    "body": "Positive since March, a 30-year high in June. Practitioners in the archive have already moved — Plaza to 65/22/13 from 70/30."
+   }
+  ],
+  "notRecommended": "This is not a reduction of AI exposure, and the archive does not support one. Snowflake accelerated where deceleration was modelled; cloud operating margins have expanded four consecutive quarters despite rising supply-chain costs; backlog covers committed capex roughly 3.7x; and the buildout is now visible in manufacturing employment across 72 industries. The distinction being drawn is within the AI complex, not against it. Cutting gross exposure here would be trading the financing narrative rather than the demand evidence.",
+  "disclaimer": "This section is editorial interpretation, not investment advice. It is a reading of eight local news briefs, not of markets, filings or prices. Nothing here has been verified against a primary source, no position has been tested against data outside this archive, and the probabilities on the scenarios below are the author's judgement rather than anything derived or quoted. The rest of this page is descriptive and is meant to stand on its own if you disagree with everything in this section."
+ },
+ "scenarios": [
+  {
+   "name": "Base case",
+   "pct": 50,
+   "editorial": true,
+   "body": "CPI lands ambiguously and the Fed holds without a clean rationale, repeating the July failure mode. Dispersion inside the AI complex stays violent while the index goes nowhere: capacity-backed names hold, financing-dependent names keep de-rating on good news. Oil stays in the $90s with no negotiated exit.",
+   "trigger": "Goldman's “July FOMC re-run for the curve” — a hold that steepens rather than soothes."
+  },
+  {
+   "name": "Hawkish",
+   "pct": 30,
+   "editorial": true,
+   "body": "August CPI comes in hot, the Fed hikes weeks before the midterms, and the front end reprices hard. Barclays and Société Générale are already at September and December. Housing takes the first hit as mortgage rates move toward 7%; the beat-and-sell regime extends to Nvidia itself.",
+   "trigger": "Waller's own condition — “if inflation comes in hot, I would consider a rate hike.”"
+  },
+  {
+   "name": "Relief",
+   "pct": 20,
+   "editorial": true,
+   "body": "CPI confirms disinflation, the Fed holds with a credible explanation, and oil de-escalates — the one combination that resolves the yield problem at source, on Bessent's own account of the oil-yield correlation. Duration rallies and the AI complex re-rates on rates rather than results.",
+   "trigger": "A downside CPI surprise, which Bloomberg calls the only print “capable of moving the needle.”"
+  }
+ ],
+ "bearCase": {
+  "headline": "The thesis does not break on AI demand. It breaks if the long end reprices before the capacity arrives.",
+  "body": [
+   "The instruction to avoid duration assumes the fiscal premium gets charged gradually. If it is charged suddenly — a failed auction, a debt-ceiling collision, an oil shock that pushes headline inflation past what a hawkish Fed can absorb — then everything reprices at once, and the distinction between capacity-backed and commitment-backed AI stops mattering because both are long-duration assets.",
+   "Rogoff's framing from the prior week is the uncomfortable one: the fiscal position goes unaddressed until a crisis forces it, and he explicitly sizes the current conflict as “a mini shock compared to what could happen.” A doom loop — higher rates raising interest expense, worsening the debt, demanding higher yields — does not respect a portfolio's internal distinctions.",
+   "The second break is simpler and closer. If data-centre construction flattens, the transmission that makes AI a macro variable runs in reverse. It is now the marginal driver of US construction, and the archive says all other private construction has already fallen $120bn. There is nothing underneath it."
+  ],
+  "wouldChange": [
+   "Long-end yields fall while hyperscaler issuance continues. That would say the market absorbs the supply and the fiscal premium is not coming — which would make Sløk's trade right and this reading wrong.",
+   "A financing-dependent AI name refinances tight and oversubscribed. The credit discrimination thesis rests on Oracle's CDS and a projected IG share; one clean print against it would weaken the whole distinction.",
+   "Nvidia beats and rises. The beat-and-sell regime has not yet touched it. If the one name that escapes the pattern keeps escaping, the pattern is about valuation dispersion, not about a changed bar for the sector."
+  ]
+ },
+ "calendar": [
+  {
+   "date": "8 Sep 2026",
+   "when": "Dated",
+   "body": "Canadian retaliatory tariffs take effect, against 50% US tariffs on ~$20bn of Canadian goods that, unlike prior rounds, do not exempt USMCA-compliant goods. Landing on an economy that just posted its fastest quarterly growth in three years."
+  },
+  {
+   "date": "9 Sep 2026",
+   "when": "Dated",
+   "body": "Apple's iPhone event — the first under Ternus, and the September full-scale Siri deployment that the archive calls make-or-break, after Apple abandoned homegrown models to pay Google for Gemini."
+  },
+  {
+   "date": "10 Sep 2026",
+   "when": "Dated",
+   "body": "Oracle earnings. The crossover name where equity sentiment and credit stress meet. Watch the CDS and the off-balance-sheet commitments, not the multiple."
+  },
+  {
+   "date": "10–11 Sep 2026",
+   "when": "Dated",
+   "body": "PPI, then August CPI. Named by every rates piece in the archive as the print that decides September. Waller's stated condition attaches directly to it."
+  },
+  {
+   "date": "15–16 Sep 2026",
+   "when": "Dated",
+   "body": "FOMC. Into a market that moved 20 points on commentary with no data. Three July dissenters, two sympathetic non-voters, and a chairman who has said he will communicate less."
+  },
+  {
+   "date": "18 Sep 2026",
+   "when": "Dated",
+   "body": "Bank of Japan. Swaps price a quarter-point hike plus nearly three more by July, against an average of two per year since 2024. The carry unwind is already cross-asset — BRL, ZAR and MXN each fell more than 1% against the yen in one session."
+  },
+  {
+   "date": "Sep–Oct 2026",
+   "when": "Targeted",
+   "body": "SB Energy's IPO, targeted “as soon as next month” at $5–7bn. The single best test of whether public markets will fund a $400bn backlog held by an operator with no data centres in operation."
+  },
+  {
+   "date": "Nov 2026",
+   "when": "Expiry",
+   "body": "The tariff truce with China expires unless extended, with a 7.5% tariff over excess capacity already queued ahead of the Trump-Xi summit. Same month as the midterms, which the archive repeatedly names as a constraint on both Fed and Iran policy."
+  },
+  {
+   "date": "1H 2027",
+   "when": "Closing",
+   "body": "The Hugging Face acquisition closes. Between now and then, the test is whether Huang's pledge holds — that “Nvidia compute will not be required to build on or deploy through Hugging Face.” The GitHub precedent is the thing to watch."
+  },
+  {
+   "date": "Undated",
+   "when": "Imminent",
+   "body": "Anthropic's IPO. The $15bn revolver — 6x last year's facility — clears a procedural hurdle ahead of filing. Reported annualised revenue above $65bn, roughly seven times its run rate at the end of last year. The highest-information event pending anywhere in this archive."
+  },
+  {
+   "date": "Undated",
+   "when": "Pending",
+   "body": "Moonshot's Hong Kong listing, confidentially filed at a $50bn valuation. It prices open-weight parity directly against the Anthropic and OpenAI listings expected this autumn."
+  },
+  {
+   "date": "2032",
+   "when": "Statutory",
+   "body": "Social Security trust-fund exhaustion, triggering automatic 22% benefit cuts absent legislation — the archive's reminder that the fiscal arithmetic driving the long end has a hard date attached."
+  }
+ ],
+ "evidence": {
+  "a": "Official data and quoted text — the August payroll release (+162,000, 4.1%); the July trade balance ($88.6bn); Freddie Mac's mortgage rate (6.71%); CFTC positioning data; Warsh's and Waller's own words; reported company results for Broadcom, Ciena, Snowflake, Lululemon and Novartis.",
+  "b": "Named, on-record reporting — named analyst estimates and targets (Jefferies, Needham, Piper Sandler, Morgan Stanley, Raymond James, Counterpoint, BofA); disclosed deal terms for Hugging Face, Anthropic's revolver and SB Energy's filing; named officials on Venezuela and Iran.",
+  "c": "Relayed estimates and projections — rate-hike probabilities (different instruments, different moments); Jefferies' $26.5tn TAM; PwC's $31tn by 2050; Nscale's own projections, explicitly labelled illustrative rather than guidance; survey work from KPMG-Melbourne, Checkr, Gallup and Langston.",
+  "d": "Anonymous and single-outlet — no (d)-grade item drives a conclusion here. The Venezuela concession terms rest on official announcements that two houses report incompatibly; the DeepSeek-Huawei order and the Armenia chip-diplomacy account rest on people familiar with the matter; allegations that Blackwell chips were smuggled to Inner Mongolia are noted in the source as unverified and are not used.",
+  "note": "Two items are load-bearing enough to name: the Venezuela concession terms rest on official announcements that two houses report incompatibly and neither corrects, and every rate-probability figure is an article snapshot from a named instrument at an unnamed moment."
+ },
+ "perimeters": [
+  {
+   "figure": "September hike odds",
+   "range": "34–35% pre-speech / 56–60% post-Warsh / ~70% at the selloff peak / 48% (CME FedWatch) against ~50% (futures) after Waller / just above 60% after payrolls. Different instruments and intraday moments — an arc, never a series. A separate “57% by year-end” figure from the prior week is a different horizon entirely."
+  },
+  {
+   "figure": "Venezuela",
+   "range": "25-year project (Barron's) against a 100-year concession (Bloomberg), same 17 fields. Reserves quoted at 65 billion barrels in-window but 90 billion in the prior week's WSJ reporting. The page does not choose."
+  },
+  {
+   "figure": "Hugging Face",
+   "range": "$12.93bn / $12.9bn as $11.9bn plus up to $1.0bn of retention / “roughly $13bn”. Compatible — a components-versus-total split plus rounding. Exact figure $12,930,300,000."
+  },
+  {
+   "figure": "Hormuz flow",
+   "range": "~5m b/d through the strait plus ~2.5m via Gulf of Oman, “over 40% of prewar” (in-window WSJ), against the prior week's ~15 vessels a day (WSJ), 6–8m b/d or “about half prewar” (Bloomberg) and “two-thirds of prewar” (Goldman). Four measures, four denominators."
+  },
+  {
+   "figure": "Spot prices",
+   "range": "Gold $4,686 (30 Aug) → $4,529 → ~$4,477–4,480 (3 Sep). Bitcoin ~$79,000 (WSJ) against ~$81,000 (Bloomberg). Brent ~$90 → $95.52 → ~$96. Different snapshots, not conflicting reports."
+  },
+  {
+   "figure": "Q2 earnings growth",
+   "range": "+53% per-share (WSJ, in-window) against 52% with 97% reported and ~32% year-over-year (Barron's and Bloomberg, prior week). Almost certainly per-share versus aggregate, but no source labels which."
+  }
+ ],
+ "gaps": [
+  "No briefs exist for 1–3 September. Three of the six calendar days in this window have no coverage. The bond selloff that peaked in that gap is reconstructed from 4 September briefs reporting backwards — it is not directly documented. This is a coverage gap, not evidence of a quiet market.",
+  "Brief dates are not publication dates. Briefs routinely summarise the prior day's stories. The index preserves each article's original published text, which frequently disagrees with the filename date it is filed under.",
+  "Repeated coverage is retained, not de-duplicated. The El Niño story appears in two WSJ briefs under the same URL and is counted twice. The total counts article entries, not unique news events.",
+  "Themes are editorial and title-based, one per entry. A story about AI data centres and electricity prices lands in one bucket while supporting three narrative sections. The coverage chart therefore measures the classifier as much as the archive.",
+  "Nothing here is externally verified. Every figure is reproduced or synthesised from the eight local Markdown briefs. Where the archive is wrong, this page is wrong in the same way, and where two houses disagree it says so rather than picking.",
+  "The prior week is read but not counted, and its attribution is weaker than the rest. The 22–29 August briefs supply every “what the prior week expected” claim. They are attributed by publication only, and only the timeline entry for 28 August carries explicit dates. None of them is linked, because only the eight in-window briefs are parsed, so no baseline claim has the one-click provenance every in-window claim has.",
+  "Two threads open at baseline were never closed in this window. Warsh's Jackson Hole remarks on the equilibrium price of AI tokens — with a Fed task force studying it — go unmentioned in all eight briefs. So does Nvidia's pause of its AI Compute Partnership revenue-sharing deals, disclosed the prior week at $36bn of commitments and paused on internal antitrust concern. Both matter more than their coverage suggests."
+ ],
+ "briefNotes": {
+  "2026-08-31": "Opens the window; carries the Jackson Hole aftermath",
+  "2026-09-04": "Reports 1–3 September backwards — the three days with no brief of their own",
+  "2026-09-05": "Closes the window; payrolls and the open-model cluster"
+ }
+}
