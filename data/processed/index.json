@@ -1,13 +1,13 @@
 {
  "schemaVersion": 1,
- "builtAt": "2026-08-16T22:53:11",
+ "builtAt": "2026-09-07T20:53:22",
  "universes": {
   "market_internals": {
    "label": "Market Internals",
    "tab": "market-internals",
    "order": 1,
    "status": "ok",
-   "version": "20260816-b52b7ac",
+   "version": "20260907-064dcc4",
    "dir": "market_internals"
   },
   "semis": {
@@ -15,7 +15,7 @@
    "tab": "semis",
    "order": 2,
    "status": "ok",
-   "version": "20260816-7e03b55",
+   "version": "20260907-9106429",
    "dir": "semis"
   },
   "software": {
@@ -23,7 +23,7 @@
    "tab": "software",
    "order": 3,
    "status": "ok",
-   "version": "20260816-729ca16",
+   "version": "20260907-c0b5632",
    "dir": "software"
   },
   "hw_networking": {
@@ -31,7 +31,7 @@
    "tab": "hw-networking",
    "order": 4,
    "status": "ok",
-   "version": "20260816-aa381de",
+   "version": "20260907-75771a7",
    "dir": "hw_networking"
   }
  },
@@ -41,7 +41,7 @@
    "tab": "fab5",
    "order": 5,
    "kind": "insight",
-   "version": "20260814-4ba788e",
+   "version": "20260814-8b9db69",
    "asOf": "2026-08-14",
    "dir": "insights",
    "file": "fab5.json",

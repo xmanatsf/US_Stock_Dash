@@ -18,6 +18,13 @@ import argparse
 import json
 import os
 import sys
+
+# The score block prints a Greek delta; a Windows console defaults to cp1252 and would
+# raise UnicodeEncodeError there, killing a diagnostic that has nothing wrong with it.
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+except (AttributeError, OSError):
+    pass
 from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
