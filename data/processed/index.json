@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "builtAt": "2026-09-07T20:53:22",
+ "builtAt": "2026-09-07T21:12:41",
  "universes": {
   "market_internals": {
    "label": "Market Internals",
@@ -41,11 +41,11 @@
    "tab": "fab5",
    "order": 5,
    "kind": "insight",
-   "version": "20260814-8b9db69",
-   "asOf": "2026-08-14",
+   "version": "20260906-e8df937",
+   "asOf": "2026-09-06",
    "dir": "insights",
    "file": "fab5.json",
-   "sourceDoc": "Fab5_Cross_Source_Synthesis_20260814.md"
+   "sourceDoc": "Fab5_Cross_Source_Synthesis_20260905.md"
   }
  }
 }

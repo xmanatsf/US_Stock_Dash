@@ -197,6 +197,46 @@ def main() -> int:
                 else:
                     print("  PASS direction filter narrows and restores")
 
+                # 5. the infographic. It renders six bands off arrays that already exist in the
+                # payload, so an empty band means a renamed key silently dropped a whole
+                # category rather than throwing -- which no pageerror check would catch.
+                ig = page.evaluate("""() => ({
+                    bands: document.querySelectorAll('#infographic .ig-band').length,
+                    stats: document.querySelectorAll('#infographic .ig-stat').length,
+                    themes: document.querySelectorAll('#infographic .ig-theme').length,
+                    scens: document.querySelectorAll('#infographic .ig-scen').length,
+                    cal: document.querySelectorAll('#infographic .ig-cal li').length,
+                    sides: document.querySelectorAll('#infographic .ig-side').length,
+                    counts: document.querySelectorAll('#infographic .ig-count').length,
+                    tks: document.querySelectorAll('#infographic .ig-tk').length,
+                })""")
+                print(f"  infographic: {ig}")
+                empty = [k for k, v in ig.items() if not v]
+                if empty:
+                    failures.append(f"{name}: infographic band(s) rendered empty: {empty}")
+                    print(f"  FAIL empty infographic bands: {empty}")
+                elif ig["bands"] != 6:
+                    failures.append(f"{name}: infographic has {ig['bands']} bands, expected 6")
+                    print(f"  FAIL {ig['bands']} bands, expected 6")
+                else:
+                    print("  PASS all six infographic bands rendered content")
+
+                # 6. the signal-board status filter, same contract as the direction filter
+                ck_before = page.eval_on_selector_all(".ckTbl tbody tr", "e => e.length")
+                page.click('.ckFilter[data-st="bad"]')
+                page.wait_for_timeout(200)
+                ck_after = page.eval_on_selector_all(".ckTbl tbody tr", "e => e.length")
+                page.click('.ckFilter[data-st="all"]')
+                page.wait_for_timeout(200)
+                ck_restored = page.eval_on_selector_all(".ckTbl tbody tr", "e => e.length")
+                print(f"  status filter: {ck_before} -> {ck_after} -> {ck_restored}")
+                if not (0 < ck_after < ck_before and ck_restored == ck_before):
+                    failures.append(f"{name}: signal-board status filter is a no-op "
+                                    f"({ck_before} -> {ck_after} -> {ck_restored})")
+                    print("  FAIL status filter did not filter")
+                else:
+                    print("  PASS status filter narrows and restores")
+
             elif name != "index":
                 charts = page.eval_on_selector_all(
                     "[data-chart]", "els => els.map(e => ({id: e.id, svg: !!e.querySelector('svg'),"

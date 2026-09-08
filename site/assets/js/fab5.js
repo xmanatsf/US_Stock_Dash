@@ -20,6 +20,22 @@ import { REGIME_COLORS } from "./regimes.js";
 const GRADE_LABEL = { a: "primary", b: "modeled", c: "channel", d: "social" };
 const DIR_LABEL = { bull: "constructive", bear: "cautionary", neutral: "two-sided" };
 
+/* Signal-board buckets. The label under each is the page's own grouping of the source's verbatim
+ * status word, which is rendered beside it -- so the filter is usable without the bucket ever
+ * being mistaken for something the research house said. */
+const CK_STATUS = {
+  ok:   { label: "confirmed",   cls: "ig-ok" },
+  warn: { label: "in motion",   cls: "ig-warn" },
+  bad:  { label: "moved against", cls: "ig-bad" },
+  new:  { label: "new this run", cls: "ig-new" },
+};
+const VERDICT = {
+  confirmed:    { label: "confirmed",  cls: "ig-ok" },
+  contradicted: { label: "contradicted", cls: "ig-bad" },
+  unresolved:   { label: "unresolved", cls: "ig-warn" },
+  new:          { label: "new",        cls: "ig-new" },
+};
+
 const esc = s => String(s ?? "").replace(/[&<>"]/g,
   c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
@@ -55,10 +71,15 @@ function tickerRefs(tickers, byTicker) {
 
 function renderHeader(doc) {
   document.querySelector("#tabTitle").textContent = doc.title;
+  // The run counts reports, not batches, and the two are different numbers for the same window
+  // (Run 6: 51 reports across 7 houses). Printing one as "sources" invites the wrong one being
+  // quoted, so both the count and its unit come from the content file rather than from here.
+  const scale = doc.reportCount
+    ? `${doc.reportCount} reports across ${doc.sources.length} houses`
+    : `${doc.sources.length} houses`;
   document.querySelector("#tabMeta").textContent =
-    // The synthesis counts 10 source BATCHES across 7 houses (ISI ships 2, TMTB 4). Both numbers
-    // are true and neither alone is; printing one as "sources" invites the wrong one being quoted.
-    `10 source batches across ${doc.sources.length} houses · synthesis as of ${doc.asOf} · ` +
+    `${doc.runLabel ? doc.runLabel + " · " : ""}${scale}` +
+    `${doc.windowLabel ? " · " + doc.windowLabel : ""} · ` +
     `prior baseline ${doc.priorBaseline} · technicals as of ${doc.universeAsOf.join(", ")}`;
 
   document.querySelector("#focus").innerHTML = `
@@ -68,6 +89,159 @@ function renderHeader(doc) {
       <div class="srcRow">${doc.sources.map(s =>
         `<span class="srcPill"><b>${esc(s.house)}</b> ${esc(s.detail)}</span>`).join("")}</div>
     </div>`;
+}
+
+/* The top-of-page infographic.
+ *
+ * Six bands, one per category the page has to summarise, and every one of them reads an array
+ * that already exists in the payload -- the infographic adds no facts of its own. Two kinds of
+ * figure appear here and they are kept visually distinct on purpose:
+ *
+ *   - GENERATED counts (the signal-board buckets, the prior-run verdicts, the direction split)
+ *     come from `doc.infographic`, which build_fab5.py computes. They carry no source chip
+ *     because they are arithmetic over this page's own content.
+ *   - AUTHORED figures (the stat tiles, the scenarios, the calendar) carry their source chips and
+ *     evidence grade, exactly as every other claim on the page does. The build fails on one that
+ *     carries neither.
+ */
+function renderInfographic(doc) {
+  const host = document.querySelector("#infographic");
+  if (!host || doc.schemaVersion < 2) return;
+  const ig = doc.infographic || {};
+  const wc = doc.whatChanged || {};
+
+  const band = (kicker, title, body) =>
+    `<section class="ig-band"><div class="ig-kicker">${esc(kicker)}</div>
+       <h3 class="ig-title">${esc(title)}</h3>${body}</section>`;
+
+  // 1 -- Key themes. The four-layer summaries are already authored but are click-gated behind
+  // #layerNote further down the page, so this is the one place they are visible on arrival.
+  const themes = band("The four-layer read", "Where the argument actually sits", `
+    <div class="ig-themes">${doc.layers.map(l => `
+      <div class="ig-theme">
+        <div class="ig-themeN">Layer ${l.n}</div>
+        <b>${esc(l.title)}</b>
+        <p class="note">${esc(l.summary)}</p>
+      </div>`).join("")}</div>`);
+
+  // 2 -- KPI tiles. Authored, so every one carries its sources and grade.
+  const kpis = band("The numbers that moved", "What this run put on the table", `
+    <div class="ig-stats">${doc.stats.map(s => `
+      <div class="ig-stat">
+        <div class="ig-statKicker">${esc(s.kicker)}</div>
+        <div class="ig-statNum">${esc(s.num)}</div>
+        <p class="note">${esc(s.lab)}</p>
+        <div class="chipRow">${sourceChips(s.sources)}${gradeChip(s.grade)}</div>
+      </div>`).join("")}</div>`);
+
+  // 3 -- Major company developments: the named-scope implications, with the dated catalysts
+  // beside them. Both are authored; the count in the kicker is generated.
+  const named = doc.implications.filter(i => i.scope === "name");
+  const devs = band(
+    `${named.length} named developments · ${doc.calendar.length} dated catalysts`,
+    "Major company developments and what decides them", `
+    <div class="ig-two">
+      <div>
+        <div class="ig-subhead">Names carrying a development this run</div>
+        <div class="ig-tkGrid">${named.map(i => `
+          <a class="ig-tk dir-edge-${esc(i.direction)}" href="#imp-${esc(i.ticker)}"
+             title="${esc(i.line.slice(0, 180))}">
+            <b>${esc(i.ticker)}</b>${gradeChip(i.grade)}
+          </a>`).join("")}</div>
+        <p class="note">Direction is the edge colour; the grade chip is the evidence behind the
+          claim, not a rating. Follow a ticker for the full line and its live technical strip.</p>
+      </div>
+      <div>
+        <div class="ig-subhead">The calendar that decides it</div>
+        <ol class="ig-cal">${doc.calendar.map(c => `
+          <li>
+            <div class="ig-calDate">${esc(c.date)}<span>${esc(c.when || "")}</span></div>
+            <div><p class="note" style="margin:0 0 4px">${esc(c.body)}</p>
+              <div class="chipRow">${sourceChips(c.sources)}${gradeChip(c.grade)}</div></div>
+          </li>`).join("")}</ol>
+      </div>
+    </div>`);
+
+  // 4 -- Competitive dynamics: who is on which side, which is what schemaVersion 2's
+  // house-attributed dispute sides exist to make renderable.
+  const dyn = band(
+    `${doc.disputes.length} live disagreements · ${doc.agreement.length} points of agreement`,
+    "Who is on which side", `
+    <div class="ig-two">
+      <div>
+        <div class="ig-subhead">Disagreement, by house</div>
+        ${doc.disputes.map(d => `
+          <div class="ig-disp">
+            <b>${d.n ? d.n + ". " : ""}${esc(d.claim)}</b>
+            <span class="chip small ig-status">${esc(d.statusLabel || d.status || "")}</span>
+            <div class="ig-sides">${d.sides.map(s => `
+              <span class="ig-side"><b>${esc(s.house)}</b> ${esc(s.position)}</span>`).join("")}</div>
+          </div>`).join("")}
+      </div>
+      <div>
+        <div class="ig-subhead">Where all ${doc.sources.length} houses agree</div>
+        <ol class="ig-agree">${doc.agreement.map(a =>
+          `<li><b>${esc(a.claim)}</b><div class="chipRow">${sourceChips(a.sources)}${
+            gradeChip(a.grade)}</div></li>`).join("")}</ol>
+      </div>
+    </div>`);
+
+  // 5 -- Market implications: the scenario set, probabilities as authored.
+  const near = doc.scenarios.filter(s => s.horizon === "near");
+  const med = doc.scenarios.filter(s => s.horizon === "medium");
+  const scen = (s) => `
+    <div class="ig-scen">
+      <div class="ig-scenHead">
+        <b>${esc(s.name)}</b>
+        ${typeof s.pct === "number" ? `<span class="ig-pct">${s.pct}%</span>` : ""}
+      </div>
+      ${typeof s.pct === "number"
+        ? `<div class="ig-bar"><span style="width:${s.pct}%"></span></div>` : ""}
+      <p class="note">${esc(s.body)}</p>
+      ${(s.triggers || []).length
+        ? `<ul class="ig-trig">${s.triggers.map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+      <div class="chipRow">${sourceChips(s.sources)}${gradeChip(s.grade)}</div>
+    </div>`;
+  const implications = band("Scenarios", "Market implications", `
+    <div class="ig-subhead">Near term · weeks, with named triggers</div>
+    <div class="ig-scens">${near.map(scen).join("")}</div>
+    <div class="ig-subhead" style="margin-top:14px">Medium term · quarters</div>
+    <div class="ig-scens">${med.map(scen).join("")}</div>`);
+
+  // 6 -- Momentum. The delta banner is authored; the two count rows are generated.
+  const countRow = (obj, dict) => `<div class="ig-counts">${
+    Object.entries(obj || {}).filter(([, v]) => v > 0).map(([k, v]) =>
+      `<span class="ig-count ${(dict[k] || {}).cls || ""}"><b>${v}</b>${
+        esc((dict[k] || {}).label || k)}</span>`).join("")}</div>`;
+  const momentum = band(`What changed since ${esc(wc.priorBaseline || doc.priorBaseline)}`,
+    esc(wc.headline || "What changed"), `
+    <p>${esc(wc.body || "")}</p>
+    <div class="ig-subhead">Signal board · ${ig.checklistTotal || doc.checklist.length} indicators
+      <span class="note" style="display:inline">(${ig.addendumCount || 0} revisited in the
+      addendum)</span></div>
+    ${countRow(ig.checklistCounts, CK_STATUS)}
+    <div class="ig-subhead">The nine reads, against what the prior run predicted</div>
+    ${countRow(ig.verdictCounts, VERDICT)}
+    <details class="ig-det"><summary>The ${wc.bullets ? wc.bullets.length : 0} movements
+      in date order</summary>
+      <ol class="ig-moves">${(wc.bullets || []).map(b => `
+        <li>
+          <div class="ig-calDate">${esc(b.when)}${
+            b.addendum ? "<span>addendum</span>" : ""}</div>
+          <div><b>${esc(b.title)}</b><p class="note" style="margin:2px 0 4px">${esc(b.body)}</p>
+            <div class="chipRow">${sourceChips(b.sources)}${gradeChip(b.grade)}</div></div>
+        </li>`).join("")}</ol>
+    </details>
+    ${wc.stanceRefinement
+      ? `<p class="ig-refine"><span class="evLbl">Refinement</span> ${esc(wc.stanceRefinement)}</p>`
+      : ""}`);
+
+  host.innerHTML = `<div class="ig-wrap">${themes}${kpis}${momentum}${dyn}${devs}${implications}
+    <p class="note ig-foot">Counts on this panel — the signal-board buckets, the prior-run
+      verdicts, the named-development and catalyst totals — are generated from the arrays below
+      and carry no source chip, because they are arithmetic over this page's own content. Every
+      other figure here is hand-authored and carries the house that said it and the grade of the
+      evidence. The build fails on a figure that has neither.</p></div>`;
 }
 
 function renderCall(doc) {
@@ -83,6 +257,30 @@ function renderCall(doc) {
         <div class="instrN">${i.n}</div>
         <h3>${esc(i.title)}</h3>
         <p class="note">${esc(i.body)}</p>
+      </div>`).join("")}</div>
+    ${c.notRecommended ? `
+      <div class="card ig-not">
+        <h3>What is not being recommended</h3>
+        <p class="note">${esc(c.notRecommended)}</p>
+      </div>` : ""}
+    ${bearCaseHtml(doc)}`;
+}
+
+/* The bear case is rendered next to the call rather than in a section of its own, because a
+ * recommendation shown without the thing that would break it is half an argument. */
+function bearCaseHtml(doc) {
+  const b = doc.bearCase;
+  if (!b) return "";
+  return `
+    <div class="callout ig-bear" style="--accent:var(--critical)">
+      <div class="calloutHead"><b style="font-size:15px">${esc(b.headline)}</b></div>
+      <p style="margin:10px 0 0">${esc(b.body)}</p>
+    </div>
+    <div class="grid3">${(b.variants || []).map(v => `
+      <div class="card">
+        <h3>${esc(v.title)}</h3>
+        <p class="note">${esc(v.body)}</p>
+        <div class="chipRow">${sourceChips(v.sources)}${gradeChip(v.grade)}</div>
       </div>`).join("")}</div>`;
 }
 
@@ -152,35 +350,70 @@ function renderAgreement(doc) {
         <h3 class="colHead dispute">Disagreement · unresolved</h3>
         ${doc.disputes.map(d => `
           <div class="card disp">
-            <b>${esc(d.claim)}${d.isNew ? ' <span class="chip small newTag">new</span>' : ""}</b>
-            <ul class="sides">${d.sides.map(s => `<li>${esc(s)}</li>`).join("")}</ul>
+            <b>${d.n ? d.n + ". " : ""}${esc(d.claim)}${
+              d.isNew ? ' <span class="chip small newTag">new</span>' : ""}${
+              d.statusLabel ? ` <span class="chip small ig-status">${esc(d.statusLabel)}</span>` : ""}</b>
+            ${/* schemaVersion 2 attributes each side to a house; v1 sides were bare strings. */ ""}
+            <ul class="sides">${d.sides.map(s => typeof s === "string"
+              ? `<li>${esc(s)}</li>`
+              : `<li><b>${esc(s.house)}</b> — ${esc(s.position)}</li>`).join("")}</ul>
             <p class="note"><span class="evLbl">Tiebreaker</span> ${esc(d.tiebreaker)}</p>
             <div class="chipRow">${sourceChips(d.sources)}${gradeChip(d.grade)}</div>
           </div>`).join("")}
+        ${doc.disputesAlsoClosed
+          ? `<div class="card"><h3>Also closed this run</h3>
+               <p class="note">${esc(doc.disputesAlsoClosed)}</p></div>` : ""}
       </div>
     </div>`;
 }
 
 function renderChecklist(doc) {
-  document.querySelector("#checklist").innerHTML = `
-    <h2>Monitoring checklist — new and materially changed items</h2>
-    <p class="note">The synthesis carries 29 standing indicators. These are the ones this batch
-      moved, plus the two it added.</p>
+  const host = document.querySelector("#checklist");
+  const ig = doc.infographic || {};
+  const counts = ig.checklistCounts || {};
+  const n = s => doc.checklist.filter(c => c.status === s).length;
+
+  const draw = (filter) => {
+    const rows = doc.checklist.filter(c => filter === "all" || c.status === filter);
+    host.querySelector("#ckBody").innerHTML = rows.map(c => `
+      <tr>
+        <td class="num">${c.n}${c.addendum ? ' <span class="chip small newTag">add.</span>' : ""}</td>
+        <td><b>${esc(c.indicator)}</b>
+          ${c.statusLabel ? `<div class="ckStatus ${
+            (CK_STATUS[c.status] || {}).cls || ""}">${esc(c.statusLabel)}</div>` : ""}</td>
+        <td class="ckBase">${esc(c.baseline)}</td>
+        <td class="ckBull">${esc(c.bull)}</td>
+        <td class="ckBear">${esc(c.bear)}</td>
+        <td class="ckWhen">${esc(c.checkpoint)}</td>
+      </tr>`).join("");
+    host.querySelectorAll(".ckFilter").forEach(b =>
+      b.classList.toggle("active", b.dataset.st === filter));
+  };
+
+  host.innerHTML = `
+    <h2>Signal board — every standing indicator, with both triggers</h2>
+    <p class="note">${doc.checklist.length} live indicators${
+      doc.indicatorNote ? ` — ${esc(doc.indicatorNote)}` : ""} The status word in each row is the
+      source's own; the filter groups those words into four buckets, which is this page's grouping
+      and not a research house's.</p>
+    <div class="ctlRow">
+      <label>Status</label>
+      <button class="hBtn ckFilter" data-st="all">all <span class="cnt">${
+        doc.checklist.length}</span></button>
+      ${Object.entries(CK_STATUS).map(([k, v]) => `
+        <button class="hBtn ckFilter" data-st="${k}">${esc(v.label)}
+          <span class="cnt">${counts[k] !== undefined ? counts[k] : n(k)}</span></button>`).join("")}
+    </div>
     <div class="tblWrap">
       <table class="tbl ckTbl">
         <thead><tr><th>#</th><th>Indicator</th><th>Where it stands</th>
           <th>Bullish trigger</th><th>Bearish trigger</th><th>Next checkpoint</th></tr></thead>
-        <tbody>${doc.checklist.map(c => `
-          <tr>
-            <td class="num">${c.n}${c.isNew ? ' <span class="chip small newTag">new</span>' : ""}</td>
-            <td><b>${esc(c.indicator)}</b></td>
-            <td class="ckBase">${esc(c.baseline)}</td>
-            <td class="ckBull">${esc(c.bull)}</td>
-            <td class="ckBear">${esc(c.bear)}</td>
-            <td class="ckWhen">${esc(c.checkpoint)}</td>
-          </tr>`).join("")}</tbody>
+        <tbody id="ckBody"></tbody>
       </table>
     </div>`;
+  host.querySelectorAll(".ckFilter").forEach(b =>
+    b.addEventListener("click", () => draw(b.dataset.st)));
+  draw("all");
 }
 
 function strip(live) {
@@ -284,6 +517,18 @@ function renderFooter(doc) {
       <ol class="hier">${doc.evidenceHierarchy.rungs.map(r => `<li>${esc(r)}</li>`).join("")}</ol>
       <p class="note">${esc(doc.evidenceHierarchy.note)}</p>
     </div>
+    ${(doc.perimeters || []).length ? `
+      <details class="card ig-det"><summary><b>Figures quoted at multiple perimeters</b> — scope,
+        not disagreement</summary>
+        <div class="pbGrid">${doc.perimeters.map(p =>
+          `<div class="pbRow"><span class="pbKey">${esc(p.figure)}</span>
+             <span>${esc(p.range)}</span></div>`).join("")}</div>
+      </details>` : ""}
+    ${(doc.gaps || []).length ? `
+      <details class="card ig-det"><summary><b>Known gaps and flags</b> — ${doc.gaps.length} open,
+        carried rather than resolved</summary>
+        <ul class="hier">${doc.gaps.map(g => `<li>${esc(g)}</li>`).join("")}</ul>
+      </details>` : ""}
     <p>${esc(doc.authoringNote)}</p>
     <p class="src">Source: <code>${esc(doc.sourceDoc)}</code> · synthesis ${esc(doc.asOf)} ·
       build ${esc(doc.version)} · technicals joined from
@@ -305,6 +550,7 @@ export async function initFab5() {
   const byTicker = Object.fromEntries(doc.implications.map(i => [i.ticker, i]));
 
   renderHeader(doc);
+  renderInfographic(doc);
   renderCall(doc);
   renderInsights(doc, byTicker);
   renderAgreement(doc);
