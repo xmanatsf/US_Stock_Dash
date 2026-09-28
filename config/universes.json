@@ -32,10 +32,10 @@
           "reason": "Dominion Energy. Column holds a constant 15 for all 1,255 sessions (distinct value count = 1) while the stock trades near $50-60. This is not a price series - the export carries some other metric under this header." },
         { "ticker": "COR",
           "reason": "Cencora. Column runs 0.024 down to 0.0018 across the window while the stock trades near $250-300, and terminal volume collapses to ~64 shares/day. Wrong metric, not a stale price." },
-        { "ticker": "BNY",
-          "reason": "Bank of New York Mellon. Column runs 15.36 down to a pinned 10.2 while the stock trades near $70-100, with terminal volume of ~628 shares/day. Wrong metric. DASHBOARD_PLAYBOOK.md flags BNY as a known bad feed in a prior build." }
+        { "ticker": "CVX",
+          "reason": "Chevron. In the 20260927 export the column holds a constant 27.375 for all 1,255 sessions (distinct value count = 1), with volume pinned at 416,100, while the stock trades near $150-200 - the 20260907 export carried a normal series (97.06 -> 208.60). A broken export column, not a price: re-check on the next vintage and drop this exclusion once it prints a real series again." }
       ],
-      "excludeNote": "Positively identified as wrong-metric columns by magnitude against the mapped company names, not merely suspected. The playbook's documented remedy is to exclude at load time with a written reason rather than let them flow into breadth and the composite. Re-check on every refresh - a corrected file can relocate bad data instead of fixing it.",
+      "excludeNote": "BNY (Bank of New York Mellon) was excluded through the 20260907 vintage as a wrong-metric column (15.36 -> 10.2); the 20260927 export carries a real price series (52.63 -> 150.15, 1,124 distinct values, normal volume), so the exclusion was removed on that refresh. Positively identified as wrong-metric columns by magnitude against the mapped company names, not merely suspected. The playbook's documented remedy is to exclude at load time with a written reason rather than let them flow into breadth and the composite. Re-check on every refresh - a corrected file can relocate bad data instead of fixing it.",
       "benchmarks": ["SPY", "EW basket"],
       "defaultBenchmark": "SPY",
       "bellwethers": ["AAPL", "MSFT", "NVDA", "AMZN", "GOOGL", "META", "JPM", "XOM", "UNH", "AVGO"],

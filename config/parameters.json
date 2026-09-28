@@ -20,10 +20,10 @@
       "rawRows": 1827,
       "afterWeekendDrop": 1305,
       "tradingDays": 1255,
-      "firstDate": "2021-09-07",
-      "lastDate": "2026-09-04",
-      "vintage": "20260907",
-      "vintageNote": "These are the 20260907 export's measured values and must be re-measured on every refresh, not carried forward. The window ROLLS rather than extends - the 20260807/09 vintage was 1,255 days over 2021-08-09..2026-08-07, the 20260816 vintage 1,254 days over 2021-08-17..2026-08-14, and this one is 1,255 days over 2021-09-07..2026-09-04. Both ends move every time. This export was taken on Monday 2026-09-07, which is Labor Day and a market holiday: the grid's last calendar row is Sunday 2026-09-06, so the weekend drop alone removes it and the holiday count is back to 50 (the 20260816 export carried a Monday 2026-08-17 phantom row holding Friday's forward-filled price AND volume, which pushed holidays to 51). Labor Day 2021 rolled off the front of the window too, so firstDate is the session after it. If a future refresh ever shows lastDate equal to the export's own weekend or holiday stamp, a placeholder survived and the build is wrong."
+      "firstDate": "2021-09-27",
+      "lastDate": "2026-09-25",
+      "vintage": "20260927",
+      "vintageNote": "These are the 20260927 export's measured values and must be re-measured on every refresh, not carried forward. The window ROLLS rather than extends - the 20260807/09 vintage was 1,255 days over 2021-08-09..2026-08-07, the 20260816 vintage 1,254 days over 2021-08-17..2026-08-14, the 20260907 vintage 1,255 days over 2021-09-07..2026-09-04, and this one is 1,255 days over 2021-09-27..2026-09-25. Both ends move every time. This export was taken on Sunday 2026-09-27: the grid's last two calendar rows are Saturday 09-26 and Sunday 09-27, so the weekend drop alone removes them, lastDate is Friday 09-25 and the holiday count stays at 50. If a future refresh ever shows lastDate equal to the export's own weekend or holiday stamp, a placeholder survived and the build is wrong."
     },
     "note": "Holiday detection compares each weekday row against the prior SURVIVING row and requires >95% of the universe to repeat on price AND volume. Exact whole-row equality is NOT sufficient - it under-detects badly (software returns 11 holidays instead of 50). Weekend drop must run first."
   },
