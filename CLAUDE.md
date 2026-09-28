@@ -10,7 +10,7 @@ Build a modular, multi-tab, static stock analytics dashboard deployable on GitHu
 4. `US_Semi_Chip_Top_Dashboard.html` — the reference layout/chart suite for **every individual-stock panel** in this project (Tabs 1–4): price + 20/50-dma, relative-to-benchmark price + its own 20/50-dma, MACD, RSI, OBV/volume, 20-day rolling z-score (absolute + relative), benchmark selector, technical-signal summary. Treat this as the canonical per-ticker template — semis, software, and hardware/networking tabs all reuse it identically.
 5. `SP100_Sector_Dashboard.html` — the reference for sector/industry-group rollups: per-group regime classification, breadth, quartile buckets, cross-sectional scatter. Basis for Tab 1's sector/industry-group views.
 6. `Fab5 Market Dashboard 20260906.html` — the reference for the **fab5 page infographic**. Hand-authored, no generator, no data model: read it for its *organisation* (stat tiles, delta banner, layered theme read, per-house attribution, scenario probabilities), not its markup. Its CSS collides with `dashboard.css` on `.chip`, `.call`, `.src` and `.stat`, and `--s1`/`--s2` hold different values in each — see *Page infographics*.
-7. `narrative_dashboard_2026-08-31_to_09-05.html` — the reference for **Tab 6**. This copy is downstream; `Cowork Playground/WSJ/` owns the build and overwrites it. Read the generator (`WSJ/build_narrative_dashboard.mjs`) alongside it: its citation resolution and its pinned-count invariants are the parts worth porting, and its global-regex count checks are the hazard worth knowing about.
+7. `narrative_dashboard_2026-08-31_to_09-05.html` — the reference for the weekly **News** page (Tab 8). This copy is downstream; `Cowork Playground/WSJ/` owns the build and overwrites it. Read the generator (`WSJ/build_narrative_dashboard.mjs`) alongside it: its citation resolution and its pinned-count invariants are the parts worth porting, and its global-regex count checks are the hazard worth knowing about.
 
 ## Current vintage: 20260927 (measured 2026-09-27)
 
@@ -478,8 +478,12 @@ US_Stk_Dash/
     build_semis.py              # Tab 2 build
     build_software.py           # Tab 3 build
     build_hw_networking.py      # Tab 4 build
-    build_fab5.py               # Tab 5 page build  -> data/processed/insights/fab5.json
-    build_news.py               # Tab 6 page build  -> data/processed/insights/news.json
+    build_biotech.py            # Tab 5 build (20260927)
+    build_pharma.py             # Tab 6 build (20260927)
+    build_fab5.py               # fab5 page build  -> data/processed/insights/fab5.json
+    build_news.py               # weekly news page  -> data/processed/insights/news.json
+    build_monthly.py            # monthly news page -> data/processed/insights/monthly.json
+    census_briefs.py            # brief counts for the monthly page -> data/insights/monthly_census_<date>.json
     build_all.py                # runs all four + both pages + validation report; OWNS index.json
     validate_all.py             # validation report only, no build — run this first on a refresh
     tests/                      # test_regression_semis.py, test_cross_tab.py, test_render.py,
@@ -493,6 +497,9 @@ US_Stk_Dash/
       hw-networking.html
       fab5.html
       news.html
+      news-monthly.html
+      biotech.html
+      pharma.html
     assets/
       js/
         charts.js               # shared inline-SVG chart renderer (port of dashboard_template.html's chart()/render(), incl. the bipolar-bar-height fix)
@@ -505,6 +512,7 @@ US_Stk_Dash/
         tabs.js                 # tab navigation, shared horizon control, loading/error states; hosts + render calls only
         fab5.js                 # the fab5 page renderer, incl. renderInfographic()
         news.js                 # the news page renderer, incl. renderInfographic()
+        news-monthly.js         # the monthly news page renderer (claim-kind chips, dated series, heatmap)
       css/
         dashboard.css
     data/                       # copy of data/processed/** — what the browser actually fetches
