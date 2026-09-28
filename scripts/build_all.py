@@ -22,6 +22,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import build_fab5 as F5   # noqa: E402
+import build_monthly as MN  # noqa: E402
 import build_news as NW   # noqa: E402
 import config as C        # noqa: E402
 import loaders as L       # noqa: E402
@@ -147,6 +148,20 @@ def main(argv=None) -> int:
         print(f"  FAILED {e}")
         print("  the four universe tabs and fab5 are unaffected; news is omitted from the nav")
         index["pages"].pop("news", None)
+        worst = 1
+
+    # The monthly News Intelligence page (a sibling of the weekly one, not a replacement): same
+    # non-fatal, per-page rule.
+    print("\n=== building monthly (monthly news intelligence page)")
+    try:
+        doc = MN.build(cfg, built_at)
+        MN.emit(cfg, doc)
+        MN.print_console(doc)
+        index["pages"]["monthly"] = MN.index_entry(doc)
+    except MN.MonthlyError as e:
+        print(f"  FAILED {e}")
+        print("  the universe tabs, fab5 and news are unaffected; monthly is omitted from the nav")
+        index["pages"].pop("monthly", None)
         worst = 1
 
     p = idx_path

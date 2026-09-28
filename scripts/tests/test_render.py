@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 import functools
 import http.server
+import json
 import os
 import socketserver
 import sys
@@ -134,7 +135,7 @@ def main() -> int:
     # They get their own assertions below rather than the chart battery, and the two do not share
     # a shape -- fab5 joins tickers to universe payloads, news generates an index off an audit
     # file -- so each is checked against what it actually claims to do.
-    pages = ["fab5", "news"]
+    pages = ["fab5", "news", "news-monthly"]
     failures = []
     os.makedirs(SHOTS, exist_ok=True)
 
@@ -393,6 +394,70 @@ def main() -> int:
                         .filter(s => !s.hidden).map(s => s.id)""")
                 if sec != ["sec-index"]:
                     failures.append(f"{name}: section nav shows {sec}, expected only sec-index")
+                    print(f"  FAIL section nav: {sec}")
+                else:
+                    print("  PASS section nav shows exactly one section")
+
+            elif name == "news-monthly":
+                # The monthly page renders every section up-front behind a section nav, like the
+                # weekly one. Check against the payload rather than pinned numbers, so a new
+                # month's content file does not need a test edit.
+                with open(os.path.join(SITE, "data", "insights", "monthly.json"),
+                          encoding="utf-8") as f:
+                    mdoc = json.load(f)
+                n_sections = len(mdoc["sections"])
+                n_blocks = sum(len(s["blocks"]) for s in mdoc["sections"])
+                n_claims = sum(1 for s in mdoc["sections"] for b in s["blocks"]
+                               for card in b.get("cards", []) for _ in card.get("claims", []))
+                n_series = sum(1 for s in mdoc["sections"] for b in s["blocks"] if b["type"] == "series")
+                got = page.evaluate("""() => ({
+                    sections: document.querySelectorAll('.ig-msec').length,
+                    blocks: [...document.querySelectorAll('.ig-msec')].reduce((n, s) => n + s.children.length
+                        - (s.querySelector('.ig-msecHead') ? 1 : 0), 0),
+                    cardClaims: document.querySelectorAll('.ig-mcard .ig-mclaim').length,
+                    charts: document.querySelectorAll('svg.ig-mchart').length,
+                    heatN: [...document.querySelectorAll('.ig-mheat thead tr:first-child th')].slice(1)
+                        .map(t => Number(t.textContent)),
+                    kindChips: document.querySelectorAll('.ig-mk').length,
+                    fatal: document.querySelectorAll('.banner.fatal').length,
+                })""")
+                print(f"  rendered: {got['sections']} sections, {got['blocks']} blocks, "
+                      f"{got['cardClaims']} card claims, {got['charts']} series charts, "
+                      f"{got['kindChips']} kind chips")
+                want_n = list(mdoc["generated"]["byDate"].values())
+                ok = (got["sections"] == n_sections and got["blocks"] == n_blocks
+                      and got["cardClaims"] == n_claims and got["charts"] == n_series
+                      and got["heatN"] == want_n and not got["fatal"])
+                if ok:
+                    print("  PASS every section, block, claim and series reached the page; "
+                          "heatmap briefs-per-day matches the census")
+                else:
+                    failures.append(f"{name}: payload vs DOM mismatch -- want sections {n_sections}, "
+                                    f"blocks {n_blocks}, claims {n_claims}, series {n_series}, "
+                                    f"heat {want_n}; got {got}")
+                    print("  FAIL payload vs DOM mismatch")
+
+                # timeline theme filter dims the other stories and restores
+                page.click('#sectionNav .secBtn[data-sec="timeline"]')
+                page.wait_for_timeout(150)
+                rows = page.eval_on_selector_all(".ig-mtlRow", "e => e.length")
+                page.click('.ig-mtlF[data-k="geo"]')
+                page.wait_for_timeout(150)
+                dim = page.eval_on_selector_all(".ig-mtlRow.dim", "e => e.length")
+                page.click('.ig-mtlF[data-k="all"]')
+                page.wait_for_timeout(150)
+                dim_after = page.eval_on_selector_all(".ig-mtlRow.dim", "e => e.length")
+                print(f"  timeline filter: {rows} stories, geo dims {dim}, all restores to {dim_after}")
+                if not (0 < dim < rows and dim_after == 0):
+                    failures.append(f"{name}: timeline filter is a no-op ({rows}/{dim}/{dim_after})")
+                    print("  FAIL timeline filter")
+                else:
+                    print("  PASS timeline filter narrows and restores")
+
+                sec = page.evaluate(
+                    """() => [...document.querySelectorAll('.ig-msec')].filter(s => !s.hidden).map(s => s.id)""")
+                if sec != ["sec-timeline"]:
+                    failures.append(f"{name}: section nav shows {sec}, expected only sec-timeline")
                     print(f"  FAIL section nav: {sec}")
                 else:
                     print("  PASS section nav shows exactly one section")

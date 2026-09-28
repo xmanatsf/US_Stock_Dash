@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>September News Intelligence — US Stock Dashboard</title>
+<link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1 id="tabTitle">September News Intelligence</h1>
+      <div id="tabMeta">loading…</div>
+    </div>
+    <button id="themeBtn" type="button">theme</button>
+  </header>
+
+  <nav class="tabBtns" id="tabNav"></nav>
+
+  <div id="app">
+    <section id="masthead"></section>
+    <section id="legend"></section>
+    <nav class="tabBtns sectionNav" id="sectionNav"></nav>
+    <div id="sections"></div>
+  </div>
+
+  <footer id="footer"></footer>
+</div>
+<script type="module">
+  import { initMonthly } from "../assets/js/news-monthly.js";
+
+  document.querySelector("#themeBtn").onclick = () => {
+    const r = document.documentElement;
+    const cur = r.getAttribute("data-theme") ||
+      (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    r.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
+  };
+
+  initMonthly().catch(e => {
+    document.querySelector("#app").innerHTML =
+      `<div class="banner fatal"><b>Failed to initialise.</b> ${e.message}</div>`;
+    console.error(e);
+  });
+</script>
+</body>
+</html>

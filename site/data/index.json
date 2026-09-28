@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "builtAt": "2026-09-27T21:11:42",
+ "builtAt": "2026-09-27T21:25:53",
  "universes": {
   "market_internals": {
    "label": "Market Internals",
@@ -73,6 +73,17 @@
    "dir": "insights",
    "file": "news.json",
    "sourceDoc": "narrative_dashboard_2026-08-31_to_09-05.html"
+  },
+  "monthly": {
+   "label": "September News Intelligence",
+   "tab": "news-monthly",
+   "order": 7,
+   "kind": "insight",
+   "version": "20260925-cd32251",
+   "asOf": "2026-09-25",
+   "dir": "insights",
+   "file": "monthly.json",
+   "sourceDoc": "September News Intelligence.html"
   }
  }
 }
