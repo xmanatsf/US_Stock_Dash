@@ -45,7 +45,7 @@ HORIZONS = ("near", "medium")
 # Most specific universe wins. A name in both semis and market_internals belongs to semis: the
 # focused tab carries all four z-windows and a peer set that means something, the broad tab
 # carries one z-window and 495 peers.
-RESOLUTION_ORDER = ["semis", "hw_networking", "software", "market_internals"]
+RESOLUTION_ORDER = ["semis", "hw_networking", "software", "biotech", "pharma", "market_internals"]
 
 
 class Fab5Error(Exception):

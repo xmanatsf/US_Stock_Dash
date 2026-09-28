@@ -1,0 +1,2217 @@
+{
+ "schemaVersion": 2,
+ "id": "fab5_20260927",
+ "tab": "fab5",
+ "label": "Fab5 Cross-Source Read",
+ "order": 5,
+ "title": "Fab5 Cross-Source Read",
+ "asOf": "2026-09-27",
+ "priorBaseline": "2026-09-06",
+ "sourceDoc": "Fab5_Cross_Source_Synthesis_20260927.md",
+ "runLabel": "Run 7 · 27 September 2026",
+ "reportCount": 42,
+ "windowLabel": "7 – 27 Sep 2026",
+ "indicatorNote": "30 carried from Run 6, 2 added (#32 compute-rent vs token-price scissor, #33 frontier-lab funding runway), none retired — the row count reconciles 30 − 0 + 2 = 32. Where a Run 6 trigger fired the row carries a fresh trigger pair rather than leaving the old one standing: six fired bear-side, three bull-side, one partially.",
+ "focusQuestion": "Run 6 (5–6 September) said credit had become the binding constraint, told us to own the AI that funds itself and underweight the AI that has to borrow, and to express the view through volatility with long duration as the corroborating hedge — expecting the September macro gate to decide the month. Every macro bear trigger then fired. Did the discrimination pay, did the hedge work, and why did the AI complex make new highs anyway?",
+ "authoringNote": "Hand-authored from the source document, which is prose. Every number below traces to a line in Fab5_Cross_Source_Synthesis_20260927.md (Run 7, 42 reports, 7 – 27 September 2026, underlying notes 28 August – 27 September). Nothing here is computed from price data and nothing is inferred beyond what the document states — the live technical strip on each ticker is the only measured content on this page, and it is joined in at build time from the same pipeline the dashboard tabs use. Where the source grades its own material that grade is carried; grade (a) is used for company filings, the FOMC statement and legislative text, which the document itself grades (a).",
+ "sources": [
+  {
+   "house": "UBS",
+   "detail": "7 reports · batches span older underlying notes (4–24 Sep); desk positioning figures graded (d); three intra-house splits carried"
+  },
+  {
+   "house": "NSR",
+   "detail": "2 reports · the 4-part “Financing the AI Buildout” series and a 46pp Gen AI deep dive; internal open-weight share inconsistency (80% vs 65%) flagged"
+  },
+  {
+   "house": "ISI",
+   "detail": "6 reports · 87 PDFs in total, the richest set again; the Lipacis late-innings webinar and the September memory price series are the run's key new data"
+  },
+  {
+   "house": "MS",
+   "detail": "1 report · 21 notes, 28 Aug – 27 Sep; NVDA “Balance Sheet-as-a-Service” credit note; memory-as-value-capture across five teams"
+  },
+  {
+   "house": "JPM",
+   "detail": "2 reports · 0924 carries only one new PDF (the CRWV upgrade); the rest historical or duplicate"
+  },
+  {
+   "house": "Red-Ring",
+   "detail": "13 reports · 【直接事实】/【渠道信息】/【分析推论】 tagging honoured; 0906 was published after the Run 6 cut-off, not a hole"
+  },
+  {
+   "house": "TMTB",
+   "detail": "11 reports · 11 unique files after hash-dedupe of 14 candidates (three byte-identical copies under Claude outputs/); GS-sourced numbers graded (b)"
+  }
+ ],
+ "gradeScale": {
+  "a": "Official disclosure — company filings and releases (the Akamai–Anthropic 8-K, CoreWeave's 17 September 8-K, Oracle's FQ1 print and 10-Q, TSMC's August revenue), the FOMC statement and SEP, the Senate transceiver bill text, the Texas TCEQ directive.",
+  "b": "Named research and contract data — every named analyst estimate and target, CRWV CDS and the UBS Debt Monitor spreads, the multi-outlet Jupiter <90c sale, the Ornn and Silicon Data indices, TrendForce guides.",
+  "c": "Expert and channel checks, corroborated — buyer-side peak calls (Raspberry Pi, Acer), the Rubin/Kyber rack Q&A, InP delivered prices, the DigiTimes TSMC January price increase.",
+  "d": "Desk colour, screenshots and single unverified claims — all UBS desk positioning figures, Polymarket odds, Nebius price-list screenshots (direction only), Yipit ARR, the rumoured $500 ChatGPT Pro Max.",
+  "note": "Run 7 grades its own material on exactly this ladder and states that no (d)-grade item drives a conclusion. Two series are graded (b/c) in the source and carried as (b) here with that caveat: ISI's September memory price series (a named series whose provenance is not fully specified) and the FT's reporting of the OpenAI plan (a plan, not guidance). Kyber's slip is (b) via UBS and ISI; the rack-expert detail behind it is (c)."
+ },
+ "evidenceHierarchy": {
+  "title": "Credit and the channel before the frameworks — Run 7's sequencing",
+  "note": "For the second run running, credit and physical-channel signals arrived before the research frameworks, the same pattern as Run 6's AVGO CDS in August. Jupiter: Barclays flagged the air-permit and pipeline risk on 9 September, Oracle served force majeure on the 24th, and a lender sold the project debt below 90 cents on the 25th–26th. Kyber: a rack expert said the all-copper NVL144 was out of the 2027 plan on 9 September; UBS dated the slip to 2028 on the 13th and ISI wrote “Rubin/Kyber delays” on the 21st. CoreWeave: CDS widened 259bp to 811bp before UBS initiated at Buy and JPM upgraded. In each case the frameworks followed the price.",
+  "rungs": [
+   "Physical-channel signals — permits, force-majeure notices, rack plans, delay trackers",
+   "Borrower-tier credit — neocloud CDS, project-debt marks, HY data-centre paper",
+   "Guarantor credit — NVDA CDS and the hyperscaler CDS average, which say whether distress is spreading up the chain",
+   "Equity research frameworks and targets, which followed the price in all three cases this run"
+  ]
+ },
+ "call": {
+  "headline": "Own contracted, self-funded scarcity; underweight whatever must be refinanced or re-priced — and hedge with options, not bonds.",
+  "body": "One stance, and a refinement of Run 6 rather than a reversal. Run 6's break condition — IG Tech tightening through 100bp while the tenant spread compresses — did not fire; the opposite happened. CoreWeave went to 811bp against ~88bp for hyperscalers, a ~720bp gap against Run 6's ~250bp watch level, so the discrimination paid. What the run added is a second axis cutting through the same names: whether today's price is contracted or has to be re-struck. CSPs agreed higher 1Q27 DRAM prices while September spot turned negative; B200 rents rose 50% while paid token prices fell 11–62%; seat software is being discounted 30–50% at the largest vendor; neoclouds are priced for scarcity but must refinance at 10–13% with their first 5-year contracts rolling in CY27. In every market value accrues to the side that has locked in the price, the volume or the funding.",
+  "notRecommended": "This is not a call to cut gross AI exposure. Fundamentals strengthened again: aggregate US cloud backlog exceeds 100% of sales, 84% of semis guided above the Street, and the contracted tier of every bottleneck tightened. Cutting exposure would be trading the September tape rather than the evidence. Nor is it a call on the direction of rates — the options hedge exists precisely because the rate path is now a two-sided tail.",
+  "instructions": [
+   {
+    "n": 1,
+    "title": "Own contracted, self-funded scarcity",
+    "body": "NVDA and AVGO — net-cash or low-leverage self-funders with contracted 2027–28 revenue, Lipacis's low-P/E dispersion picks at ~19–20x NTM — with one qualification on NVDA: its credit is now priced for its guarantor role (~$170bn of contingent exposure, CDS +36bp QTD), so NVDA CDS is this leg's early warning. TSMC (N3 above 100% utilisation, 17x/12x 2027/28E against the SOX at 29x/20x). Contracted HBM and server memory through Samsung and SK hynix. The optical laser layer (LITE, COHR): InP sold out, prepaid to 2031, repriced +50–60%. Hold Micron as an exposure sized to its contracted half — it is the name where both clauses of the stance collide."
+   },
+   {
+    "n": 2,
+    "title": "Underweight what must be refinanced or re-priced",
+    "body": "Neoclouds (CRWV, NBIS, IREN, Nscale) — stated honestly, this runs against the majority of equity research this run and is justified only by the credit tape at 811bp; the flip test is the CY27 recontracting price and the direction of CRWV CDS. Lab-dependent, vendor-financed structures, with Oracle the clearest case. The un-contracted memory tier (spot and channel DRAM, consumer NAND) as an exposure, not a ticker list. Seat-priced application software facing agent-era discounting — but not the non-bypassable billing nodes (identity, observability, payment rails, EDA consumption), which belong on the long side."
+   },
+   {
+    "n": 3,
+    "title": "Hedge with options, not duration",
+    "body": "Run 6's long-duration hedge lost money: the 10-year went from ~4.8% to ~5.2% in the window and the stock–bond correlation turned positive at +28–60%. Bond CTAs sit at the 1st percentile and 100% short, so a bond rally from here works as a second long on AI equities, not as insurance. Use index or SOX downside, or payer structures on neocloud credit where available."
+   }
+  ]
+ },
+ "stats": [
+  {
+   "kicker": "CoreWeave 5Y CDS",
+   "num": "811bp",
+   "lab": "+259bp QTD, with June notes from T+530 to ~T+850, against a ~88bp hyperscaler CDS average — a ~720bp tenant gap against Run 6's ~250bp watch level, while the Nasdaq closed at records.",
+   "sources": [
+    "UBS"
+   ],
+   "grade": "b"
+  },
+  {
+   "kicker": "The price scissor",
+   "num": "+50% / −62%",
+   "lab": "B200 GPU rents June → September against OpenAI's average paid token price over the same window (Ornn). Compute is inflating while tokens deflate; value flows to whoever owns scarce, energised, contracted capacity.",
+   "sources": [
+    "Red-Ring",
+    "ISI",
+    "TMTB"
+   ],
+   "grade": "b"
+  },
+  {
+   "kicker": "Monthly DDR contract",
+   "num": "+18–19% → +2–3%",
+   "lab": "August to September (ISI series, graded b/c in the source), with DDR5 spot −1.8% and NAND TLC −5.0% — in the same weeks CSPs agreed a higher 1Q27 DRAM ASP than 4Q26 (BofA). The memory cycle is splitting, not topping.",
+   "sources": [
+    "ISI",
+    "BofA via Red-Ring"
+   ],
+   "grade": "b"
+  },
+  {
+   "kicker": "Warsh Fed's first hike",
+   "num": "3.75–4.00%",
+   "lab": "Unanimous 25bp on 16 September. The 10-year moved to ~5.2% and the 5-year closed above 5% for the first time since 2004; the Chair attributed higher long yields partly to “competition for capital from hyperscaler debt issuance.”",
+   "sources": [
+    "FOMC statement",
+    "ISI",
+    "UBS"
+   ],
+   "grade": "a"
+  },
+  {
+   "kicker": "Reports consumed",
+   "num": "42",
+   "lab": "All seven houses, 7 – 27 September (underlying notes 28 August – 27 September). TMTB is 11 unique files after hash-dedupe of 14 candidates; the Humanoid adjunct is retired as a source after five silent runs.",
+   "sources": [
+    "Fab5 Run 7"
+   ],
+   "grade": "a"
+  },
+  {
+   "kicker": "Live indicators",
+   "num": "32",
+   "lab": "30 carried, 2 added (#32, #33), none retired. Nine triggers fired — six bear-side, three bull-side — one partially, and two rows (#5 leverage, #17 the duration hedge) were contradicted.",
+   "sources": [
+    "Fab5 Run 7"
+   ],
+   "grade": "a"
+  }
+ ],
+ "whatChanged": {
+  "priorBaseline": "2026-09-06",
+  "headline": "Every macro bear trigger fired — and the AI complex made new highs anyway.",
+  "body": "The Fed hiked unanimously with hawkish dots, the 10-year went through 5%, Brent through $100 and diesel set records — yet the Nasdaq-100 closed at a record on 21–22 September and the SOX is up ~79% YTD. The washout had already happened a week earlier and for a different reason: the 14 September “pace the frontier” episode took semis down 5.5% in a day, and within a week the same story was re-priced as “safety is additive compute.” Under that tape sit the run's two real findings: the credit discrimination Run 6 predicted is now visible and wide, and the AI price structure has split into inflating compute rents and deflating tokens.",
+  "stanceRefinement": "The recommendation sharpens rather than reverses. “Contracted” joins “self-funded” as the sorting axis, and the hedge moves from duration to options because the stock–bond correlation turned positive and Run 6's long-duration hedge lost money.",
+  "bullets": [
+   {
+    "when": "6 – 11 Sep",
+    "title": "Oil through $100, the war widens then half-reverses",
+    "body": "Houthi attacks shut part of Saudi Arabia's southern facilities on 8 September; US forces sank five Iranian tankers on the 9th and Brent went through $100. Oil fell 3% on the 11th on a GCC–Iran meeting in Oman — the same day core CPI printed +0.3% m/m against +0.2% expected and US diesel crossed $6 for the first time.",
+    "sources": [
+     "TMTB",
+     "ISI",
+     "Red-Ring"
+    ],
+    "grade": "b"
+   },
+   {
+    "when": "8 – 11 Sep",
+    "title": "Oracle: the cleanest demand proof and the cleanest financing warning",
+    "body": "OCI +121%, RPO $664bn, and 100% of GPU capacity up for renewal renewed or resold at a 20% premium at 97.9% utilisation. But FCF was −$5.4bn, roughly −$16.8bn excluding $11.4bn of customer prepayments, with up to $20bn more FY27 financing under consideration and purchase obligations up 2.6x q/q to $34.2bn.",
+    "sources": [
+     "Company disclosure",
+     "ISI",
+     "JPM",
+     "TMTB"
+    ],
+    "grade": "a"
+   },
+   {
+    "when": "12 – 18 Sep",
+    "title": "“Pace the frontier” — the flush and the six-day reversal",
+    "body": "On 14 September semis fell 5.5%, optical 7%, memory 6% and TMT momentum 6% while yields rose 1–2bp — an intra-equity narrative re-pricing, not macro risk-off. By the 18th NSR's point (~80% of training compute already sits outside pre-training) and Jefferies' bus tour had turned safety into a compute-additive line.",
+    "sources": [
+     "TMTB",
+     "Red-Ring",
+     "NSR",
+     "UBS"
+    ],
+    "grade": "b"
+   },
+   {
+    "when": "16 Sep",
+    "title": "The Warsh Fed's first hike",
+    "body": "+25bp to 3.75–4.00%, unanimous (ISI had forecast a 10–2 split); median dot 4.1% for 2026 and 2027. Warsh named hyperscaler debt issuance as a driver of long yields. The Run 6 rate fracture resolved: GS and ISI's hike readings were right and TMTB's cut odds were the mis-specified side.",
+    "sources": [
+     "FOMC statement",
+     "ISI"
+    ],
+    "grade": "a"
+   },
+   {
+    "when": "17 – 22 Sep",
+    "title": "The credit tape discriminates, the equity tape ignores it",
+    "body": "CoreWeave's 8-K showed ~$40m/MW short-dated contracts and +25% July pricing, and it launched a $3.0bn convertible and a 35m-share ATM the same day. By the 21st its CDS was 811bp (+259bp QTD) while the Nasdaq closed at a record and META rose 11% on Muse. The FT published OpenAI's −$278bn cumulative 2026–30 FCF plan.",
+    "sources": [
+     "Company disclosure",
+     "UBS",
+     "Red-Ring"
+    ],
+    "grade": "b"
+   },
+   {
+    "when": "23 – 27 Sep",
+    "title": "The rates shock, force majeure and the memory turn",
+    "body": "The 5-year closed above 5% for the first time since 2004 and Barr cited the AI investment surge; UBS went Underweight Tech in IG and HY. Oracle served force majeure on Jupiter (24th). Lipacis told ISI's whole client base semis are in the “late innings” (25th). Akamai signed an $11.6bn all-CPU contract with Anthropic, and Texas halted state data-center permits.",
+    "sources": [
+     "UBS",
+     "ISI",
+     "Company disclosure",
+     "TMTB"
+    ],
+    "grade": "b"
+   },
+   {
+    "when": "Sequencing",
+    "title": "Credit and the channel led again",
+    "body": "Jupiter, Kyber and CoreWeave each followed the same order: the physical or credit signal first, the research frameworks days later. Three houses were bullish on CoreWeave's equity (UBS initiated at Buy, JPM upgraded, ISI held Outperform) while its CDS was blowing out.",
+    "sources": [
+     "TMTB",
+     "Red-Ring",
+     "UBS",
+     "ISI"
+    ],
+    "grade": "b"
+   }
+  ]
+ },
+ "layers": [
+  {
+   "id": "fundamentals",
+   "n": 1,
+   "title": "Operational fundamentals",
+   "summary": "Demand intact, the constraint has become deliverability, and the price structure has split. Cloud TTM bookings hit $1.4tn (+191% y/y) and aggregate US cloud backlog now exceeds 100% of sales, up from ~50% last autumn. What binds is converting that demand into energised racks: GPUs are “Balanced” at 30–40 weeks while N3 runs at 106–113% utilisation, InP contract prices rose 50–60%, and UBS's first delay tracker shows 7.0GW of US capacity affected. The most important new fact: compute rents are inflating (B200 +50%) while token prices deflate (OpenAI −62%)."
+  },
+  {
+   "id": "structure",
+   "n": 2,
+   "title": "Market structure",
+   "summary": "A narrative flush did the washout, and the complex re-levered into a rates shock. The 14 September pacing flush cleared positioning a week before the FOMC; post-FOMC selling lasted about 30 minutes; CTAs re-levered from the 13th to the 37th percentile. What makes the regime fragile: bonds no longer hedge (stock–bond correlation +28–60%), hedge-fund tech net leverage is at the 100th percentile, and only 49% of the S&P sits above its 200-day. Multiples are being cut while earnings rise — now written into the models."
+  },
+  {
+   "id": "financing",
+   "n": 3,
+   "title": "Financing and credit",
+   "summary": "Discrimination is confirmed, the borrower tier is priced as distressed, and the guarantor is now visible. CoreWeave CDS 811bp against a ~88bp hyperscaler average; Jupiter project debt sold below 90 cents; QTS −84bp against ZENARC +138bp. MS moved NVDA credit to Neutral on ~$170bn of off-balance-sheet exposure while keeping the equity at OW — “the same facts carry opposite signs by asset class.” Run 6's observable precursor fired, one rung down: at the neocloud tier rather than in IG Tech."
+  },
+  {
+   "id": "macro",
+   "n": 4,
+   "title": "Macro and policy",
+   "summary": "The gate resolved hawkish, and AI entered the Fed's reaction function by name. A unanimous hike, the 5-year above 5% for the first time since 2004, Brent +97.5% YTD, and refined products — not crude — as the binding inflation channel. Warsh and Barr both named AI financing and investment. UBS spells out the loop: hyperscaler capex adds to inflation, keeping the Fed hiking and term premium high, which raises the funding cost of the same capex. The policy surface also widened: Texas froze permits, a transceiver bill named InnoLight and Eoptolink, and the US–China truce was extended only to 10 January."
+  }
+ ],
+ "insights": [
+  {
+   "id": "price-scissor",
+   "layer": "fundamentals",
+   "headline": "The AI price structure has split — compute rents inflate, tokens deflate",
+   "claim": "Value is flowing to whoever owns scarce, energised, contracted capacity and being squeezed out of the model layer and out of anything that must be refinanced.",
+   "evidence": "Ornn, June → September: B200 rents +50%, H200 +28%, and the B200 settlement index at $7.77/GPU-hr on 22 September. CoreWeave July prices +25% across SKUs with short-dated capacity at ~$40m/MW, about three times long-term rates. Against that, OpenAI's average paid token price fell 62%, DeepSeek 51%, Google 29% and Anthropic 11%; GPT-6 list prices −50% and Opus 5.5 ~−40% per workload. It explains the vertical-integration moves — Anthropic's 1GW Stream lease talks, the Akamai CPU contract, OpenAI's 8GW SB Energy lease. The counterweight: DeepSeek raised prices 2.3–4.5x without losing customers, so price cuts are a competitive choice rather than a cost floor.",
+   "sources": [
+    "Red-Ring",
+    "ISI",
+    "TMTB",
+    "JPM"
+   ],
+   "grade": "b",
+   "direction": "neutral",
+   "tickers": [
+    "CRWV",
+    "NBIS",
+    "AKAM",
+    "NVDA"
+   ],
+   "priorRun": {
+    "predicted": "Not tracked — Run 6 carried GPU rents (#6) and enterprise token economics (#11) as separate rows and had no view on the spread between them.",
+    "outcome": "Added as indicator #32. The spread, not either level, now decides who captures value.",
+    "verdict": "new"
+   }
+  },
+  {
+   "id": "discrimination-confirmed",
+   "layer": "financing",
+   "headline": "Credit discrimination is confirmed — the borrower tier is priced as distressed",
+   "claim": "The credit market charges by tenant quality, project stage and permitting, and the gap is now wide. Credit is not confirming a solvency problem in the AI winners; it is pricing distress in the borrower tier.",
+   "evidence": "CoreWeave 5Y CDS 811bp, +259bp QTD, notes T+530 → ~T+850, against a hyperscaler average of ~88bp (MSFT 44bp; ORCL 189bp the widest IG name). Jupiter project debt sold below 90 cents. QTS (IG, Blackstone) −84bp against ZENARC (HY) +138bp on a permit denial. US HY CCC at 923bp, the 100th percentile for 2026. Financing is constrained by price, not capacity: US IG tech issuance $321bn YTD against $113bn a year ago, books 3–5x covered.",
+   "sources": [
+    "UBS",
+    "TMTB",
+    "Red-Ring"
+   ],
+   "grade": "b",
+   "direction": "bear",
+   "tickers": [
+    "CRWV",
+    "ORCL",
+    "NBIS"
+   ],
+   "priorRun": {
+    "predicted": "“The observable precursor is not a bankruptcy — it is spread widening in IG Tech while equities are still making highs.” Break condition: IG Tech tightening through 100bp while the tenant spread compresses.",
+    "outcome": "The break condition did not fire; the opposite happened. The divergence appeared one rung down — CoreWeave's CDS out 259bp in the quarter while the Nasdaq closed at records — a ~720bp tenant gap against the ~250bp watch level. IG Tech OAS itself had no print in this batch.",
+    "verdict": "confirmed"
+   }
+  },
+  {
+   "id": "equity-vs-credit",
+   "layer": "financing",
+   "headline": "Equity research went long the name credit priced as distressed",
+   "claim": "Four equity houses turned or stayed bullish on neocloud scarcity pricing in the same week CoreWeave's CDS blew out. The upgrades are a bet that short-dated price inflation outruns the cost of the debt that funds it.",
+   "evidence": "UBS initiated CRWV at Buy $120, JPM upgraded to OW $125, ISI held OP $150, BNP upgraded NBIS to Outperform $399 (“The Price of Scarcity”); Rothschild initiated Sell on both and Bernstein holds Underperform $74. JPM's own model has CRWV FY28 net interest of $7.84bn against adjusted EBIT of $8.79bn and net debt rising to $115bn; ISI puts take-or-pay project ROIC at ~8–10%, close to a high-yield cost of debt. The equity case rests on years 7–10 of GPU life and CY27 recontracting at spot premia; credit prices recontracting into a world where token prices have halved.",
+   "sources": [
+    "UBS",
+    "JPM",
+    "ISI",
+    "Red-Ring"
+   ],
+   "grade": "b",
+   "direction": "bear",
+   "tickers": [
+    "CRWV",
+    "NBIS"
+   ],
+   "priorRun": {
+    "predicted": "Neoclouds are “the AI that has to borrow” — underweight the balance-sheet-dependent tail.",
+    "outcome": "Not contradicted by the upgrades, but the stance now runs against the majority of equity research on the name and is justified only by the credit tape. Logged as a new two-asset-class dispute (⑩).",
+    "verdict": "new"
+   }
+  },
+  {
+   "id": "guarantor-visible",
+   "layer": "financing",
+   "headline": "The guarantor is now visible in NVIDIA's own credit",
+   "claim": "Vendor financing is quantified on both sides, and the credit market is treating NVIDIA's guarantees as real exposure even though the equity multiple does not show it.",
+   "evidence": "MS models ~$200bn of NVIDIA all-in credit exposure by end-CY28, ~$170bn of it off funded debt (~$40bn lease adjustments, ~$65bn residual-value support, ~$65bn revenue-share floors, including a $2.12/hr GPU backstop floor), moved NVDA credit to Neutral while keeping the equity at OW, and notes DSO up from 45 to 60 days. NVDA 5Y CDS +36bp QTD. NSR counts >$1.4tn of NVIDIA- and Broadcom-architected facilities and ~$300bn of NVIDIA backstops against ~$260bn of annualised EBITDA. NVIDIA equity still trades at ~19x NTM.",
+   "sources": [
+    "MS",
+    "NSR",
+    "ISI"
+   ],
+   "grade": "b",
+   "direction": "bear",
+   "tickers": [
+    "NVDA",
+    "AVGO",
+    "ORCL"
+   ],
+   "priorRun": {
+    "predicted": "The market did not reprice NVIDIA's 52% cut to the OpenAI Ohio backstop — the cleanest live test, because the market was visibly not watching.",
+    "outcome": "Partially priced — through credit rather than equity. NVDA CDS +36bp QTD, a Neutral credit rating from MS, and the FT naming NVIDIA and Oracle as dependent on OpenAI's financing; the equity multiple still does not show it.",
+    "verdict": "unresolved"
+   }
+  },
+  {
+   "id": "narrative-flush",
+   "layer": "structure",
+   "headline": "A narrative flush did the washout — before the macro gate could",
+   "claim": "Run 6 expected the macro gate to decide September. It did decide it, hawkishly, but by then the market had already de-grossed on a different story, and the complex was rebuilding exposure when the 5-year went through 5%.",
+   "evidence": "The 14 September pacing flush took semis −5.5%, optical −7%, neoclouds −7% and TMT momentum −6% with yields rising 1–2bp — a positioning event, not risk-off. UBS and Bernstein said no capex plan had changed. By 18 September safety had been re-priced as compute-additive; Ross later wrote that “Amodei marked the low day for Semis/AI.” Post-FOMC a −$62bn excess-sell burst lasted about 30 minutes; CTAs re-levered from the 13th to the 37th percentile.",
+   "sources": [
+    "TMTB",
+    "Red-Ring",
+    "UBS",
+    "NSR",
+    "ISI"
+   ],
+   "grade": "b",
+   "direction": "bull",
+   "tickers": [
+    "NVDA",
+    "AVGO",
+    "ANET",
+    "ALAB"
+   ],
+   "priorRun": {
+    "predicted": "The September FOMC — one speech, four readings across three houses — would be the single largest source of near-term volatility and decide the month.",
+    "outcome": "The macro gate fired hawkishly, but the washout came a week earlier from the pacing narrative, and the tape made new highs through the macro triggers.",
+    "verdict": "contradicted"
+   }
+  },
+  {
+   "id": "duration-hedge-failed",
+   "layer": "structure",
+   "headline": "Bonds stopped hedging — the long-duration hedge lost money",
+   "claim": "With the stock–bond correlation positive and bond CTAs max short, a bond rally now works as a second long on AI equities rather than as insurance. The hedge has to be optionality.",
+   "evidence": "The 10-year went from ~4.8% to ~5.2% in the window; the stock–bond correlation is +28–60% (UBS desk). Bond CTAs sit at the 1st percentile over five years and 100% short USTs, LQD and HYG. ISI's CIO breakfast was unanimous that fixed income no longer hedges equities. A rally to a 4.80% 10-year would trigger short-covering that lifts equities too.",
+   "sources": [
+    "UBS",
+    "ISI"
+   ],
+   "grade": "b",
+   "direction": "bear",
+   "tickers": [],
+   "priorRun": {
+    "predicted": "Long duration is the corroborating hedge — bond CTAs at −1.00 with +$223bn of DV01-equivalent buying on a −52bp rally, so risk-off gets double amplification.",
+    "outcome": "Yields rose ~40bp through the window and the correlation turned positive; the hedge lost money. Indicator #17 marked Contradicted.",
+    "verdict": "contradicted"
+   }
+  },
+  {
+   "id": "multiples-in-models",
+   "layer": "structure",
+   "headline": "Earnings up, multiples down — now written into the models",
+   "claim": "Run 6's “targets cut on beats” regime generalised from semis to the whole AI complex, and rates rather than unit pricing are now the input most likely to move memory targets next.",
+   "evidence": "UBS held Micron at $1,625 while C2029 EPS rose from $165 to $219, cutting the multiple from 11x to 8x on a 5.00% 10-year in the cost of equity. MS cut AMAT from $642 to $563 and CAMT from $165 to $152 while raising EPS on both. Stifel upgraded MSFT while cutting FY28; Wells' +24% META target is all multiple; the KOSPI target was cut from 8,800 to 8,000 on rising EPS. 84% of semis guided above the Street, against 97% a quarter ago.",
+   "sources": [
+    "UBS",
+    "MS",
+    "ISI",
+    "TMTB"
+   ],
+   "grade": "b",
+   "direction": "bear",
+   "tickers": [
+    "MU",
+    "AMAT",
+    "CAMT",
+    "MSFT",
+    "META"
+   ],
+   "priorRun": {
+    "predicted": "Target prices are a corrupted signal — beat-and-raise with the target held or cut is the default expectation; read the EPS revision and the horizon, never the headline PT.",
+    "outcome": "Escalated and broadened: the multiple compression is now an explicit model input (a 5% 10-year in the cost of equity), across memory, semicap, software and platforms.",
+    "verdict": "confirmed"
+   }
+  },
+  {
+   "id": "memory-split",
+   "layer": "fundamentals",
+   "headline": "The memory top is resolved on mechanism — spot turned, the contracted tier firmed",
+   "claim": "The two sides of Run 6's top unresolved dispute describe different markets, and the equity market is paying for the allocated one. Timing is now dated by the sources themselves to 2Q–4Q27.",
+   "evidence": "ISI's September series: DDR5 16GB spot −1.8%, DDR4 16Gb −3.2%, NAND TLC −5.0%, and monthly DDR contract +18–19% in August → +2–3% in September; OEM inventory 70% above trend, early double-ordering. Raspberry Pi and Acer called the peak (grade c). Against that, CSPs agreed a higher 1Q27 DRAM ASP than 4Q26 (BofA), NAND contract guidance was raised to +21/+17/+15% q/q, and 2027 HBM contract prices are +80–100% (RBC). Citi has prices peaking 2Q27; UBS Gaudois has memory stocks peaking around 4CQ27.",
+   "sources": [
+    "ISI",
+    "BofA via Red-Ring",
+    "TMTB",
+    "UBS"
+   ],
+   "grade": "b",
+   "direction": "neutral",
+   "tickers": [
+    "MU",
+    "SNDK"
+   ],
+   "priorRun": {
+    "predicted": "Hold the memory trim at the un-contracted tier only — the split is contracted versus un-contracted, not bull versus bear.",
+    "outcome": "Vindicated on mechanism: spot and monthly contract turned and buyers called the peak, while the contracted tier firmed into 1Q27.",
+    "verdict": "confirmed"
+   }
+  },
+  {
+   "id": "deliverability",
+   "layer": "fundamentals",
+   "headline": "The bottleneck moved again — from CoWoS to N3, substrates, InP and energised shells",
+   "claim": "No house argued that GPU supply binds 2027. What binds is converting demand into energised racks: GPUs deliver in weeks, energised megawatts take years.",
+   "evidence": "JPM puts the CoWoS supply gap at only ~10%, with OSATs supplying 58% of the 2028 increment. N3 runs at 106–113% utilisation with cloud AI taking 73% of 2027 N3 wafers; TSMC raises wafer prices 3–6% from January (grade c). InP: Sumitomo and AXT control ~85% of supply, contract prices +50–60%, no meaningful 6-inch relief before 2028. UBS's delay tracker shows 7.0GW of US capacity affected; chip supply implies ~51GW of 2027 AI additions against 30–50GW a year of deployable powered shell.",
+   "sources": [
+    "JPM",
+    "UBS",
+    "TMTB",
+    "Red-Ring"
+   ],
+   "grade": "b",
+   "direction": "bull",
+   "tickers": [
+    "TSM",
+    "LITE",
+    "COHR",
+    "AXTI"
+   ],
+   "priorRun": {
+    "predicted": "The bottleneck migrated past ABF — upstream enablers (TSMC, optics, lasers) hold the margin pool.",
+    "outcome": "Confirmed and extended: CoWoS loosened, N3 and substrates took over, and #20's bull trigger fired as InP tightness persisted through expansion.",
+    "verdict": "confirmed"
+   }
+  },
+  {
+   "id": "cpu-memory-contract",
+   "layer": "fundamentals",
+   "headline": "The CPU renaissance became a contract — and the contract is really about memory",
+   "claim": "Agentic AI broadens hardware beyond GPUs, and the first frontier-lab CPU contract shows where the dollars actually go.",
+   "evidence": "Akamai–Anthropic: $11.6bn over seven years, entirely CPU, with a ~$9bn option, ~$5.5bn of capex and ~95–105MW (8-K, grade a); AKAM rose 19.7%. Jabil holds ~$1.7bn of Akamai memory on consignment, more than the ~$1.0–1.4bn of CPU spend. Mercury: 2Q26 server CPU units +27% y/y, ASPs +44%; Intel 54% unit share (−1,005bp), AMD 28% (+445bp), Arm 18% (+560bp). Every OEM's agentic tier runs on NVIDIA Vera, so the x86 super-cycle may accrue partly to NVIDIA/TSMC.",
+   "sources": [
+    "Company disclosure",
+    "TMTB",
+    "ISI"
+   ],
+   "grade": "a",
+   "direction": "bull",
+   "tickers": [
+    "AKAM",
+    "JBL",
+    "AMD",
+    "INTC"
+   ],
+   "priorRun": {
+    "predicted": "Not tracked as a contract — server CPU / agentic (#24) was a demand thesis without a named frontier-lab buyer.",
+    "outcome": "#24's bull trigger fired on the Akamai 8-K.",
+    "verdict": "new"
+   }
+  },
+  {
+   "id": "fed-ai-variable",
+   "layer": "macro",
+   "headline": "AI entered the Fed's reaction function by name",
+   "claim": "The rates shock and the credit discrimination are one process: hyperscaler capex adds to inflation, which keeps the Fed hiking and term premium high, which raises the funding cost of the same capex.",
+   "evidence": "Warsh attributed higher long yields partly to “competition for capital from hyperscaler debt issuance”; Barr listed the AI investment surge alongside tariffs and wars as a reason for more tightening; Guha notes bank C&I loan growth up 230bp since April, plausibly on AI and data-center financing. Markets price ~95bp of hikes through October 2027 (UBS). Warsh's benchmark of private-sector financial conditions puts the terminal rate partly in the hands of the AI trade itself.",
+   "sources": [
+    "ISI",
+    "UBS",
+    "TMTB"
+   ],
+   "grade": "b",
+   "direction": "bear",
+   "tickers": [
+    "MSFT",
+    "GOOGL",
+    "AMZN",
+    "META"
+   ],
+   "priorRun": {
+    "predicted": "ISI's three-wave model counted the AI wave as memory-chip costs, about 2pp of the diffusion index — an input to inflation, not yet a named policy variable.",
+    "outcome": "Escalated to record: both the Chair and a Governor now name AI financing and investment in the reaction function.",
+    "verdict": "confirmed"
+   }
+  },
+  {
+   "id": "btm-dented",
+   "layer": "macro",
+   "headline": "Texas dented the behind-the-meter exemption",
+   "claim": "State restriction is no longer cleanly bullish for on-site power: onsite generation still needs state environmental permits, and Jupiter's air permit is the template.",
+   "evidence": "Texas halted state data-center permits pending the ERCOT interconnection and water audits (update due 19 October), with >470GW of large loads in the ERCOT queue, and will ask the Legislature to remove data-center incentives. ISI concedes “onsite generation… does not eliminate state environmental permitting.” Oracle's 2.45GW Bloom-powered Jupiter microgrid had its gas route rejected twice before force majeure. ERCOT 2027 forwards round-tripped to ~$38–39/MWh while PJM 2028 makes new highs.",
+   "sources": [
+    "ISI",
+    "MS",
+    "TMTB"
+   ],
+   "grade": "b",
+   "direction": "bear",
+   "tickers": [
+    "BE",
+    "ORCL"
+   ],
+   "priorRun": {
+    "predicted": "State restriction is bullish behind-the-meter — on-site generation insulates projects from grid politics.",
+    "outcome": "Dented: the permit halt reaches onsite generation too, and #31's bear trigger fired.",
+    "verdict": "contradicted"
+   }
+  }
+ ],
+ "agreement": [
+  {
+   "claim": "Demand is not the constraint; deliverability and financing are.",
+   "detail": "All seven houses, in their own words: UBS “power, permits and financing”, ISI “timing, not demand”, NSR “supply rather than demand”, MS a 33GW net power shortfall for 2026–28, JPM “system delivery and capital return”, Red-Ring “the deliverable system”, TMTB “GPUs deliver in weeks, energised MW take years.”",
+   "sources": [
+    "UBS",
+    "ISI",
+    "NSR",
+    "MS",
+    "JPM",
+    "Red-Ring",
+    "TMTB"
+   ],
+   "grade": "b"
+  },
+  {
+   "claim": "The GPU is no longer the tightest input.",
+   "detail": "Memory, N3 wafers, substrates, InP, turbines and permits are. No house argued that GPU supply binds 2027.",
+   "sources": [
+    "UBS",
+    "ISI",
+    "NSR",
+    "MS",
+    "JPM",
+    "Red-Ring",
+    "TMTB"
+   ],
+   "grade": "b"
+  },
+  {
+   "claim": "Compute pricing is rising at the margin.",
+   "detail": "CoreWeave +25%, Nebius, Oracle renewals +20%, H100 spot +20–40%, Ornn B200 +50%. No house found GPU rental pricing under pressure this run; ISI states it explicitly.",
+   "sources": [
+    "ISI",
+    "Red-Ring",
+    "JPM",
+    "TMTB"
+   ],
+   "grade": "b"
+  },
+  {
+   "claim": "The contracted memory tier is tight into 2027.",
+   "detail": "HBM4 2027 +80–100% (RBC), DRAM fulfilment ~60% (UBS), DRAM sufficiency −15% to −17% (MS), CSPs agreeing higher 1Q27 DRAM ASPs (BofA), NAND contract +21/+17/+15% into 1Q27 (TrendForce).",
+   "sources": [
+    "UBS",
+    "MS",
+    "Red-Ring",
+    "TMTB"
+   ],
+   "grade": "b"
+  },
+  {
+   "claim": "Agentic AI broadens hardware beyond GPUs.",
+   "detail": "CPUs (the Akamai contract; Mercury +27% units), memory (Vera's SOCAMM2 costing more than the GPU's HBM4 at $10,160 vs $9,976 per UBS), storage (eSSD demand ~2x prior), bandwidth (Cisco: +450% per agent task), identity and observability.",
+   "sources": [
+    "UBS",
+    "ISI",
+    "TMTB"
+   ],
+   "grade": "b"
+  },
+  {
+   "claim": "The Fed is now an AI variable.",
+   "detail": "UBS, ISI and TMTB all record Warsh's hyperscaler-issuance remark and Barr's AI citation. No house argues that rates are irrelevant to AI valuation.",
+   "sources": [
+    "UBS",
+    "ISI",
+    "TMTB"
+   ],
+   "grade": "b"
+  }
+ ],
+ "disputes": [
+  {
+   "n": 1,
+   "claim": "The memory cycle top — when, and for which tier?",
+   "status": "resolved",
+   "statusLabel": "Resolved on mechanism · open on timing",
+   "sides": [
+    {
+     "house": "ISI / Lipacis",
+     "position": "Spot and monthly contract rolling: DDR contract +18–19% → +2–3%, NAND TLC spot −5.0%, OEM inventory 70% above trend, early double-ordering"
+    },
+    {
+     "house": "BofA via Red-Ring",
+     "position": "Contracted tier firm: CSPs agreed a higher 1Q27 DRAM ASP than 4Q26"
+    },
+    {
+     "house": "Citi",
+     "position": "Price increases decelerate over four quarters and may peak in 2Q27; ~60% of commodity DRAM bits sit outside LTAs"
+    },
+    {
+     "house": "UBS / Gaudois",
+     "position": "Memory stocks peak around 4CQ27, two quarters before the 2CQ28 profit peak"
+    },
+    {
+     "house": "UBS / Arcuri",
+     "position": "q/q DRAM ASP momentum is peaking now (+23% → +7%), which on the house heuristic is when the shares peak"
+    }
+   ],
+   "tiebreaker": "Not contradictory — they describe different markets. The unit trap matters: ISI's September contract print is monthly, while the 4Q guides (+5–10%) are quarterly q/q, so monthly momentum decelerated sharply while quarterly guides still sit at or above Run 6's +3–8% band. Resolving evidence: Micron on 30 September, whether 4Q settles at the quarterly guides, and the 1Q27 settlement in December.",
+   "sources": [
+    "ISI",
+    "UBS",
+    "Red-Ring",
+    "MS"
+   ],
+   "grade": "b",
+   "isNew": false
+  },
+  {
+   "n": 2,
+   "claim": "②′ The 2027 Fed path",
+   "status": "live",
+   "statusLabel": "Live · replaces the rate-reading fracture",
+   "sides": [
+    {
+     "house": "UBS",
+     "position": "Cuts of about −25bp in 2027 as CPI peaks at ~3.6–3.9% in Sep–Oct 2026 — its single most important macro assumption for long-duration tech"
+    },
+    {
+     "house": "ISI",
+     "position": "Has stopped restating its 2027 cut in four consecutive notes"
+    },
+    {
+     "house": "Market",
+     "position": "Prices hikes: +55bp to +95bp through 2027 depending on the day"
+    },
+    {
+     "house": "ISI / Emanuel",
+     "position": "Floats a “rip the bandaid” 50bp October scenario"
+    }
+   ],
+   "tiebreaker": "Resolving evidence: ISM (~1 October), September payrolls (2 October), the 28 October FOMC, and September CPI, which UBS expects to mark the peak.",
+   "sources": [
+    "UBS",
+    "ISI",
+    "TMTB"
+   ],
+   "grade": "b",
+   "isNew": true
+  },
+  {
+   "n": 3,
+   "claim": "Is AI monetisation real, and where does it accrue?",
+   "status": "unresolved",
+   "statusLabel": "Unresolved · the question changed",
+   "sides": [
+    {
+     "house": "UBS",
+     "position": "One customer went from $1m to $10m a month in 8–9 months; AI budgets +20–25% in 2026 and +30–40% in 2027; daily tokens ~1trn → ~18trn"
+    },
+    {
+     "house": "ISI",
+     "position": "OpenRouter agentic tokens up 14x in seven months; OpenAI enterprise mix past 50/50 — but labs “need usage to grow faster than prices fall” (Mahaney)"
+    },
+    {
+     "house": "TMTB",
+     "position": "Uber's token spend flat on broader usage; EY finds only one enterprise in ten can show AI ROI"
+    },
+    {
+     "house": "Jefferies via ISI",
+     "position": "Agentforce deployment success ~8% at one large partner; Copilot discounts of 30–50%"
+    }
+   ],
+   "tiebreaker": "No longer “is there revenue” but “does usage grow faster than price falls, net of rising compute rents.” NSR's profit pool: frontier models take 35% of tokens and ~80% of gross profit. Resolving evidence: the Anthropic S-1, OpenAI DevDay (29 September), CY27 neocloud recontracting prices.",
+   "sources": [
+    "UBS",
+    "ISI",
+    "TMTB",
+    "NSR"
+   ],
+   "grade": "b",
+   "isNew": false
+  },
+  {
+   "n": 4,
+   "claim": "The valuation-horizon split",
+   "status": "live",
+   "statusLabel": "Escalated · earnings up, multiples down",
+   "sides": [
+    {
+     "house": "UBS",
+     "position": "Micron $1,625 held while C2029 EPS rose $165 → $219 — multiple 11x → 8x on a 5.00% 10-year"
+    },
+    {
+     "house": "MS",
+     "position": "AMAT and CAMT targets cut while EPS raised"
+    },
+    {
+     "house": "ISI",
+     "position": "CIEN upgraded to $550 on undiscounted FY29 EPS, ~32x CY28E"
+    },
+    {
+     "house": "Mizuho via TMTB",
+     "position": "CRDO $290 → $245 on peer multiples with fundamental checks positive"
+    }
+   ],
+   "tiebreaker": "Run 6's rule stands — read the EPS revision and the stated horizon, never the headline PT. New corollary: on UBS's own framework another 50bp on the 10-year at unchanged EPS implies a Micron PT cut.",
+   "sources": [
+    "UBS",
+    "MS",
+    "ISI",
+    "TMTB"
+   ],
+   "grade": "b",
+   "isNew": false
+  },
+  {
+   "n": 5,
+   "claim": "Vendor financing — additive capital or relocated leverage?",
+   "status": "live",
+   "statusLabel": "Live · both, by tier",
+   "sides": [
+    {
+     "house": "NSR",
+     "position": "Additive: >$1.4tn of facilities and ~$128bn of hyperscaler backstops, with guarantor EBITDA able to carry it — “a large trillion-dollar problem, but an easy one”"
+    },
+    {
+     "house": "MS",
+     "position": "Relocated: ~$170bn of NVIDIA contingent exposure, credit Neutral, “sidelined”; the same facts carry opposite signs by asset class"
+    },
+    {
+     "house": "UBS",
+     "position": "The price signal discriminates: CoreWeave 811bp against hyperscalers ~88bp; QTS −84bp against ZENARC +138bp"
+    }
+   ],
+   "tiebreaker": "Guarantor balance sheets make the aggregate additive; the concentration of residual-value, revenue-floor and lease-guarantee exposure on a few guarantors relocates the tail. Resolving evidence: NVIDIA's next 10-Q, CoreWeave CDS direction, the Anthropic–Stream guarantee terms.",
+   "sources": [
+    "NSR",
+    "MS",
+    "UBS"
+   ],
+   "grade": "b",
+   "isNew": false
+  },
+  {
+   "n": 6,
+   "claim": "The un-repriced 52% OpenAI backstop cut",
+   "status": "live",
+   "statusLabel": "Partially priced · through credit",
+   "sides": [
+    {
+     "house": "MS",
+     "position": "NVDA credit moved to Neutral; CDS +36bp QTD"
+    },
+    {
+     "house": "FT via Red-Ring",
+     "position": "Names NVIDIA and Oracle as suppliers dependent on OpenAI's financing"
+    },
+    {
+     "house": "ISI",
+     "position": "NVIDIA equity still trades at ~19x NTM with the backstop invisible in the multiple"
+    }
+   ],
+   "tiebreaker": "The “was it load-bearing?” question is answering “partly yes” in credit. Resolving evidence: NVIDIA's 10-Q drawn balance (only ~$35bn of the $125bn cap was drawn at Run 5) or a formal credit-desk downgrade.",
+   "sources": [
+    "MS",
+    "Red-Ring",
+    "ISI"
+   ],
+   "grade": "b",
+   "isNew": false
+  },
+  {
+   "n": 7,
+   "claim": "Bloom versus PowerGen — now with a live test case",
+   "status": "live",
+   "statusLabel": "Live",
+   "sides": [
+    {
+     "house": "UBS",
+     "position": "Supports Bloom on “delivered cost of electricity” method — yet its own Bloom EPS sits below the Street ($2.95 / $5.56 vs $4.90 / $7.74)"
+    },
+    {
+     "house": "ISI",
+     "position": "Defence moved from “committed COD” (24 Sep) to “economics tied to delivery to financiers” (25 Sep); no Jupiter-specific MW disclosed"
+    },
+    {
+     "house": "MS",
+     "position": "Force majeure is a contractual protection: 1.2GW of 2027–28 contracts worth ~$1.25bn of EBITDA and redeployable"
+    },
+    {
+     "house": "Ceres via ISI",
+     "position": "Licensed SOFC capacity could pressure pricing from 2028"
+    }
+   ],
+   "tiebreaker": "Resolving evidence: whether Jupiter's volumes sit in the firm 1.2GW or the 1.2 → 2.8GW upside, the air permit, and the gas route. BE's NTM EV/EBITDA has fallen ~40 turns QTD to 66.5x.",
+   "sources": [
+    "UBS",
+    "ISI",
+    "MS"
+   ],
+   "grade": "b",
+   "isNew": false
+  },
+  {
+   "n": 8,
+   "claim": "Neocloud equity versus neocloud credit",
+   "status": "live",
+   "statusLabel": "Live · new · sharpest two-asset-class split",
+   "sides": [
+    {
+     "house": "UBS",
+     "position": "Initiated CRWV at Buy $120 — pricing +25%, NVIDIA's obligation to buy unsold capacity through April 2032"
+    },
+    {
+     "house": "JPM",
+     "position": "Upgraded CRWV to OW $125 on short-dated $40m/MW"
+    },
+    {
+     "house": "BNP",
+     "position": "Upgraded NBIS to Outperform $399"
+    },
+    {
+     "house": "Rothschild",
+     "position": "Initiated Sell on NBIS and CRWV — “demand more circular than it appears”"
+    },
+    {
+     "house": "Credit market",
+     "position": "CRWV CDS 811bp, notes at ~T+850 — priced as distressed"
+    }
+   ],
+   "tiebreaker": "The single flip test is CY27 recontracting prices (ISI: ~10% renewing at a ~100% spot premium would lift CY27 revenue +8% and EBIT +33%) and the direction of CoreWeave's CDS. The 30 September AI Cloud Conference should show the lab versus non-lab backlog mix.",
+   "sources": [
+    "UBS",
+    "JPM",
+    "ISI",
+    "Red-Ring"
+   ],
+   "grade": "b",
+   "isNew": true
+  },
+  {
+   "n": 9,
+   "claim": "Safety pacing — demand-negative or compute-additive?",
+   "status": "resolved",
+   "statusLabel": "Resolved as demand · open as a political tail",
+   "sides": [
+    {
+     "house": "Bear leg (11–14 Sep)",
+     "position": "Altman's slowdown remarks, Amodei's pacing essay, a −5.5% semis day"
+    },
+    {
+     "house": "NSR",
+     "position": "~80% of training compute is already non-pretraining; pacing raises compute"
+    },
+    {
+     "house": "Jefferies via TMTB",
+     "position": "Trust and safety requirements drive more compute"
+    },
+    {
+     "house": "Kass via TMTB",
+     "position": "Still holds a coordinated slowdown as base case (AI-generated readout, grade d)"
+    }
+   ],
+   "tiebreaker": "Resolved within the window toward additive by 18 September. The social-licence numbers — 55% of US adults support slowing development, 374 active moratoria against 92 in June — are rising in the same weeks consumer agents took off.",
+   "sources": [
+    "NSR",
+    "TMTB",
+    "Red-Ring"
+   ],
+   "grade": "b",
+   "isNew": true
+  },
+  {
+   "n": 10,
+   "claim": "Late innings versus infinite demand",
+   "status": "live",
+   "statusLabel": "Live · new · split inside ISI",
+   "sides": [
+    {
+     "house": "ISI / Lipacis",
+     "position": "Late innings: industry growth peaks in the September quarter at ~70% y/y; semis NTM earnings +316% over 34 months; SOX relative run a 25-year record — still long through low-P/E NVDA and AVGO"
+    },
+    {
+     "house": "ISI / Ross",
+     "position": "S&P 8,300 target, semis his highest conviction"
+    },
+    {
+     "house": "UBS",
+     "position": "“No signs of AI demand abating”"
+    },
+    {
+     "house": "MS",
+     "position": "Memory is 53% of 2027 cloud capex"
+    }
+   ],
+   "tiebreaker": "The tape sides with neither camp: it rewards high-multiple CPU names (INTC +232% YTD, AMD +193%) over Lipacis's low-P/E picks (NVDA +20%, AVGO +2%). This is ISI's September 2026 – January 2027 mid-cycle window now argued from inside ISI.",
+   "sources": [
+    "ISI",
+    "UBS",
+    "MS"
+   ],
+   "grade": "b",
+   "isNew": true
+  },
+  {
+   "n": 11,
+   "claim": "Muse and agentic value capture",
+   "status": "live",
+   "statusLabel": "Live · new · adoption proven, monetisation unquantified",
+   "sides": [
+    {
+     "house": "TMTB",
+     "position": "~3m US downloads by about day 15–20, a steeper curve than ChatGPT's; META +11% on 21 September"
+    },
+    {
+     "house": "MS",
+     "position": "~$10 per user per year (>$1bn per 100m users)"
+    },
+    {
+     "house": "StoneX via TMTB",
+     "position": "Subscriptions mostly cover the VM, browser and compute cost — deepening META's AI ROIC debate"
+    },
+    {
+     "house": "Oppenheimer via TMTB",
+     "position": "Only 8% of US consumers would trust Meta with passwords, against 30% for Google"
+    }
+   ],
+   "tiebreaker": "The usable rule: the winners are the non-bypassable billing nodes (EDA consumption, traces, identity, payment rails, CPUs and memory); the losers are intermediaries whose value was the customer relationship — the Consumer Friction basket fell 10% and OTAs 5–10%.",
+   "sources": [
+    "TMTB",
+    "MS",
+    "ISI"
+   ],
+   "grade": "b",
+   "isNew": true
+  },
+  {
+   "n": 12,
+   "claim": "UBS's intra-house 2029 memory split",
+   "status": "live",
+   "statusLabel": "Live · new · intra-house",
+   "sides": [
+    {
+     "house": "UBS / Arcuri (US)",
+     "position": "Micron C2029 EPS 36% above consensus — LTA floors plus ~$100bn F27 and ~$190bn F28 buybacks protect per-share earnings through a revenue decline"
+    },
+    {
+     "house": "UBS / Gaudois (Seoul)",
+     "position": "Samsung and SK hynix 2029 operating profit 22–26% below consensus on 2029 DRAM ASP −26%; CXMT's first modelled revenue decline (−31%)"
+    }
+   ],
+   "tiebreaker": "Both teams keep the DRAM upcycle to ~2Q28; the disagreement is whether capital-return structure beats the cycle. Per the standing rule that intra-house splits are signal, track which team revises first.",
+   "sources": [
+    "UBS"
+   ],
+   "grade": "b",
+   "isNew": true
+  }
+ ],
+ "disputesAlsoClosed": "② The rate-reading fracture — resolved by the 16 September decision. GS (~60% hike) and ISI were right on direction; ISI was wrong on the vote (unanimous, not 10–2) and the dots (a 2027 hold, not cuts); TMTB's “~60% odds of a 35bp+ cut” was the mis-specified side, still printing “~70% September cut” on 11 September. Logged as a source quirk and replaced by ②′.",
+ "checklist": [
+  {
+   "n": 1,
+   "indicator": "TSMC / CoWoS / 2027 capex",
+   "status": "ok",
+   "statusLabel": "Confirmed · bottleneck moved to N3",
+   "addendum": false,
+   "baseline": "CoWoS end-2027 260–270kwpm (UBS), TSMC share 81% → 67% 4Q26–4Q27; JPM puts the CoWoS gap at only ~10%. N3 utilisation 106–113%, cloud AI 73% of 2027 N3, NVDA its largest client at 31%. TSMC capex $63/80/95bn 2026–28E (UBS) vs $56 → $74bn (ISI). 2027 wafer prices +3–6% from January (grade c). 17x/12x 2027/28E vs SOX 29x/20x.",
+   "bull": "The October print frames 2027 capex at or above $74–80bn and confirms 1Q27 price increases; N5/N4-to-N3 tool conversion on schedule.",
+   "bear": "2027 capex framed below $70bn, or the 1Q27 increases withdrawn; N3 relief arriving before 2H27.",
+   "checkpoint": "TSMC 3Q print, mid-October"
+  },
+  {
+   "n": 2,
+   "indicator": "Hyperscaler capex + monetisation",
+   "status": "ok",
+   "statusLabel": "Confirmed · capex now exceeds OCF",
+   "addendum": false,
+   "baseline": "Top-12 capex $1.01tn/$1.45tn/$1.62tn 2026–28E (UBS); MS $861bn → $1,390bn → $1,591bn. Aggregate US cloud backlog >100% of sales, from ~50% last autumn; cloud TTM bookings $1.4tn (+191%). Hyperscaler capex ~105% of OCF in 2026E, the first time above OCF; FCF negative in 2027 for all but MSFT. ~60% of the 2026 capex increase is memory cost, not volume.",
+   "bull": "October prints raise 2027 capex with backlog growth outpacing capex; the non-lab share of backlog increments holds.",
+   "bear": "Backlog cover below ~3x; a hyperscaler cuts 2027 capex for reasons other than memory; capex/OCF above ~110% without a financing bridge.",
+   "checkpoint": "Late-October hyperscaler prints — track incremental GW, not dollars"
+  },
+  {
+   "n": 3,
+   "indicator": "Korea flows + capital returns",
+   "status": "warn",
+   "statusLabel": "Split · returns confirmed, flows contradicted",
+   "addendum": false,
+   "baseline": "KOSPI target cut 8,800 → 8,000 on rates, KRW +11% and oil above $100. Foreigners sold Won198.9tn of Korean tech YTD; Tech −28.6% over 3 months. Samsung 2027E dividend yield 12.4% (UBS); SK hynix package due in October at >50% of FCF. Samsung + SKH are 64% of MSCI Korea (prior peak 67%). BOK at 3.0%, December +25bp expected.",
+   "bull": "SKH's October package lands above 50% of FCF and Samsung's January board extends it; foreign tech flows turn net positive for a month.",
+   "bear": "The package disappoints; foreign selling continues through a memory beat; BOK hikes beyond December.",
+   "checkpoint": "SK hynix October package; Samsung board late January 2027"
+  },
+  {
+   "n": 4,
+   "indicator": "SOX mid-cycle correction clock",
+   "status": "warn",
+   "statusLabel": "Live · argued from inside ISI",
+   "addendum": false,
+   "baseline": "Lipacis: industry revenue growth peaks in the Sep-26 quarter at ~70% y/y, fading to ~40% by mid/late 2027; semis NTM earnings +316% over 34 months; SOX relative +195% over 15 months, a 25-year record; implied consolidation ~−25%. The June–September −22% SOX drawdown was a first leg; the 14 September low retested and held; SOX +79% YTD. Emanuel: 2 of 4 top conditions now met.",
+   "bull": "The SOX holds above its 14 September low through end-January and the Sep-quarter industry print does not confirm a peak.",
+   "bear": "The SOX takes out the 14 September pacing low; SIA September data confirms the second-derivative peak; a third top condition appears.",
+   "checkpoint": "SIA September data (early November); the window closes end-January 2027"
+  },
+  {
+   "n": 5,
+   "indicator": "Leverage / crowding",
+   "status": "bad",
+   "statusLabel": "Contradicted · re-crowded in two weeks",
+   "addendum": false,
+   "baseline": "HF tech net leverage at the 100th percentile; CTA equity exposure 13th → 37th percentile; QQQ put/call 10th percentile; household equity 49% of financial assets, above the 45% tech-bubble peak (UBS desk, d). MF cash 1.2% (GS). Only 49% of S&P names above the 200-day with the index near highs.",
+   "bull": "Breadth broadens (>60% above the 200-day) while HF leverage eases without a price shock.",
+   "bear": "SPX breaks 7,237 then 7,157 with HF leverage still at the 100th percentile; a third “risk-parity everything” sell-off.",
+   "checkpoint": "SPX 7,237 / 7,157; the 28 October FOMC"
+  },
+  {
+   "n": 6,
+   "indicator": "GPU rental / neocloud unit economics",
+   "status": "ok",
+   "statusLabel": "Confirmed · bull side",
+   "addendum": false,
+   "baseline": "CRWV 8-K: 3–6-month contracts ~$40m/MW (~3x long-term), July prices +25%, ~70% of 2Q deals prepaid. Ornn B200 index $7.77/GPU-hr (+67.7% y/y); H100 spot +20–40%. Silicon Data residuals: H100 58%, B200 158% of purchase price. Oracle renewals +20% at 97.9% utilisation. But ISI puts take-or-pay project ROIC at ~8–10%, roughly the HY cost of debt.",
+   "bull": "The 5 October CME compute futures clear consistent with Silicon Data marks; Nebius's 1 October increases stick; CY27 5-year rolls reprice upward.",
+   "bear": "Short-dated premiums compress toward long-term rates; any month of falling H100 rents; CME futures print below the marks.",
+   "checkpoint": "1 Oct (Nebius), 5 Oct (CME launch), 30 Sep CRWV conference"
+  },
+  {
+   "n": 7,
+   "indicator": "DRAM / NAND contract prints",
+   "status": "warn",
+   "statusLabel": "Split · quarterly firm, monthly and spot rolling",
+   "addendum": false,
+   "baseline": "Quarterly: 4Q guides +7–9% (UBS), +5–10% (MS), +7% (Arcuri), above Run 6's +3–8% band; NAND contract +21/+17/+15% for 3Q26/4Q26/1Q27; CSPs agreed a higher 1Q27 DRAM ASP (BofA). Monthly and spot (ISI): DDR contract +18–19% → +2–3%; NAND contract 0.0%; DDR5 spot −1.8%, NAND TLC −5.0%. Monthly and quarterly series are not comparable.",
+   "bull": "4Q settles at the quarterly guides and 1Q27 settles above 4Q26.",
+   "bear": "October monthly contract prints negative; 1Q27 settles at or below 4Q26; spot weakness reaches server RDIMM.",
+   "checkpoint": "Micron 30 September; TrendForce October contract; the 1Q27 settlement in December"
+  },
+  {
+   "n": 8,
+   "indicator": "Memory de-spec + demand destruction",
+   "status": "bad",
+   "statusLabel": "Bear trigger fired · spread to three more sectors",
+   "addendum": false,
+   "baseline": "Beyond ZS/IOT: Apple Dec-quarter GM ~−50bp vs consensus with the iPhone 18 Pro Max BOM up ~$168, ~90% memory; Ericsson memory-driven GM pressure through 2026–27; Nintendo cut its FY28 unit target; PCs 2H −26% y/y with no HP FY27 guide; Infineon auto “escalation calls.” Smartphones 2027E −3%.",
+   "bull": "(fresh) 1Q27 device guides stabilise units while HBM de-spec coexists with rising aggregate bit demand.",
+   "bear": "(fresh) A hyperscaler or NVIDIA cites memory cost as a reason to cut unit volume; 2027 PC or phone unit forecasts cut by >10%.",
+   "checkpoint": "Apple late October; HP FY27 guide (November)"
+  },
+  {
+   "n": 9,
+   "indicator": "Micron / memory valuation frameworks",
+   "status": "warn",
+   "statusLabel": "Advancing · earnings up, multiple down",
+   "addendum": false,
+   "baseline": "UBS $1,625 unchanged while C2029 EPS rose $165 → $219 on a multiple cut 11x → 8x (cost of equity 12.2% at a 5.00% 10Y). Citi $1,500/$1,300/$700; NSR $1,250; RBC $1,500; MS CY27 EPS $180.48. MU at 7x NTM. CHIPS buyback limits lapse 9 December; UBS models ~$20bn a quarter rising to $40–50bn.",
+   "bull": "Micron confirms SCA/LTA coverage and a post-9-December buyback framework; a house raises a memory PT on EPS without cutting the multiple.",
+   "bear": "Another +50bp on the 10Y at unchanged EPS forces a PT cut; a Micron beat is sold.",
+   "checkpoint": "30 September print; 9 October board; 9 December CHIPS lapse"
+  },
+  {
+   "n": 10,
+   "indicator": "Meta agent productivity",
+   "status": "ok",
+   "statusLabel": "Bull trigger fired · monetisation unquantified",
+   "addendum": false,
+   "baseline": "Mapping (inference): Muse is treated as the product this row tracked as “Hatch/PSI”. ~3m US downloads by day 15–20, steeper than ChatGPT; global DAU ~70k → ~710k in 10 days; META +11% on 21 September. MS ~$10 per user per year; only 8% trust Meta with passwords; Amazon blocked Muse shopping.",
+   "bull": "(fresh) The Q3 call quantifies paid conversion or Muse revenue; Watermelon ships by 31 October; merchant connectors keep expanding.",
+   "bear": "(fresh) DAU plateaus below ~1m globally; merchant blocking spreads beyond Amazon; a credential or trust incident.",
+   "checkpoint": "META Q3 print (late October); Watermelon by 31 October"
+  },
+  {
+   "n": 11,
+   "indicator": "Enterprise token economics",
+   "status": "warn",
+   "statusLabel": "Advancing · paired with the scissor (#32)",
+   "addendum": false,
+   "baseline": "Token prices: Red-Ring index $0.97/Mtok (−21.9% YTD); Opus 5.5 −40% per workload, GPT-6 Sol −50%. Usage: one UBS customer $1m → $10m a month; AI budgets +20–25% in 2026 and +30–40% in 2027; daily tokens ~1trn → ~18trn. Against: Uber flat token spend, EY 1 in 10 with ROI. Anthropic ARR quoted at four vintages — never average them.",
+   "bull": "The Anthropic S-1 shows revenue growth outrunning price cuts with GM above 70%; DeepSeek-style price rises stick.",
+   "bear": "The S-1 shows GM compression from price cuts; a second large customer reports flat token spend on rising usage.",
+   "checkpoint": "OpenAI DevDay (29 September); the Anthropic S-1 (November)"
+  },
+  {
+   "n": 13,
+   "indicator": "2027 capex consensus vs buy-side bar (WFE)",
+   "status": "ok",
+   "statusLabel": "Confirmed · raised again, with a flag",
+   "addendum": false,
+   "baseline": "ISI 2026/27 WFE $155bn/$215bn (bull $225bn); memory capex $104bn → $194bn. UBS 2027 WFE $198bn (Lin) to $226bn (Arcuri) by definition; JPM $159/$205/$237bn. ISI's flag: memory makers accelerating capex (Samsung +75%, SKH +64%, MU +110%) just as spot turns is the classic memory-top pattern.",
+   "bull": "October semicap prints guide 2027 above $215bn while memory capex coexists with firm contract pricing.",
+   "bear": "A memory maker raises capex while 1Q27 contract settles flat or lower; any volume capex cut.",
+   "checkpoint": "LRCX/KLAC/ASML October prints; Samsung and SK hynix capex plans in January"
+  },
+  {
+   "n": 14,
+   "indicator": "Hyperscaler FCF / financing",
+   "status": "ok",
+   "statusLabel": "Confirmed · no data on either named trigger",
+   "addendum": false,
+   "baseline": "No source updated IG Tech OAS against the March peak or AVGO CDS against 126.2bp. Proxies: hyperscaler CDS average 88bp (from ~60bp in January); ORCL 189bp; MSFT 44bp. Alphabet's August deal ~40% wider than February's with books 3–5x. US IG tech issuance $321bn YTD. UBS credit went Underweight Tech. NSR hyperscaler FCF trough −$486bn in 2028.",
+   "bull": "Hyperscaler CDS average back toward ~60bp; new-issue concessions compress; jumbo books stay above 3x.",
+   "bear": "Hyperscaler CDS average above ~120bp; a hyperscaler deal with books below 2x; the 10Y above 5% into year-end.",
+   "checkpoint": "The next hyperscaler jumbo deal; the 1Q27 debt-ceiling window"
+  },
+  {
+   "n": 15,
+   "indicator": "ALAB / Trainium / custom silicon",
+   "status": "warn",
+   "statusLabel": "Advancing · the XPU field reshuffled",
+   "addendum": false,
+   "baseline": "QCOM–AWS $60bn 10-year custom silicon + optical deal with warrants over up to 25m QCOM shares. UBS Lin cut MRVL 2027 Trainium units 686k → 85k while Arcuri keeps Buy $310. MS: ASIC units 1.7x GPU units in 2027. AVGO 2027 revenue cut 6.7% to $193.4bn (ISI); MS has AVGO CY27 5% below the Street.",
+   "bull": "Marvell on 6 October reaffirms FY28 $18bn and names a Trainium successor socket; Broadcom reaffirms FY27 AI revenue of ~$115bn.",
+   "bear": "Marvell's Trainium loss confirmed with no replacement; Broadcom's FY27 AI guide cut; TorchTPU erodes CUDA lock-in faster than modelled.",
+   "checkpoint": "MRVL investor day, 6 October; AVGO December print"
+  },
+  {
+   "n": 16,
+   "indicator": "Leveraged / thematic ETF flows + equity supply",
+   "status": "warn",
+   "statusLabel": "Re-leveraging · supply overhang dated",
+   "addendum": false,
+   "baseline": "Leveraged semis ETFs $36.8bn AUM / $98.7bn notional, rebalancing up to 20% of ADV (d). Nasdaq September excess flow +$115bn; the first foreign ETF outflow since April. Equity supply: SPCX lock-up of ~1.3bn shares (~$196bn) around 5 November; Anthropic raising up to $100bn.",
+   "bull": "Flows broaden beyond leveraged vehicles; the SPCX lock-up and Anthropic IPO are absorbed without SOX underperformance.",
+   "bear": "Leveraged-ETF rebalancing amplifies a >3% semis day into a second-day flush; equity supply meets foreign ETF outflows.",
+   "checkpoint": "~5 November SPCX lock-up; Anthropic pricing"
+  },
+  {
+   "n": 17,
+   "indicator": "CTA / positioning triggers",
+   "status": "bad",
+   "statusLabel": "Contradicted · the duration hedge lost money",
+   "addendum": false,
+   "baseline": "Run 6 called long duration “the cleanest hedge.” The 10Y went ~4.8% → ~5.2% and the stock–bond correlation turned positive (+28–60%). Bond CTAs at the 1st percentile, 100% short UST/LQD/HYG; equity CTAs 13th → 37th percentile; post-FOMC CTA sell triggers “largely exhausted.”",
+   "bull": "The 10Y rallies to ~4.80%, which lifts bonds and equities — a second long, not a hedge.",
+   "bear": "The correlation stays positive and a rates-led drawdown hits both legs.",
+   "checkpoint": "10Y 4.80% / 5.30%; the 28 October FOMC"
+  },
+  {
+   "n": 18,
+   "indicator": "NeoCloud economics + frontier-lab buyers",
+   "status": "warn",
+   "statusLabel": "Split · pricing up, balance sheets worse",
+   "addendum": false,
+   "baseline": "CRWV backlog $104bn ($129bn including early 3Q); ~72% of revenue from three customers; ND/EBITDA 5.7x 2026E; interest ~25% of revenue; external funding gap ~$102bn 2027–30. JPM model: FY28 net interest $7.84bn vs adjusted EBIT $8.79bn. Nscale's S-1: ~$103bn signed backlog against ~$2.6bn active TCV. Labs are bypassing neoclouds (SB Energy 8GW, Stream 1GW, Akamai CPU).",
+   "bull": "The CRWV conference shows a non-lab backlog share above ~40%; the first CY27 5-year rolls reprice at a premium.",
+   "bear": "A lab exercises a 90-day cancel or moves volume to self-build; a second neocloud shows an Nscale-style backlog gap.",
+   "checkpoint": "30 September CRWV conference; SPCX's 30 September Google deadline"
+  },
+  {
+   "n": 19,
+   "indicator": "DRAM cycle-top clock",
+   "status": "ok",
+   "statusLabel": "Resolved on mechanism · timing dated",
+   "addendum": false,
+   "baseline": "Citi: prices peak 2Q27 with ~60% of commodity DRAM bits outside LTAs. UBS Gaudois: memory stocks peak 4CQ27, profits 2CQ28. Arcuri: q/q momentum peaking now. OEM inventory +70% vs trend; early double-ordering; Wolfe customer inventory 58 days (+52% y/y). CXMT's G5 ≈ +5% of global bits. Run 6's decisive trigger (channel inventory past four months) got no direct update.",
+   "bull": "Micron confirms 2027 HBM4 pricing (+80–100%) and LTA coverage above 50%; bit-denominated inventory stays flat.",
+   "bear": "1Q27 contract settles below 4Q26; spot declines reach allocated server DRAM; channel inventory past four months confirmed in bits.",
+   "checkpoint": "30 September; October spot series; December 1Q27 settlement"
+  },
+  {
+   "n": 20,
+   "indicator": "ABF / substrate / packaging → upstream",
+   "status": "ok",
+   "statusLabel": "Bull trigger fired · tightness through expansion",
+   "addendum": false,
+   "baseline": "InP delivered prices +50–60% (c); Sumitomo/AXT ~85% of supply; no meaningful 6-inch relief before 2028. Lumentum prepaid AXTI $43.5m to reserve supply to 2031; Coherent's 6-inch InP 75% of output by end-2027; COHR scale-up CPO/NPO 2H27. ABF lead times 48–56 weeks; laminator lead time 6 months → 2 years; 12-inch wafer LTAs +15–25%.",
+   "bull": "(fresh) 6-inch InP ramps in 2027 without price declines; COHR/LITE confirm NPO revenue in 2H27.",
+   "bear": "(fresh) Equipment over-booking unwinds; ABF lead times fall below ~30 weeks; InP prices fall on the 6-inch ramp.",
+   "checkpoint": "COHR/LITE early-November prints; OFC, March 2027"
+  },
+  {
+   "n": 21,
+   "indicator": "Hyperscaler credit spreads / SPV pricing",
+   "status": "bad",
+   "statusLabel": "Bear trigger fired · at the neocloud tier",
+   "addendum": false,
+   "baseline": "CRWV CDS 811bp (+259bp QTD); notes T+530 → ~T+850, a ~720bp tenant spread over the hyperscaler average against Run 6's ~250bp threshold. Jupiter project debt sold below 90 cents. ZENARC HY +138bp vs QTS −84bp; DC ABS BBB +17bp since August. SoftBank's OpenAI-funding bond expected at BB+. NVDA CDS +36bp QTD.",
+   "bull": "(fresh) CRWV CDS back below ~550bp; Jupiter debt recovers above 95 cents.",
+   "bear": "(fresh) CRWV CDS above 1,000bp; a second campus markdown below 80 cents; hyperscaler CDS average above ~120bp.",
+   "checkpoint": "30 September CRWV conference; ORCL investor day, 28 October"
+  },
+  {
+   "n": 22,
+   "indicator": "Rubin / Kyber delivery",
+   "status": "bad",
+   "statusLabel": "Bear trigger fired · Kyber slip formalised",
+   "addendum": false,
+   "baseline": "Kyber NVL144 slips to 2028 (UBS; Red-Ring rack expert, c; TMTB: Kyber only, not all of Rubin Ultra; ISI “Rubin/Kyber delays”). The 2027 mainline is NVL72 plus NVL576. Rubin ships 2.0m units in 2H26 after a redesign; rack yield ~80% against a 90% target; 2027 rack demand ~80k, ~60% firm (c).",
+   "bull": "(fresh) NVL576 on schedule for 2H27; December compute-tray output at or above ~45k; rack yield reaches 90%.",
+   "bear": "(fresh) A second slip touching VR200 NVL72 volume in 1H27; rack yield stuck below 85%.",
+   "checkpoint": "NVDA November print; monthly ODM revenue"
+  },
+  {
+   "n": 23,
+   "indicator": "Humanoid",
+   "status": "warn",
+   "statusLabel": "Source retired · indicator kept",
+   "addendum": false,
+   "baseline": "Humanoid workstation silent for a fifth run; served by UBS, MS and IFR. UBS raised units 73–123%: 51.9k 2026E, 94.4k 2027E, 305.9k 2030E; “no EV moment” before 2030. IFR: ~7,000 units sold in 2025. UBS's perimeter differs from MS's 50k for 2026e. Unitree IPO 151 → 1,100 → 530 yuan.",
+   "bull": "Repeat commercial orders at scale; a second-quarter unit print confirms UBS's raised path.",
+   "bear": "Valuation deflation spreads beyond Unitree; a component ASP war.",
+   "checkpoint": "Tesla Q3 (October); UBS APAC humanoid update"
+  },
+  {
+   "n": 24,
+   "indicator": "Server CPU / agentic",
+   "status": "ok",
+   "statusLabel": "Bull trigger fired · first frontier-lab CPU contract",
+   "addendum": false,
+   "baseline": "Akamai–Anthropic $11.6bn, 7-year, all-CPU (8-K, a), ~95–105MW. Jabil holds ~$1.7bn of Akamai memory on consignment, more than the CPU spend. Mercury: server CPU units +27% y/y; AMD 28% (+445bp), Arm 18% (+560bp). Every OEM's agentic tier runs on NVIDIA Vera. Counter (d): M Science has AMD 1H September deployments negative y/y.",
+   "bull": "(fresh) A second frontier-lab CPU contract; AMD or Intel raise server-CPU guides in October.",
+   "bear": "(fresh) M Science deployments stay negative through October; CPU tightness turns into price-driven double-ordering.",
+   "checkpoint": "AMD / INTC late-October prints"
+  },
+  {
+   "n": 25,
+   "indicator": "Optical transceiver gap + regulatory",
+   "status": "bad",
+   "statusLabel": "Bear trigger fired · proposal only, NSS-scoped",
+   "addendum": false,
+   "baseline": "A 25 September Senate bill would bar InnoLight and Eoptolink transceivers from federal national-security systems with a 5-year transition — a proposal, not law, not a commercial DC ban. Demand: CIEN upgraded to $550, backlog >$10bn, price increases on existing backlog; LITE EML/CW demand >supply by >30%. GS cut 2026 CPO shipments 33%.",
+   "bull": "(fresh) The bill stays NSS-scoped or dies; LITE/COHR confirm NPO revenue in 2H27.",
+   "bear": "(fresh) Scope expands to commercial data centres or hyperscaler procurement; CPO/NPO slips to 2029.",
+   "checkpoint": "Senate committee action; COHR/LITE prints; OFC March 2027"
+  },
+  {
+   "n": 26,
+   "indicator": "Macro gate → ②′ the 2027 Fed path",
+   "status": "bad",
+   "statusLabel": "All three bear triggers fired",
+   "addendum": false,
+   "baseline": "Hike on 16 September, unanimous, to 3.75–4.00%; median dot 4.1% for 2026 and 2027. 10Y ~5.2% (5.197% on 25 Sep); the 5Y above 5% for the first time since 2004; 30Y ~5.36–5.40%. Brent $100–104; EIA diesel $5.97 (+58% y/y). Core CPI +0.3% m/m. Warsh and Barr both named AI. ~95bp of hikes priced through October 2027; October at 72–80%.",
+   "bull": "(fresh) The 10Y below 4.85% with Brent below $95 and October hike odds under 40%; the BEA revision lowers core PCE ~20bp.",
+   "bear": "(fresh) The 10Y above 5.3% and 30Y above 5.5%; on 28 October the Fed signals hikes into 2027; Brent above $110.",
+   "checkpoint": "30 Sep BEA; ~1 Oct ISM; 2 Oct payrolls; 28 Oct FOMC; 1Q27 debt ceiling"
+  },
+  {
+   "n": 27,
+   "indicator": "Power / speed-to-power",
+   "status": "ok",
+   "statusLabel": "Confirmed · shortfall revised up",
+   "addendum": false,
+   "baseline": "MS: 2026–28 US DC demand 68GW → 97GW; gross shortfall 57GW, net 33GW; 2029 net shortfall 72GW. UBS delay tracker: 7.0GW affected (16.9GW ultimately). Turbine lead times up to 7 years. GS raised 2030 BTM to 67GW from 40GW; Generac–Amazon up to $8bn. ERCOT 2027 forward ~$38–39/MWh (down); PJM 2028 ~$69.",
+   "bull": "UBS's delay curve flattens; BTM deployments (Bloom 1.2GW, Generac) land on time.",
+   "bear": "UBS-tracked affected capacity above ~10GW; a second hyperscale-campus force majeure.",
+   "checkpoint": "UBS monthly tracker; 19 October Texas update"
+  },
+  {
+   "n": 28,
+   "indicator": "AI financing circularity / contingent liabilities",
+   "status": "bad",
+   "statusLabel": "Escalated · priced in credit",
+   "addendum": false,
+   "baseline": "MS: NVIDIA all-in contingent exposure ~$200bn by end-CY28, ~$170bn off funded debt; credit Neutral; DSO 45 → 60 days. NSR: >$1.4tn of NVDA/AVGO-architected facilities; ~$128bn of hyperscaler backstops; NVDA ~$300bn of backstops vs ~$260bn EBITDA. Broadcom's first XPV deal raised $35bn, $30bn Broadcom-backstopped. NVIDIA must buy CRWV's unsold capacity through April 2032.",
+   "bull": "NVIDIA's 10-Q shows the drawn backstop balance flat; NVDA CDS retraces the +36bp QTD.",
+   "bear": "A formal rating action on NVIDIA or any guarantor; a guarantee is called; the Anthropic–Stream Google guarantee formalised at scale.",
+   "checkpoint": "NVIDIA November 10-Q"
+  },
+  {
+   "n": 29,
+   "indicator": "Beat-and-raise, hold/cut the target",
+   "status": "ok",
+   "statusLabel": "Confirmed · now in the models",
+   "addendum": false,
+   "baseline": "84% of semis guided above the Street, against 97% a quarter ago. MU multiple 11x → 8x; AMAT $642 → $563 and CAMT $165 → $152 while EPS rose; Stifel upgraded MSFT while cutting FY28; Wells' META +24% all multiple; CRDO cut to $245 and $292. The escape valve held: AKAM +19.7% on a quantified AI contract, META +11% on an adoption shock.",
+   "bull": "October prints move PTs up on EPS without multiple cuts.",
+   "bear": "Rates add another 50bp and PTs get cut systematically; a Micron beat is sold on 30 September.",
+   "checkpoint": "October earnings season"
+  },
+  {
+   "n": 30,
+   "indicator": "Seats vs tokens",
+   "status": "warn",
+   "statusLabel": "Partially fired · first seat discounting",
+   "addendum": false,
+   "baseline": "MSFT Copilot discounts of 30–50% for large enterprises, with Cowork, Code and Autopilot billed on usage. CRM Agentforce at $50/$125/$550 with partners resisting a 10–15% uplift; ~8% deployment success at one partner. TEAM moves to usage pricing on 3 December; SNPS moves EDA to consumption. No vendor has yet reported a seat-count decline attributable to agents.",
+   "bull": "ZS on 6 October holds a ~30% non-seat share of new ACV with ARR steady; MSFT's usage-billed products accelerate.",
+   "bear": "A vendor reports a seat-count decline attributable to agents; Copilot discounts spread into E5/E7 renewals.",
+   "checkpoint": "ZS analyst day, 6 October; MSFT late October; TEAM, 3 December"
+  },
+  {
+   "n": 31,
+   "indicator": "State data-centre politics",
+   "status": "bad",
+   "statusLabel": "Bear trigger fired · BTM exemption dented",
+   "addendum": false,
+   "baseline": "Texas halted state data-centre permits pending the ERCOT interconnection and water audits (update 19 October), with >470GW of large loads queued; Abbott will ask the Legislature to remove incentives. ISI concedes onsite generation does not eliminate state environmental permitting. Wells Fargo: 374 active moratoria vs 92 in June. Newsom EO: on-site verifiers and a kill switch. Ipsos: 55% support slowing AI.",
+   "bull": "(fresh) The 19 October update lifts the halt with conditions; the 10 December audit ends without capacity loss.",
+   "bear": "(fresh) The halt extends past December or incentives are stripped; a second large state halts permits; BTM projects denied air permits.",
+   "checkpoint": "19 October; 3 November midterms; 10 December audit"
+  },
+  {
+   "n": 32,
+   "indicator": "Compute-rent vs token-price scissor",
+   "status": "new",
+   "statusLabel": "New this run",
+   "addendum": false,
+   "baseline": "Ornn, June → September: average paid token prices OpenAI −62%, DeepSeek −51%, Google −29%, Anthropic −11%; GPU rents B200 +50%, H200 +28%, H100 +9%. ISI: token index ~$2 → ~$1/Mtok while short-dated compute trades at ~$40m/MW. The consequence is vertical integration. Counter-signals are tiering, not cuts: DeepSeek raised prices 2.3–4.5x.",
+   "bull": "The scissor narrows because token prices stabilise while rents hold, so lab margins survive and the demand chain stays financeable.",
+   "bear": "The scissor widens for another quarter (tokens −30% or more while rents +20% or more), squeezing lab margins into #33 and the CY27 recontracting test.",
+   "checkpoint": "OpenAI DevDay (29 September); CME compute futures (5 October); Ornn monthly"
+  },
+  {
+   "n": 33,
+   "indicator": "Frontier-lab funding runway + hyperscaler lease guarantees",
+   "status": "new",
+   "statusLabel": "New this run",
+   "addendum": false,
+   "baseline": "Anthropic: IPO targeted for November at ~$2tn raising up to $100bn; $95bn of 2026 equity ($380bn → $965bn); a $35bn compute SPV; the 1GW Stream lease with a possible Google guarantee; ≥14.8GW / ~$517bn of compute commitments. OpenAI (FT, plan not guidance): −$278bn cumulative FCF 2026–30, $856bn of compute, the $122bn raise “could be exhausted in 2028.” SoftBank's OpenAI-funding bond expected at BB+.",
+   "bull": "Anthropic prices before year-end at or above the $965bn Series H mark; OpenAI closes its raise; SoftBank's 1 October contribution settles cleanly.",
+   "bear": "The IPO slips into 2027 or prices below the Series H mark; SoftBank funding stress; hyperscaler guarantees of lab leases spread.",
+   "checkpoint": "1 October SoftBank contribution; the November IPO window"
+  }
+ ],
+ "scenarios": [
+  {
+   "name": "Base case",
+   "horizon": "near",
+   "pct": 50,
+   "body": "Choppy, rates-led range; dispersion rather than direction. The NDX holds within ~5–8% of its 22 September high (30,771) while the 10-year stays at 5.0–5.3%. Two rotations continue under the index — contracted over spot (allocated memory, N3 and optics over the commodity channel and PC/phone OEMs) and billing nodes over intermediaries. Credit keeps widening at the borrower tier without contaminating the guarantor tier.",
+   "triggers": [
+    "Micron guides FQ1 in the $57–59bn range with supportive SCA/LTA commentary (30 Sep)",
+    "ISM (~1 Oct) and payrolls (2 Oct) do not force an October hike",
+    "CoreWeave's 30 September conference shows a non-lab backlog share that stabilises the name"
+   ],
+   "sources": [
+    "UBS",
+    "ISI",
+    "TMTB",
+    "Red-Ring"
+   ],
+   "grade": "b"
+  },
+  {
+   "name": "Bull case",
+   "horizon": "near",
+   "pct": 20,
+   "body": "A relief rally led by long yields. The 10-year falls back toward ~4.80%, the level that forces short-covering with bond CTAs 100% short at the 1st percentile. Because the stock–bond correlation is +28–60%, a bond rally now works as a second long on AI equities, not a hedge.",
+   "triggers": [
+    "Brent below $95 and WTI below $95 (Emanuel's de-hedge level)",
+    "The 10-year below 4.85%",
+    "Priced October hike odds below 40%",
+    "Anthropic confirms a November pricing date"
+   ],
+   "sources": [
+    "UBS",
+    "ISI"
+   ],
+   "grade": "b"
+  },
+  {
+   "name": "Bear case",
+   "horizon": "near",
+   "pct": 30,
+   "body": "The rates shock meets a crowded tape, and the borrower tier cracks. The 10-year pushes toward 5.4–5.5% on a hot ISM, payrolls or an oil spike; the Fed hikes on 28 October. With HF leverage at the 100th percentile and QQQ put/call at the 10th, the drawdown resembles Emanuel's macro-correction set (average −12.9%, 2018 Q4 analogue −20%). The first place it shows is credit, not equity.",
+   "triggers": [
+    "10-year closes above 5.3% and 30-year above 5.5%",
+    "CRWV CDS through 1,000bp, or HY OAS above 350bp",
+    "SOX takes out its 14 September pacing low",
+    "Micron guides below $55bn or a single-digit 4Q contract q/q"
+   ],
+   "sources": [
+    "ISI",
+    "UBS",
+    "TMTB",
+    "Red-Ring"
+   ],
+   "grade": "b"
+  },
+  {
+   "name": "Base case",
+   "horizon": "medium",
+   "pct": 55,
+   "body": "“2027 boom, 2028 brake”; earnings up, multiples down; the borrower tier refinances at a price. Hyperscaler capex grows ~+45–60% in 2027 and ~+12–14% in 2028; memory contract prices decelerate through 1H27 and peak around 2Q27; neoclouds refinance at 10–13% all-in; Anthropic's IPO prices before YE or in 1Q27. Leadership migrates from pricing-leverage names to contracted-content and trough-multiple names.",
+   "triggers": [
+    "TSMC 2027 capex at $74–80bn with 1Q27 price increases holding",
+    "1Q27 DRAM contracts settle above 4Q26",
+    "CRWV's first CY27 5-year roll clears at a premium",
+    "Hyperscaler IG spreads hold within ~100bp of the 88bp CDS average"
+   ],
+   "sources": [
+    "MS",
+    "ISI",
+    "UBS"
+   ],
+   "grade": "b"
+  },
+  {
+   "name": "Bull case",
+   "horizon": "medium",
+   "pct": 20,
+   "body": "Adoption outruns deflation and the capital markets underwrite the borrower tier. Agentic usage grows fast enough that lab revenue closes the capex gap early; Anthropic prices at or above ~$2tn and re-opens equity for the borrower tier; the Fed reaches terminal in December and cuts from mid-2027. Everything scarce re-rates, the borrower tier most.",
+   "triggers": [
+    "CRWV CDS back below ~550bp while the HY tech wall refinances",
+    "The Anthropic S-1 shows positive operating margin at scale",
+    "CY27 recontracting at or above 50% premiums",
+    "10-year below 4.7% with the 30-year below 5.3%"
+   ],
+   "sources": [
+    "UBS",
+    "ISI",
+    "Red-Ring"
+   ],
+   "grade": "b"
+  },
+  {
+   "name": "Bear case",
+   "horizon": "medium",
+   "pct": 25,
+   "body": "The financing channel breaks before demand does. The Fed keeps hiking into 2027 on AI-driven inflation and long yields reach 5.5–6%. The borrower tier cannot refinance, guarantor exposure becomes the story, frontier-lab funding stalls, and the un-contracted memory tier rolls into the contracted tier.",
+   "triggers": [
+    "A second hyperscale-campus force majeure or a markdown below 80 cents",
+    "NVIDIA discloses a drawn backstop above ~$50bn or a rating-agency outlook change",
+    "The Anthropic IPO withdrawn or priced below its $965bn Series H mark",
+    "1Q27 DRAM contracts settle below 4Q26"
+   ],
+   "sources": [
+    "UBS",
+    "MS",
+    "NSR",
+    "ISI"
+   ],
+   "grade": "b"
+  }
+ ],
+ "bearCase": {
+  "headline": "The financing channel breaks before demand does.",
+  "body": "The Fed keeps hiking into 2027 on AI-driven inflation — the Barr and Warsh reaction function taken literally — and long yields reach 5.5–6%. Four things then fail in sequence. The first place it shows is credit, not equity: CRWV CDS through 1,000bp, a second hyperscale-campus markdown after Jupiter, or a failed or sharply repriced AI-infra deal.",
+  "variants": [
+   {
+    "title": "1 · The borrower tier cannot refinance",
+    "body": "CRWV's ~$102bn 2027–30 funding gap (UBS) meets the $119bn private-credit tech wall of 2028–29 (UBS credit), and a neocloud or campus SPV defaults or restructures."
+   },
+   {
+    "title": "2 · Guarantor exposure becomes the story",
+    "body": "NVIDIA's ~$170bn of contingent exposure (MS) and Google's lease guarantees (NSR) move from footnote to headline, and NVDA credit and equity re-price together."
+   },
+   {
+    "title": "3 · Frontier-lab funding stalls",
+    "body": "The Anthropic IPO slips into a stressed 2027, which Emanuel says could catalyse “hyperscaler issuance woes”; OpenAI's runway is shorter than the $122bn raise implies."
+   },
+   {
+    "title": "4 · The un-contracted memory tier rolls into the contracted tier",
+    "body": "2027 recontracting happens at lower prices, CXMT's G5 adds ~5% of global bits without a new wafer, and the Lipacis correction plays out (historical average −38% over 13 months)."
+   },
+   {
+    "title": "And what would kill the recommendation",
+    "body": "Drop the underweight and go long the borrower tier outright only if all three happen: CRWV CDS falls back below ~550bp, the Anthropic IPO prices before year-end, and CY27 recontracting clears at a premium to installed rates. Each alone is noise; together they mean the capital markets have decided to underwrite the borrower tier and credit is no longer the binding constraint."
+   }
+  ]
+ },
+ "calendar": [
+  {
+   "date": "29 Sep 2026",
+   "when": "Dated",
+   "body": "OpenAI DevDay and MDB investor day — token pricing and tiering (the $500 Pro Max rumour is grade d) and the seat-to-consumption transition (#30).",
+   "sources": [
+    "ISI",
+    "TMTB"
+   ],
+   "grade": "b"
+  },
+  {
+   "date": "30 Sep 2026",
+   "when": "Dated",
+   "body": "Micron FQ4 (UBS models $52.4bn and $32.50 EPS against a $50bn guide), SNPS investor day, the CRWV AI Cloud Conference (lab vs non-lab backlog), the BEA PCE revision and HPE's Networking day.",
+   "sources": [
+    "UBS",
+    "ISI"
+   ],
+   "grade": "b"
+  },
+  {
+   "date": "1 Oct 2026",
+   "when": "Dated",
+   "body": "ISM manufacturing (October hike odds); Nebius on-demand price increases take effect; SoftBank's $10bn OpenAI contribution is due.",
+   "sources": [
+    "ISI",
+    "TMTB"
+   ],
+   "grade": "b"
+  },
+  {
+   "date": "2 Oct 2026",
+   "when": "Dated",
+   "body": "September payrolls — the second input to October hike odds, which sit at 72–80%.",
+   "sources": [
+    "ISI",
+    "UBS"
+   ],
+   "grade": "b"
+  },
+  {
+   "date": "5 Oct 2026",
+   "when": "Dated",
+   "body": "CME / Silicon Data compute futures launch — the first exchange price for compute rent (#6, #32).",
+   "sources": [
+    "ISI"
+   ],
+   "grade": "b"
+  },
+  {
+   "date": "6 Oct 2026",
+   "when": "Dated",
+   "body": "MRVL and ZS investor days — Trainium successor socket (#15) and the non-seat share of new ACV (#30).",
+   "sources": [
+    "UBS",
+    "ISI"
+   ],
+   "grade": "b"
+  },
+  {
+   "date": "9 Oct 2026",
+   "when": "Dated",
+   "body": "Micron Taiwan board; possible union action (supply risk graded low).",
+   "sources": [
+    "UBS"
+   ],
+   "grade": "c"
+  },
+  {
+   "date": "Mid-Oct 2026",
+   "when": "Mid-month",
+   "body": "TSMC 3Q print — 2027 capex framing at or above $74–80bn and the 1Q27 wafer price increases; SK hynix's shareholder-return package, due at >50% of FCF.",
+   "sources": [
+    "UBS",
+    "JPM"
+   ],
+   "grade": "b"
+  },
+  {
+   "date": "13 Oct 2026",
+   "when": "Dated",
+   "body": "Bank earnings — C&I loan growth as a read on AI and data-center financing (up 230bp since April on Guha's count).",
+   "sources": [
+    "ISI"
+   ],
+   "grade": "b"
+  },
+  {
+   "date": "19 Oct 2026",
+   "when": "Dated",
+   "body": "Texas TCEQ update on the state data-center permit halt (#31).",
+   "sources": [
+    "ISI"
+   ],
+   "grade": "a"
+  },
+  {
+   "date": "28 Oct 2026",
+   "when": "Dated",
+   "body": "FOMC, with a hike 72–80% priced, one week before Election Day; Oracle investor day (Jupiter, vendor financing).",
+   "sources": [
+    "ISI",
+    "TMTB",
+    "UBS"
+   ],
+   "grade": "b"
+  },
+  {
+   "date": "3 Nov 2026",
+   "when": "Dated",
+   "body": "US midterms — the AI-safety legislative tail and post-midterm big-tech investigations (ISI's policy desk calls these the broadest risk).",
+   "sources": [
+    "ISI",
+    "UBS"
+   ],
+   "grade": "b"
+  },
+  {
+   "date": "~5 Nov 2026",
+   "when": "Pending",
+   "body": "SPCX lock-up of ~1.3bn shares (~$196bn) — equity supply against a re-leveraged tape (#16).",
+   "sources": [
+    "TMTB"
+   ],
+   "grade": "d"
+  },
+  {
+   "date": "Nov 2026",
+   "when": "Pending",
+   "body": "Anthropic IPO target (~$2tn, raising up to $100bn — expectations only), APEC Shenzhen and the second US–China AI dialogue.",
+   "sources": [
+    "ISI",
+    "Red-Ring"
+   ],
+   "grade": "b"
+  },
+  {
+   "date": "9 Dec 2026",
+   "when": "Dated",
+   "body": "CHIPS buyback limits lapse for Micron — UBS models ~$20bn a quarter from FQ2:27, rising to $40–50bn.",
+   "sources": [
+    "UBS"
+   ],
+   "grade": "b"
+  },
+  {
+   "date": "10 Jan 2027",
+   "when": "Collision",
+   "body": "The extended US–China trade truce expires, with the debt ceiling binding in 1Q27 and the TGA rebuild behind it.",
+   "sources": [
+    "ISI",
+    "UBS"
+   ],
+   "grade": "b"
+  }
+ ],
+ "perimeters": [
+  {
+   "figure": "Anthropic ARR",
+   "range": "Four vintages — never average them: $65bn (end-July, FT) / ~$70bn (Yipit, grade d, mid-September) / >$100bn (September, second-hand table) / >$110bn (a year-end expectation, WSJ/NYT). Yipit's +$5bn a month cannot reach $110bn by YE (that needs ~$11.8bn a month), so either definitions differ or the expectation is aggressive."
+  },
+  {
+   "figure": "2027 WFE",
+   "range": "$198–226bn depending on definition: UBS alone spans $198bn (Lin, APAC) to $226bn (Arcuri, US); ISI $215bn; JPM $205bn. Different perimeters, not disagreement."
+  },
+  {
+   "figure": "Broadcom's financing",
+   "range": "Two perimeters, one programme: Run 6's ~$100bn ($60bn senior + $30bn sub) was the XPV programme scale; NSR's $35bn raised in the first >1GW Anthropic deal, $30bn Broadcom-backstopped, is the first draw. The XPV targets >20GW through 2028 (~$650bn implied)."
+  },
+  {
+   "figure": "Memory contract prices",
+   "range": "ISI's September DDR contract +2–3% is month-over-month; the 4Q guides (+5–10%) are quarter-over-quarter. They do not contradict each other — they describe a deceleration."
+  },
+  {
+   "figure": "NVIDIA CDS",
+   "range": "Run 6 carried 86.7bp (24 August, all-time wide). MS reports the 5Y at ~80bp, +36bp QTD, at a different date and tenor convention. Read as flat-to-wider, not tighter."
+  },
+  {
+   "figure": "Revenue per MW",
+   "range": "Tenor-dependent: CRWV installed ~$10.5–12.5bn/GW; long-term take-or-pay ~$13bn/GW (NSR); AKAM ~$20–22m/MW/yr; short-dated ~$37–43bn/GW (UBS); lab deals $30–50m/MW. Never quote one without its tenor."
+  },
+  {
+   "figure": "Diesel",
+   "range": "EIA $5.97 (+58% y/y, 23 September) is the benchmark; ISI and TMTB also quote $6.30 and $6.50 from other series and dates."
+  }
+ ],
+ "gaps": [
+  "00_Resources/voice-principles.md still does not exist anywhere on disk — the fifth consecutive flag. This run again used the Cowork Playground CLAUDE.md Preferences section as the voice specification.",
+  "The Micron buyback contradiction is closed: Parker's ~$460bn figure was forward-looking, and Arcuri's FQ4 preview supplies the schedule (CHIPS limits lapse 9 December; $100.5bn in F27 and $192.5bn in F28; share count −32% by F30). Retired from this list.",
+  "The Humanoid source is retired after five silent runs; indicator #23 continues from UBS, MS and IFR.",
+  "Red-Ring files carry long source and company directories after §9–10; the substantive §1–9 were read in full and the directory tails skimmed. A method disclosure, not a conclusion.",
+  "TMTB's rate-reading quirk: it printed “~70% September rate CUT” on 11 September while hike pricing elsewhere was 85–92%. Cross-check TMTB rate-probability statements against GS or ISI before use.",
+  "No new data on two named Run 6 triggers — IG Tech OAS against the March peak, and AVGO CDS against 126.2bp. Proxies are used in #14 and #21; the trigger status is not claimed either way.",
+  "Red-Ring's channel-inventory month series (Run 6's decisive #19 bear trigger) was not updated. ISI's OEM inventory and Wolfe's customer inventory days are dollar-denominated and contaminated by price; a bit-denominated series is needed.",
+  "Intra-house splits carried unresolved: UBS Arcuri vs Gaudois (2029 memory); UBS Lin vs Arcuri (MRVL Trainium); NSR's internal open-weight share (80% vs 65%); MS's memory “half of capex” vs its 2028 bridge that requires memory to moderate.",
+  "MS vs UBS on AMD 2027 CoWoS: MS 345k wafers (cut from 530k) against UBS 475k. Unresolved; relevant to #15 and to AMD's 2027 GPU volume."
+ ],
+ "implications": [
+  {
+   "ticker": "NVDA",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "MS",
+    "NSR",
+    "ISI",
+    "UBS"
+   ],
+   "line": "Own, with a credit qualification. A low-leverage self-funder with contracted 2027–28 revenue and one of Lipacis's low-P/E dispersion picks at ~19x NTM (+20% YTD). But its credit is now priced for its guarantor role: MS models ~$170bn of contingent exposure off funded debt and moved NVDA credit to Neutral, CDS is +36bp QTD, and NSR counts ~$300bn of backstops against ~$260bn of EBITDA. NVDA CDS is this leg's early warning. Kyber NVL144 slips to 2028; the 2027 mainline is NVL72 plus NVL576."
+  },
+  {
+   "ticker": "AVGO",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "NSR",
+    "ISI",
+    "MS"
+   ],
+   "line": "Own on the self-funding axis, but the numbers moved against it. Broadcom's first >1GW Anthropic XPV deal raised $35bn, $30bn of it Broadcom-backstopped, inside a >20GW (~$650bn implied) programme. ISI cut 2027 revenue 6.7% to $193.4bn and MS has CY27 5% below the Street; the stock is +2% YTD, Lipacis's other low-P/E pick."
+  },
+  {
+   "ticker": "TSM",
+   "scope": "name",
+   "direction": "bull",
+   "grade": "b",
+   "sources": [
+    "UBS",
+    "JPM",
+    "TMTB"
+   ],
+   "external": true,
+   "externalReason": "TSMC's US ADR is not in any workbook in this build (S&P 500, semis, software, hardware/networking, biotech, pharma).",
+   "line": "The logic bottleneck is now N3: 106–113% utilisation, cloud AI taking 73% of 2027 N3 wafers, and wafer prices +3–6% from January (DigiTimes, grade c). CoWoS end-2027 at 260–270kwpm with the gap down to ~10%. Trades at 17x/12x 2027/28E against the SOX at 29x/20x. Test: the mid-October print framing 2027 capex at or above $74–80bn."
+  },
+  {
+   "ticker": "MU",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "UBS",
+    "RBC via TMTB",
+    "ISI",
+    "Citi"
+   ],
+   "line": "Hold as an exposure sized to its contracted half — the name where both clauses of the stance collide. A net-cash self-funder with roughly half its revenue under strategic agreements, and the 9 December CHIPS lapse opens buybacks UBS models at ~$20bn a quarter rising to $40–50bn. But the stock trades on pricing leverage and on UBS's own heuristic q/q ASP momentum is peaking now; UBS held $1,625 while cutting the multiple from 11x to 8x. Trades at 7x NTM. Micron reports 30 September."
+  },
+  {
+   "ticker": "SNDK",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "Rosenblatt via TMTB",
+    "MS"
+   ],
+   "line": "65% of FY28 output is under new business-model agreements with eight customers, and Rosenblatt's $2,400 target sits on ~8x FY30 EPS. MS is rotating semis leadership away from “pricing-leverage” memory (MU, SNDK) while holding memory earnings above the Street."
+  },
+  {
+   "ticker": "AMD",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "ISI",
+    "TMTB",
+    "UBS",
+    "MS"
+   ],
+   "line": "+193% YTD on the CPU renaissance: the Akamai–Anthropic fleet runs EPYC and AMD's server CPU unit share is 28% (+445bp). But every OEM's agentic tier runs on NVIDIA Vera, so the x86 super-cycle may accrue partly to NVIDIA/TSMC; M Science has 1H September deployments negative y/y (grade d); and MS (345k) and UBS (475k) disagree on 2027 CoWoS wafers."
+  },
+  {
+   "ticker": "INTC",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "ISI"
+   ],
+   "line": "+232% YTD — the tape's high-multiple CPU winner over Lipacis's low-P/E picks — while server CPU unit share fell to 54% (−1,005bp). The x86 CY27 super-cycle (+48% revenue, +34% ASP) is mostly memory-driven."
+  },
+  {
+   "ticker": "QCOM",
+   "scope": "name",
+   "direction": "bull",
+   "grade": "b",
+   "sources": [
+    "UBS",
+    "ISI"
+   ],
+   "line": "A third credible XPU entrant: a $60bn, 10-year AWS custom silicon plus optical deal, with AWS warrants over up to 25m QCOM shares."
+  },
+  {
+   "ticker": "MRVL",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "UBS",
+    "MS"
+   ],
+   "line": "An intra-UBS tension: Lin cut Marvell's 2027 Trainium units from 686k to 85k while Arcuri keeps Buy $310. MS's base case puts the $120bn warrant at $85.6bn cumulative from FY29. Test: the 6 October investor day reaffirming FY28 $18bn and naming a Trainium successor socket."
+  },
+  {
+   "ticker": "AMAT",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "MS",
+    "ISI"
+   ],
+   "line": "MS cut the target from $642 to $563 while raising EPS — the “earnings up, multiples down” regime written into a model. ISI raised 2026/27 WFE to $155bn/$215bn but flags memory makers accelerating capex just as spot turns as the classic memory-top pattern."
+  },
+  {
+   "ticker": "CAMT",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "MS"
+   ],
+   "external": true,
+   "externalReason": "Camtek is not in any workbook in this build (S&P 500, semis, software, hardware/networking, biotech, pharma).",
+   "line": "MS cut the target from $165 to $152 while raising EPS — the same multiple compression as AMAT."
+  },
+  {
+   "ticker": "LRCX",
+   "scope": "read-through",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "ISI",
+    "JPM"
+   ],
+   "line": "Read-through from the WFE ladder (ISI $215bn, JPM $205bn for 2027, memory capex $104bn → $194bn) and from ISI's warning that memory capex accelerating into a spot turn is the top pattern. No dedicated LRCX evidence this run."
+  },
+  {
+   "ticker": "KLAC",
+   "scope": "read-through",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "ISI",
+    "JPM"
+   ],
+   "line": "Same WFE read-through as LRCX; no dedicated KLAC evidence this run."
+  },
+  {
+   "ticker": "LITE",
+   "scope": "name",
+   "direction": "bull",
+   "grade": "b",
+   "sources": [
+    "TMTB",
+    "Red-Ring"
+   ],
+   "line": "Own the optical laser layer. EML/CW demand exceeds supply by >30% with a backlog of more than two years (Globlex via TMTB); Lumentum prepaid AXTI $43.5m to reserve InP supply to 2031. InP contract prices +50–60%."
+  },
+  {
+   "ticker": "COHR",
+   "scope": "name",
+   "direction": "bull",
+   "grade": "c",
+   "sources": [
+    "TMTB",
+    "Red-Ring",
+    "MS"
+   ],
+   "line": "Own the optical laser layer. Coherent's 6-inch InP reaches 75% of output by end-2027, and scale-up CPO/NPO in 2H27 partly corroborates Lumentum's NPO pull-forward (grade c). MS has first-gen NPO trials in 2028."
+  },
+  {
+   "ticker": "AXTI",
+   "scope": "name",
+   "direction": "bull",
+   "grade": "b",
+   "sources": [
+    "TMTB",
+    "Red-Ring"
+   ],
+   "line": "Sumitomo and AXT control ~85% of InP substrate supply, with no meaningful 6-inch relief before 2028 (Mizuho via TMTB); Lumentum prepaid AXTI $43.5m to reserve supply to 2031."
+  },
+  {
+   "ticker": "CIEN",
+   "scope": "name",
+   "direction": "bull",
+   "grade": "b",
+   "sources": [
+    "ISI"
+   ],
+   "line": "Upgraded to $550 with backlog >$10bn and high-single-digit to 20% price increases including on existing backlog, “not balanced before 2028.” The target rests on undiscounted FY29 EPS at ~32x CY28E — read the horizon, not the PT."
+  },
+  {
+   "ticker": "CRDO",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "TMTB",
+    "ISI"
+   ],
+   "external": true,
+   "externalReason": "Credo is not in any workbook in this build (S&P 500, semis, software, hardware/networking, biotech, pharma).",
+   "line": "Mizuho cut $290 → $245 on peer multiples with the fundamental checks positive; ISI at $292. Another multiples-down, fundamentals-up case."
+  },
+  {
+   "ticker": "ANET",
+   "scope": "read-through",
+   "direction": "bull",
+   "grade": "b",
+   "sources": [
+    "TMTB"
+   ],
+   "line": "On Jefferies' 18 September bus tour (ANET, NVDA, AVGO, ALAB) that turned “safety” into a compute-additive line — the reversal of the 14 September flush. Cisco puts bandwidth at +450% per agent task."
+  },
+  {
+   "ticker": "ALAB",
+   "scope": "read-through",
+   "direction": "bull",
+   "grade": "b",
+   "sources": [
+    "TMTB"
+   ],
+   "line": "Same bus-tour read-through as ANET; no dedicated ALAB evidence this run."
+  },
+  {
+   "ticker": "DELL",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "ISI"
+   ],
+   "line": "Dell's dedicated agentic tier, like HPE's and SMCI's, runs on NVIDIA Vera, so the x86 super-cycle may accrue partly to NVIDIA/TSMC rather than the x86 vendors."
+  },
+  {
+   "ticker": "HPQ",
+   "scope": "name",
+   "direction": "bear",
+   "grade": "b",
+   "sources": [
+    "MS via TMTB"
+   ],
+   "line": "2H PC shipments are tracking −26% y/y and HP gave no FY27 guide — memory-cost demand destruction reaching PCs (#8's bear trigger fired)."
+  },
+  {
+   "ticker": "AAPL",
+   "scope": "name",
+   "direction": "bear",
+   "grade": "b",
+   "sources": [
+    "Bernstein via TMTB",
+    "UBS"
+   ],
+   "line": "Run 6's downstream FCF channel now has a named mega-cap: the December-quarter gross margin is ~46.2%, 50bp below consensus, with memory ~$150 of the ~$168 y/y BOM increase on a 256GB iPhone 18 Pro Max. UBS cut 2027 smartphone units to −3%."
+  },
+  {
+   "ticker": "WDC",
+   "scope": "read-through",
+   "direction": "bull",
+   "grade": "c",
+   "sources": [
+    "Red-Ring"
+   ],
+   "line": "HDD lead times at 50 weeks are “Very Tight” on the TrendForce radar and eSSD demand runs ~2x prior — the storage leg of agentic hardware broadening."
+  },
+  {
+   "ticker": "AKAM",
+   "scope": "name",
+   "direction": "bull",
+   "grade": "a",
+   "sources": [
+    "Company disclosure",
+    "TMTB"
+   ],
+   "line": "The first frontier-lab CPU contract: Anthropic, $11.6bn over seven years, entirely CPU, with a ~$9bn option, ~$5.5bn of capex, ~95–105MW and a warrant over up to ~5% of Akamai (8-K). The stock rose 19.7% — the escape valve for a quantified AI contract still works."
+  },
+  {
+   "ticker": "JBL",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "TMTB"
+   ],
+   "line": "Holds ~$1.7bn of Akamai memory on consignment, more than the ~$1.0–1.4bn of CPU spend (from the 8-K) — “a CPU contract is a memory contract.”"
+  },
+  {
+   "ticker": "ORCL",
+   "scope": "name",
+   "direction": "bear",
+   "grade": "a",
+   "sources": [
+    "Company disclosure",
+    "ISI",
+    "TMTB",
+    "UBS"
+   ],
+   "line": "The clearest lab-dependent, vendor-financed case. Force majeure on the 2.45GW Jupiter campus and project debt sold below 90 cents; FY FCF −$5.4bn, ~−$16.8bn ex prepayments; CDS 189bp, the widest in IG; named by the FT as dependent on OpenAI's financing. Against it, FQ1 was the cleanest demand proof of the run: OCI +121%, RPO $664bn, 100% of GPU renewals at a 20% premium. Investor day 28 October."
+  },
+  {
+   "ticker": "CRWV",
+   "scope": "name",
+   "direction": "bear",
+   "grade": "b",
+   "sources": [
+    "UBS",
+    "JPM",
+    "ISI",
+    "Red-Ring"
+   ],
+   "external": true,
+   "externalReason": "CoreWeave is not in any workbook in this build (S&P 500, semis, software, hardware/networking, biotech, pharma).",
+   "line": "Underweight — against four bullish equity houses, justified by the credit tape. CDS 811bp (+259bp QTD), notes ~T+850; JPM's model has FY28 net interest $7.84bn against adjusted EBIT $8.79bn; external funding gap ~$102bn over 2027–30 (UBS). Flip test: CY27 recontracting prices and CDS direction; conference 30 September."
+  },
+  {
+   "ticker": "NBIS",
+   "scope": "name",
+   "direction": "bear",
+   "grade": "b",
+   "sources": [
+    "TMTB",
+    "ISI",
+    "Red-Ring"
+   ],
+   "external": true,
+   "externalReason": "Nebius is not in any workbook in this build (S&P 500, semis, software, hardware/networking, biotech, pharma).",
+   "line": "BNP upgraded to Outperform $399 (“The Price of Scarcity”) while Rothschild initiated Sell. 1–3-year contracts price at about twice hyperscaler rates and 3–6-month at about four times; on-demand prices rise from 1 October (grade d, direction only)."
+  },
+  {
+   "ticker": "IREN",
+   "scope": "name",
+   "direction": "bear",
+   "grade": "b",
+   "sources": [
+    "Fab5 Run 7"
+   ],
+   "external": true,
+   "externalReason": "IREN is not in any workbook in this build (S&P 500, semis, software, hardware/networking, biotech, pharma).",
+   "line": "Named in the neocloud underweight (CRWV, NBIS, IREN, Nscale) on the borrower-tier credit read; no dedicated IREN evidence this run."
+  },
+  {
+   "ticker": "META",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "TMTB",
+    "MS",
+    "ISI"
+   ],
+   "line": "+11% on 21 September on Muse — ~3m US downloads by day 15–20 and global DAU ~70k → ~710k in 10 days. Monetisation is unquantified: MS ~$10 per user per year, subscriptions mostly covering compute, only 8% of consumers trusting Meta with passwords, and Amazon blocked Muse shopping. Wells' +24% target is all multiple; ISI has 2027 FCF at ~−$45–48bn. Q3 late October."
+  },
+  {
+   "ticker": "GOOGL",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "UBS",
+    "NSR",
+    "ISI"
+   ],
+   "line": "Alphabet's August bonds priced ~40% wider than February's at matched maturities; $76bn of disclosed neocloud backstops and a possible credit guarantee on Anthropic's 1GW Stream lease; 2027 FCF ~−$30–37bn (ISI, chart-read). GCP +82%."
+  },
+  {
+   "ticker": "AMZN",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "NSR",
+    "ISI",
+    "TMTB"
+   ],
+   "line": "AWS says the “lion's share of capacity in 2027 is largely reserved… quite a bit already reserved for 2028.” 2027 FCF ~−$20bn (ISI); $8bn of neocloud backstops. Blocked Muse from shopping while opening an official Claude seller plugin."
+  },
+  {
+   "ticker": "MSFT",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "ISI",
+    "UBS",
+    "TMTB"
+   ],
+   "line": "The only hyperscaler with positive 2027 FCF (~+$10–12bn, ISI) and CDS at 44bp. Azure +43%, guided to 45%. But Copilot is being discounted 30–50% for large enterprises — the first seat-price discounting at the largest vendor (#30 partially fired) — and Stifel upgraded while cutting FY28."
+  },
+  {
+   "ticker": "CRM",
+   "scope": "name",
+   "direction": "bear",
+   "grade": "b",
+   "sources": [
+    "ISI"
+   ],
+   "line": "Agentforce pricing at $50/$125/$550 with partners resisting a 10–15% uplift, and ~8% deployment success at one large partner (Jefferies via ISI). Seat-priced application software sits on the underweight side."
+  },
+  {
+   "ticker": "INTU",
+   "scope": "name",
+   "direction": "bear",
+   "grade": "b",
+   "sources": [
+    "ISI"
+   ],
+   "line": "~70% of revenue is growing ~1.4% — a seat-exposed profile in the agent-era discounting debate (#30)."
+  },
+  {
+   "ticker": "ZS",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "ISI"
+   ],
+   "line": "Run 6's memory-cost FCF channel name. The 6 October analyst day tests whether a ~30% non-seat share of new ACV holds with ARR steady."
+  },
+  {
+   "ticker": "SNPS",
+   "scope": "name",
+   "direction": "bull",
+   "grade": "b",
+   "sources": [
+    "ISI",
+    "TMTB"
+   ],
+   "line": "Moving EDA from seats to consumption — one of the non-bypassable billing nodes the agent era rewards. Investor day 30 September."
+  },
+  {
+   "ticker": "DDOG",
+   "scope": "name",
+   "direction": "bull",
+   "grade": "b",
+   "sources": [
+    "ISI",
+    "TMTB"
+   ],
+   "line": "Observability is a non-bypassable billing node (traces) in the agentic stack — on the long side of the billing-nodes-over-intermediaries rotation."
+  },
+  {
+   "ticker": "OKTA",
+   "scope": "name",
+   "direction": "bull",
+   "grade": "b",
+   "sources": [
+    "ISI"
+   ],
+   "external": true,
+   "externalReason": "Okta is not in any workbook in this build (S&P 500, semis, software, hardware/networking, biotech, pharma).",
+   "line": "Identity is a non-bypassable billing node; per-agent pricing is coming, though there is “no standard way to count agents.”"
+  },
+  {
+   "ticker": "SHOP",
+   "scope": "name",
+   "direction": "bull",
+   "grade": "b",
+   "sources": [
+    "TMTB"
+   ],
+   "external": true,
+   "externalReason": "Shopify is not in any workbook in this build (S&P 500, semis, software, hardware/networking, biotech, pharma).",
+   "line": "Reclassified as an “integrated” winner of the Muse shift, with Shop Pay inside Muse and merchant connectors expanding."
+  },
+  {
+   "ticker": "EXPE",
+   "scope": "name",
+   "direction": "bear",
+   "grade": "b",
+   "sources": [
+    "MS",
+    "TMTB"
+   ],
+   "line": "An intermediary whose value was the customer relationship: MS moved EXPE to Underweight, app MAU is −11% y/y, and OTAs fell 5–10% on Muse."
+  },
+  {
+   "ticker": "ABNB",
+   "scope": "name",
+   "direction": "bear",
+   "grade": "b",
+   "sources": [
+    "MS"
+   ],
+   "line": "MS moved ABNB to Equal-weight as the “AI losers” factor became tradeable — UBS's Consumer Friction basket fell 10% in about a week."
+  },
+  {
+   "ticker": "ACN",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "TMTB",
+    "ISI"
+   ],
+   "line": "Evaluators embedded at Anthropic under a ≥$1bn joint commitment; ACN rose 5% three days after being downgraded with its PT removed. Organic growth is below 1%."
+  },
+  {
+   "ticker": "BE",
+   "scope": "name",
+   "direction": "neutral",
+   "grade": "b",
+   "sources": [
+    "UBS",
+    "ISI",
+    "MS"
+   ],
+   "external": true,
+   "externalReason": "Bloom Energy is not in any workbook in this build (S&P 500, semis, software, hardware/networking, biotech, pharma).",
+   "line": "Jupiter is a 2.45GW single Bloom-powered microgrid whose gas route was rejected twice; MS calls force majeure a contractual protection (1.2GW of 2027–28 contracts, ~$1.25bn of EBITDA, redeployable). NTM EV/EBITDA fell ~40 turns QTD to 66.5x; UBS's own EPS sits below the Street."
+  }
+ ]
+}
