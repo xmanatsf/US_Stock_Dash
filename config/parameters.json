@@ -187,6 +187,22 @@
       "assetNoun": "S&P 500", "memberNoun": "index members",
       "leadGroup": "cyclicals", "confirmGroup": "defensives",
       "narrowingGroup": "mega-cap tech", "primaryBench": "SPY"
+    },
+    "biotech": {
+      "assetNoun": "biotech complex",
+      "memberNoun": "biotech names",
+      "leadGroup": "Genetic medicine",
+      "confirmGroup": "Oncology",
+      "narrowingGroup": "Large-cap commercial",
+      "primaryBench": "XBI"
+    },
+    "pharma": {
+      "assetNoun": "pharma complex",
+      "memberNoun": "pharma names",
+      "leadGroup": "Clinical-stage",
+      "confirmGroup": "Specialty & generics",
+      "narrowingGroup": "Big pharma",
+      "primaryBench": "XLV"
     }
   },
 
@@ -263,7 +279,35 @@
       "Early recovery":         { "tilt": "broadening into cyclicals and small caps is what makes it durable" },
       "Momentum expansion":     { "tilt": "check the equal-weight vs cap-weight spread - mega-cap-only expansion is narrowing" }
     },
-    "_tiltNote": "Only 'tilt' is universe-specific. Exposure, confirm and invalidate are framework-level and shared. The large-over-small tilt runs through every regime and is the most persistent single recommendation in the source set."
+    "_tiltNote": "Only 'tilt' is universe-specific. Exposure, confirm and invalidate are framework-level and shared. The large-over-small tilt runs through every regime and is the most persistent single recommendation in the source set.",
+    "biotech": {
+      "Capitulation / washout": {
+        "tilt": "genetic medicine and clinical oncology first; large-cap commercial is ballast, not the bounce"
+      },
+      "Bottoming / base": {
+        "tilt": "genetic medicine and oncology lead once long yields stop rising; large caps confirm later"
+      },
+      "Early recovery": {
+        "tilt": "genetic medicine then oncology then large-cap commercial as it broadens"
+      },
+      "Momentum expansion": {
+        "tilt": "large-cap commercial carrying alone is a flight to quality - narrowing, not risk appetite"
+      }
+    },
+    "pharma": {
+      "Capitulation / washout": {
+        "tilt": "clinical-stage first; big pharma is the defensive ballast"
+      },
+      "Bottoming / base": {
+        "tilt": "clinical-stage and specialty lead; big pharma confirms"
+      },
+      "Early recovery": {
+        "tilt": "clinical-stage then specialty & generics then big pharma as it broadens"
+      },
+      "Momentum expansion": {
+        "tilt": "big pharma carrying alone - in practice one GLP-1 name - is narrowing, not strength"
+      }
+    }
   },
 
   "subBaskets": {
@@ -318,7 +362,178 @@
       },
       "note": "Config is complete and correct. Unused until a clean workbook lands - the 2026-08-09 vintage carries semiconductor data under these headers."
     },
-    "market_internals": null
+    "market_internals": null,
+    "biotech": {
+      "cycleBaskets": [
+        "Genetic medicine",
+        "Oncology",
+        "Large-cap commercial",
+        "Tools & diagnostics"
+      ],
+      "scored": [
+        "Genetic medicine",
+        "Oncology",
+        "Large-cap commercial"
+      ],
+      "leadBasket": "Genetic medicine",
+      "confirmBasket": "Oncology",
+      "narrowingBasket": "Large-cap commercial",
+      "minMembers": 3,
+      "baskets": {
+        "Large-cap commercial": [
+          "ABBV",
+          "AMGN",
+          "GILD",
+          "VRTX",
+          "REGN",
+          "BIIB",
+          "ALNY",
+          "INCY",
+          "BMRN",
+          "UTHR",
+          "NBIX",
+          "EXEL",
+          "INSM",
+          "HALO"
+        ],
+        "Genetic medicine": [
+          "BEAM",
+          "NTLA",
+          "SRPT",
+          "ARWR",
+          "IONS",
+          "SANA",
+          "MGTX",
+          "DYN",
+          "TSHA",
+          "ABUS",
+          "STOK",
+          "RARE",
+          "SLDB",
+          "KRYS",
+          "PGEN",
+          "VOR",
+          "LEGN"
+        ],
+        "Oncology": [
+          "RVMD",
+          "IOVA",
+          "CGEM",
+          "IDYA",
+          "KURA",
+          "NRIX",
+          "RLAY",
+          "REPL",
+          "SNDX",
+          "TNGX",
+          "ERAS",
+          "ORIC",
+          "TYRA",
+          "IBRX",
+          "JANX",
+          "CGON",
+          "CELC",
+          "SMMT",
+          "COGT",
+          "XNCR",
+          "ZYME",
+          "RCUS"
+        ],
+        "Tools & diagnostics": [
+          "NTRA",
+          "TWST",
+          "CDNA",
+          "VCYT",
+          "GRAL",
+          "RXRX",
+          "ABSI"
+        ],
+        "Vaccines & infectious": [
+          "MRNA",
+          "NVAX",
+          "PCVX",
+          "VIR"
+        ],
+        "Metabolic & cardio": [
+          "VKTX",
+          "MDGL",
+          "MLYS",
+          "CYTK",
+          "BBIO"
+        ]
+      },
+      "note": "Editorial classification by modality, added with the 20260927 vintage. Only names whose modality is unambiguous are assigned; the rest sit in the composite and breadth but in no basket. The cycle logic: rate-sensitive, long-duration genetic medicine is the high-beta group that leads off a bottom, clinical oncology confirms the broadening, and large-cap commercial biotech carrying the complex alone is a flight to quality, i.e. narrowing. Review the assignments before relying on pillar E."
+    },
+    "pharma": {
+      "cycleBaskets": [
+        "Clinical-stage",
+        "Specialty & generics",
+        "Big pharma",
+        "Animal health"
+      ],
+      "scored": [
+        "Clinical-stage",
+        "Specialty & generics",
+        "Big pharma"
+      ],
+      "leadBasket": "Clinical-stage",
+      "confirmBasket": "Specialty & generics",
+      "narrowingBasket": "Big pharma",
+      "minMembers": 3,
+      "baskets": {
+        "Big pharma": [
+          "LLY",
+          "JNJ",
+          "MRK",
+          "PFE",
+          "BMY"
+        ],
+        "Specialty & generics": [
+          "VTRS",
+          "AMRX",
+          "ANIP",
+          "OGN",
+          "PBH",
+          "SUPN",
+          "PCRX",
+          "HRMY",
+          "CORT",
+          "INVA",
+          "ETON",
+          "HROW",
+          "INDV",
+          "AXSM",
+          "TARS",
+          "XERS",
+          "LQDA"
+        ],
+        "Clinical-stage": [
+          "ATAI",
+          "NKTR",
+          "MBX",
+          "GPCR",
+          "ELVN",
+          "EWTX",
+          "TRVI",
+          "RAPP",
+          "MAZE",
+          "AMLX",
+          "OCUL",
+          "OMER",
+          "SEPN"
+        ],
+        "Animal health": [
+          "ZTS",
+          "ELAN",
+          "PAHC"
+        ],
+        "Royalty": [
+          "RPRX",
+          "LGND"
+        ]
+      },
+      "note": "Editorial classification, added with the 20260927 vintage. Only unambiguous names are assigned. Clinical-stage is the high-beta group that leads off a bottom, specialty & generics confirm, and big pharma carrying the composite alone - in practice one GLP-1 name - is narrowing, not strength. Review the assignments before relying on pillar E."
+    }
   },
 
   "_marketInternalsNote": "market_internals has no static sub-baskets. Its baskets are the 11 GICS sectors and 25 industry groups from sectors.json, so pillar E runs over the rollup groups. vocabulary.market supplies the same lead/confirm/narrowing semantics."

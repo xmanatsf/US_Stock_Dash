@@ -291,7 +291,7 @@ def cross_workbook_identity(book_a, book_b, name_a: str, name_b: str, min_frac: 
     documents a 'corrected' file where the same corrupt blocks simply moved one column over).
     Benchmarks are excluded: SPY and SMH legitimately appear in more than one workbook.
     """
-    bench = {"SPY", "SMH"}
+    bench = {"SPY", "SMH", "XBI", "XLV", "IHE", "XHE"}
     fp_b = {}
     for t in book_b.tickers:
         if t in bench:

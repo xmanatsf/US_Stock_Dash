@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biotech Stock Dynamics — US Stock Dashboard</title>
+<link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1 id="tabTitle">Biotech Stock Dynamics</h1>
+      <div id="tabMeta">loading…</div>
+    </div>
+    <button id="themeBtn" type="button">theme</button>
+  </header>
+
+  <nav class="tabBtns" id="tabNav"></nav>
+  <div id="validation"></div>
+  <section id="verdict"></section>
+
+  <div class="ctlRow">
+    <label>Horizon</label><div id="horizonCtl"></div>
+  </div>
+
+  <div id="app">
+    <h2>Universe</h2>
+    <div data-chart id="chComp" class="full"></div>
+    <div data-chart id="chRegime" class="full"></div>
+    <div class="grid2">
+      <div data-chart id="chBreadth"></div>
+      <div data-chart id="chScore"></div>
+      <div data-chart id="chRoc"></div>
+      <div data-chart id="chHml"></div>
+      <div data-chart id="chSpread"></div>
+      <div data-chart id="chUdv"></div>
+      <div data-chart id="chDist"></div>
+      <div data-chart id="chObvComp"></div>
+      <div data-chart id="chCompMacd"></div>
+      <div data-chart id="chCompRsi"></div>
+      <div data-chart id="chX2065"></div>
+      <div data-chart id="chObos"></div>
+      <div data-chart id="chTotVol"></div>
+      <div data-chart id="chBenchAbs"></div>
+      <div data-chart id="chBenchRel"></div>
+    </div>
+
+    <h2>Seven-pillar read</h2>
+    <div class="pillars" id="pillars"></div>
+
+    <h2>Structural events</h2>
+    <div class="card"><div id="events"></div></div>
+
+    <div id="baskets"></div>
+    <div id="splits"></div>
+
+    <h2>Individual stock</h2>
+    <div id="stockPanel">
+      <div class="ctlRow">
+        <label for="stockSel">Ticker</label><select id="stockSel"></select>
+        <label for="benchSel">Benchmark</label><select id="benchSel"></select>
+        <label for="zWinSel">z-window</label><select id="zWinSel"></select>
+      </div>
+      <div id="stockSignals"></div>
+      <div class="grid2">
+        <div data-chart id="chStockAbs"></div>
+        <div data-chart id="chStockRel"></div>
+        <div data-chart id="chStockMacd"></div>
+        <div data-chart id="chStockRsi"></div>
+        <div data-chart id="chStockObv"></div>
+        <div data-chart id="chStockZAbs"></div>
+        <div data-chart id="chStockZRel"></div>
+        <div data-chart id="chStockVol" class="full"></div>
+      </div>
+    </div>
+
+    <h2>Stock table</h2>
+    <div class="tblWrap" id="stockTable"></div>
+  </div>
+
+  <footer id="footer"></footer>
+</div>
+<script type="module">
+  import { initTab } from "../assets/js/tabs.js";
+  initTab({ universe: "biotech" }).catch(e => {
+    document.querySelector("#app").innerHTML =
+      `<div class="banner fatal"><b>Failed to initialise.</b> ${e.message}</div>`;
+    console.error(e);
+  });
+</script>
+</body>
+</html>

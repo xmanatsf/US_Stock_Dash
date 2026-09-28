@@ -129,7 +129,7 @@ def main() -> int:
 
     httpd, port = serve(SITE)
     base = f"http://127.0.0.1:{port}"
-    tabs = ["market-internals", "semis", "software", "hw-networking"]
+    tabs = ["market-internals", "semis", "software", "hw-networking", "biotech", "pharma"]
     # fab5 and news are PAGES, not universes: no charts, no horizon control, no stock selector.
     # They get their own assertions below rather than the chart battery, and the two do not share
     # a shape -- fab5 joins tickers to universe payloads, news generates an index off an audit

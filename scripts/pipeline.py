@@ -64,8 +64,24 @@ def build_benchmarks(cfg, books) -> dict:
     for t in bs["tickers"]:
         if t in book.px:
             series[t] = slim(book.px[t], 4)
+    # Sector ETFs that exist in only one workbook (XBI in biotech, XLV in pharma). Same rule as
+    # the primary source: joined only when the trading grid is IDENTICAL, never date-matched
+    # loosely -- a differing grid is reported and the series left out, not realigned.
+    sources, skipped = {os.path.basename(book.path): list(series)}, []
+    for ex in bs.get("extra", []):
+        if ex["universe"] not in books:
+            continue
+        xb = books[ex["universe"]][0]
+        if xb.dates != book.dates:
+            skipped.append({"universe": ex["universe"], "tickers": ex["tickers"],
+                            "reason": "trading grid differs from the primary benchmark source"})
+            continue
+        got = [t for t in ex["tickers"] if t in xb.px and t not in series]
+        for t in got:
+            series[t] = slim(xb.px[t], 4)
+        sources[os.path.basename(xb.path)] = got
     return {"schemaVersion": 1, "dates": book.dates, "series": series,
-            "source": os.path.basename(book.path)}
+            "source": os.path.basename(book.path), "sources": sources, "skipped": skipped}
 
 
 # ---------------------------------------------------------------- main build

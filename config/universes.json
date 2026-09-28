@@ -9,6 +9,11 @@
     "universe": "semis",
     "tickers": ["SPY", "SMH"],
     "out": "benchmarks.json",
+    "extra": [
+      { "universe": "biotech", "tickers": ["XBI"] },
+      { "universe": "pharma",  "tickers": ["XLV", "IHE", "XHE"] }
+    ],
+    "extraNote": "Sector ETFs that exist in only one workbook: XBI rides as an extra column in the biotech export, XLV/IHE/XHE in the pharma export. Joined only when that workbook's trading grid is identical to the primary source's; a differing grid is recorded in benchmarks.json 'skipped' and the series left out rather than realigned.",
     "note": "SPY and SMH are carried as extra ticker-like columns in the semi and hw_networking workbooks; the SP500 and software workbooks have neither. Extract ONCE from the semi workbook, before any tab build, and join into every universe. This is safe because all four price workbooks share a byte-identical 1,255-day trading grid after drop_calendar_days - verified, not assumed. Extracting per-tab would invite four subtly different date grids."
   },
 
@@ -136,6 +141,68 @@
       "payload": { "mode": "auto", "shardThresholdMB": 5 },
       "narrative": { "vocabulary": "hardware", "playbook": "hardware" },
       "history": "The 2026-08-09 vintage first delivered was a corrupt CapIQ export - 34 of 36 columns byte-identical to the semi workbook under hardware headers, row-2 header '#PEND'/'SPGRANGEV'. Re-exported by the user at 20:16 on 2026-08-09 and re-verified clean: correct prices, zero column matches against any other workbook, grid identical to the other three, SPY and SMH present. crossCheckAgainst is retained permanently because this failure mode recurs whenever CapIQ formulas fail to resolve before a save."
+    },
+
+    "biotech": {
+      "tab": "biotech",
+      "label": "Biotech Stock Dynamics",
+      "order": 5,
+      "source": {
+        "stem": "US Biotech stocks 5y price and volume",
+        "dateStamped": true,
+        "priceSheet": "Price",
+        "volumeSheet": "Volume",
+        "priceLabel": "Day Close Price",
+        "volumeLabel": "Volume",
+        "strictLabels": true
+      },
+      "crossCheckAgainst": ["semis", "software", "hw_networking", "market_internals"],
+      "excludeFromUniverse": ["XBI"],
+      "excludeTickers": [
+        { "ticker": "A950160",
+          "reason": "Kolon TissueGene's KOSDAQ listing (code 950160). Priced in Korean won on the Korean exchange calendar, so its sessions and holidays do not line up with the US grid and a won price cannot enter a dollar equal-weight composite. Not a US-listed biotech - excluded at load time." }
+      ],
+      "benchmarks": ["SPY", "XBI", "XLV", "EW basket"],
+      "defaultBenchmark": "XBI",
+      "bellwethers": ["AMGN", "GILD", "VRTX", "REGN", "ALNY", "ABBV", "BIIB", "INSM", "NBIX", "UTHR"],
+      "defaultTicker": "AMGN",
+      "sectorMap": null,
+      "subBaskets": "biotech",
+      "splits": [],
+      "payload": { "mode": "auto", "shardThresholdMB": 5 },
+      "narrative": { "vocabulary": "biotech", "playbook": "biotech" },
+      "history": "Added on the 20260927 vintage, the first delivery of this workbook. XBI rides as an extra column and is used as a benchmark, not a member."
+    },
+
+    "pharma": {
+      "tab": "pharma",
+      "label": "Pharma Stock Dynamics",
+      "order": 6,
+      "source": {
+        "stem": "US pharma stocks 5y price and volume",
+        "dateStamped": true,
+        "priceSheet": "Price",
+        "volumeSheet": "Volume",
+        "priceLabel": "Day Close Price",
+        "volumeLabel": "Volume",
+        "strictLabels": true
+      },
+      "crossCheckAgainst": ["semis", "software", "hw_networking", "market_internals", "biotech"],
+      "excludeFromUniverse": ["XLV", "IHE", "XHE"],
+      "excludeTickers": [
+        { "ticker": "GTII",
+          "reason": "Sub-penny OTC quote, not a tradeable pharma price series. Falls from 1.39 to a 0.0001 low (0.005 at the last print), carries 73 zero-volume days, and posts 44 single-day moves beyond +200%/-80% - up to +11,900% on a one-tick change. The composite chains the cross-sectional mean of DAILY returns, so a single such day would add ~240 points to a 49-name index. Excluded at load time." }
+      ],
+      "benchmarks": ["SPY", "XLV", "IHE", "EW basket"],
+      "defaultBenchmark": "XLV",
+      "bellwethers": ["LLY", "JNJ", "MRK", "PFE", "BMY", "ZTS", "VTRS", "RPRX", "AXSM", "CORT"],
+      "defaultTicker": "LLY",
+      "sectorMap": null,
+      "subBaskets": "pharma",
+      "splits": [],
+      "payload": { "mode": "auto", "shardThresholdMB": 5 },
+      "narrative": { "vocabulary": "pharma", "playbook": "pharma" },
+      "history": "Added on the 20260927 vintage, the first delivery of this workbook. XLV, IHE and XHE ride as extra columns and are used as benchmarks, not members. The equal-weight composite is dominated by small specialty and clinical-stage names, while XLV is cap-weighted toward a few large names - expect the two to diverge."
     }
   },
 

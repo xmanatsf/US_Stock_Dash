@@ -30,6 +30,13 @@ PAIRS = [
     ("AVGO", "market_internals", "semis"),
     ("MU",   "market_internals", "semis"),
     ("INTC", "market_internals", "semis"),
+    # biotech and pharma, added with the 20260927 vintage
+    ("AMGN", "market_internals", "biotech"),
+    ("VRTX", "market_internals", "biotech"),
+    ("ABBV", "market_internals", "biotech"),
+    ("LLY",  "market_internals", "pharma"),
+    ("MRK",  "market_internals", "pharma"),
+    ("ZTS",  "market_internals", "pharma"),
 ]
 
 
