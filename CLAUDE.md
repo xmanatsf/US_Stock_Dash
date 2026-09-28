@@ -12,56 +12,53 @@ Build a modular, multi-tab, static stock analytics dashboard deployable on GitHu
 6. `Fab5 Market Dashboard 20260906.html` — the reference for the **fab5 page infographic**. Hand-authored, no generator, no data model: read it for its *organisation* (stat tiles, delta banner, layered theme read, per-house attribution, scenario probabilities), not its markup. Its CSS collides with `dashboard.css` on `.chip`, `.call`, `.src` and `.stat`, and `--s1`/`--s2` hold different values in each — see *Page infographics*.
 7. `narrative_dashboard_2026-08-31_to_09-05.html` — the reference for **Tab 6**. This copy is downstream; `Cowork Playground/WSJ/` owns the build and overwrites it. Read the generator (`WSJ/build_narrative_dashboard.mjs`) alongside it: its citation resolution and its pinned-count invariants are the parts worth porting, and its global-regex count checks are the hazard worth knowing about.
 
-## Current vintage: 20260907 (measured 2026-09-07)
+## Current vintage: 20260927 (measured 2026-09-27)
 
 `data/raw` holds every vintage ever delivered and `loaders.resolve_input` takes the newest
 date-stamped file per **anchored** stem, so a refresh is a file copy, not a config edit. Old
-vintages are never deleted — `US semi stocks 5y price and volume 20260807.xlsx` is now load-bearing
+vintages are never deleted — `US semi stocks 5y price and volume 20260807.xlsx` is load-bearing
 for the regression gate (see below).
 
 **The 5-year window rolls; it does not extend.** This is the single most important thing to know
-about a refresh here. The 20260807/09 vintage covered `2021-08-09 .. 2026-08-07` in 1,255 trading
-days; the 20260816 vintage covered `2021-08-17 .. 2026-08-14` in 1,254; the 20260907 vintage covers
-`2021-09-07 .. 2026-09-04` in **1,255**. Both ends move every time. Any test or golden that pins a
-date or a grid length is therefore vintage-locked by construction.
+about a refresh here. Vintages so far: 20260807/09 = 1,255 days over `2021-08-09 .. 2026-08-07`;
+20260816 = 1,254 over `2021-08-17 .. 2026-08-14`; 20260907 = 1,255 over `2021-09-07 .. 2026-09-04`;
+**20260927 = 1,255 over `2021-09-27 .. 2026-09-25`**. Both ends move every time. Any test or golden
+that pins a date or a grid length is therefore vintage-locked by construction.
 
-Measured on the 20260907 files, identically across all four workbooks:
+Measured on the 20260927 files, identically across all **six** workbooks:
 
 ```
 raw rows      1827
 - weekends    -522
 - holidays    -50
-= trading     1255        (251.4/yr)  2021-09-07 .. 2026-09-04
+= trading     1255        (251.3/yr)  2021-09-27 .. 2026-09-25
 ```
 
-**The export was taken on a market holiday, and that is why it is clean.** 2026-09-07 is Labor Day.
-The grid's last calendar row is Sunday 2026-09-06, so the weekend drop alone removes it and the
-holiday count is back to **50** — where the 20260816 export carried a Monday 2026-08-17 phantom row
-holding Friday's forward-filled price *and* volume, which the >95% price-AND-volume rule had to eat
-(holidays 50 → 51). Labor Day 2021 rolled off the front of the window at the same time, so
-`firstDate` is the session after it. **If a future refresh ever produces a `lastDate` equal to the
+**The export was taken on Sunday 2026-09-27.** The grid's last two calendar rows are Saturday
+09-26 and Sunday 09-27, so the weekend drop alone removes them, `lastDate` is Friday 09-25 and the
+holiday count stays at **50**. **If a future refresh ever produces a `lastDate` equal to the
 export's own weekend or holiday stamp, that placeholder survived and the build is wrong.** The
 expectation is asserted in `config/parameters.json → calendar.expected`, which must be re-measured
 on every refresh rather than carried forward.
 
-Universe deltas against the prior vintage, all reported by `validate_all.py` rather than inferred.
-The universes themselves are unchanged — 495 / 65 / 119 / 34 tickers scored, the same
-`COVERAGE_DROPPED` names (`FDXF`, `HONA`, `CBRS`, `OCTV`), the same `BASKET_MEMBER_ABSENT` set
-(`CBRS`, `MBLY`, `RTEC`), and the three wrong-metric S&P columns (`D`, `COR`, `BNY`) still
-wrong-metric. Two things did move:
+What moved on this refresh, all reported by `validate_all.py` rather than inferred:
 
-- **Two new terminal flatlines**, both carrying the M&A signature — a one-day gap to a round
-  number, then zero volume: `SKYT` pinned at **32.46** since 2026-07-30 (prior print 30.58) and
-  `IPEU` at **14.00** since 2026-08-05 (prior print 12.00). They join the eight software names
-  already pinned at deal terms and are excluded from breadth, momentum and z-score on the same
-  rule. As always these are *reported, not auto-classified*: a dead feed and a real deal price look
-  identical on every price and volume statistic, and neither has been confirmed against a filing.
-- **A new `HEADER_LABEL_UNEXPECTED` on `AVB`** in the S&P workbook, on both the Price and Volume
-  sheets. Cosmetic — the row-2 vendor label, not the data, which passes every other check.
+- **`CVX` is newly broken in the S&P export** — a constant 27.375 for all 1,255 sessions with
+  volume pinned at 416,100 (`CONSTANT_SERIES`, fatal), where the 20260907 export carried a normal
+  97 → 208 series. Excluded in `config/universes.json` with that reason; drop the exclusion once a
+  vintage prints a real series again.
+- **`BNY` is fixed** — 52.63 → 150.15 with normal volume — so its wrong-metric exclusion was
+  removed. `D` (constant 15) and `COR` (0.0018) are still wrong-metric and stay excluded. The S&P
+  universe is 495 scored names either way (one out, one in).
+- The ten terminal flatlines are unchanged (eight software deal-pinned names + `SKYT` + `IPEU`),
+  as are `COVERAGE_DROPPED` (`FDXF`, `HONA`, `CBRS`, `OCTV`) and `BASKET_MEMBER_ABSENT` (`CBRS`,
+  `MBLY`, `RTEC`). `AVB`'s row-2 label now reads `#INVALID COMPANY ID` — cosmetic, data passes.
+- **Two new universes, first delivery** — Biotech (`US Biotech stocks 5y price and volume`, 117
+  scored) and Pharma (`US pharma stocks 5y price and volume`, 48 scored). See *Tabs* 5–6.
 
-Regime calls moved with the refresh and are worth reading before trusting a chart: semis to
-**Late-cycle topping** at −62.5 with b20 breadth at 17.2%, hardware & networking to Late-cycle
-topping at −52.5, market internals and software both **Indeterminate**.
+Regime calls on this vintage: all six universes read **Late-cycle topping** — market internals
+−60.0 (b20 29.7%), semis −5.0 (b20 90.6% — the label is debounced, the score has recovered),
+software −65.0, hardware & networking −5.0, biotech −70.0, pharma −37.5.
 
 ## Input data (original delivery, as of 2026-08-09 — historical record, not the current inputs)
 
@@ -101,15 +98,22 @@ historical record of the original delivery, not the current inputs.)
 3. **Software Stock Dynamics** — `US software stocks 5y price and volume`, same per-stock framework/chart suite as Tab 2. Ticker + benchmark selector, SPY default, technical-signal summaries, relative-performance analysis.
 4. **Hardware & Networking Stock Dynamics** — `US hw networking stocks 5y price and volume` (validate first — see table above), same per-stock framework as Tab 2. Ticker + benchmark selector, SPY default, technical-signal summaries, relative-performance analysis.
 
-All four tabs share one calculation engine, one chart component library, and one interpretation layer — a tab is a config (which workbook(s), which universe, which sector-mapping file if any) plus a thin page assembling shared components, not a fork of the code.
+5. **Biotech Stock Dynamics** — `US Biotech stocks 5y price and volume` (added 20260927), same per-stock framework as Tab 2. The workbook carries **XBI** as an extra column, used as the default benchmark (not a member). `A950160` (Kolon TissueGene's KOSDAQ listing, priced in won on the Korean calendar) is excluded at load time. Sub-baskets are an editorial modality split — Genetic medicine (lead), Oncology (confirm), Large-cap commercial (narrowing), plus unscored Tools & diagnostics, Vaccines & infectious, Metabolic & cardio; ~48 names sit in no basket (`BASKET_UNASSIGNED`, a warning by design). Real one-day binary-event moves (MDGL, JANX, SMMT, SRRK, KOD, AMLX, AVTX, OBX…) are kept — they are data, not errors.
+6. **Pharma Stock Dynamics** — `US pharma stocks 5y price and volume` (added 20260927). **XLV, IHE, XHE** ride as extra columns and are benchmarks (XLV default). `GTII` is excluded: a sub-penny OTC quote (0.0001 low, 44 single-day moves beyond +200%/−80%) that would wreck the daily-chained EW composite by ~240 points in a single session. Baskets: Clinical-stage (lead), Specialty & generics (confirm), Big pharma (narrowing — in practice one GLP-1 name), Animal health, Royalty.
 
-5. **Fab5 Cross-Source Read** — a **page**, not a universe. There is no workbook, no composite and
-   no regime. It renders a hand-authored reading of `Fab5_Cross_Source_Synthesis_20260905.md` and
-   its 6 September addendum — Run 6, 51 reports across 7 research houses, 11 Aug – 6 Sep: the
-   recommendation and its three instructions, the nine reads grouped by the synthesis's own
-   four-layer read (each measured against what Run 5 predicted), cross-source agreement beside the
-   nine-item conflict registry, the full 30-row signal board with both triggers, the scenario set
-   and dated calendar, and a per-ticker implications grid.
+**Sector-ETF benchmarks.** `universes.json → benchmarkSource.extra` pulls XBI from the biotech workbook and XLV/IHE/XHE from the pharma workbook into `benchmarks.json`, joined **only when that workbook's trading grid is identical** to the primary (semis) source; a differing grid lands in `benchmarks.json → skipped` rather than being realigned. `validators.cross_workbook_identity` treats those ETFs as benchmarks, like SPY/SMH.
+
+All six tabs share one calculation engine, one chart component library, and one interpretation layer — a tab is a config (which workbook(s), which universe, which sector-mapping file if any) plus a thin page assembling shared components, not a fork of the code.
+
+7. **Fab5 Cross-Source Read** — a **page**, not a universe. There is no workbook, no composite and
+   no regime. It renders a hand-authored reading of `Fab5_Cross_Source_Synthesis_20260927.md` —
+   **Run 7**, 42 reports across 7 research houses, 7 – 27 Sep: the recommendation (“own contracted,
+   self-funded scarcity; underweight whatever must be refinanced or re-priced; hedge with options,
+   not bonds”) and its three instructions, twelve reads grouped by the four-layer read (each
+   measured against what Run 6 predicted: 5 confirmed, 3 contradicted, 1 unresolved, 3 new),
+   cross-source agreement beside the twelve-item conflict registry, the full 32-row signal board
+   (#32 compute-rent vs token-price scissor and #33 frontier-lab funding added), near- and
+   medium-term scenarios, the dated calendar, and 45 ticker lines (36 joined live, 9 external).
 
    **The distinction that governs its design:** every other tab renders *measurements*, this one
    renders *claims*. So the chip means something different here — it carries the **source house and
@@ -122,15 +126,15 @@ All four tabs share one calculation engine, one chart component library, and one
 
    Content lives in `data/insights/fab5_<date>.json` — a **hand-maintained input**, sibling to
    `data/raw`, never in `data/processed`. `build_fab5.py` resolves the **newest** one, so a content
-   refresh is a file drop rather than a code edit; the current file is `fab5_20260906.json` at
-   schemaVersion 2. The source markdown is prose and cannot be honestly parsed. Every number in the
+   refresh is a file drop rather than a code edit; the current file is `fab5_20260927.json` at
+   schemaVersion 2 (Run 6's `fab5_20260906.json` is kept beside it). The source markdown is prose and cannot be honestly parsed. Every number in the
    JSON must trace to a line in the source document.
 
    The page also carries a **top-of-page infographic** modelled on
    `Fab5 Market Dashboard 20260906.html` — see *Page infographics* below. The claim/evidence-grade
    content model, the direction tag and the live ticker strip are unchanged by it.
 
-6. **News Intelligence** — a **page**, not a universe, ported from
+8. **News Intelligence** — a **page**, not a universe, ported from
    `narrative_dashboard_2026-08-31_to_09-05.html`. Like fab5 it renders **claims, not
    measurements**: the six sections (Key insights, Timeline, Conflicts, Signals, Action, Index),
    the citation convention, the signal-board and index filter chips, the `<details>` table views
@@ -155,7 +159,32 @@ All four tabs share one calculation engine, one chart component library, and one
 
    The page carries a top-of-page infographic — see *Page infographics* below.
 
-The two pages share the nav, the theme control and the design tokens with the four stock tabs, and
+9. **September News Intelligence** (`monthly` page, `tabs/news-monthly.html`, added 2026-09-27) —
+   a **sibling** of the weekly News page, not a replacement, transcribed from the 7-board
+   `September News Intelligence.html` design canvas (a bundled export: its boards are gzip+base64
+   pages inside a `__bundler/manifest`; the timeline and heatmap rows live in each board's
+   `text/x-dc` component script). Sections: Overview, Timeline (six stories × four weeks, theme
+   filter), Economy & rates, Geopolitics & energy, AI & tech, Business & finance, Intersections &
+   outlook (flow diagram, ranking, exposure table, Q4 storylines, market-implied odds, catalyst
+   calendar, 13-row source-conflict log).
+
+   **Its citation contract differs from the weekly page's, deliberately.** The canvas cites by
+   *outlet and date* (“WSJ · 25 Sep”) and has no per-article audit, so `build_monthly.py` fails on
+   any Reported, Analysis or market-implied item that does not name a publication **and** a date,
+   on a market-implied figure that does not name its market (CME, swaps, Kalshi…), and on any
+   probability attached to an Our-read or Scenario item. Every claim renders with the canvas's kind
+   chip (Reported / Analysis / Our read / Scenario / Market-implied).
+
+   **Counts are generated, never typed.** `scripts/census_briefs.py --from 2026-09-04 --to
+   2026-09-25` counts the brief files in `Cowork Playground/WSJ/` (each brief = one `# ` title +
+   one `**Source:**` line) into `data/insights/monthly_census_20260925.json`: 558 briefs, 41 files,
+   15 file dates, WSJ 258 / Bloomberg 158 / Barron's 141 / Reuters 1 — exactly the canvas's
+   figures. `{{count:*}}` tokens in the content are filled from it, and the heatmap's
+   briefs-per-day row is asserted against it. The heatmap's theme *shares* are the canvas's own
+   keyword pass and are carried, not recomputed. Content: `data/insights/monthly_<date>.json`
+   (newest wins); run the census in the same step as dropping a new month.
+
+The three pages share the nav, the theme control and the design tokens with the six stock tabs, and
 nothing else: they render claims, so they have no workbook, no composite and no regime.
 
 ## Analysis modules (all four stock tabs)
@@ -554,9 +583,9 @@ each step's output is the next step's input:
   label / score / run / capitulation comparisons over the overlap, printing both non-overlapping
   tails. The final-verdict block now compares two *different* sessions and says so — the seven-field
   match was verified on the 20260807 vintage and is not re-assertable after a refresh. Exit 1 only
-  if the grids do not overlap at all. Post-refresh reading on the 20260907 vintage: **1,235-session
-  overlap** (2021-09-07 .. 2026-08-07), **64.6% label agreement** over 983 comparable sessions,
-  mean |Δ| 11.2 points, and both builds' last regime run starting 2026-07-14. The reconciliation
+  if the grids do not overlap at all. Post-refresh reading on the 20260927 vintage: **1,221-session
+  overlap** (2021-09-27 .. 2026-08-07), **63.2% label agreement** over 969 comparable sessions,
+  mean |Δ| 11.9 points, and both builds' last regime run starting 2026-07-14. The reconciliation
   described in `reference/golden/README.md` is still outstanding. The script also reconfigures
   stdout to UTF-8: it prints a Greek delta, and a Windows console defaults to cp1252, which used to
   kill a diagnostic that had nothing wrong with it.

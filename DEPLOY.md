@@ -36,7 +36,9 @@ complete when they land; until then they are no-ops, not failures.
    `US software stocks 20260804.xlsx` is not. A loose glob would pick the wrong one.
    **Do not delete old vintages.** `US semi stocks 5y price and volume 20260807.xlsx` is pinned as
    the input to the regression gate and the build will tell you so if it goes missing.
-2. `python scripts/validate_all.py` — read the report before building anything.
+2. `python scripts/validate_all.py` — read the report before building anything. On the 20260927
+   refresh it caught `CVX` as a constant column (newly broken) and `BNY` as newly fixed — both
+   config changes in `universes.json`, neither a code change.
 3. Re-measure `config/parameters.json → calendar.expected` against what the report printed
    (`tradingDays`, `firstDate`, `lastDate`) and update it. The CapIQ 5-year window **rolls**: both
    ends of the grid move on every refresh, so carrying the old expectation forward turns a real
@@ -139,7 +141,7 @@ bars, the volume-at-price bins, the support/resistance levels) is **derived clie
 a new per-ticker series to make a module easier to write: 724 shards multiply everything, and a
 client that fetches 495 of them to rank one sector is the failure this rule exists to prevent.
 
-## Adding a fifth universe
+## Adding a universe
 
 By design this is config plus two thin files, and nothing in `loaders.py`, `validators.py`,
 `indicators.py`, `interpretation.py`, `pipeline.py` or `charts.js` changes:
@@ -151,8 +153,8 @@ By design this is config plus two thin files, and nothing in `loaders.py`, `vali
 
 ## Adding a page (not a universe)
 
-A *page* has no workbook, no composite and no regime. There are two — `fab5` (cross-source read)
-and `news` (news intelligence). A page lives in `index.json`'s `pages` section rather than
+A *page* has no workbook, no composite and no regime. There are three — `fab5` (cross-source read),
+`news` (weekly news intelligence) and `monthly` (the September news-intelligence canvas). A page lives in `index.json`'s `pages` section rather than
 `universes`, so it gets a nav link but no validation glyph and no verdict row on the landing page.
 To add another:
 
@@ -187,12 +189,17 @@ A content refresh is:
 5. `python scripts/tests/test_render.py` — this is what re-asserts that the fab5 ticker strip is
    still a verbatim copy of the universe payload rather than a second source of prices.
 
-The fab5 content is now the Run 6 synthesis — `fab5_20260906.json` at schemaVersion 2, authored
-from `Fab5_Cross_Source_Synthesis_20260905.md` and its 6 September addendum. `build_fab5.py`
-resolves the newest `fab5_<date>.json` rather than a pinned filename, so the next refresh really is
-just a file drop. The news page follows the same rule with `news_<date>.json`, and additionally
-needs its `narrative_dashboard_source_audit.json` refreshed in the same step — an old audit file
-means an old index and old counts sitting under new prose.
+The fab5 content is now the **Run 7** synthesis — `fab5_20260927.json` at schemaVersion 2, authored
+from `Fab5_Cross_Source_Synthesis_20260927.md` (Run 6's `fab5_20260906.json` is kept). `build_fab5.py`
+resolves the newest `fab5_<date>.json`, and its ticker resolution order now includes `biotech` and
+`pharma`. The news page follows the same rule with `news_<date>.json`, and additionally needs its
+`narrative_dashboard_source_audit.json` refreshed in the same step — an old audit file means an old
+index and old counts sitting under new prose.
+
+The **monthly** page refreshes the same way with one extra step: drop `monthly_<date>.json`, then
+run `python scripts/census_briefs.py --from <first brief date> --to <last brief date>` so
+`monthly_census_<to-date>.json` covers the same window. The build fails if the census is missing,
+its window start differs from the content's, or the heatmap's briefs-per-day row disagrees with it.
 
 ## Validating an infographic
 
